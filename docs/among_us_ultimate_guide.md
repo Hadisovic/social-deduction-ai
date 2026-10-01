@@ -294,11 +294,138 @@ Special roles introduce unique mechanics and asymmetric interaction loops:
    * **Navigation** (Far-Right tip) is entered via two angled corridors: one from O2/Weapons, one from Shields.
    * **Shields** (Bottom-Right) connects North to Navigation and West back into Storage and Communications.
 
-#### Vent Networks on The Skeld:
-* **System 1 (Left Wing / Reactor Loop)**: Reactor (top) $\longleftrightarrow$ Upper Engine $\longleftrightarrow$ Reactor (bottom) $\longleftrightarrow$ Lower Engine.
-* **System 2 (Center-Left / Surveillance Loop)**: Electrical (top-left) $\longleftrightarrow$ MedBay $\longleftrightarrow$ Security.
-* **System 3 (Admin / Cafeteria Loop)**: Admin $\longleftrightarrow$ Cafeteria (top right) $\longleftrightarrow$ Hallway outside Navigation.
-* **System 4 (Right Wing / Navigation Loop)**: Navigation (top) $\longleftrightarrow$ Weapons $\longleftrightarrow$ Navigation (bottom) $\longleftrightarrow$ Shields.
+#### Vent Networks on The Skeld (14 Vents — 4 Separate Isolated Systems):
+
+> [!IMPORTANT]
+> Vent systems on The Skeld are **isolated** — you CANNOT travel between systems. An Impostor entering System 1 can NEVER exit through a System 2 vent.
+
+```
+THE SKELD — VENT NETWORK MAP (V = Vent Node, ── = Traversable Tunnel)
+
+SYSTEM 1: Left Wing / Reactor Loop (4 vents)
+┌─────────────────────────────────────────────────────┐
+│  [Reactor Top V] ──── [Upper Engine V]              │
+│       │                      │                      │
+│  [Reactor Bot V] ──── [Lower Engine V]              │
+└─────────────────────────────────────────────────────┘
+
+SYSTEM 2: Center-Left / Surveillance Loop (3 vents)
+┌─────────────────────────────────────────────────────┐
+│  [Electrical V] ──── [MedBay V] ──── [Security V]  │
+└─────────────────────────────────────────────────────┘
+
+SYSTEM 3: Admin / Cafeteria Loop (3 vents)
+┌─────────────────────────────────────────────────────┐
+│  [Admin V] ──── [Cafeteria V] ──── [Navigation V]  │
+└─────────────────────────────────────────────────────┘
+  (The Navigation vent here is the TOP hallway vent,
+   NOT inside the Navigation room itself)
+
+SYSTEM 4: Right Wing / Navigation Loop (4 vents)
+┌─────────────────────────────────────────────────────┐
+│  [Weapons V] ──── [Navigation Top V]               │
+│                          │                          │
+│  [Shields V]  ──── [Navigation Bot V]              │
+└─────────────────────────────────────────────────────┘
+```
+
+**Detailed Room-by-Room Vent Locations:**
+
+| Vent Location | System | Connected To |
+|---|:---:|---|
+| **Reactor** (top-left panel) | 1 | Reactor Bottom, Upper Engine |
+| **Reactor** (bottom-left panel) | 1 | Reactor Top, Lower Engine |
+| **Upper Engine** (left side) | 1 | Reactor Top, Lower Engine |
+| **Lower Engine** (left side) | 1 | Reactor Bottom, Upper Engine |
+| **Electrical** (bottom-left corner) | 2 | MedBay, Security |
+| **MedBay** (right wall) | 2 | Electrical, Security |
+| **Security** (right side) | 2 | Electrical, MedBay |
+| **Admin** (top-right corner) | 3 | Cafeteria, Nav Hallway |
+| **Cafeteria** (top-right corner) | 3 | Admin, Nav Hallway |
+| **Navigation Hallway** (corridor) | 3 | Admin, Cafeteria |
+| **Weapons** (bottom-left) | 4 | Navigation Top, Shields |
+| **Navigation** (top vent) | 4 | Weapons, Navigation Bottom |
+| **Navigation** (bottom vent) | 4 | Navigation Top, Shields |
+| **Shields** (right side) | 4 | Navigation Bottom, Weapons |
+
+**Key Strategic Vent Facts for The Skeld:**
+- `Electrical → MedBay` (System 2): Most dangerous vent escape route. Impostors kill in Electrical and vent to MedBay instantly.
+- `Admin → Cafeteria` (System 3): Impostors can fake doing card swipe in Admin, kill, then vent to Cafeteria and be the first to "call" the meeting.
+- There is **NO direct vent between Electrical and Admin**, even though they appear close on the map.
+
+---
+
+#### Vent Networks on MIRA HQ (11 Vents — 1 Fully Connected Global System):
+
+```
+MIRA HQ — VENT NETWORK (ALL 11 VENTS ARE INTERCONNECTED)
+
+[Launchpad V] ←→ [Hallway 1 V] ←→ [Locker Room V] ←→ [Office V]
+      ↕                ↕                   ↕               ↕
+[Greenhouse V] ←→ [Cafeteria V] ←→ [Admin V]    ←→ [Reactor V]
+      ↕                ↕
+[Balcony V]  ←→  [Laboratory V] ←→ [MedBay V]
+
+All vents connect to each other — any vent → any vent.
+```
+
+- **Impostor Power**: Enter any vent anywhere and exit at any other vent on the entire map.
+- **Deduction Rule**: If the Doorlog shows a player crossed North Sensor entering Laboratory, but nobody saw them come out the door, they vented.
+
+---
+
+#### Vent Networks on Polus (19 Vents — 4 Isolated Systems):
+
+```
+SYSTEM 1 (Left Outdoor):
+[Office V] ──── [Admin V]
+
+SYSTEM 2 (Specimen / Lab):
+[Specimen V] ──── [Boiler Room V]
+
+SYSTEM 3 (Center Outdoor):
+[Electrical V] ──── [O2 V] ──── [Communications V]
+
+SYSTEM 4 (Right Outdoor):
+[Security V] ──── [Weapons V] ──── [Laboratory V]
+                                          │
+                                   [Storage V] ──── [Dropship V]
+```
+
+---
+
+#### Vent Networks on The Airship (12 Vents — 4 Isolated Systems):
+
+```
+SYSTEM 1 (Left Section):
+[Engine V] ──── [Electrical V]
+
+SYSTEM 2 (Center-Left):
+[Vault V] ──── [Brig V] ──── [Cockpit V]
+
+SYSTEM 3 (Center-Right):
+[Meeting Room V] ──── [Main Hall V] ──── [Medical V]
+
+SYSTEM 4 (Right Section):
+[Showers V] ──── [Records V] ──── [Kitchen V]
+```
+
+---
+
+#### Vent Networks on The Fungle (16 Vents — 3 Isolated Systems):
+
+```
+SYSTEM 1 (North):
+[Dropship V] ──── [Jungle V] ──── [Kitchen V]
+
+SYSTEM 2 (Center):
+[Bonfire V] ──── [Mushroom Quarters V] ──── [Laboratory V]
+                          │
+                    [Greenhouse V]
+
+SYSTEM 3 (South):
+[Beach V] ──── [Fishing Dock V]
+```
 
 #### Key Observation Utilities on The Skeld:
 * **Admin Table (Admin Room)**:
