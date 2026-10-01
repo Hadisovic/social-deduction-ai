@@ -1,0 +1,7 @@
+# Pygame (pygame-ce is the actively maintained Community Edition supporting Python 3.10 through 3.14+)
+pygame-ce>=2.5.0
+numpy>=1.21.0
+gymnasium>=1.0.0
+torch>=2.0.0
+stable-baselines3>=2.0.0
+tensorboard>=2.14.0
