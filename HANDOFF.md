@@ -2,20 +2,22 @@
 
 ## State and goal
 
-- Repository: `Hadisovic/stealth-rl-navigation`, branch `main`.
+- Repository: `Hadisovic/social-deduction-ai`, branch `main`.
 - Starting revision for this work: `7511134` (clean working tree).
-- Current work: Phase 1 information architecture; no Phase 2 implementation.
+- Current work: Phase 1 information architecture complete; Phase 2 pending user review.
 - Goal: a compact crewmate learns evidence-based strategy under legitimate partial
   information and improves team outcomes against held-out player policies.
+- Canonical detailed project history and curriculum benchmarks: see `docs/PROJECT_PROGRESS.md`.
 - See `git log -1` for the commit containing this handoff; do not embed a
   self-referential commit hash here.
 
 ## Completed foundation
 
-README reframes the old navigation curriculum, preserves Stage 1 results and map
-reference material, removes a stale duplicate Skeld section, and distinguishes
-grid checks from exhaustive executed routes. `docs/project_architecture.md` owns
-module responsibilities; `docs/information_contract.md` owns rules and invariants.
+README presents the core research mission, architecture, and current phase roadmap.
+`docs/PROJECT_PROGRESS.md` contains the full historical navigation benchmarks (Stages 1, 2, 2.5),
+the architectural pivot analysis, and settled design decisions.
+`docs/project_architecture.md` owns module responsibilities; `docs/information_contract.md` owns
+rules, invariants, and data structures.
 
 `social_deduction/` contains immutable truth and actor snapshots, a crew-only
 visibility projector, actor-derived action candidates, typed evidence provenance,
