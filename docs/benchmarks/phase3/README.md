@@ -4,7 +4,10 @@
 `deae77c3dda88290659abc3659d5eb472c07aa07`. The measured implementation was
 uncommitted during the run; [summary.json](summary.json) identifies its exact
 source SHA-256 hashes and confirms they stayed unchanged during validation.
-The implementation revision is recorded in the final [handoff](../../../HANDOFF.md).
+Implementation revision: `c2c6ea269fffbefc96993acead6f6127806c354b`; see the final
+[handoff](../../../HANDOFF.md). Source hashes describe measured working-file bytes;
+some preserved map files use Windows CRLF, so a differently configured checkout
+can have different byte hashes without a code change.
 
 ```powershell
 python run_phase3_batch.py --matches 1000 --workers 8

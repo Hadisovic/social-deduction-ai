@@ -8,8 +8,9 @@
   Phase 2 implementation: `9dcc0a217da468c6d906816937fbd5bd11af128f`.
 - **PHASE 3 COMPLETE**: 291 tests; 1,000 complete seeds and 1,000 identical
   independent replays; all required failure categories zero.
-- Phase 3 implementation revision is recorded by the documentation follow-up
-  after the implementation commit. Resolve the final handoff with `git log -1`.
+- Phase 3 implementation revision: `c2c6ea269fffbefc96993acead6f6127806c354b`.
+- This documentation follow-up records that immutable revision. Resolve its own
+  final handoff revision with `git log -1 --format=%H`.
 - Phase 4 has not started. No learned policy, belief model, training or checkpoint
   changes were made.
 

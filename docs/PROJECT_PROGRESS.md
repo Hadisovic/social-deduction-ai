@@ -4,6 +4,8 @@
 
 ## 2026-10-02: Phase 3 five-player simulator COMPLETE
 
+Implementation revision: `c2c6ea269fffbefc96993acead6f6127806c354b`.
+
 Started from clean `main` at `deae77c3dda88290659abc3659d5eb472c07aa07` after
 fetch/fast-forward verification. The pre-change baseline was **197 passed**.
 Phase 1's original interface and Phase 2 navigation/geometry remain unchanged.
@@ -414,3 +416,4 @@ As of Phase 1 completion, the project maintains an automated test suite with **1
 | `8a0b4c9` | Oct 2026 | Establish social-deduction information boundaries, value types, and provenance (Phase 1). |
 | `3819367` | Oct 2026 | Source-backed native Skeld map, renderer, assets and 15 tests (Phase 1.5). |
 | `9dcc0a2` | Oct 2026 | Reliable navigation; 197 tests and 4,914 physical executions passing (Phase 2). |
+| `c2c6ea2` | Oct 2026 | Five-player simulator; 291 tests, 1,000 seeded matches and 1,000 exact replays; original sprites used locally (Phase 3). |
