@@ -251,11 +251,22 @@ STAGE2_RECOVERY_ESCAPE_DISTANCE = 40.0     # Distance from stuck anchor required
 STAGE2_RECOVERY_REFUND_FRACTION = 0.50     # 50% refund of accumulated blocked penalties
 STAGE2_RECOVERY_MAX_REWARD = 2.0           # Maximum cap on recovery reward
 
+# Stage 2 Revisit / Anti-Loop System Constants
+STAGE2_REVISIT_CELL_SIZE = 30.0             # Grid cell size in pixels for spatial visit tracking
+STAGE2_REVISIT_CONFIRM_STEPS = 3            # Consecutive steps in candidate cell to commit entry (jitter protection)
+STAGE2_REVISIT_PENALTY = -2.0               # One-time penalty applied upon 3rd and later confirmed visits
+STAGE2_REVISIT_FREE_VISITS = 2              # Number of free visits (visits 1 and 2 are unpenalized)
+
+# Stage 2 Deterministic Fallback Positions (guaranteed clearances >=39px/53px, dist >=350px, blocked by central obstacle)
+STAGE2_FALLBACK_PLAYER_POS = (100.0, 175.0)
+STAGE2_FALLBACK_GOAL_POS = (1000.0, 175.0)
+
 PPO_STAGE2_TOTAL_TIMESTEPS = 250000
 PPO_STAGE2_CHECKPOINT_FREQ = 10000
 PPO_STAGE2_EVAL_EPISODES = 30              # Episodes per periodic evaluation (deterministic)
 PPO_STAGE2_FINAL_EVAL_EPISODES = 100       # Final evaluation episodes
 PPO_STAGE2_EVAL_SEED = 22345               # Fixed evaluation seed for reproducible checkpoint comparison
+
 
 
 

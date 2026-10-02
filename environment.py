@@ -45,12 +45,18 @@ from config import (
     STAGE2_SPAWN_MARGIN,
     STAGE2_MIN_START_GOAL_DISTANCE,
     STAGE2_OBSTACLE_SPAWN_CLEARANCE,
+    STAGE2_FALLBACK_PLAYER_POS,
+    STAGE2_FALLBACK_GOAL_POS,
     PLAYER_RADIUS,
     PLAYER_START_POS,
     GOAL_RADIUS,
     BOUNDARY_WALLS,
 )
-from geometry import compute_wall_raycasts, is_point_clear_of_obstacles
+from geometry import (
+    compute_wall_raycasts,
+    is_point_clear_of_obstacles,
+    does_segment_intersect_obstacles,
+)
 from player import Player
 from observer import Observer
 
@@ -168,10 +174,21 @@ def sample_stage2_positions(
         ):
             continue
 
+        # Check that direct line segment from player to goal intersects >= 1 central obstacle
+        # inflated by PLAYER_RADIUS on all sides (guaranteeing a real obstacle detour)
+        if not does_segment_intersect_obstacles(
+            (px, py), (gx, gy), obstacles, inflate_radius=PLAYER_RADIUS
+        ):
+            continue
+
         return (px, py), (gx, gy)
 
     # Safe deterministic fallback if finite retry attempts exhausted
-    return (float(PLAYER_START_POS[0]), float(PLAYER_START_POS[1])), (float(GOAL_POS[0]), float(GOAL_POS[1]))
+    # (guaranteed clearances >=39px/53px, dist >=350px, and direct path blocked by central obstacle)
+    return (
+        (float(STAGE2_FALLBACK_PLAYER_POS[0]), float(STAGE2_FALLBACK_PLAYER_POS[1])),
+        (float(STAGE2_FALLBACK_GOAL_POS[0]), float(STAGE2_FALLBACK_GOAL_POS[1]))
+    )
 
 
 

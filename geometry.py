@@ -285,3 +285,30 @@ def is_point_clear_of_obstacles(
             return False
     return True
 
+
+def does_segment_intersect_obstacles(
+    p1: Tuple[float, float],
+    p2: Tuple[float, float],
+    obstacles: List[pygame.Rect],
+    inflate_radius: float = 0.0
+) -> bool:
+    """
+    Check if the finite line segment from p1 to p2 intersects any obstacle in `obstacles`.
+    If inflate_radius > 0, each obstacle AABB is inflated by inflate_radius on all 4 sides
+    to account for entity physical radius (e.g. PLAYER_RADIUS).
+    """
+    for rect in obstacles:
+        if inflate_radius > 0.0:
+            test_rect = pygame.Rect(
+                rect.left - inflate_radius,
+                rect.top - inflate_radius,
+                rect.width + 2.0 * inflate_radius,
+                rect.height + 2.0 * inflate_radius
+            )
+        else:
+            test_rect = rect
+        if segment_intersects_rect(p1, p2, test_rect):
+            return True
+    return False
+
+

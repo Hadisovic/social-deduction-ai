@@ -50,6 +50,10 @@ from config import (
     STAGE2_RECOVERY_ESCAPE_DISTANCE,
     STAGE2_RECOVERY_REFUND_FRACTION,
     STAGE2_RECOVERY_MAX_REWARD,
+    STAGE2_REVISIT_CELL_SIZE,
+    STAGE2_REVISIT_CONFIRM_STEPS,
+    STAGE2_REVISIT_PENALTY,
+    STAGE2_REVISIT_FREE_VISITS,
     PLAYER_SPEED,
     PLAYER_START_POS,
     GOAL_POS,
@@ -139,6 +143,14 @@ class StealthGymEnv(gym.Env):
         self.stagnation_penalty_triggered = False
         self.stagnation_penalty_this_step = 0.0
 
+        # Revisit / Looping Tracking (Stage 2)
+        self.current_confirmed_cell: Optional[Tuple[int, int]] = None
+        self.cell_visit_counts: Dict[Tuple[int, int], int] = {}
+        self.candidate_cell: Optional[Tuple[int, int]] = None
+        self.candidate_cell_steps: int = 0
+        self.revisit_penalty_this_step: float = 0.0
+        self.spawn_pos: Tuple[float, float] = (0.0, 0.0)
+
         # 5. Rendering Resources
         self.screen = None
         self.clock = None
@@ -196,6 +208,25 @@ class StealthGymEnv(gym.Env):
         self.stagnation_penalty_triggered = False
         self.stagnation_penalty_this_step = 0.0
 
+        # Reset revisit / looping state (Stage 2)
+        if self.stage == 2:
+            spawn_cell = (
+                int(math.floor(self.env.player.x / STAGE2_REVISIT_CELL_SIZE)),
+                int(math.floor(self.env.player.y / STAGE2_REVISIT_CELL_SIZE))
+            )
+            self.current_confirmed_cell = spawn_cell
+            self.cell_visit_counts = {spawn_cell: 1}
+            self.candidate_cell = None
+            self.candidate_cell_steps = 0
+            self.revisit_penalty_this_step = 0.0
+        else:
+            self.current_confirmed_cell = None
+            self.cell_visit_counts = {}
+            self.candidate_cell = None
+            self.candidate_cell_steps = 0
+            self.revisit_penalty_this_step = 0.0
+
+        self.spawn_pos = (float(self.env.player.x), float(self.env.player.y))
         current_dist = math.hypot(
             self.env.player.x - self.env.goal_pos[0],
             self.env.player.y - self.env.goal_pos[1]
@@ -342,6 +373,34 @@ class StealthGymEnv(gym.Env):
 
         self.stagnation_penalty_this_step = stagnation_penalty
 
+        # 4.3 Stage 2 Revisit / Anti-Loop Tracking
+        revisit_penalty = 0.0
+        if self.stage == 2:
+            raw_cell = (
+                int(math.floor(self.env.player.x / STAGE2_REVISIT_CELL_SIZE)),
+                int(math.floor(self.env.player.y / STAGE2_REVISIT_CELL_SIZE))
+            )
+            if raw_cell == self.current_confirmed_cell:
+                self.candidate_cell = None
+                self.candidate_cell_steps = 0
+            else:
+                if raw_cell == self.candidate_cell:
+                    self.candidate_cell_steps += 1
+                else:
+                    self.candidate_cell = raw_cell
+                    self.candidate_cell_steps = 1
+
+                if self.candidate_cell_steps >= STAGE2_REVISIT_CONFIRM_STEPS:
+                    self.current_confirmed_cell = self.candidate_cell
+                    new_visits = self.cell_visit_counts.get(self.current_confirmed_cell, 0) + 1
+                    self.cell_visit_counts[self.current_confirmed_cell] = new_visits
+                    if new_visits >= 3:
+                        revisit_penalty = STAGE2_REVISIT_PENALTY  # -2.0
+                    self.candidate_cell = None
+                    self.candidate_cell_steps = 0
+
+        self.revisit_penalty_this_step = revisit_penalty
+
         # 5. Reward and Terminal Condition Evaluation
         reward = 0.0
         terminated = False
@@ -372,6 +431,7 @@ class StealthGymEnv(gym.Env):
                 reward += blocked_penalty
                 reward += stagnation_penalty
                 reward += recovery_reward
+                reward += revisit_penalty
 
             # Compute Euclidean distance to goal
             current_dist = math.hypot(
@@ -439,8 +499,12 @@ class StealthGymEnv(gym.Env):
             self.env.player.x - self.env.goal_pos[0],
             self.env.player.y - self.env.goal_pos[1]
         )
+        straight_line_dist = math.hypot(
+            self.env.player.x - self.spawn_pos[0],
+            self.env.player.y - self.spawn_pos[1]
+        )
         path_eff = (
-            self.initial_distance_to_goal / max(self.distance_travelled, 1e-5)
+            min(1.0, straight_line_dist / max(self.distance_travelled, 1e-5))
             if self.distance_travelled > 0
             else 1.0
         )
@@ -476,6 +540,9 @@ class StealthGymEnv(gym.Env):
             "stagnation_penalty_triggered": bool(self.stagnation_penalty_triggered),
             "stagnation_penalty": float(stagnation_penalty),
             "recovery_reward": float(recovery_reward),
+            "revisit_penalty_this_step": float(self.revisit_penalty_this_step),
+            "current_confirmed_cell": self.current_confirmed_cell,
+            "cell_visits": int(self.cell_visit_counts.get(self.current_confirmed_cell, 0)) if self.current_confirmed_cell else 0,
             "timeout_penalty": float(STAGE2_TIMEOUT_PENALTY if (timeout and self.stage == 2) else 0.0),
         }
 

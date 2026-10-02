@@ -36,13 +36,19 @@ The learning pipeline is structured into incremental stages, allowing the agent 
 
 | Stage | Environment | Primary Objective | Current Status |
 |:---:|:---|:---|:---|
-| **Stage 1** | Open arena, randomized start & goal, no obstacles, no guards | Learn basic 2D goal navigation from raw displacement vectors | **Implemented & Tested** *(Retraining pending on new 43-obs architecture)* |
-| **Stage 2** | Fixed central obstacles, randomized start & goal, no guards | Learn obstacle detour routing, wall sliding, and deadlock recovery | **Implemented & Tested** *(Retraining pending after Stage 1)* |
+| **Stage 1** | Open arena, randomized start & goal, no obstacles, no guards | Learn basic 2D goal navigation from raw displacement vectors | **COMPLETE / PASSED** *(100% success rate, 2.93s avg time, 93.86% path efficiency)* |
+| **Stage 2** | Fixed central obstacles, randomized start & goal, no guards | Learn geometric obstacle detours, wall sliding, anti-looping, and deadlock recovery | **IMPLEMENTED / TRAINING NEXT** *(Guaranteed obstacle detour on every episode)* |
 | **Stage 3** | Fixed obstacles, randomized start/goal, **1 patrol guard** | Learn dynamic line-of-sight awareness and detection avoidance | **Planned** |
 | **Stage 4** | Fixed obstacles, randomized start/goal, **3 patrol guards** | Multi-guard timing, cover utilization, and complete stealth navigation | **Planned** |
 | **Stage 5** | Randomized obstacle layouts & guard patrol patterns | Policy generalization across unseen arena geometry | **Planned** |
 
-> **Note on Compatibility**: The observation space was recently redesigned from 33 to 43 dimensions to incorporate 16 radial rays and explicit stuck/stagnation state flags. Legacy 33-input weights are archived, and Stage 1 is queued for a clean retraining run.
+> **Official Stage 1 Benchmark (43-Obs Architecture)**:
+> Stage 1 has been fully retrained with the locked 43-input observation space. Across 100 stochastic evaluation episodes:
+> - **Success Rate**: 100.00% (100 / 100)
+> - **Average Successful Time**: 2.93 s (Fastest: 1.83 s, Slowest: 4.83 s)
+> - **Average Path Efficiency**: 93.86% (Initial distance: 507.86 px)
+> - **Episode Reward**: Mean 120.93 (Std Dev 6.43, Median 119.59)
+> - **Preserved Brain**: `models/stage1/best_model/best_model.zip` initializes Stage 2 training.
 
 ---
 
@@ -110,7 +116,7 @@ Implemented with Stable-Baselines3:
 - **Timeout**: 30.0s (truncates episode, no extra penalty).
 
 ### Stage 2: Obstacle Detours and Recovery
-Stage 2 balances goal seeking with anti-stagnation penalties to discourage pressing into solid walls.
+Stage 2 balances goal seeking with anti-stagnation and anti-looping penalties to discourage pressing into solid walls or pacing aimlessly.
 
 | Event / Condition | Frequency / Scope | Reward / Penalty |
 |:---|:---|:---:|
@@ -121,12 +127,13 @@ Stage 2 balances goal seeking with anti-stagnation penalties to discourage press
 | **Short Blocked Steps** | Steps 1 through 14 while blocked | `-0.02` additional |
 | **Prolonged Blocked Steps** | Steps 15+ while blocked | `-0.05` additional |
 | **Stagnation Penalty** | Confined within 10 px for 2.0s (60 steps) | **`-25.0` ONE-TIME** |
+| **Cell Revisit / Looping** | 3rd and later confirmed entry to 30 px cell | **`-2.0` ONCE** per confirmed re-entry |
 | **Recovery Refund** | Break free: 10 unblocked steps + $\ge 40\text{ px}$ from anchor | **Refund 50%** of blocked penalties (capped at `+2.0`) |
 | **Goal Success** | Contact with goal radius | **`+100.0`** (Terminates) |
 | **Episode Timeout** | Reaching 20.0s (600 steps) | **`-50.0`** (Truncates) |
 
 ### Anti-Farming Mathematical Guarantee
-Recovery refunds **only** 50% of the blocked-specific penalties (`-0.02` and `-0.05`) up to a maximum of `+2.0`. Because entering the stuck state requires at least 15 blocked steps (costing $-0.33$ blocked penalty plus $-0.15$ in time step penalties), the maximum possible refund on immediate escape is $+0.165$, leaving the net event at $\le -0.315$. Prolonged stuck events decay further into net negatives. Stagnation (`-25.0`), timeout (`-50.0`), and step penalties are **never** refunded. Deliberately getting stuck can never become profitable.
+Recovery refunds **only** 50% of the blocked-specific penalties (`-0.02` and `-0.05`) up to a maximum of `+2.0`. Because entering the stuck state requires at least 15 blocked steps (costing $-0.33$ blocked penalty plus $-0.15$ in time step penalties), the maximum possible refund on immediate escape is $+0.165$, leaving the net event at $\le -0.315$. Prolonged stuck events decay further into net negatives. Stagnation (`-25.0`), cell revisit penalties (`-2.0`), timeout (`-50.0`), and step penalties are **never** refunded. Deliberately getting stuck can never become profitable.
 
 ---
 
@@ -135,11 +142,34 @@ Recovery refunds **only** 50% of the blocked-specific penalties (`-0.02` and `-0
 ### 16-Ray Radial Perception
 The agent perceives solid geometry through 16 radial raycasts spaced at $22.5^\circ$ intervals covering the full $360^\circ$ circle. Rays detect both interior obstacle boundaries and outer arena walls, returning normalized distances $\in [0.0, 1.0]$. The network receives no artificial path hints, optimal route waypoints, or directional steering recommendations.
 
+### Forced Obstacle Detour Layout Guarantee
+To prevent the agent from sampling unconstrained open-field routes, Stage 2 enforces a strict geometric obstruction constraint on every episode reset:
+- The finite line segment from the player spawn to the goal center must intersect at least one central obstacle.
+- Obstacles are inflated by the player radius ($r = 15\text{ px}$) on all sides during the intersection test.
+- Any candidate layout with an unobstructed direct line-of-sight is rejected during bounded rejection sampling.
+- If sampling limits are reached, a verified deterministic fallback layout guarantees an obstructed path.
+- Consequently, **100% of Stage 2 episodes** (in training, deterministic evaluation, stochastic evaluation, and live spectator modes) require navigating around solid interior barriers.
+
+### Spatial Anti-Looping / Revisit System
+To stop the agent from gaming the stagnation detector by pacing back and forth across small areas without making genuine progress:
+1. **Spatial Grid Partitioning**: The arena is logically divided into $30\text{ px} \times 30\text{ px}$ cells (`STAGE2_REVISIT_CELL_SIZE = 30.0`).
+2. **Confirmed Entry (Anti-Jitter)**: To prevent false visits from hovering along cell borders, entering a new candidate cell requires remaining in it for 3 consecutive simulation steps (`STAGE2_REVISIT_CONFIRM_STEPS = 3`) before the transition is committed.
+3. **Visit Schedule**:
+   - **Visit 1** (Spawn Cell): Counted on reset, cost: `0.0`.
+   - **Visit 2**: Permitted without penalty (`0.0`) to allow legitimate exploration and normal backtracking.
+   - **Visit 3 and Later**: Assesses a **`-2.0` penalty** once per confirmed re-entry (`STAGE2_REVISIT_PENALTY = -2.0`).
+4. **Reward-Side Only**: Continuous occupancy inside a cell incurs no additional penalty. The revisit counter is strictly evaluated in reward space; the observation vector remains exactly 43 values.
+
 ### Deadlock and Stagnation Lifecycle
 1. **Blocked Detection**: Triggered when commanded movement $\|\mathbf{a}\| \ge 0.05$ yields actual displacement $< 20\%$ of expected displacement ($< 1.233\text{ px}$ per step).
 2. **Stuck State**: Declared after 15 consecutive blocked steps (0.5s). Sets `stuck_flag = 1.0` in observation index 41.
 3. **Stagnation Event**: If the agent remains within a 10 px radius of an anchor point for 60 steps (2.0s), a one-time penalty of `-25.0` is assessed. The system cannot re-arm until the player escapes at least 40 px away from the stagnation anchor.
 4. **Autonomous Recovery**: The environment **never** artificially turns, teleports, or steers the agent. When the neural network discovers its own escape path—remaining unblocked for 10 consecutive steps and traversing $\ge 40\text{ px}$ away from the stuck anchor—the recovery refund is awarded and the stuck flag clears.
+
+### Path Efficiency Diagnostic Metric
+Episode evaluation logs record path efficiency as the ratio of straight-line displacement from spawn to the actual distance traveled:
+$$\text{Path Efficiency} = \min\left(1.0, \frac{\|\mathbf{p}_{\text{current}} - \mathbf{p}_{\text{start}}\|}{d_{\text{travelled}}}\right) \times 100\%$$
+This formulation ensures mathematical validity ($\le 100.0\%$) and resolves boundary discrepancy between entity collision circles and center coordinates.
 
 ---
 
@@ -187,19 +217,30 @@ The project includes an extensive test suite verifying mathematical correctness,
 | Test File | Verification Scope |
 |:---|:---|
 | `test_observation_43dim.py` | 43-element observation vector, 16 ray angles (22.5°), observer slot indexing, stuck & stagnation flags |
+| `test_stage2_forced_detour_and_revisit.py` | Forced obstacle detour generation (200 resets), seed reproducibility, fallback layout validity, spatial revisit schedule (visits 1–3+), 3-step jitter protection, trajectory anti-loop penalty (-4.0), Stage 1 immunity, bounded path efficiency |
 | `test_stage2_stuck_stagnation_recovery.py` | Blocked detection, stuck escalation, stagnation -25 trigger/rearm, recovery refund formula, anti-farming proof |
-| `test_rl_env.py` | Gymnasium API compliance, action bounds, step penalty consistency, terminal reward logic |
-| `test_stage1_randomization.py` | Spawn margin safety, clearance guarantees, layout determinism from seeds |
-| `test_stage2_randomization.py` | Obstacle clearance, 350 px minimum start-goal distance, Stage 1 (0.05) vs Stage 2 (0.03) progress scale |
-| `test_stage2_blocked_and_timeout.py` | 20s timeout truncation, -50 timeout penalty, wall sliding vs blocked distinction |
+| `test_rl_env.py` | Gymnasium API compliance, action bounds, step penalty consistency, terminal reward logic (41 tests) |
+| `test_stage1_randomization.py` | Spawn margin safety, clearance guarantees, layout determinism from seeds (17 tests) |
+| `test_stage2_randomization.py` | Obstacle clearance, 350 px minimum start-goal distance, Stage 1 (0.05) vs Stage 2 (0.03) progress scale (24 tests) |
+| `test_stage2_blocked_and_timeout.py` | 20s timeout truncation, -50 timeout penalty, wall sliding vs blocked distinction (16 tests) |
 | `test_stage2_evaluation_and_ranking.py` | 4-tier checkpoint ranking (success rate -> completion time -> reward -> tiebreaker) |
 | `test_stage2_transfer.py` | Exact weight transfer from Stage 1 into Stage 2 PPO without reinitialization |
 | `test_stage2_watch.py` | Spectator initialization, checkpoint polling, boundary switching, clean exit |
-| `test_stealth_env.py` | Pygame base physics, AABB collisions, observer vision cones, line-of-sight raycasts |
+| `test_stealth_env.py` | Pygame base physics, AABB collisions, observer vision cones, line-of-sight raycasts (15 tests) |
+| `test_ppo_infrastructure.py` | PPO model initialization, policy shapes, training smoke, evaluation and checkpointing (14 tests) |
 
-To run the full suite:
+To run the automated suite:
 ```powershell
+# Run all unit tests
 pytest -v
+
+# Run individual standalone integration suites
+python test_rl_env.py
+python test_stage1_randomization.py
+python test_stage2_randomization.py
+python test_stage2_blocked_and_timeout.py
+python test_stage2_forced_detour_and_revisit.py
+python test_ppo_infrastructure.py
 ```
 
 ---
@@ -266,7 +307,27 @@ python main.py
 
 ## Design Philosophy
 
-The project intentionally adheres to three core constraints:
-1. **No Artificial Navigation Hints**: The network receives no waypoints, pathfinding routes, or obstacle-avoidance vectors.
-2. **No Automatic Recovery Steering**: When blocked or stagnant, the environment never steers, reverses, or teleports the agent. Escape behavior must be learned.
-3. **Bounded Recovery Economics**: Rewards for overcoming deadlocks are strictly fractional refunds of prior penalties, ensuring that getting stuck can never become a profitable policy.
+The project intentionally adheres to strict principles of emergent reinforcement learning:
+1. **No Artificial Navigation Hints**: The network receives no waypoints, pathfinding graphs, optimal paths, or directional steering hints (e.g., "steer left" or "steer right").
+2. **No Scripted Recovery Assistance**: When blocked or stagnant, the environment never intervenes with scripted turns, reverse helpers, emergency steps, or teleportation. Recovery behavior must be discovered end-to-end.
+3. **Emergence from First Principles**: All navigational intelligence emerges entirely from:
+   - 43 continuous state observations
+   - 16 radial distance raycasts
+   - Structured reward feedback (progress incentive, blocked penalty, stagnation penalty, anti-loop revisit penalty)
+4. **Bounded Recovery Economics**: Rewards for overcoming deadlocks are strictly fractional refunds of prior blocked penalties, ensuring that colliding with obstacles or hovering can never become profitable.
+
+---
+
+## Research Roadmap & Future Directions
+
+### Visual vs. Sensor-Based Navigation (Future Work)
+While current curriculum stages utilize compact 43-dimensional numerical feature vectors (positions, goal displacement, 16 radial raycasts), a planned future experiment will compare:
+- **Sensor/Vector Navigation**: Low-latency, geometrically precise vector observations (current architecture).
+- **CNN-Based Visual Navigation**: Deep convolutional networks learning navigation and stealth directly from rendered 2D pixel frames.
+
+Anticipated research progression:
+$$\text{Vector Navigation} \longrightarrow \text{Visual / CNN Navigation} \longrightarrow \text{Recurrent Memory (LSTM/GRU)} \longrightarrow \text{Multi-Agent Social Sandbox}$$
+
+### Long-Term Vision
+The long-term research direction explores visually driven multi-agent navigation and decision-making inspired by social-deduction environments.
+

@@ -156,6 +156,8 @@ def draw_spectator_overlay(
     blocked_streak: int = 0,
     is_stuck: bool = False,
     stagnation_progress: float = 0.0,
+    current_cell: Optional[Tuple[int, int]] = None,
+    cell_visits: int = 1,
     event_banner_text: Optional[str] = None,
     event_banner_color: Tuple[int, int, int] = (248, 113, 113),
 ):
@@ -164,7 +166,7 @@ def draw_spectator_overlay(
     Does not obstruct player start (lower-left), goal (upper-right), or obstacles.
     """
     card_w = 300
-    card_h = 248
+    card_h = 285
     card_x = 48
     card_y = 48
 
@@ -241,10 +243,21 @@ def draw_spectator_overlay(
         t_succ = font_body.render("Previous Time: N/A", True, (148, 163, 184))
     card_surf.blit(t_succ, (14, 192))
 
-    # Optional brief event banner (STAGNATION -25 or RECOVERED +X.XX)
+    # Current Cell: (x, y) & Cell Visits: N
+    if current_cell is not None:
+        t_cell = font_body.render(f"Current Cell: {current_cell}", True, (203, 213, 225))
+        vst_color = (239, 68, 68) if cell_visits >= 3 else ((245, 158, 11) if cell_visits == 2 else (203, 213, 225))
+        t_vst = font_body.render(f"Cell Visits: {cell_visits}", True, vst_color)
+    else:
+        t_cell = font_body.render("Current Cell: N/A", True, (148, 163, 184))
+        t_vst = font_body.render("Cell Visits: 1", True, (148, 163, 184))
+    card_surf.blit(t_cell, (14, 212))
+    card_surf.blit(t_vst, (14, 232))
+
+    # Optional brief event banner (STAGNATION -25, RECOVERED +X.XX, REVISIT -2)
     if event_banner_text:
         t_event = font_title.render(event_banner_text, True, event_banner_color)
-        card_surf.blit(t_event, (14, 216))
+        card_surf.blit(t_event, (14, 254))
 
     surface.blit(card_surf, (card_x, card_y))
 
@@ -309,6 +322,8 @@ def main():
     current_blocked_streak = 0
     is_current_stuck = False
     current_stagnation_progress = 0.0
+    current_cell: Optional[Tuple[int, int]] = None
+    current_cell_visits: int = 1
     event_banner_text: Optional[str] = None
     event_banner_color = (248, 113, 113)
     event_banner_expiry = 0.0
@@ -334,6 +349,8 @@ def main():
             blocked_streak=current_blocked_streak,
             is_stuck=is_current_stuck,
             stagnation_progress=current_stagnation_progress,
+            current_cell=current_cell,
+            cell_visits=current_cell_visits,
             event_banner_text=active_banner,
             event_banner_color=event_banner_color,
         )
@@ -446,6 +463,8 @@ def main():
         is_current_stuck = False
         current_stagnation_progress = 0.0
         obs, info = env.reset()
+        current_cell = info.get("current_confirmed_cell")
+        current_cell_visits = int(info.get("cell_visits", 1))
         done = False
         ep_steps = 0
 
@@ -486,6 +505,8 @@ def main():
             current_blocked_streak = int(info.get("consecutive_blocked_steps", 0))
             is_current_stuck = bool(info.get("is_stuck", False))
             current_stagnation_progress = float(info.get("stagnation_progress", 0.0))
+            current_cell = info.get("current_confirmed_cell")
+            current_cell_visits = int(info.get("cell_visits", 1))
 
             # Check for stagnation penalty event
             stag_pen = float(info.get("stagnation_penalty", 0.0))
@@ -499,6 +520,13 @@ def main():
             if rec_reward > 0.0:
                 event_banner_text = f"RECOVERED +{rec_reward:.2f}"
                 event_banner_color = (52, 211, 153)
+                event_banner_expiry = time.time() + 1.5
+
+            # Check for revisit penalty event
+            revis_pen = float(info.get("revisit_penalty_this_step", 0.0))
+            if revis_pen < -1.0:
+                event_banner_text = "REVISIT -2"
+                event_banner_color = (239, 68, 68)
                 event_banner_expiry = time.time() + 1.5
 
             done = terminated or truncated
