@@ -1,5 +1,14 @@
 # Asset Sources, Licensing & Hygiene Policy
 
+## 2026-10-02 scope update
+
+The policy below describes the preserved procedural legacy environment. The owner
+subsequently authorized a separate source-backed map using repository data and
+their supplied artwork. `among_us_map_simulation.py` and `assets/skeld/` use that
+material and are **not** covered by the claims of no game artwork or derived data
+below. See [the new map's provenance and notices](../assets/skeld/NOTICE.md).
+Its additional geometry dependency is Shapely 2.x (BSD-3-Clause).
+
 ## 1. Project Intellectual Property & Original Work Notice
 
 The Skeld navigation environment implemented in `skeld_config.py`, `skeld_navigation.py`, and `skeld_environment.py` is an **original algorithmic software implementation** engineered specifically for reinforcement learning navigation and visual representation research.

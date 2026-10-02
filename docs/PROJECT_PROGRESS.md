@@ -2,6 +2,21 @@
 
 > **Canonical Document**: Detailed technical history, experimental results, architectural pivot, and roadmap status for the **Social Deduction AI** project.
 
+## 2026-10-02: separate source-backed map implemented
+
+The owner approved combining sourced geometry/data and supplied artwork to replace
+the approximate map without deleting old work. `among_us_map_simulation.py` now
+provides a separate native-coordinate Skeld sandbox and Gymnasium interface.
+`skeld_config_legacy.py` snapshots the unchanged original map; legacy training and
+inspectors remain available. No training or social gameplay was added.
+
+The new blueprint includes 14 rooms, 14 vents, 13 doors, 63 task/utility
+destinations, furniture collision, source provenance and diagnostic A*. Fifteen
+new tests cover geometry and compatibility. Matching a particular current game
+build remains unverified; some metadata and physics defaults are estimates.
+See [implementation and handoff details](among_us_map_simulation.md). Earlier
+map accuracy claims and benchmark numbers below refer to the legacy environment.
+
 ---
 
 ## 1. Project Origin

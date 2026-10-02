@@ -1,5 +1,22 @@
 # Continuation handoff
 
+## Map implementation update (2026-10-02)
+
+The current request authorized a separate, source-backed Skeld map without
+removing legacy work. Run `python among_us_map_simulation.py`; import
+`AmongUsMapEnv` from that module for the new sandbox. `assets/skeld/among_us_map.json`
+is the combined blueprint; `tools/build_among_us_map.py` rebuilds it offline.
+The original map/environment/navigation scripts remain unchanged, and
+`skeld_config_legacy.py` is a byte-for-byte map snapshot. Existing training scripts
+continue to use the legacy map until explicitly migrated.
+
+Read `docs/among_us_map_simulation.md` and `assets/skeld/NOTICE.md` before integration.
+Native coordinates and Gym observation/action shapes are documented there. This
+is sourced historical geometry plus newer metadata, not a verified current-client
+export. The map adds diagnostic A*, not a finished Phase 2 service. Phase 1 remains
+frozen. No policy training, suspicion/kill heuristics, or social enum changes were
+made. The older handoff below describes the preceding foundation.
+
 ## State and goal
 
 - Repository: `Hadisovic/social-deduction-ai`, branch `main`.

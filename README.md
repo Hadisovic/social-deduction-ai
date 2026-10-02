@@ -5,8 +5,25 @@
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/)
 [![PyTorch 2.6](https://img.shields.io/badge/PyTorch-2.6-ee4c2c.svg)](https://pytorch.org/)
 [![Gymnasium](https://img.shields.io/badge/Gymnasium-1.1+-darkgreen.svg)](https://gymnasium.farama.org/)
-[![Tests Passing](https://img.shields.io/badge/tests-139%20passed-success.svg)](test_information_contract.py)
+[![Tests Passing](https://img.shields.io/badge/tests-154%20passed-success.svg)](test_information_contract.py)
 [![Phase 1](https://img.shields.io/badge/phase%201-complete%20%2F%20frozen-blueviolet.svg)](docs/information_contract.md)
+
+## Current map work: source-backed Skeld simulation
+
+Launch the new map with `python among_us_map_simulation.py`. It combines native
+collider geometry, task/vent metadata and the supplied reference artwork, with
+63 task and utility destinations, swept collision and diagnostic A* navigation.
+The original files and checkpoints are preserved; `skeld_config_legacy.py` also
+snapshots the old map. Existing training entry points still select the old map.
+
+![New Skeld map simulation](docs/images/among_us_map_overview.png)
+
+Read the [map blueprint, controls, compatibility and accuracy limits](docs/among_us_map_simulation.md).
+This is not yet verified against a matching live-game build: collider geometry is
+historical, and some console positions and physics values are estimates. This new
+asset-backed path has separate [source notices](assets/skeld/NOTICE.md).
+
+### Preserved legacy map
 
 ![The Skeld Navigation Environment](docs/images/skeld_overview.png)
 *Figure 1: The Skeld multi-room map environment. Logical world coordinate space (1600.0 × 895.45) with 14 rooms, 40 authentic task destinations, dual-layer collision geometry, and internal A\* route validation.*
@@ -82,6 +99,7 @@ flowchart TD
 | Phase | Focus Area | Core Deliverables | Status |
 |:---:|:---|:---|:---:|
 | **Phase 1** | **Information Contract** | Immutable value types, observation projector, evidence provenance, zero-leakage test harness. | **COMPLETE / FROZEN** |
+| **Phase 1.5** | **Source-backed Map** | Separate native-coordinate Skeld sandbox, blueprint, reference artwork and collision checks; live-game parity unverified. | **IMPLEMENTED / CALIBRATION OPEN** |
 | **Phase 2** | **Navigation Service** | Continuous steering controller, diagonal clearance, arrival tolerance, 1,560 validated task routes. | **CURRENT / NEXT** |
 | **Phase 3** | **Scripted Game Simulator** | 5-player match engine (4 crew + 1 impostor), tasks, kill cooldowns, reports, and voting meetings. | **PLANNED** |
 | **Phase 4** | **Memory & Belief Model** | Spatio-temporal event memory, consistency tracking, impossibility detection, and role posterior estimation. | **PLANNED** |
@@ -97,8 +115,8 @@ flowchart TD
    - Provenance typing (`DIRECT`, `PUBLIC`, `CLAIM`) with explicit delivery vs. claimed timestamp separation.
    - Identity randomization stream isolated from role assignment.
    - 42 exhaustive property and paired-world invariance tests.
-2. **The Skeld Spatial Infrastructure**:
-   - High-fidelity $1600.0 \times 895.45$ logical world with 1.7866 aspect-ratio preservation.
+2. **Preserved Legacy Skeld Spatial Infrastructure**:
+   - Approximate $1600.0 \times 895.45$ logical world with 1.7866 aspect-ratio preservation.
    - 50 solid wall rectangles and 32 walkable floor segments.
    - 40 authentic task destinations with verified $\ge 20\text{ px}$ wall clearance (0 unreachable).
    - Single connected walkable component verified via 4px occupancy grid ($89,600$ cells).
@@ -106,7 +124,7 @@ flowchart TD
 3. **Continuous Locomotion Baseline**:
    - Preserved Stage 1 PPO model (`models/stage1/best_model/best_model.zip`) achieving 100% success rate and 93.86% path efficiency across 100 evaluation episodes.
 4. **Test Suite Health**:
-   - **139 / 139 tests passing** across the entire repository.
+   - **154 tests passing**: 139 existing checks and 15 new map checks.
 
 ---
 
@@ -131,11 +149,20 @@ pip install -r requirements-dev.txt
 ### 2. Run Test Suite
 
 ```powershell
-# Run all 139 automated tests
+# Run the complete automated test suite
 pytest -q
 ```
 
-### 3. Launch Map & Navigation Inspector
+### 3. Launch New Map Simulation
+
+```powershell
+python among_us_map_simulation.py
+```
+
+WASD/arrows move; click sets a goal; Tab cycles destinations; Space follows A*.
+B shows the blueprint, C collision, T interactions, L labels, R rays, P preview crew.
+
+### 4. Launch Preserved Legacy Inspector
 
 ```powershell
 # Interactive visual inspector for The Skeld map
@@ -160,7 +187,8 @@ Comprehensive project documentation is maintained in the [`docs/`](docs/) direct
 - [**docs/project_architecture.md**](docs/project_architecture.md): Module hierarchy, data flow, observation filtering, and evaluation design.
 - [**docs/skeld_research.md**](docs/skeld_research.md): Map coordinate derivation, aspect ratio mathematics, and physical clearance calibration.
 - [**docs/skeld_accuracy.md**](docs/skeld_accuracy.md): Rigorous factual accuracy audit, 9 canonical routes validation table, and physical test report.
-- [**docs/asset_sources.md**](docs/asset_sources.md): Attribution, licensing, and strict zero-copyright-asset hygiene policy.
+- [**docs/among_us_map_simulation.md**](docs/among_us_map_simulation.md): New map blueprint, source versions, fidelity limits, controls and sandbox API.
+- [**docs/asset_sources.md**](docs/asset_sources.md): Legacy procedural-asset policy and separate source-backed map notices.
 - [**HANDOFF.md**](HANDOFF.md): Engineering state, frozen boundaries, key files, and Phase 2 transition notes.
 
 ---
