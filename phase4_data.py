@@ -38,7 +38,7 @@ def source_fingerprint():
              'phase3_engine.py', 'phase3_bots.py', 'phase3_runner.py', 'navigation_service.py',
              'among_us_map.py', 'among_us_map_simulation.py', 'social_deduction/actor.py',
              'social_deduction/phase3_api.py', 'social_deduction/phase3_observation.py',
-             'social_deduction/truth.py', 'social_deduction/training.py']
+             'social_deduction/truth.py', 'social_deduction/training.py', 'assets/skeld/among_us_map.json']
     # Normalize line endings so Git checkout settings do not invalidate the cache.
     return {p: sha256((ROOT / p).read_bytes().replace(b'\r\n', b'\n')).hexdigest() for p in paths}
 
@@ -69,10 +69,11 @@ def generate_match(seed, heldout=False):
     impostor = next(pid for pid, role in labels.items() if role is Role.IMPOSTOR)
     memories = {pid: ActorMemory() for pid in focal}
     values = {v: [] for v in VIEWS}
-    targets, ticks, actors, stages, reasons = [], [], [], [], []
+    targets, ticks, actors, stages, reasons, candidate_rows = [], [], [], [], [], []
     last_sample = {pid: -10000 for pid in focal}
     events = Counter()
     colors = {i.player_id: i.display_name for i in match.game.observe(focal[0]).roster}
+    initial_positions = {pid: list(player.position) for pid, player in match.game.players.items()}
     candidates = None
     while not match.game.is_terminal:
         if match.game.tick % match.decision_ticks == 0:
@@ -94,6 +95,7 @@ def generate_match(seed, heldout=False):
                 values['no_claims'].append(encode(memory, view='no_claims'))
                 values['collapsed'].append(encode(memory, view='collapsed'))
                 candidates = memory.candidates
+                candidate_rows.append(candidates)
                 targets.append(candidates.index(impostor))
                 ticks.append(obs.tick)
                 actors.append(pid)
@@ -110,9 +112,10 @@ def generate_match(seed, heldout=False):
     arrays = {f'x_{v}': np.stack(values[v]) for v in VIEWS}
     arrays.update(y=np.asarray(targets, dtype=np.int64), tick=np.asarray(ticks),
                   actor=np.asarray(actors), stage=np.asarray(stages), reason=np.asarray(reasons),
+                  candidates=np.asarray(candidate_rows),
                   match=np.full(len(targets), seed, dtype=np.int64))
     metadata = {'seed': seed, 'samples': len(targets), 'focal_actors': len(focal),
-                'heldout': heldout, 'impostor_id': impostor, 'colors': colors,
+                'heldout': heldout, 'impostor_id': impostor, 'colors': colors, 'spawns': initial_positions,
                 'styles': {pid: asdict(c.style) for pid, c in match.controllers.items()},
                 'impostor_style': match.controllers[impostor].style.impostor,
                 'result': asdict(match.game.result), 'metrics': match.game.metrics,

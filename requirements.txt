@@ -7,3 +7,5 @@ stable-baselines3>=2.0.0
 tensorboard>=2.14.0
 # Polygon/segment geometry for the separate data-backed Among Us map.
 shapely>=2.0,<3
+# Phase 4 standalone scientific plots.
+matplotlib>=3.7

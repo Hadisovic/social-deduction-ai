@@ -8,3 +8,11 @@ phase3*.py text eol=lf
 run_phase3*.py text eol=lf
 social_deduction/phase3*.py text eol=lf
 assets/phase3_assets.json text eol=lf
+
+# Phase 4 reproducible source/schema/checkpoint metadata.
+belief/*.py text eol=lf
+phase4*.py text eol=lf
+run_phase4.py text eol=lf
+train_phase4.py text eol=lf
+evaluate_phase4.py text eol=lf
+artifacts/phase4/*.json text eol=lf
