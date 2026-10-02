@@ -47,8 +47,9 @@ See [service API, alternatives and reproduction](navigation_service.md),
 [benchmark summary](benchmarks/phase2/README.md),
 [per-case CSV](benchmarks/phase2/cases.csv), and
 [configuration/provenance JSON](benchmarks/phase2/summary.json).
-Implementation revision: `git log -1 --format=%H -- navigation_service.py`;
-final handoff revision: `git log -1 --format=%H` on this completed checkout.
+Final Phase 2 implementation revision: `9dcc0a217da468c6d906816937fbd5bd11af128f`.
+The subsequent documentation commit records this hash; resolve its own handoff
+revision with `git log -1 --format=%H` on the completed checkout.
 **Next: Phase 3 scripted five-player simulator**, with trusted integration and
 wrapper-level leakage tests. Phase 3 was not started in this change.
 
@@ -355,4 +356,4 @@ As of Phase 1 completion, the project maintains an automated test suite with **1
 | `7511134` | Oct 2026 | Construct and validate full-scale Skeld navigation map with 40 tasks and A* validation (Stage 2.5). |
 | `8a0b4c9` | Oct 2026 | Establish social-deduction information boundaries, value types, and provenance (Phase 1). |
 | `3819367` | Oct 2026 | Source-backed native Skeld map, renderer, assets and 15 tests (Phase 1.5). |
-| See navigation revision above | Oct 2026 | Reliable navigation; 197 tests and 4,914 physical executions passing (Phase 2). |
+| `9dcc0a2` | Oct 2026 | Reliable navigation; 197 tests and 4,914 physical executions passing (Phase 2). |

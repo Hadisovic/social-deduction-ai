@@ -10,8 +10,9 @@
   parity remains unverified; geometry and destination metadata are unchanged.
 - **PHASE 2 COMPLETE**: 4,914/4,914 physical executions passed; 197 tests pass.
 - Phase 3 has not started. No training, social gameplay or model/log changes.
-- See `git log -1 --format=%H` for the final handoff revision; the implementation
-  milestone is identified by `git log -1 --format=%H -- navigation_service.py`.
+- Final Phase 2 implementation commit: `9dcc0a217da468c6d906816937fbd5bd11af128f`.
+- This documentation follow-up records that immutable milestone. Resolve the final
+  handoff commit with `git log -1 --format=%H` (a document cannot embed its own hash).
 
 ## What changed
 

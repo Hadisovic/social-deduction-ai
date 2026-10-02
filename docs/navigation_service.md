@@ -237,6 +237,8 @@ are machine-dependent; source byte hashes can differ with checkout line endings.
 
 ## Measured acceptance result (2026-10-02)
 
+Final implementation commit: `9dcc0a217da468c6d906816937fbd5bd11af128f`.
+
 **PHASE 2 COMPLETE.** Full regression: **197 passed, one existing Gym registration
 warning**; 43 navigation tests passed; `pip check` and `git diff --check` passed.
 The original 139 Phase 1/legacy checks and 15 map checks remain green.
