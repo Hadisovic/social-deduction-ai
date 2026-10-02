@@ -1,0 +1,12 @@
+........................................................................ [ 24%]
+........................................................................ [ 49%]
+........................................................................ [ 74%]
+........................................................................ [ 98%]
+...                                                                      [100%]
+============================== warnings summary ===============================
+test_skeld_environment.py::test_19_gymnasium_checker
+  C:\Files\RL\.venv\Lib\site-packages\gymnasium\utils\env_checker.py:434: UserWarning: [33mWARN: Not able to test alternative render modes due to the environment not having a spec. Try instantiating the environment through `gymnasium.make`[0m
+    logger.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+291 passed, 1 warning in 101.78s (0:01:41)

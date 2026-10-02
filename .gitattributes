@@ -2,3 +2,9 @@
 assets/skeld/sources/* -text
 skeld_config.py text eol=lf
 skeld_config_legacy.py text eol=lf
+
+# Preserve the measured Phase 3 source bytes across Windows checkouts.
+phase3*.py text eol=lf
+run_phase3*.py text eol=lf
+social_deduction/phase3*.py text eol=lf
+assets/phase3_assets.json text eol=lf

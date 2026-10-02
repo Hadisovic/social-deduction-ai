@@ -1,0 +1,87 @@
+{
+  "acceptance": "PASS",
+  "base_git_commit": "deae77c3dda88290659abc3659d5eb472c07aa07",
+  "batch_wall_seconds": 1290.1784618000966,
+  "configuration": {
+    "check_invariants": true,
+    "decision_interval": 0.6,
+    "discussion_seconds": 9.0,
+    "dt": 0.2,
+    "fake_task_seconds": 4.0,
+    "initial_kill_cooldown": 12.0,
+    "kill_cooldown": 12.0,
+    "kill_range": 1.1,
+    "report_range": 1.3,
+    "sight_range": 4.5,
+    "speed": 2.5,
+    "task_seconds": 4.0,
+    "tasks_per_crew": 2,
+    "timeout": 240.0,
+    "voting_seconds": 6.0
+  },
+  "matches": 1000,
+  "means": {
+    "event_log_seconds": 0.0028653454720042647,
+    "navigation_seconds": 2.559263300411054,
+    "observation_hash_seconds": 0.3765482770104427,
+    "physics_seconds": 0.08539898734353482,
+    "policy_seconds": 0.010927456827135756,
+    "runtime_seconds": 5.723562767598661,
+    "simulation_seconds": 58.932,
+    "steps": 294.749,
+    "visibility_seconds": 2.5165805042103164
+  },
+  "notes": [
+    "Primary matches count once; deterministic replay repeats do not inflate game totals.",
+    "Trace comparison includes every full actor decision input/action and privileged event log.",
+    "Information-boundary metamorphic tests are a separate required regression gate.",
+    "A timeout is a draw/failure category, never a crew or impostor win.",
+    "Wall timings include validation, actor hashing and concurrent machine activity."
+  ],
+  "platform": "Windows-11-10.0.26100-SP0",
+  "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+  "schema": "phase3-batch-v1",
+  "source_sha256": {
+    "among_us_map.py": "b4dadf5c016a68b1f565e6c5ed2846ccf06d673a5d0c5cd7de3230fd405cf388",
+    "among_us_map_simulation.py": "2486897ec51c6be618d76528fbe5a05b70573139290aea585e658dbd7c27cb25",
+    "assets/skeld/among_us_map.json": "9e5e0cd925ab3ede95aae67e42dbb6ebd67717bf8e7365eb655628c669a2d58c",
+    "navigation_service.py": "3a1af1e6d7eb143144293e75704e60f29fcb2741bd3fdbeca33ad969d9af406d",
+    "phase3_bots.py": "dac423d42c94c9abdd12df9020a995ede9d32817cc1a26614f7ce693a1d5ca33",
+    "phase3_cli.py": "9a563435418bc90f891f7e059a3b2433c358340eeed9cb3c00d14adc948a0234",
+    "phase3_engine.py": "316e6ea3585dd2de6a89300c9fd2f3d1593bc584f9e4ada28fabb376c4ac8a25",
+    "phase3_runner.py": "36b0259514638d0af4161aa7704acb29990e3e1c25fb283c44d9254c19f55e22",
+    "run_phase3_batch.py": "32e87f79c9b9b18e5ade9f0341928324c63d792b88c2f782a2a035ee90904b01",
+    "social_deduction/actor.py": "5f12a781dcd45ba88ea1e75dbb7bebad7f494ae4046ad7f16cd548aee543c882",
+    "social_deduction/phase3_api.py": "f7cf97cd81896f5ba5149cdb4224012f3cd7a97545859dcd44e07e7a95eefa35",
+    "social_deduction/phase3_observation.py": "8c3b680a5bd2ae63f5b91b294034e01d505a47a3d79af2481fe4070f955d4e35",
+    "social_deduction/truth.py": "a98637897c8783b236f1ead92a0a33d2c7d145ac90c196f43676e96767c8de1d"
+  },
+  "source_unchanged_during_run": true,
+  "totals": {
+    "completed": 1000,
+    "crashes": 0,
+    "deterministic_replay_failures": 0,
+    "eliminations": 1325,
+    "event_count": 136339,
+    "illegal_actions": 0,
+    "invalid_states": 0,
+    "meetings": 1212,
+    "navigation_failures": 0,
+    "replay_checked": 1000,
+    "reports": 1212,
+    "steps": 294749,
+    "task_completions": 7740,
+    "timeouts": 0,
+    "votes": 4491
+  },
+  "win_reasons": {
+    "IMPOSTOR_EJECTED": 41,
+    "PARITY": 89,
+    "TASKS_COMPLETED": 870
+  },
+  "winners": {
+    "crewmate": 911,
+    "impostor": 89
+  },
+  "workers": 8
+}

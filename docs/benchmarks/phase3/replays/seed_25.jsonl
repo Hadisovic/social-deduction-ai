@@ -1,0 +1,161 @@
+{"actor_trace_hash": "a9a294f3c8e749b2caf776c40933b535bf035d134d867c69ddf9ff521b866fa6", "config": {"check_invariants": true, "decision_interval": 0.6, "discussion_seconds": 9.0, "dt": 0.2, "fake_task_seconds": 4.0, "initial_kill_cooldown": 12.0, "kill_cooldown": 12.0, "kill_range": 1.1, "report_range": 1.3, "sight_range": 4.5, "speed": 2.5, "task_seconds": 4.0, "tasks_per_crew": 2, "timeout": 240.0, "voting_seconds": 6.0}, "notice": "Privileged spectator truth log; never passed to a controller.", "record": "metadata", "result": {"reason": "PARITY", "simulation_time": 79.8, "winner": "impostor"}, "schema": "phase3-replay-v1", "seed": 25, "trajectory_hash": "da8b66fee55094939a31b3c8b70214618fe0ce30192198bc52037219ed69f827", "truth_trace_hash": "21daabcb95a6bc4e0da776cb716a177ba45f7508445d66ad3213000943aef6bf"}
+{"channel": "truth", "config": {"check_invariants": true, "decision_interval": 0.6, "discussion_seconds": 9.0, "dt": 0.2, "fake_task_seconds": 4.0, "initial_kill_cooldown": 12.0, "kill_cooldown": 12.0, "kill_range": 1.1, "report_range": 1.3, "sight_range": 4.5, "speed": 2.5, "task_seconds": 4.0, "tasks_per_crew": 2, "timeout": 240.0, "voting_seconds": 6.0}, "kind": "match_start", "record": "event", "rules_version": 1, "seed": 25, "tick": 0, "time": 0.0}
+{"channel": "truth", "color": "Brown", "internal_slot": 0, "kind": "spawn", "player_id": "p4", "position": [-0.7, -2.8], "record": "event", "role": "crewmate", "tick": 0, "time": 0.0}
+{"channel": "truth", "color": "Purple", "internal_slot": 1, "kind": "spawn", "player_id": "p2", "position": [-1.4, -2.8], "record": "event", "role": "impostor", "tick": 0, "time": 0.0}
+{"channel": "truth", "color": "Black", "internal_slot": 2, "kind": "spawn", "player_id": "p3", "position": [0.0, -2.8], "record": "event", "role": "crewmate", "tick": 0, "time": 0.0}
+{"channel": "truth", "color": "Orange", "internal_slot": 3, "kind": "spawn", "player_id": "p1", "position": [-2.1, -2.8], "record": "event", "role": "crewmate", "tick": 0, "time": 0.0}
+{"channel": "truth", "color": "Blue", "internal_slot": 4, "kind": "spawn", "player_id": "p0", "position": [-0.7, -3.5], "record": "event", "role": "crewmate", "tick": 0, "time": 0.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p0", "player_id": "p1", "position": {"x": -2.1, "y": -2.8}, "record": "event", "room": "Cafeteria", "tick": 0, "time": 0.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p0", "player_id": "p2", "position": {"x": -1.4, "y": -2.8}, "record": "event", "room": "Cafeteria", "tick": 0, "time": 0.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p0", "player_id": "p3", "position": {"x": 0.0, "y": -2.8}, "record": "event", "room": "Cafeteria", "tick": 0, "time": 0.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p0", "player_id": "p4", "position": {"x": -0.7, "y": -2.8}, "record": "event", "room": "Cafeteria", "tick": 0, "time": 0.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p1", "player_id": "p0", "position": {"x": -0.7, "y": -3.5}, "record": "event", "room": "Cafeteria", "tick": 0, "time": 0.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p1", "player_id": "p2", "position": {"x": -1.4, "y": -2.8}, "record": "event", "room": "Cafeteria", "tick": 0, "time": 0.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p1", "player_id": "p3", "position": {"x": 0.0, "y": -2.8}, "record": "event", "room": "Cafeteria", "tick": 0, "time": 0.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p1", "player_id": "p4", "position": {"x": -0.7, "y": -2.8}, "record": "event", "room": "Cafeteria", "tick": 0, "time": 0.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p2", "player_id": "p0", "position": {"x": -0.7, "y": -3.5}, "record": "event", "room": "Cafeteria", "tick": 0, "time": 0.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p2", "player_id": "p1", "position": {"x": -2.1, "y": -2.8}, "record": "event", "room": "Cafeteria", "tick": 0, "time": 0.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p2", "player_id": "p3", "position": {"x": 0.0, "y": -2.8}, "record": "event", "room": "Cafeteria", "tick": 0, "time": 0.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p2", "player_id": "p4", "position": {"x": -0.7, "y": -2.8}, "record": "event", "room": "Cafeteria", "tick": 0, "time": 0.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p3", "player_id": "p0", "position": {"x": -0.7, "y": -3.5}, "record": "event", "room": "Cafeteria", "tick": 0, "time": 0.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p3", "player_id": "p1", "position": {"x": -2.1, "y": -2.8}, "record": "event", "room": "Cafeteria", "tick": 0, "time": 0.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p3", "player_id": "p2", "position": {"x": -1.4, "y": -2.8}, "record": "event", "room": "Cafeteria", "tick": 0, "time": 0.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p3", "player_id": "p4", "position": {"x": -0.7, "y": -2.8}, "record": "event", "room": "Cafeteria", "tick": 0, "time": 0.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p4", "player_id": "p0", "position": {"x": -0.7, "y": -3.5}, "record": "event", "room": "Cafeteria", "tick": 0, "time": 0.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p4", "player_id": "p1", "position": {"x": -2.1, "y": -2.8}, "record": "event", "room": "Cafeteria", "tick": 0, "time": 0.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p4", "player_id": "p2", "position": {"x": -1.4, "y": -2.8}, "record": "event", "room": "Cafeteria", "tick": 0, "time": 0.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p4", "player_id": "p3", "position": {"x": 0.0, "y": -2.8}, "record": "event", "room": "Cafeteria", "tick": 0, "time": 0.0}
+{"channel": "truth", "kind": "navigate", "player_id": "p0", "position": [-0.7, -3.5], "record": "event", "status": "moving", "target": "task:7:2", "tick": 0, "time": 0.0}
+{"channel": "truth", "kind": "navigate", "player_id": "p1", "position": [-2.1, -2.8], "record": "event", "status": "moving", "target": "task:1:5", "tick": 0, "time": 0.0}
+{"channel": "truth", "kind": "navigate", "player_id": "p2", "position": [-1.4, -2.8], "record": "event", "status": "moving", "target": "stage:12:46", "tick": 0, "time": 0.0}
+{"channel": "truth", "kind": "navigate", "player_id": "p3", "position": [0.0, -2.8], "record": "event", "status": "moving", "target": "stage:image:7", "tick": 0, "time": 0.0}
+{"channel": "truth", "kind": "navigate", "player_id": "p4", "position": [-0.7, -2.8], "record": "event", "status": "moving", "target": "task:3:1", "tick": 0, "time": 0.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p2", "player_id": "p3", "position": {"x": -0.5400000000004717, "y": -5.440000000000275}, "record": "event", "room": "AdminHallway", "tick": 6, "time": 1.2}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p2", "player_id": "p4", "position": {"x": -0.9343910233717627, "y": -5.790829458221035}, "record": "event", "room": "AdminHallway", "tick": 6, "time": 1.2}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p3", "player_id": "p2", "position": {"x": -1.2000000000004576, "y": -5.68000000000027}, "record": "event", "room": "AdminHallway", "tick": 6, "time": 1.2}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p3", "player_id": "p4", "position": {"x": -0.9343910233717627, "y": -5.790829458221035}, "record": "event", "room": "AdminHallway", "tick": 6, "time": 1.2}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p4", "player_id": "p2", "position": {"x": -1.2000000000004576, "y": -5.68000000000027}, "record": "event", "room": "AdminHallway", "tick": 6, "time": 1.2}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p4", "player_id": "p3", "position": {"x": -0.5400000000004717, "y": -5.440000000000275}, "record": "event", "room": "AdminHallway", "tick": 6, "time": 1.2}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p0", "player_id": "p1", "position": {"x": -5.915880124380476, "y": -0.4539825787686642}, "record": "event", "room": "Cafeteria", "tick": 12, "time": 2.4}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p1", "player_id": "p0", "position": {"x": -4.388690701807783, "y": 0.6845721512475779}, "record": "event", "room": "Cafeteria", "tick": 12, "time": 2.4}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p2", "player_id": "p3", "position": {"x": -0.018663036106410014, "y": -9.713255094089442}, "record": "event", "room": "Storage", "tick": 15, "time": 3.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p2", "player_id": "p4", "position": {"x": -1.9179003934515126, "y": -9.876145836073924}, "record": "event", "room": "Storage", "tick": 15, "time": 3.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p3", "player_id": "p2", "position": {"x": -1.9179003934515126, "y": -9.876145836073924}, "record": "event", "room": "Storage", "tick": 15, "time": 3.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p3", "player_id": "p4", "position": {"x": -1.9179003934515126, "y": -9.876145836073924}, "record": "event", "room": "Storage", "tick": 15, "time": 3.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p4", "player_id": "p2", "position": {"x": -1.9179003934515126, "y": -9.876145836073924}, "record": "event", "room": "Storage", "tick": 15, "time": 3.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p4", "player_id": "p3", "position": {"x": -0.018663036106410014, "y": -9.713255094089442}, "record": "event", "room": "Storage", "tick": 15, "time": 3.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p0", "player_id": "p1", "position": {"x": -7.540000000000344, "y": 0.7199999999996152}, "record": "event", "room": "NorthHallway", "tick": 18, "time": 3.6}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p1", "player_id": "p0", "position": {"x": -6.9400000000003885, "y": 0.7199999999996152}, "record": "event", "room": "NorthHallway", "tick": 18, "time": 3.6}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p2", "player_id": "p4", "position": {"x": -5.719977325805861, "y": -14.335238311182868}, "record": "event", "room": "ElectricalHallway", "tick": 30, "time": 6.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p4", "player_id": "p2", "position": {"x": -5.719977325805861, "y": -14.335238311182868}, "record": "event", "room": "ElectricalHallway", "tick": 30, "time": 6.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p0", "player_id": "p1", "position": {"x": -15.040000000000344, "y": 0.7199999999996152}, "record": "event", "room": "Upper Engine", "tick": 33, "time": 6.6}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p1", "player_id": "p0", "position": {"x": -15.540000000000152, "y": 0.4799999999996203}, "record": "event", "room": "Upper Engine", "tick": 36, "time": 7.2}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p0", "player_id": "p1", "position": {"x": -16.50000000000013, "y": -2.0600000000003362}, "record": "event", "room": "CrossHallway", "tick": 42, "time": 8.4}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p1", "player_id": "p0", "position": {"x": -16.82036879932911, "y": -1.9564425591951122}, "record": "event", "room": "CrossHallway", "tick": 42, "time": 8.4}
+{"channel": "truth", "console_id": "stage:image:7", "kind": "task_start", "player_id": "p3", "record": "event", "task_id": "t-0e1d6e3eaff7525f", "tick": 42, "time": 8.4}
+{"channel": "truth", "console_id": "task:1:5", "kind": "task_start", "player_id": "p1", "record": "event", "task_id": "t-e74332f81d4536ee", "tick": 48, "time": 9.6}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p2", "player_id": "p4", "position": {"x": -15.369970036698135, "y": -12.456336396998267}, "record": "event", "room": "Lower Engine", "tick": 54, "time": 10.8}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p4", "player_id": "p2", "position": {"x": -15.369970036698135, "y": -12.456336396998267}, "record": "event", "room": "Lower Engine", "tick": 54, "time": 10.8}
+{"channel": "truth", "kind": "navigate", "player_id": "p2", "position": [-15.369970036698135, -12.456336396998267], "record": "event", "status": "success", "target": "location", "tick": 54, "time": 10.8}
+{"channel": "truth", "console_id": "task:7:2", "kind": "task_start", "player_id": "p0", "record": "event", "task_id": "t-4c672acf9018b713", "tick": 57, "time": 11.4}
+{"channel": "truth", "kind": "navigate", "player_id": "p2", "position": [-15.369970036698135, -12.456336396998267], "record": "event", "status": "moving", "target": "location", "tick": 57, "time": 11.4}
+{"channel": "truth", "kind": "navigate", "player_id": "p2", "position": [-16.56000010000015, -12.720000000000098], "record": "event", "status": "moving", "target": "location", "tick": 60, "time": 12.0}
+{"channel": "truth", "console_id": "task:3:1", "kind": "task_start", "player_id": "p4", "record": "event", "task_id": "t-6f784eb05cf9becc", "tick": 60, "time": 12.0}
+{"channel": "truth", "console_id": "stage:image:7", "kind": "task_completed", "player_id": "p3", "record": "event", "task_id": "t-0e1d6e3eaff7525f", "tick": 62, "time": 12.4}
+{"channel": "direct", "interacting": true, "kind": "direct_sighting", "observer_id": "p2", "player_id": "p4", "position": {"x": -18.156056064147446, "y": -12.720000000000098}, "record": "event", "room": "Lower Engine", "tick": 63, "time": 12.6}
+{"channel": "direct", "killer_id": "p2", "kind": "elimination_witnessed", "observer_id": "p2", "record": "event", "tick": 63, "time": 12.6, "victim_id": "p4"}
+{"channel": "direct", "killer_id": "p2", "kind": "elimination_witnessed", "observer_id": "p4", "record": "event", "tick": 63, "time": 12.6, "victim_id": "p4"}
+{"channel": "truth", "kind": "task_interrupted", "player_id": "p4", "reason": "eliminated", "record": "event", "task_id": "t-6f784eb05cf9becc", "tick": 63, "time": 12.6}
+{"channel": "truth", "killer_id": "p2", "kind": "elimination", "position": [-18.156056064147446, -12.720000000000098], "record": "event", "tick": 63, "time": 12.6, "victim_id": "p4"}
+{"channel": "truth", "kind": "navigate", "player_id": "p3", "position": [9.575468491790842, -10.884531508208605], "record": "event", "status": "moving", "target": "stage:12:43", "tick": 63, "time": 12.6}
+{"channel": "direct", "kind": "body_observed", "observer_id": "p2", "position": {"x": -18.156056064147446, "y": -12.720000000000098}, "record": "event", "room": "Lower Engine", "tick": 66, "time": 13.2, "victim_id": "p4"}
+{"channel": "public", "kind": "report", "record": "event", "reporter_id": "p2", "room": "Lower Engine", "tick": 66, "time": 13.2, "victim_id": "p4"}
+{"channel": "public", "kind": "report_transition", "record": "event", "tick": 66, "time": 13.2}
+{"channel": "truth", "kind": "task_interrupted", "player_id": "p0", "reason": "meeting", "record": "event", "task_id": "t-4c672acf9018b713", "tick": 66, "time": 13.2}
+{"channel": "truth", "kind": "task_interrupted", "player_id": "p1", "reason": "meeting", "record": "event", "task_id": "t-e74332f81d4536ee", "tick": 66, "time": 13.2}
+{"channel": "public", "kind": "meeting_started", "meeting_id": "m1", "participants": ["p0", "p1", "p2", "p3"], "record": "event", "tick": 66, "time": 13.2}
+{"channel": "truth", "kind": "task_reassigned", "recipient_id": "p3", "record": "event", "task_id": "t-6f784eb05cf9becc", "tick": 66, "time": 13.2}
+{"channel": "truth", "kind": "task_reassigned", "recipient_id": "p0", "record": "event", "task_id": "t-10ef73738e728a01", "tick": 66, "time": 13.2}
+{"asserted_tick": 48, "channel": "public", "claim_kind": "saw_player", "kind": "claim", "record": "event", "region": "CrossHallway", "speaker_id": "p0", "subject_id": "p1", "tick": 69, "time": 13.8}
+{"asserted_tick": 48, "channel": "public", "claim_kind": "saw_player", "kind": "claim", "record": "event", "region": "CrossHallway", "speaker_id": "p1", "subject_id": "p0", "tick": 78, "time": 15.6}
+{"asserted_tick": 66, "channel": "public", "claim_kind": "suspect_player", "kind": "claim", "record": "event", "region": "Lower Engine", "speaker_id": "p2", "subject_id": "p1", "tick": 90, "time": 18.0}
+{"asserted_tick": 18, "channel": "public", "claim_kind": "saw_player", "kind": "claim", "record": "event", "region": "Storage", "speaker_id": "p3", "subject_id": "p2", "tick": 102, "time": 20.4}
+{"channel": "public", "kind": "voting_started", "meeting_id": "m1", "record": "event", "tick": 111, "time": 22.2}
+{"channel": "public", "kind": "vote", "meeting_id": "m1", "record": "event", "target_id": null, "tick": 111, "time": 22.2, "voter_id": "p0"}
+{"channel": "public", "kind": "vote", "meeting_id": "m1", "record": "event", "target_id": null, "tick": 111, "time": 22.2, "voter_id": "p1"}
+{"channel": "public", "kind": "vote", "meeting_id": "m1", "record": "event", "target_id": null, "tick": 111, "time": 22.2, "voter_id": "p2"}
+{"channel": "public", "kind": "vote", "meeting_id": "m1", "record": "event", "target_id": null, "tick": 111, "time": 22.2, "voter_id": "p3"}
+{"channel": "public", "kind": "meeting_resolution", "meeting_id": "m1", "record": "event", "tick": 141, "time": 28.2}
+{"channel": "public", "kind": "ejection", "meeting_id": "m1", "player_id": null, "record": "event", "tick": 141, "time": 28.2}
+{"channel": "public", "kind": "exploration_resumed", "meeting_id": "m1", "record": "event", "tick": 141, "time": 28.2}
+{"channel": "truth", "console_id": "task:7:2", "kind": "task_start", "player_id": "p0", "record": "event", "task_id": "t-4c672acf9018b713", "tick": 141, "time": 28.2}
+{"channel": "truth", "console_id": "task:1:5", "kind": "task_start", "player_id": "p1", "record": "event", "task_id": "t-e74332f81d4536ee", "tick": 141, "time": 28.2}
+{"channel": "truth", "console_id": "stage:12:46", "kind": "fake_task_start", "player_id": "p2", "record": "event", "tick": 141, "time": 28.2}
+{"channel": "truth", "kind": "navigate", "player_id": "p3", "position": [9.746881035185808, -9.394357780092697], "record": "event", "status": "moving", "target": "task:3:1", "tick": 141, "time": 28.2}
+{"channel": "truth", "console_id": "task:1:5", "kind": "task_completed", "player_id": "p1", "record": "event", "task_id": "t-e74332f81d4536ee", "tick": 143, "time": 28.6}
+{"channel": "truth", "kind": "navigate", "player_id": "p1", "position": [-16.50000000000013, -4.253508113167918], "record": "event", "status": "moving", "target": "stage:image:5", "tick": 144, "time": 28.8}
+{"channel": "truth", "console_id": "task:7:2", "kind": "task_completed", "player_id": "p0", "record": "event", "task_id": "t-4c672acf9018b713", "tick": 152, "time": 30.4}
+{"channel": "truth", "kind": "navigate", "player_id": "p0", "position": [-20.819551212392224, -5.340000000000256], "record": "event", "status": "moving", "target": "stage:image:5", "tick": 153, "time": 30.6}
+{"channel": "truth", "console_id": "stage:12:46", "kind": "fake_task_end", "player_id": "p2", "record": "event", "tick": 161, "time": 32.2}
+{"channel": "truth", "console_id": "stage:image:5", "kind": "task_start", "player_id": "p1", "record": "event", "task_id": "t-6a8d7cc9763315e8", "tick": 162, "time": 32.4}
+{"channel": "truth", "console_id": "stage:12:46", "kind": "fake_task_start", "player_id": "p2", "record": "event", "tick": 162, "time": 32.4}
+{"channel": "direct", "interacting": true, "kind": "direct_sighting", "observer_id": "p0", "player_id": "p1", "position": {"x": -16.002399307490148, "y": 2.2059194459915874}, "record": "event", "room": "Upper Engine", "tick": 177, "time": 35.4}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p1", "player_id": "p0", "position": {"x": -15.480000000000153, "y": 1.6799999999995947}, "record": "event", "room": "Upper Engine", "tick": 177, "time": 35.4}
+{"channel": "truth", "console_id": "stage:image:5", "kind": "task_start", "player_id": "p0", "record": "event", "task_id": "t-4daa4a77598dbf68", "tick": 180, "time": 36.0}
+{"channel": "truth", "console_id": "stage:image:5", "kind": "task_completed", "player_id": "p1", "record": "event", "task_id": "t-6a8d7cc9763315e8", "tick": 182, "time": 36.4}
+{"channel": "truth", "console_id": "stage:12:46", "kind": "fake_task_end", "player_id": "p2", "record": "event", "tick": 182, "time": 36.4}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p0", "player_id": "p1", "position": {"x": -16.002399307490148, "y": 2.2059194459915874}, "record": "event", "room": "Upper Engine", "tick": 183, "time": 36.6}
+{"channel": "direct", "interacting": true, "kind": "direct_sighting", "observer_id": "p1", "player_id": "p0", "position": {"x": -16.002399307490148, "y": 2.2059194459915874}, "record": "event", "room": "Upper Engine", "tick": 183, "time": 36.6}
+{"channel": "truth", "kind": "navigate", "player_id": "p1", "position": [-16.002399307490148, 2.2059194459915874], "record": "event", "status": "moving", "target": "room:MedBay", "tick": 183, "time": 36.6}
+{"channel": "truth", "console_id": "stage:12:46", "kind": "fake_task_start", "player_id": "p2", "record": "event", "tick": 183, "time": 36.6}
+{"channel": "truth", "console_id": "stage:image:5", "kind": "task_completed", "player_id": "p0", "record": "event", "task_id": "t-4daa4a77598dbf68", "tick": 200, "time": 40.0}
+{"channel": "truth", "kind": "navigate", "player_id": "p0", "position": [-16.002399307490148, 2.2059194459915874], "record": "event", "status": "moving", "target": "stage:12:13", "tick": 201, "time": 40.2}
+{"channel": "truth", "console_id": "stage:12:46", "kind": "fake_task_end", "player_id": "p2", "record": "event", "tick": 203, "time": 40.6}
+{"channel": "truth", "kind": "navigate", "player_id": "p1", "position": [-9.660000000000277, -0.7552982189746063], "record": "event", "status": "moving", "target": "room:Navigation", "tick": 204, "time": 40.8}
+{"channel": "truth", "kind": "navigate", "player_id": "p2", "position": [-18.056056164147446, -12.720000000000098], "record": "event", "status": "moving", "target": "task:29:10", "tick": 204, "time": 40.8}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p2", "player_id": "p3", "position": {"x": -15.66000000000015, "y": -12.720000000000098}, "record": "event", "room": "Lower Engine", "tick": 207, "time": 41.4}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p3", "player_id": "p2", "position": {"x": -16.556056164147446, "y": -12.720000000000098}, "record": "event", "room": "Lower Engine", "tick": 207, "time": 41.4}
+{"channel": "direct", "killer_id": "p2", "kind": "elimination_witnessed", "observer_id": "p2", "record": "event", "tick": 207, "time": 41.4, "victim_id": "p3"}
+{"channel": "direct", "killer_id": "p2", "kind": "elimination_witnessed", "observer_id": "p3", "record": "event", "tick": 207, "time": 41.4, "victim_id": "p3"}
+{"channel": "truth", "killer_id": "p2", "kind": "elimination", "position": [-15.66000000000015, -12.720000000000098], "record": "event", "tick": 207, "time": 41.4, "victim_id": "p3"}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p0", "player_id": "p1", "position": {"x": -8.200000000000298, "y": 0.7199999999996152}, "record": "event", "room": "NorthHallway", "tick": 210, "time": 42.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p1", "player_id": "p0", "position": {"x": -12.62000000000016, "y": 1.3199999999996024}, "record": "event", "room": "NorthHallway", "tick": 210, "time": 42.0}
+{"channel": "direct", "kind": "body_observed", "observer_id": "p2", "position": {"x": -15.66000000000015, "y": -12.720000000000098}, "record": "event", "room": "Lower Engine", "tick": 210, "time": 42.0, "victim_id": "p3"}
+{"channel": "public", "kind": "report", "record": "event", "reporter_id": "p2", "room": "Lower Engine", "tick": 210, "time": 42.0, "victim_id": "p3"}
+{"channel": "public", "kind": "report_transition", "record": "event", "tick": 210, "time": 42.0}
+{"channel": "public", "kind": "meeting_started", "meeting_id": "m2", "participants": ["p0", "p1", "p2"], "record": "event", "tick": 210, "time": 42.0}
+{"channel": "truth", "kind": "task_reassigned", "recipient_id": "p1", "record": "event", "task_id": "t-a3283e53489f82c0", "tick": 210, "time": 42.0}
+{"channel": "truth", "kind": "task_reassigned", "recipient_id": "p0", "record": "event", "task_id": "t-6f784eb05cf9becc", "tick": 210, "time": 42.0}
+{"asserted_tick": 210, "channel": "public", "claim_kind": "saw_player", "kind": "claim", "record": "event", "region": "NorthHallway", "speaker_id": "p0", "subject_id": "p1", "tick": 213, "time": 42.6}
+{"asserted_tick": 210, "channel": "public", "claim_kind": "saw_player", "kind": "claim", "record": "event", "region": "NorthHallway", "speaker_id": "p1", "subject_id": "p0", "tick": 225, "time": 45.0}
+{"asserted_tick": 210, "channel": "public", "claim_kind": "suspect_player", "kind": "claim", "record": "event", "region": "Lower Engine", "speaker_id": "p2", "subject_id": "p0", "tick": 240, "time": 48.0}
+{"channel": "public", "kind": "voting_started", "meeting_id": "m2", "record": "event", "tick": 255, "time": 51.0}
+{"channel": "public", "kind": "vote", "meeting_id": "m2", "record": "event", "target_id": null, "tick": 255, "time": 51.0, "voter_id": "p0"}
+{"channel": "public", "kind": "vote", "meeting_id": "m2", "record": "event", "target_id": null, "tick": 255, "time": 51.0, "voter_id": "p1"}
+{"channel": "public", "kind": "vote", "meeting_id": "m2", "record": "event", "target_id": null, "tick": 255, "time": 51.0, "voter_id": "p2"}
+{"channel": "public", "kind": "meeting_resolution", "meeting_id": "m2", "record": "event", "tick": 285, "time": 57.0}
+{"channel": "public", "kind": "ejection", "meeting_id": "m2", "player_id": null, "record": "event", "tick": 285, "time": 57.0}
+{"channel": "public", "kind": "exploration_resumed", "meeting_id": "m2", "record": "event", "tick": 285, "time": 57.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p0", "player_id": "p1", "position": {"x": -8.200000000000298, "y": 0.7199999999996152}, "record": "event", "room": "NorthHallway", "tick": 285, "time": 57.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p1", "player_id": "p0", "position": {"x": -12.62000000000016, "y": 1.3199999999996024}, "record": "event", "room": "NorthHallway", "tick": 285, "time": 57.0}
+{"channel": "truth", "kind": "navigate", "player_id": "p0", "position": [-12.62000000000016, 1.3199999999996024], "record": "event", "status": "moving", "target": "task:3:1", "tick": 285, "time": 57.0}
+{"channel": "truth", "kind": "navigate", "player_id": "p1", "position": [-8.200000000000298, 0.7199999999996152], "record": "event", "status": "moving", "target": "stage:12:43", "tick": 285, "time": 57.0}
+{"channel": "truth", "kind": "navigate", "player_id": "p2", "position": [-15.275889360201461, -12.399907800167858], "record": "event", "status": "moving", "target": "stage:12:13", "tick": 285, "time": 57.0}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p1", "player_id": "p2", "position": {"x": -3.3600000000004115, "y": -11.160000000000132}, "record": "event", "room": "Storage", "tick": 318, "time": 63.6}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p2", "player_id": "p1", "position": {"x": -0.24000000000047805, "y": -8.980000000000231}, "record": "event", "room": "Hallway", "tick": 318, "time": 63.6}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p2", "player_id": "p1", "position": {"x": 0.08852062494079466, "y": -10.064496796706333}, "record": "event", "room": "Storage", "tick": 321, "time": 64.2}
+{"channel": "truth", "console_id": "task:3:1", "kind": "task_start", "player_id": "p0", "record": "event", "task_id": "t-6f784eb05cf9becc", "tick": 333, "time": 66.6}
+{"channel": "truth", "console_id": "task:3:1", "kind": "task_completed", "player_id": "p0", "record": "event", "task_id": "t-6f784eb05cf9becc", "tick": 350, "time": 70.0}
+{"channel": "truth", "kind": "navigate", "player_id": "p0", "position": [-18.156056064147446, -12.720000000000098], "record": "event", "status": "moving", "target": "stage:12:13", "tick": 351, "time": 70.2}
+{"channel": "truth", "kind": "navigate", "player_id": "p2", "position": [8.575741477647863, 2.438707388242224], "record": "event", "status": "moving", "target": "utility:12:4", "tick": 363, "time": 72.6}
+{"channel": "truth", "console_id": "stage:12:43", "kind": "task_start", "player_id": "p1", "record": "event", "task_id": "t-a3283e53489f82c0", "tick": 372, "time": 74.4}
+{"channel": "truth", "console_id": "stage:12:43", "kind": "task_completed", "player_id": "p1", "record": "event", "task_id": "t-a3283e53489f82c0", "tick": 392, "time": 78.4}
+{"channel": "truth", "kind": "navigate", "player_id": "p1", "position": [16.616111518081347, -3.723332984501276], "record": "event", "status": "moving", "target": "room:Reactor", "tick": 393, "time": 78.6}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p0", "player_id": "p2", "position": {"x": -0.4187321874823052, "y": -5.705071250072924}, "record": "event", "room": "AdminHallway", "tick": 396, "time": 79.2}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p2", "player_id": "p0", "position": {"x": -1.320000000000455, "y": -9.300000000000171}, "record": "event", "room": "Storage", "tick": 396, "time": 79.2}
+{"channel": "truth", "kind": "navigate", "player_id": "p2", "position": [-0.4187321874823052, -5.705071250072924], "record": "event", "status": "moving", "target": "location", "tick": 396, "time": 79.2}
+{"channel": "direct", "interacting": false, "kind": "direct_sighting", "observer_id": "p2", "player_id": "p0", "position": {"x": -1.0637816595217293, "y": -8.18932116015488}, "record": "event", "room": "AdminHallway", "tick": 399, "time": 79.8}
+{"channel": "direct", "killer_id": "p2", "kind": "elimination_witnessed", "observer_id": "p0", "record": "event", "tick": 399, "time": 79.8, "victim_id": "p0"}
+{"channel": "direct", "killer_id": "p2", "kind": "elimination_witnessed", "observer_id": "p2", "record": "event", "tick": 399, "time": 79.8, "victim_id": "p0"}
+{"channel": "truth", "killer_id": "p2", "kind": "elimination", "position": [-1.0637816595217293, -8.18932116015488], "record": "event", "tick": 399, "time": 79.8, "victim_id": "p0"}
+{"channel": "public", "kind": "match_end", "reason": "PARITY", "record": "event", "tick": 399, "time": 79.8, "winner": "impostor"}

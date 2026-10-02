@@ -5,10 +5,36 @@
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/)
 [![PyTorch 2.6](https://img.shields.io/badge/PyTorch-2.6-ee4c2c.svg)](https://pytorch.org/)
 [![Gymnasium](https://img.shields.io/badge/Gymnasium-1.1+-darkgreen.svg)](https://gymnasium.farama.org/)
-[![Tests Passing](https://img.shields.io/badge/tests-197%20passed-success.svg)](test_information_contract.py)
+[![Tests Passing](https://img.shields.io/badge/tests-291%20passed-success.svg)](test_information_contract.py)
 [![Phase 1](https://img.shields.io/badge/phase%201-complete%20%2F%20frozen-blueviolet.svg)](docs/information_contract.md)
 
-## Current foundation: source-backed Skeld navigation
+## Watch the five-player simulator
+
+```powershell
+python run_phase3.py
+```
+
+One command opens the improved Skeld map and starts a full scripted match:
+four crew, one impostor, physical travel, timed private tasks, occluded sightings,
+bodies, reports, structured claims, public votes and a final winner. Space pauses,
+Right steps, `+/-` changes speed, R replays and N starts the next seed. `1` reveals
+privileged spectator roles; controllers never receive that view.
+
+The owner-requested character/task artwork is available in an ignored local pack.
+`python phase3_assets.py --install` installs the pinned selection explicitly;
+without it, the demo uses original procedural characters. See the
+[asset provenance and redistribution boundaries](docs/phase3_asset_provenance.md).
+
+```powershell
+python run_phase3_batch.py --matches 1000 --workers 8
+```
+
+This headless command independently replays every seed and writes CSV/JSON results.
+Read the [rules, architecture, controls and limitations](docs/social_simulator.md)
+and [acceptance evidence](docs/benchmarks/phase3/README.md). The learned crewmate,
+event-memory/belief model and strategic RL remain later work.
+
+## Preserved source-backed Skeld navigation inspector
 
 Launch the new map with `python among_us_map_simulation.py`. It combines native
 collider geometry, task/vent metadata and the supplied reference artwork, with
@@ -34,11 +60,14 @@ asset-backed path has separate [source notices](assets/skeld/NOTICE.md).
 
 **Social Deduction AI** is an artificial intelligence research project investigating autonomous agent reasoning in partially observable, multi-agent social-deduction environments (inspired by games like *Among Us*).
 
-Rather than relying on omniscient game state or hand-crafted heuristic rules, the project focuses on training an **autonomous crewmate** that:
+The research goal is to train an **autonomous crewmate** that:
 - Receives strictly legitimate partial observations (local field-of-view, public announcements, and verbal statements).
 - Accumulates timestamped evidence in an episodic memory store.
 - Maintains and updates an explicit probabilistic belief/suspicion model over hidden player roles.
 - Learns high-level strategic decision-making (task completion, patrol routes, grouping, reporting bodies, and voting) through reinforcement learning.
+
+The current Phase 3 actors are small scripted baselines used to validate the
+environment. They do not yet implement this learned reasoning pipeline.
 
 ---
 
@@ -101,7 +130,7 @@ flowchart TD
 | **Phase 1** | **Information Contract** | Immutable value types, observation projector, evidence provenance, zero-leakage test harness. | **COMPLETE / FROZEN** |
 | **Phase 1.5** | **Source-backed Map** | Separate native-coordinate Skeld sandbox, blueprint, reference artwork and collision checks; live-game parity unverified. | **FROZEN FOR NAVIGATION** |
 | **Phase 2** | **Navigation Service** | Swept-clear routes, interaction arrival, cancellation/replanning, 3,906 directed pairs + 1,008 random spawns. | **COMPLETE** |
-| **Phase 3** | **Scripted Game Simulator** | 5-player match engine (4 crew + 1 impostor), tasks, kill cooldowns, reports, and voting meetings. | **PLANNED** |
+| **Phase 3** | **Scripted Game Simulator** | Full five-player matches, information-safe scripts, visual demo, 1,000 seeds + 1,000 exact replays. | **COMPLETE** |
 | **Phase 4** | **Memory & Belief Model** | Spatio-temporal event memory, consistency tracking, impossibility detection, and role posterior estimation. | **PLANNED** |
 | **Phase 5** | **Learned Crewmate Policy** | Strategic actor-critic policy (PPO) optimizing crew task completion, grouping, and voting accuracy. | **PLANNED** |
 | **Phase 6** | **Multi-Agent Expansion** | Learned impostor strategies, competitive self-play, saboteurs, vent networks, and symbolic communication. | **FUTURE** |
@@ -128,8 +157,13 @@ flowchart TD
    - Zero collisions, blocked steps or replans in the static-map benchmark.
    - Task/room/location arrival, cancellation, replacement and explicit failure outcomes.
    - [Committed results](docs/benchmarks/phase2/README.md) and [service documentation](docs/navigation_service.md).
-5. **Test Suite Health**:
-   - **197 tests passing**: 139 preserved checks, 15 map checks and 43 navigation checks.
+5. **Five-Player Scripted Simulator**:
+   - **1,000/1,000 matches completed**, with **1,000/1,000 identical independent replays**.
+   - Zero crashes, invalid states, timeouts, illegal scripted actions or navigation failures.
+   - 870 task victories, 41 impostor ejections and 89 impostor parity wins.
+   - [Committed acceptance evidence](docs/benchmarks/phase3/README.md).
+6. **Test Suite Health**:
+   - **291 tests passing**: all 197 original checks plus 93 Phase 3 checks and one legacy-viewer exit regression.
 
 ---
 
@@ -158,7 +192,18 @@ pip install -r requirements-dev.txt
 pytest -q
 ```
 
-### 3. Launch New Map Simulation
+### 3. Watch a Full Scripted Match
+
+```powershell
+python run_phase3.py
+python run_phase3.py --seed 15 --speed 4
+python run_phase3_batch.py --matches 1000 --workers 8
+```
+
+Seed 7 demonstrates tasks and a skipped meeting; seed 15 demonstrates an observed
+kill leading to ejection; seed 25 demonstrates an impostor parity victory.
+
+### 4. Launch the Navigation Inspector
 
 ```powershell
 python among_us_map_simulation.py
@@ -167,7 +212,7 @@ python among_us_map_simulation.py
 WASD/arrows move and cancel navigation; click sets a goal; Tab cycles destinations; Space starts the navigation service. The window title shows its status.
 B shows the blueprint, C collision, T interactions, L labels, R rays, P preview crew.
 
-### 4. Reproduce Navigation Acceptance
+### 5. Reproduce Navigation Acceptance
 
 ```powershell
 python benchmark_navigation.py
@@ -177,7 +222,7 @@ Runs every directed pair of 63 destinations and 1,008 deterministic stratified
 spawns through normal movement physics. Results include per-case CSV and a JSON
 summary in `docs/benchmarks/phase2/`. See the [service API and methodology](docs/navigation_service.md).
 
-### 5. Launch Preserved Legacy Inspector
+### 6. Launch Preserved Legacy Inspector
 
 ```powershell
 # Interactive visual inspector for The Skeld map
@@ -205,7 +250,9 @@ Comprehensive project documentation is maintained in the [`docs/`](docs/) direct
 - [**docs/among_us_map_simulation.md**](docs/among_us_map_simulation.md): New map blueprint, source versions, fidelity limits, controls and sandbox API.
 - [**docs/asset_sources.md**](docs/asset_sources.md): Legacy procedural-asset policy and separate source-backed map notices.
 - [**docs/navigation_service.md**](docs/navigation_service.md): Phase 2 architecture, API, failure handling and benchmark reproduction.
-- [**HANDOFF.md**](HANDOFF.md): Engineering state, frozen boundaries, key files, and Phase 2 transition notes.
+- [**docs/social_simulator.md**](docs/social_simulator.md): Phase 3 architecture, rules, information integrity, scripts and launch commands.
+- [**docs/phase3_asset_provenance.md**](docs/phase3_asset_provenance.md): Audit of all three requested sources and exact locally used artwork.
+- [**HANDOFF.md**](HANDOFF.md): Engineering state, frozen boundaries, validation and continuation notes.
 
 ---
 

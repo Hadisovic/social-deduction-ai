@@ -2,6 +2,62 @@
 
 > **Canonical Document**: Detailed technical history, experimental results, architectural pivot, and roadmap status for the **Social Deduction AI** project.
 
+## 2026-10-02: Phase 3 five-player simulator COMPLETE
+
+Started from clean `main` at `deae77c3dda88290659abc3659d5eb472c07aa07` after
+fetch/fast-forward verification. The pre-change baseline was **197 passed**.
+Phase 1's original interface and Phase 2 navigation/geometry remain unchanged.
+The new fixed-tick engine separates physical entities, trusted projection,
+immutable actor packets, scripts and spectator rendering. Four crew and one
+impostor now play full matches through timed private tasks, local occluded sight,
+kills, bodies, reports, structured claims, public voting and centralized wins.
+
+```powershell
+python run_phase3.py
+python run_phase3_batch.py --matches 1000 --workers 8
+```
+
+| Verification | Result |
+|---|---|
+| Full regression | **291 passed**, one existing Gym spec warning |
+| Added checks | **93 Phase 3 tests + 1 legacy-viewer regression** |
+| Primary matches / independent replays | **1,000 / 1,000**, seeds 0–999 |
+| Crashes / invalid states / timeouts | **0 / 0 / 0** |
+| Replay differences / navigation failures / illegal actions | **0 / 0 / 0** |
+| Crew task / impostor ejection / impostor parity wins | **870 / 41 / 89** |
+| Simulated duration / steps, per match | **58.932 s / 294.749** |
+| Worker runtime / full batch wall time | **5.724 s mean / 1,290.18 s**, eight concurrent workers, including replays |
+| Real desktop matches inspected | **7, 15, 25**, covering all three winning reasons |
+
+The match deadline is an explicit draw, and the fixed eight-task quota survives
+elimination. Unfinished work is reassigned only after absence becomes public at
+a meeting, avoiding a hidden-death leak. Meetings freeze positions and timers;
+no gameplay teleport is used. Claims retain authenticated speaker/delivery and
+separate asserted time; deception is legal, and hearsay is not direct evidence.
+Full input/action paired-world tests cover hidden-role/task/position/death/order
+changes, future events, native occlusion, provenance and spectator isolation.
+
+The owner's requested clone character/task images are used in a pinned, ignored
+local pack: 119 selected PNGs, ten colors, body art and nine task illustrations.
+The public repository includes the exact manifest, loader and original fallback,
+without republishing ripped artwork. The requested Impostor Skeld files already
+matched all five checked-in sources byte-for-byte. The Agentic-Among-Us source
+was inspected but provided procedural rendering/reference screenshots rather
+than a usable licensed sprite pack. See the [full asset audit](phase3_asset_provenance.md).
+
+Visual QA caught indexed PNG scaling, now normalized without requiring a display.
+Concurrent regression exposed a legacy training-viewer close race; one exit guard
+and a deterministic regression fix it without weakening old tests. All final
+simulation source hashes remained unchanged throughout the 1,000-seed acceptance
+run. No learned suspicion, event-memory model, strategic RL, LLM meetings, vents
+or sabotage were added. The completed environment is ready for separately scoped
+**Phase 4: Event Memory + Suspicion / Belief Model**.
+
+See [architecture/rules/controls](social_simulator.md),
+[acceptance metrics and representative timelines](benchmarks/phase3/README.md),
+and [current handoff](../HANDOFF.md). Earlier sections below retain historical
+milestone results; their “next phase” statements describe those earlier dates.
+
 ## 2026-10-02: Phase 2 reliable navigation COMPLETE
 
 Clean `main` was fast-forwarded from `0b12c09` to the teammate's map commit
@@ -277,7 +333,7 @@ Instead of coupling social deduction to end-to-end continuous pixels or raw loco
                                          |
                                          v
 +---------------------------------------------------------------------------------+
-|  Phase 3: Five-Player Scripted Game Simulator               [ PLANNED ]          |
+|  Phase 3: Five-Player Scripted Game Simulator               [ COMPLETE ]          |
 |  - 4 crew + 1 impostor, task assignment, kill cooldowns, body reports, meetings  |
 +---------------------------------------------------------------------------------+
                                          |
@@ -337,9 +393,10 @@ As of Phase 1 completion, the project maintains an automated test suite with **1
   - Static arrival and recovery contracts are settled in `navigation_service.md`.
   - Future moving-player/door mechanics need observed-state integration and a new
     dynamic benchmark; the completed static benchmark does not establish them.
-- **Phase 3 (Scripted Simulator)**:
-  - What deterministic tie-breaking order should resolve simultaneous actions occurring on the exact same simulation tick (e.g., simultaneous kill vs body report vs meeting call)?
-  - How should uncompleted tasks belonging to an eliminated crewmate be reassigned among surviving crew to maintain a fair team quota without disclosing death ticks?
+- **Phase 3 rules now settled**:
+  - Reports/emergency calls precede kills; public ID breaks simultaneous-action ties.
+  - Unfinished tasks retain the fixed quota and are reassigned privately only after public meeting absence/ejection.
+  - See `social_simulator.md` for exact timers, voting, timeout and termination rules.
 - **Phase 4 (Memory & Beliefs)**:
   - What internal memory representation best compresses long match histories: an explicit spatio-temporal constraint graph, a tabular player-location matrix, or a tokenized event history?
   - Should the suspicion model maintain a Bayesian belief posterior over role permutations, or output continuous heuristic suspicion scores?

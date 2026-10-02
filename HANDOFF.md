@@ -3,122 +3,123 @@
 ## Current state (2026-10-02)
 
 - Repository: `Hadisovic/social-deduction-ai`, branch `main`.
-- Synced clean `0b12c09` to teammate map commit
-  `381936787236ada3ddfda3705521fe3d2b680864` before Phase 2 changes.
-- Phase 1 information boundary remains complete/frozen (`8a0b4c9`).
-- Phase 1.5 map is frozen as the controlled navigation target. Commercial-client
-  parity remains unverified; geometry and destination metadata are unchanged.
-- **PHASE 2 COMPLETE**: 4,914/4,914 physical executions passed; 197 tests pass.
-- Phase 3 has not started. No training, social gameplay or model/log changes.
-- Final Phase 2 implementation commit: `9dcc0a217da468c6d906816937fbd5bd11af128f`.
-- This documentation follow-up records that immutable milestone. Resolve the final
-  handoff commit with `git log -1 --format=%H` (a document cannot embed its own hash).
+- Phase 3 starting revision: `deae77c3dda88290659abc3659d5eb472c07aa07`.
+- Phase 1 complete/frozen: `8a0b4c9`; map milestone: `3819367`;
+  Phase 2 implementation: `9dcc0a217da468c6d906816937fbd5bd11af128f`.
+- **PHASE 3 COMPLETE**: 291 tests; 1,000 complete seeds and 1,000 identical
+  independent replays; all required failure categories zero.
+- Phase 3 implementation revision is recorded by the documentation follow-up
+  after the implementation commit. Resolve the final handoff with `git log -1`.
+- Phase 4 has not started. No learned policy, belief model, training or checkpoint
+  changes were made.
 
-## What changed
-
-`navigation_service.py` provides cached reverse multi-source Dijkstra fields over
-swept-validated grid edges, clearance-preserving waypoint simplification,
-interaction-region arrival and a bounded physical controller. It exposes
-`NavTarget.task(id)`, `.room(name)`, `.location(position, radius)`, `navigate`,
-`command`, `feedback`, `cancel`, and explicit `replan` with known geometry.
-
-The service consumes own-motion feedback and emits native x-right/y-up bounded
-displacements. It does not hold an environment, teleport or query hidden truth.
-`AmongUsMapEnv.spawn` initializes episodes; `advance_motion` performs subsequent
-movement through the normal `map.move` collision model. Gym and manual movement
-use the same primitive. Gym reset/step shape, direction, rewards and termination
-semantics are preserved. Service arrival uses actual console interaction regions
-and owns its completion semantics; do not drive it through normalized Gym actions.
-
-The map inspector now uses the service: Tab selects a console, click sets a
-location, Space starts, WASD/arrows cancel and move manually. The title shows status.
-Diagnostic A* and the old map/environment/inspectors remain available.
-
-The fresh baseline was **152 passed, 2 failed**. Both failures were Windows CRLF
-conversion of byte-hashed map sources and the exact legacy snapshot. `.gitattributes`
-preserves the original repository bytes; tests and map geometry were not weakened.
-All 15 teammate map tests passed after that fix.
-
-## Validation
-
-Using Python 3.12.10 and the existing Windows venv:
-
-| Check | Result |
-|---|---|
-| `python -m pytest -q` | **197 passed**, one existing Gym registration warning |
-| `python -m pytest test_navigation_service.py -q` | **43 passed** |
-| `python -m pip check` | No broken requirements |
-| `git diff --check` | Passed |
-| Full physical benchmark | **4,914/4,914 passed**, zero collisions/blocked steps/replans |
-
-The 43 service tests cover every native room approach, all grid-edge legality,
-rejected corner-cutting diagonals, physical motion and radius clearance, interaction
-regions, tiny location goals, cancellation/replacement, known-door `NO_ROUTE`,
-blocked recovery, oscillation, timeout, invalid inputs, cache bounds, deterministic
-case generation and shared Gym physics. Existing Phase 1 and legacy tests pass.
-
-The benchmark has 63 destinations, 3,906 directed pairs and 1,008 deterministic
-continuous spawns over 21 regions. It records per-case physical assertions,
-outcomes, travel, final distances, steps, collisions, replans, planning/control
-costs, seed/configuration and implementation/map hashes. The acceptance rule is
-zero failed default cases, stronger than an aggregate 99% target.
-
-Measured on this Windows machine: 826.13 seconds for the full benchmark;
-63.84 ms mean / 206.63 ms p95 planning, 234.98 ms mean cold planning and 63.58 ms
-mean cached planning. Controller cost was 179.71 microseconds per physics step,
-plus 90.60 microseconds for movement physics. Tests/documentation work overlapped
-parts of the run, so timings are observations, not isolated performance guarantees.
-The longest case was `random:O2:007` to Reactor: 53.55 units, 21.77 simulated seconds,
-successful. Every reported region/stratum passed; no unexplained failure remains.
-
-## Reproduction and key files
+## Run the complete game
 
 ```powershell
-python -m pytest -q
-python benchmark_navigation.py
-python benchmark_navigation.py --case "random:Electrical:001" --output .pytest_cache/nav_case
-python among_us_map_simulation.py
+python run_phase3.py
+python run_phase3.py --seed 15 --speed 4
+python run_phase3.py --seed 25 --speed 4
+python run_phase3_batch.py --matches 1000 --workers 8
+.venv\Scripts\python.exe -m pytest -q
 ```
 
-Use the repository's `.venv/Scripts/python.exe` on Windows.
+The no-flags visual command was launched in a real Windows window from the
+repository root. It automatically uses the existing `.venv` if present. Space
+pauses, Right steps, +/- changes speed, R repeats, N changes seed; 1 toggles
+spectator roles, G routes, V range, T tasks, L labels, C collision, E log, B bodies,
+Tab sidebar, Escape exits. Real complete matches 7, 15 and 25 were inspected.
 
-- `docs/navigation_service.md`: architecture alternatives, API/ownership,
-  arrival/controller details, metrics, reproduction and limitations.
-- `docs/benchmarks/phase2/`: committed CSV outcomes, JSON metadata and summary.
-- `test_navigation_service.py`: focused service/failure-contract tests.
-- `among_us_map.py`, `assets/skeld/among_us_map.json`: frozen map/collision data.
-- `docs/among_us_map_simulation.md`, `assets/skeld/NOTICE.md`: fidelity/provenance.
-- `docs/PROJECT_PROGRESS.md`: canonical project history and roadmap.
-- `docs/information_contract.md`, `social_deduction/`: frozen Phase 1 boundary.
+The owner-requested sprites and task panels are installed locally in ignored
+`assets/phase3_local/`. The public repository contains their pinned manifest and
+loader, not the ripped game PNGs. An offline clone uses original procedural
+characters; `python phase3_assets.py --install` explicitly installs the selected
+local pack. Read `docs/phase3_asset_provenance.md` before distributing artwork.
+No new package dependencies were needed.
 
-## Preserved decisions and limits
+## Architecture and preserved contracts
 
-- Main target is our controlled game; classical known-map navigation is allowed.
-- Four crew and one impostor, with one learned crewmate later.
-- Exact own/visible position and public tick timestamps are accepted abstractions.
-- Private task assignments; no live global task bar or hidden death disclosure.
-- Public votes, no role reveal on ejection, no actor role roster after the end.
-- Claims retain source/asserted time separately from delivery time.
-- Actor/memory receive no truth, training labels, debug dictionaries or helper refs.
-- Public event publication uses the frozen typed allowlist and authenticated triggers.
-- Identity and role RNG streams remain independent.
-- No new policy training; preserved model checkpoints and legacy code are unchanged.
+`Phase3Game` owns physical entities, private tasks, bodies, rules and authenticated
+publication. `project_game` creates detached, exact-type immutable
+`Phase3Observation` packets. `ScriptedController.decide` receives only those values;
+it imports no engine, truth, geometry helper or renderer. `ScriptedMatch` gathers
+all actors' inputs before collecting actions, schedules fixed ticks/decisions,
+and hashes full actor inputs/actions and privileged event logs. The renderer is
+a read-only spectator. Visual and batch modes share that same runner.
 
-This benchmark covers the default static map. Dynamic multi-player avoidance,
-door timers, sabotage, task minigames and live-client parity are not established.
-Door closure and motion blockage are isolated regression tests, not a full dynamic
-game. Path efficiency measures execution fidelity to a planned route, not global
-continuous path optimality. Cache workloads/timings are documented explicitly.
+The original Phase 1 modules are unchanged. Native visibility and own-impostor
+controls live in additive `social_deduction/phase3_api.py` and
+`phase3_observation.py`. Phase 2's `NavigationService` and
+`AmongUsMapEnv.advance_motion` are reused unchanged, with the same native map.
+There is no gameplay teleport or second movement system.
 
-## Next work
+Key files:
 
-The Phase 2 gate passed. Phase 3 can now build the five-player scripted
-simulator on the frozen information boundary and physical navigation service.
-Define transition order, task timers, kill/report/meeting rules and authenticated
-publication, then connect Skeld visibility through the trusted projector. Add
-wrapper-level paired-world leakage tests. Do not give actors environment/planner
-references or refresh known navigation geometry from unobserved world state.
+- `phase3_engine.py`: fixed-tick rules, entities, transitions, task quota and wins.
+- `phase3_bots.py`: independent role-aware scripts with bounded recent observations.
+- `phase3_runner.py`: orchestration, trajectory hashes and audit replay output.
+- `run_phase3.py`, `phase3_renderer.py`: desktop demo and spectator overlays.
+- `run_phase3_batch.py`: seeded acceptance, independent replays, metrics/provenance.
+- `phase3_assets.py`, `assets/phase3_assets.json`: selected local artwork and fallback.
+- `docs/social_simulator.md`: complete API, rules, architecture and limitations.
+- `docs/benchmarks/phase3/`: acceptance CSV/JSON, test output, three representative
+  privileged JSONL traces and a truth-versus-actor timeline.
+- `test_phase3_*.py`: 93 new checks, including 26 full-packet boundary checks.
 
-Phase 1 history is minimal snapshot storage; Phase 4 will compress evidence and
-implement beliefs. No suspicion model or strategic policy is implemented here.
-Review Phase 3 separately before starting it.
+## Settled rules
+
+- Four crew/one impostor; independent seeded identities, colors, roles, tasks and
+  controller behavior. Match seed and hidden role state do not enter actor packets.
+- Eight fixed private tasks; four seconds each, retained partial progress.
+  Fake tasks are ambiguous animations and never count toward the quota.
+- On hidden death, orphan work stays with its owner until a public meeting roster
+  reveals absence. Then unfinished work is privately reassigned to active crew.
+- Native geometry blocks 360-degree range-limited sight. Kills need visible close
+  targets and ready cooldown. Direct witnesses must see both killer and victim.
+- Reports reveal reporter/victim/region, never killer or death time. Meetings
+  publish living participants, clear bodies, cancel intentions and freeze positions,
+  interactions and cooldowns. No meeting teleport; fresh intentions resume play.
+- Reports/emergency calls precede kills in simultaneous ticks; public ID breaks ties.
+- One authenticated finite claim per speaking turn; claims can be false. DIRECT,
+  PUBLIC and CLAIM provenance remain distinct. Claimed time is not delivery time.
+- One public vote/skip per participant; self-vote allowed. A unique player plurality
+  must beat skip; all ties and all-skip eject nobody. No role reveal on ejection.
+- Central wins: no impostor, parity, all initial tasks complete, in that order.
+  Deadline is a draw/TIMEOUT and fails the default acceptance gate.
+
+## Final validation
+
+Fresh baseline: 197 passed. Final suite: **291 passed**, one existing Gym spec
+warning, 101.78 seconds during concurrent work. All original tests were retained.
+The added tests include 93 Phase 3 checks plus one deterministic legacy viewer
+regression. A diagnostic full run exposed the old training viewer entering an
+iteration without a model after its initial render handled close; one guard in
+`live_watch_training.py` fixes this. Indexed task PNG scaling was also found by
+real visual QA and fixed in the optional loader. `pip check` passed.
+
+Seeds 0–999: **1,000 complete + 1,000 identical full replays**. Zero crashes,
+invalid states, timeouts, illegal scripted actions, navigation failures or replay
+differences. Source hashes stayed unchanged throughout the run. Results:
+**870 task wins, 41 impostor ejections, 89 parity wins** (911 crew / 89 impostor).
+Mean duration 58.932 simulated seconds; 294.749 steps; mean concurrent worker
+runtime 5.724 seconds. Total wall time 1,290.18 seconds with eight workers,
+including every replay. See the benchmark report for cost breakdowns and caveats.
+
+Only intentional reports and three privileged traces are committed. Local PNGs,
+visual captures, audit downloads, progress journal and scratch test outputs stay
+ignored. The mixed truth replay log must never become a learner's input. Use
+`Phase3Observation` and its explicitly typed evidence instead.
+
+## Limits and next phase
+
+This is a controlled static-map research simulator. Exact structured localization,
+no player-player collision, coarse fixed ticks and timed task substitutes remain
+intentional simplifications. Scripts are validation fixtures and are not balanced
+around 50/50. Commercial-client parity, networking, minigames, dynamic doors,
+vents, sabotage, ghost play, CNN perception and LLM discussion are unimplemented.
+The local artwork has documented redistribution limits; some colors have only a
+single directional frame. Timings include concurrency, validation and hashing.
+
+The next separately scoped phase is **Event Memory + Suspicion / Belief Model**.
+It can consume stable actor packets, direct sightings and public claims/votes,
+with role labels reserved for training/evaluation. Preserve the whole-input and
+legal-candidate invariance tests when adding memory. No Phase 4 work has begun.

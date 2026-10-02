@@ -298,7 +298,7 @@ def main():
             break
         pygame.time.Clock().tick(15)
 
-    if not running:
+    if not running or env.screen is None or current_model is None:
         env.close()
         if pygame.get_init():
             pygame.quit()

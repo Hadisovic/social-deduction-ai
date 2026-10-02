@@ -41,3 +41,6 @@ temp_*
 
 # Root-level transient render snapshots (curated images are in docs/images/)
 snapshot_*.png
+
+# Optional user-requested commercial artwork; never included in public commits.
+assets/phase3_local/
