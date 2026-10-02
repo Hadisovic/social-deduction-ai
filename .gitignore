@@ -44,3 +44,8 @@ snapshot_*.png
 
 # Optional user-requested commercial artwork; never included in public commits.
 assets/phase3_local/
+
+# Regenerable Phase 4 experiments; compact release checkpoint is tracked separately.
+artifacts/phase4/data/
+artifacts/phase4/runs/
+artifacts/phase4/quick/
