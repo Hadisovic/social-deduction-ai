@@ -75,16 +75,27 @@ class AmongUsMapEnv(gym.Env):
             goal = tuple(goals[int(self.np_random.integers(len(goals)))])
         else: goal=target.standing
         start=tuple(options.get('start',start)); goal=tuple(options.get('goal',goal))
+        self.spawn(start,goal)
+        self._target_task=target if mode!='room_to_room' and 'goal' not in options else None
+        return self._build_observation(),self._info()
+
+    def spawn(self, start, goal=None):
+        """Initialize a physical episode without constructing unused Gym sensors.
+
+        Spawning is an episode boundary, never a navigation recovery operation.
+        Gym reset delegates here; subsequent movement must use advance_motion.
+        """
+        start=tuple(start); goal=start if goal is None else tuple(goal)
         if not self.map.contains(start) or not self.map.contains(goal):
             raise ValueError('Start and goal must have full player clearance')
-        if 'goal' in options:self._target_task=None
+        self._target_task=None
         self._player_x,self._player_y=start; self._goal_x,self._goal_y=goal
         self._elapsed=0.; self._step_idx=0; self._total_path_length=0.
         self._best_dist=math.dist(start,goal); self._last_prog_check=0.
         self._blocked_steps=0; self._stuck_flag=0.; self._stag_progress=0.
         self._stag_anchor=start; self._stag_steps=0; self._stag_armed=True
         self._finished=False
-        return self._build_observation(),self._info()
+        return self.position
 
     def _info(self):
         return {'player_pos':self.position,'goal_pos':self.goal,'elapsed':self._elapsed,
@@ -92,6 +103,29 @@ class AmongUsMapEnv(gym.Env):
                 'room':self.map.region(self.position),'current_region':self.map.region(self.position),
                 'target_task':self._target_task.name if self._target_task else None,
                 'stuck':self._stuck_flag,'stagnation':self._stag_progress}
+
+    def advance_motion(self, displacement, dt):
+        """Apply native x-right/y-up motion through the normal swept physics.
+
+        Used by Gym step and the navigation service. This primitive intentionally
+        omits Gym rewards, observations and goal termination; the service owns
+        interaction-region arrival. spawn()/reset() initialize physical episodes.
+        """
+        if self._finished:
+            raise RuntimeError('Call reset before moving / after Gym completion')
+        delta = np.asarray(displacement, dtype=float)
+        if (delta.shape != (2,) or not np.isfinite(delta).all() or
+                not math.isfinite(dt) or dt <= 0):
+            raise ValueError('Expected finite displacement and positive finite dt')
+        if np.linalg.norm(delta) > self.speed * dt + 1e-9:
+            raise ValueError('Displacement exceeds player speed limit')
+        old = self.position
+        new, collided = self.map.move(old, delta)
+        self._player_x, self._player_y = new
+        self._total_path_length += math.dist(old, new)
+        self._elapsed += dt
+        self._step_idx += 1
+        return new, collided
 
     def step(self,action):
         if self._finished: raise RuntimeError('Call reset before step / after episode completion')
@@ -101,10 +135,8 @@ class AmongUsMapEnv(gym.Env):
         direction=action/mag if mag>=.05 else np.zeros(2)
         direction[1]*=-1  # Preserve existing action convention: positive dy moves down.
         old=self.position
-        new,collided=self.map.move(old,direction*self.speed*self.dt)
-        self._player_x,self._player_y=new
-        moved=math.dist(old,new); self._total_path_length+=moved
-        self._elapsed+=self.dt; self._step_idx+=1
+        new,collided=self.advance_motion(direction*self.speed*self.dt,self.dt)
+        moved=math.dist(old,new)
         blocked=collided and mag>=.05 and moved<.2*self.speed*self.dt
         self._blocked_steps=self._blocked_steps+1 if blocked else max(0,self._blocked_steps-1)
         self._stuck_flag=float(self._blocked_steps>=15)
@@ -173,15 +205,18 @@ def screenshots(directory):
 
 
 def inspect():
+    from navigation_service import NavigationPlanner, NavigationService, NavTarget
     pygame.init()
     env=AmongUsMapEnv(); env.reset(seed=7,options={'start':(-.7,-2.8)})
     screen=pygame.display.set_mode(env.render_size); pygame.display.set_caption('Among Us Map Simulation - The Skeld')
-    clock=pygame.time.Clock(); index=0; route=[]; following=False; show_route=True
+    clock=pygame.time.Clock(); index=0; route=[]; show_route=True
+    planner=NavigationPlanner(env.map); navigator=NavigationService(planner)
+    target=NavTarget.task(env._target_task.id)
     flags={k:False for k in ('collision','interactions','labels','rays','blueprint','fixtures')}
     keys={pygame.K_c:'collision',pygame.K_t:'interactions',pygame.K_l:'labels',pygame.K_r:'rays',pygame.K_b:'blueprint',pygame.K_p:'fixtures'}
     running=True
     while running:
-        dt=min(clock.tick(60)/1000,.05)
+        dt=max(.001,min(clock.tick(60)/1000,.05))
         for event in pygame.event.get():
             if event.type==pygame.QUIT:running=False
             elif event.type==pygame.KEYDOWN:
@@ -189,29 +224,31 @@ def inspect():
                 elif event.key in keys:flags[keys[event.key]]=not flags[keys[event.key]]
                 elif event.key==pygame.K_g:show_route=not show_route
                 elif event.key==pygame.K_SPACE:
-                    route=env.map.astar(env.position,env.goal); following=bool(route)
+                    navigator.navigate(env.position,target); route=navigator.route
                 elif event.key in (pygame.K_TAB,pygame.K_n):
                     index=(index+1)%len(env.map.destinations); d=env.map.destinations[index]
                     env._target_task=d; env._goal_x,env._goal_y=d.standing
-                    route=env.map.astar(env.position,env.goal); following=False
+                    target=NavTarget.task(d.id); navigator.cancel()
+                    route=planner.plan(env.position,target).route
             elif event.type==pygame.MOUSEBUTTONDOWN and event.button==1:
                 goal=env.renderer.screen_to_world(event.pos)
                 if env.map.contains(goal):
                     env._goal_x,env._goal_y=goal; env._target_task=None
-                    route=env.map.astar(env.position,goal); following=False
+                    target=NavTarget.location(goal); navigator.cancel()
+                    route=planner.plan(env.position,target).route
         held=pygame.key.get_pressed()
         delta=np.array([int(held[pygame.K_d] or held[pygame.K_RIGHT])-int(held[pygame.K_a] or held[pygame.K_LEFT]),
                         int(held[pygame.K_w] or held[pygame.K_UP])-int(held[pygame.K_s] or held[pygame.K_DOWN])],dtype=float)
         if np.linalg.norm(delta):
-            following=False; route=[]; delta*=env.speed*dt/np.linalg.norm(delta)
-        elif following:
-            while route and math.dist(env.position,route[0])<.015:route.pop(0)
-            if route:
-                diff=np.array(route[0])-env.position; length=np.linalg.norm(diff)
-                delta=diff*min(1.,env.speed*dt/length)
-            else:following=False
-        if np.linalg.norm(delta):env._player_x,env._player_y=env.map.move(env.position,delta)[0]
+            navigator.cancel(); route=[]; delta*=env.speed*dt/np.linalg.norm(delta)
+            env.advance_motion(delta,dt)
+        else:
+            delta=navigator.command(env.position,dt)
+            if navigator.awaiting_feedback:
+                new,hit=env.advance_motion(delta,dt); navigator.feedback(new,hit)
+                route=navigator.route
         name=env._target_task.name if env._target_task else 'Custom destination'
+        pygame.display.set_caption(f'Skeld navigation: {navigator.status.value} — {name}')
         surf=env.renderer.draw(env.position,env.goal,name,route if show_route else (),**flags)
         screen.blit(surf,(0,0));pygame.display.flip()
     env.close();pygame.quit()

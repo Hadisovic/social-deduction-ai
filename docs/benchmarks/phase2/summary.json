@@ -1,0 +1,431 @@
+{
+  "gate": "PASS",
+  "gate_rule": "Complete directed pairs plus >=48 spawns per region, zero unexplained failures; all execution assertions pass.",
+  "seed": 20261002,
+  "random_per_region": 48,
+  "destination_count": 63,
+  "region_count": 21,
+  "dt": 0.03333333333333333,
+  "controller_config": {
+    "speed": 2.5,
+    "timeout_seconds": 60.0,
+    "stuck_seconds": 1.0,
+    "max_replans": 2,
+    "waypoint_tolerance": 1e-08
+  },
+  "player_radius": 0.22,
+  "grid_cell_size": 0.06,
+  "cache_size": 8,
+  "field_builds": 63,
+  "field_build_seconds": 8.805617500445805,
+  "planner_setup_seconds": 0.14273149997461587,
+  "run_wall_seconds": 826.1311777000083,
+  "python": "3.12.10",
+  "platform": "Windows-11-10.0.26100-SP0",
+  "numpy": "2.5.3",
+  "shapely": "2.1.2",
+  "base_git_commit": "381936787236ada3ddfda3705521fe3d2b680864",
+  "source_sha256": {
+    "navigation_service.py": "3a1af1e6d7eb143144293e75704e60f29fcb2741bd3fdbeca33ad969d9af406d",
+    "benchmark_navigation.py": "295a54d2a5508bfa8a0ea93eda1c04dee9cf48646889804a1a4965c934b72a0d",
+    "among_us_map.py": "b4dadf5c016a68b1f565e6c5ed2846ccf06d673a5d0c5cd7de3230fd405cf388",
+    "among_us_map_simulation.py": "5a627c25c37532b31dd03a5b4d781e47944331b08f3e87d05560ff67eb90d221",
+    "assets/skeld/among_us_map.json": "9e5e0cd925ab3ede95aae67e42dbb6ebd67717bf8e7365eb655628c669a2d58c"
+  },
+  "case_manifest_sha256": "e4cecd3a517972c36dbb8cffcedfc6b2b14462319f5040f795632374649dc990",
+  "cases": 4914,
+  "successes": 4914,
+  "success_rate": 1.0,
+  "failure_categories": {},
+  "failure_cases": [],
+  "groups": {
+    "suite": {
+      "pairs": {
+        "cases": 3906,
+        "successes": 3906,
+        "success_rate": 1.0
+      },
+      "random": {
+        "cases": 1008,
+        "successes": 1008,
+        "success_rate": 1.0
+      }
+    },
+    "source_region": {
+      "Admin": {
+        "cases": 420,
+        "successes": 420,
+        "success_rate": 1.0
+      },
+      "AdminHallway": {
+        "cases": 48,
+        "successes": 48,
+        "success_rate": 1.0
+      },
+      "BigYHallway": {
+        "cases": 48,
+        "successes": 48,
+        "success_rate": 1.0
+      },
+      "Cafeteria": {
+        "cases": 358,
+        "successes": 358,
+        "success_rate": 1.0
+      },
+      "Communications": {
+        "cases": 234,
+        "successes": 234,
+        "success_rate": 1.0
+      },
+      "CrossHallway": {
+        "cases": 48,
+        "successes": 48,
+        "success_rate": 1.0
+      },
+      "Electrical": {
+        "cases": 420,
+        "successes": 420,
+        "success_rate": 1.0
+      },
+      "ElectricalHallway": {
+        "cases": 48,
+        "successes": 48,
+        "success_rate": 1.0
+      },
+      "Hallway": {
+        "cases": 62,
+        "successes": 62,
+        "success_rate": 1.0
+      },
+      "Lower Engine": {
+        "cases": 296,
+        "successes": 296,
+        "success_rate": 1.0
+      },
+      "MedBay": {
+        "cases": 234,
+        "successes": 234,
+        "success_rate": 1.0
+      },
+      "Navigation": {
+        "cases": 482,
+        "successes": 482,
+        "success_rate": 1.0
+      },
+      "NorthHallway": {
+        "cases": 48,
+        "successes": 48,
+        "success_rate": 1.0
+      },
+      "O2": {
+        "cases": 296,
+        "successes": 296,
+        "success_rate": 1.0
+      },
+      "Reactor": {
+        "cases": 420,
+        "successes": 420,
+        "success_rate": 1.0
+      },
+      "Security": {
+        "cases": 296,
+        "successes": 296,
+        "success_rate": 1.0
+      },
+      "Shields": {
+        "cases": 234,
+        "successes": 234,
+        "success_rate": 1.0
+      },
+      "SouthHallway": {
+        "cases": 48,
+        "successes": 48,
+        "success_rate": 1.0
+      },
+      "Storage": {
+        "cases": 234,
+        "successes": 234,
+        "success_rate": 1.0
+      },
+      "TinyHallway": {
+        "cases": 48,
+        "successes": 48,
+        "success_rate": 1.0
+      },
+      "Upper Engine": {
+        "cases": 296,
+        "successes": 296,
+        "success_rate": 1.0
+      },
+      "Weapons": {
+        "cases": 296,
+        "successes": 296,
+        "success_rate": 1.0
+      }
+    },
+    "destination_room": {
+      "Admin": {
+        "cases": 434,
+        "successes": 434,
+        "success_rate": 1.0
+      },
+      "Cafeteria": {
+        "cases": 361,
+        "successes": 361,
+        "success_rate": 1.0
+      },
+      "Communications": {
+        "cases": 242,
+        "successes": 242,
+        "success_rate": 1.0
+      },
+      "Electrical": {
+        "cases": 423,
+        "successes": 423,
+        "success_rate": 1.0
+      },
+      "Hallway": {
+        "cases": 72,
+        "successes": 72,
+        "success_rate": 1.0
+      },
+      "Lower Engine": {
+        "cases": 306,
+        "successes": 306,
+        "success_rate": 1.0
+      },
+      "MedBay": {
+        "cases": 214,
+        "successes": 214,
+        "success_rate": 1.0
+      },
+      "Navigation": {
+        "cases": 647,
+        "successes": 647,
+        "success_rate": 1.0
+      },
+      "O2": {
+        "cases": 289,
+        "successes": 289,
+        "success_rate": 1.0
+      },
+      "Reactor": {
+        "cases": 590,
+        "successes": 590,
+        "success_rate": 1.0
+      },
+      "Security": {
+        "cases": 306,
+        "successes": 306,
+        "success_rate": 1.0
+      },
+      "Shields": {
+        "cases": 222,
+        "successes": 222,
+        "success_rate": 1.0
+      },
+      "Storage": {
+        "cases": 227,
+        "successes": 227,
+        "success_rate": 1.0
+      },
+      "Upper Engine": {
+        "cases": 294,
+        "successes": 294,
+        "success_rate": 1.0
+      },
+      "Weapons": {
+        "cases": 287,
+        "successes": 287,
+        "success_rate": 1.0
+      }
+    },
+    "destination_category": {
+      "task": {
+        "cases": 4240,
+        "successes": 4240,
+        "success_rate": 1.0
+      },
+      "utility": {
+        "cases": 674,
+        "successes": 674,
+        "success_rate": 1.0
+      }
+    },
+    "spawn_band": {
+      "near_boundary": {
+        "cases": 504,
+        "successes": 504,
+        "success_rate": 1.0
+      },
+      "standing": {
+        "cases": 3906,
+        "successes": 3906,
+        "success_rate": 1.0
+      },
+      "uniform": {
+        "cases": 504,
+        "successes": 504,
+        "success_rate": 1.0
+      }
+    },
+    "selection": {
+      "exhaustive": {
+        "cases": 3906,
+        "successes": 3906,
+        "success_rate": 1.0
+      },
+      "farthest": {
+        "cases": 336,
+        "successes": 336,
+        "success_rate": 1.0
+      },
+      "nearest": {
+        "cases": 336,
+        "successes": 336,
+        "success_rate": 1.0
+      },
+      "uniform": {
+        "cases": 336,
+        "successes": 336,
+        "success_rate": 1.0
+      }
+    }
+  },
+  "collisions": 0,
+  "blocked_steps": 0,
+  "replans": 0,
+  "steps": 1535435,
+  "planning_seconds": {
+    "mean": 0.06384153369989277,
+    "p50": 0.03874004998942837,
+    "p95": 0.20662606501718941,
+    "max": 0.5673987999325618
+  },
+  "cold_planning_seconds": {
+    "mean": 0.23498315237174255,
+    "p50": 0.2356916000135243,
+    "p95": 0.33382328995503485,
+    "max": 0.4080431000329554
+  },
+  "cached_planning_seconds": {
+    "mean": 0.06358247275084952,
+    "p50": 0.03967580001335591,
+    "p95": 0.20001929998397827,
+    "max": 0.5673987999325618
+  },
+  "execution_sim_seconds": {
+    "mean": 10.415377832044495,
+    "p50": 10.71666666666664,
+    "p95": 19.933333333333483,
+    "max": 21.766666666666907
+  },
+  "execution_wall_seconds": {
+    "mean": 0.10326974843189009,
+    "p50": 0.09803514997474849,
+    "p95": 0.221981354948366,
+    "max": 1.8113529999973252
+  },
+  "planned_route_length": {
+    "mean": 25.540504737449275,
+    "p50": 26.217975832883003,
+    "p95": 48.98596918095694,
+    "max": 53.5484443577223
+  },
+  "path_efficiency": {
+    "mean": 1.0,
+    "p50": 1.0,
+    "p95": 1.0000000000000049,
+    "max": 1.0000000000000093
+  },
+  "controller_microseconds_per_step": 179.70562054433339,
+  "physics_microseconds_per_step": 90.60442983075711,
+  "longest_routes": [
+    {
+      "case_id": "random:O2:007",
+      "source_region": "O2",
+      "destination_room": "Reactor",
+      "planned_route_length": 53.5484443577223,
+      "execution_sim_seconds": 21.766666666666907,
+      "success": true
+    },
+    {
+      "case_id": "random:O2:004",
+      "source_region": "O2",
+      "destination_room": "Reactor",
+      "planned_route_length": 53.531051181991934,
+      "execution_sim_seconds": 21.733333333333572,
+      "success": true
+    },
+    {
+      "case_id": "random:O2:034",
+      "source_region": "O2",
+      "destination_room": "Reactor",
+      "planned_route_length": 53.47140946690498,
+      "execution_sim_seconds": 21.700000000000237,
+      "success": true
+    },
+    {
+      "case_id": "random:O2:031",
+      "source_region": "O2",
+      "destination_room": "Reactor",
+      "planned_route_length": 53.45820770752913,
+      "execution_sim_seconds": 21.733333333333572,
+      "success": true
+    },
+    {
+      "case_id": "pair:stage:image:2->task:14:2",
+      "source_region": "O2",
+      "destination_room": "Reactor",
+      "planned_route_length": 53.223005513185946,
+      "execution_sim_seconds": 21.600000000000232,
+      "success": true
+    },
+    {
+      "case_id": "random:O2:043",
+      "source_region": "O2",
+      "destination_room": "Reactor",
+      "planned_route_length": 53.20337884183147,
+      "execution_sim_seconds": 21.566666666666897,
+      "success": true
+    },
+    {
+      "case_id": "random:Navigation:037",
+      "source_region": "Navigation",
+      "destination_room": "Reactor",
+      "planned_route_length": 53.154215713098615,
+      "execution_sim_seconds": 21.566666666666897,
+      "success": true
+    },
+    {
+      "case_id": "pair:task:16:0->task:14:2",
+      "source_region": "Navigation",
+      "destination_room": "Reactor",
+      "planned_route_length": 53.045339297331225,
+      "execution_sim_seconds": 21.533333333333562,
+      "success": true
+    },
+    {
+      "case_id": "random:O2:040",
+      "source_region": "O2",
+      "destination_room": "Reactor",
+      "planned_route_length": 52.92990982745655,
+      "execution_sim_seconds": 21.500000000000227,
+      "success": true
+    },
+    {
+      "case_id": "random:O2:025",
+      "source_region": "O2",
+      "destination_room": "Reactor",
+      "planned_route_length": 52.88886716616891,
+      "execution_sim_seconds": 21.466666666666892,
+      "success": true
+    }
+  ],
+  "post_benchmark_documentation_only_changes": {
+    "among_us_map_simulation.py": {
+      "final_sha256": "2486897ec51c6be618d76528fbe5a05b70573139290aea585e658dbd7c27cb25",
+      "change": "Corrected advance_motion docstring to mention the public spawn method; executable statements unchanged."
+    }
+  }
+}

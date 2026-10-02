@@ -1,0 +1,4 @@
+# Source provenance hashes refer to repository bytes, not platform line endings.
+assets/skeld/sources/* -text
+skeld_config.py text eol=lf
+skeld_config_legacy.py text eol=lf

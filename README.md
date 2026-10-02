@@ -5,14 +5,14 @@
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/)
 [![PyTorch 2.6](https://img.shields.io/badge/PyTorch-2.6-ee4c2c.svg)](https://pytorch.org/)
 [![Gymnasium](https://img.shields.io/badge/Gymnasium-1.1+-darkgreen.svg)](https://gymnasium.farama.org/)
-[![Tests Passing](https://img.shields.io/badge/tests-154%20passed-success.svg)](test_information_contract.py)
+[![Tests Passing](https://img.shields.io/badge/tests-197%20passed-success.svg)](test_information_contract.py)
 [![Phase 1](https://img.shields.io/badge/phase%201-complete%20%2F%20frozen-blueviolet.svg)](docs/information_contract.md)
 
-## Current map work: source-backed Skeld simulation
+## Current foundation: source-backed Skeld navigation
 
 Launch the new map with `python among_us_map_simulation.py`. It combines native
 collider geometry, task/vent metadata and the supplied reference artwork, with
-63 task and utility destinations, swept collision and diagnostic A* navigation.
+63 task and utility destinations, swept collision and a deterministic navigation service.
 The original files and checkpoints are preserved; `skeld_config_legacy.py` also
 snapshots the old map. Existing training entry points still select the old map.
 
@@ -70,7 +70,7 @@ flowchart TD
     end
 
     subgraph Service [Navigation Service]
-        NAV["Navigation Controller<br/><i>(A* Pathfinding, Waypoints, Steering)</i><br/><b>[Phase 2: Next]</b>"]
+        NAV["Navigation Controller<br/><i>(Cached Route Fields, Waypoints, Steering)</i><br/><b>[Phase 2: Complete]</b>"]
     end
 
     WT -->|Filtered Projection| PROJ
@@ -85,8 +85,8 @@ flowchart TD
     classDef planned fill:#1f293d,stroke:#4a5568,stroke-width:1px,stroke-dasharray: 5 5,color:#cbd5e0;
     classDef sim fill:#3d1f2e,stroke:#9b2c2c,stroke-width:1px,color:#fff;
 
-    class Boundary,AO built;
-    class MEM,BELIEF,POL,NAV planned;
+    class Boundary,AO,NAV built;
+    class MEM,BELIEF,POL planned;
     class Sim,WT sim;
 ```
 
@@ -99,8 +99,8 @@ flowchart TD
 | Phase | Focus Area | Core Deliverables | Status |
 |:---:|:---|:---|:---:|
 | **Phase 1** | **Information Contract** | Immutable value types, observation projector, evidence provenance, zero-leakage test harness. | **COMPLETE / FROZEN** |
-| **Phase 1.5** | **Source-backed Map** | Separate native-coordinate Skeld sandbox, blueprint, reference artwork and collision checks; live-game parity unverified. | **IMPLEMENTED / CALIBRATION OPEN** |
-| **Phase 2** | **Navigation Service** | Continuous steering controller, diagonal clearance, arrival tolerance, 1,560 validated task routes. | **CURRENT / NEXT** |
+| **Phase 1.5** | **Source-backed Map** | Separate native-coordinate Skeld sandbox, blueprint, reference artwork and collision checks; live-game parity unverified. | **FROZEN FOR NAVIGATION** |
+| **Phase 2** | **Navigation Service** | Swept-clear routes, interaction arrival, cancellation/replanning, 3,906 directed pairs + 1,008 random spawns. | **COMPLETE** |
 | **Phase 3** | **Scripted Game Simulator** | 5-player match engine (4 crew + 1 impostor), tasks, kill cooldowns, reports, and voting meetings. | **PLANNED** |
 | **Phase 4** | **Memory & Belief Model** | Spatio-temporal event memory, consistency tracking, impossibility detection, and role posterior estimation. | **PLANNED** |
 | **Phase 5** | **Learned Crewmate Policy** | Strategic actor-critic policy (PPO) optimizing crew task completion, grouping, and voting accuracy. | **PLANNED** |
@@ -123,8 +123,13 @@ flowchart TD
    - 34 automated physical validation tests.
 3. **Continuous Locomotion Baseline**:
    - Preserved Stage 1 PPO model (`models/stage1/best_model/best_model.zip`) achieving 100% success rate and 93.86% path efficiency across 100 evaluation episodes.
-4. **Test Suite Health**:
-   - **154 tests passing**: 139 existing checks and 15 new map checks.
+4. **Reliable Navigation Service**:
+   - **4,914/4,914 physical executions passed**: 3,906 directed destination pairs and 1,008 stratified random spawns.
+   - Zero collisions, blocked steps or replans in the static-map benchmark.
+   - Task/room/location arrival, cancellation, replacement and explicit failure outcomes.
+   - [Committed results](docs/benchmarks/phase2/README.md) and [service documentation](docs/navigation_service.md).
+5. **Test Suite Health**:
+   - **197 tests passing**: 139 preserved checks, 15 map checks and 43 navigation checks.
 
 ---
 
@@ -159,10 +164,20 @@ pytest -q
 python among_us_map_simulation.py
 ```
 
-WASD/arrows move; click sets a goal; Tab cycles destinations; Space follows A*.
+WASD/arrows move and cancel navigation; click sets a goal; Tab cycles destinations; Space starts the navigation service. The window title shows its status.
 B shows the blueprint, C collision, T interactions, L labels, R rays, P preview crew.
 
-### 4. Launch Preserved Legacy Inspector
+### 4. Reproduce Navigation Acceptance
+
+```powershell
+python benchmark_navigation.py
+```
+
+Runs every directed pair of 63 destinations and 1,008 deterministic stratified
+spawns through normal movement physics. Results include per-case CSV and a JSON
+summary in `docs/benchmarks/phase2/`. See the [service API and methodology](docs/navigation_service.md).
+
+### 5. Launch Preserved Legacy Inspector
 
 ```powershell
 # Interactive visual inspector for The Skeld map
@@ -189,6 +204,7 @@ Comprehensive project documentation is maintained in the [`docs/`](docs/) direct
 - [**docs/skeld_accuracy.md**](docs/skeld_accuracy.md): Rigorous factual accuracy audit, 9 canonical routes validation table, and physical test report.
 - [**docs/among_us_map_simulation.md**](docs/among_us_map_simulation.md): New map blueprint, source versions, fidelity limits, controls and sandbox API.
 - [**docs/asset_sources.md**](docs/asset_sources.md): Legacy procedural-asset policy and separate source-backed map notices.
+- [**docs/navigation_service.md**](docs/navigation_service.md): Phase 2 architecture, API, failure handling and benchmark reproduction.
 - [**HANDOFF.md**](HANDOFF.md): Engineering state, frozen boundaries, key files, and Phase 2 transition notes.
 
 ---

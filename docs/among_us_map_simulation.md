@@ -13,7 +13,7 @@ python among_us_map_simulation.py
 ```
 
 WASD/arrows move; click sets a walkable goal; Tab cycles destinations; Space
-follows a diagnostic A* route. G toggles the route, C collision, T interactions,
+starts the Phase 2 navigation service; manual motion cancels it. G toggles the route, C collision, T interactions,
 L room labels, R rays, B blueprint, P cosmetic preview crewmates, Esc quits.
 Preview crewmates do not collide or have roles. The cyan player's feet locate
 its physical circle. Vents and task triggers are walkable; solid walls and
@@ -132,8 +132,10 @@ world; no new enums or hard-coded suspicion/kill decisions were introduced.
 
 `env.map.astar(start, goal)` returns native-coordinate waypoints. Every grid edge
 and endpoint connector is checked against the same player-clearance geometry used
-by movement, including diagonals. The inspector follower is diagnostic, not a
-completed Phase 2 navigation service. A static closed-door variant can be built
+by movement, including diagonals. The inspector now uses the separate
+[Phase 2 navigation service](navigation_service.md), with interaction-region
+arrival, cancellation and explicit status in the window title. Diagnostic A*
+remains available for comparison and screenshot overlays. A static closed-door variant can be built
 with `AmongUsMap(closed_doors=["11:5"])` (Electrical's door);
 door mechanics and timers are not implemented.
 
@@ -154,7 +156,7 @@ coordinate transforms, task-stage coverage, deterministic resets, action directi
 timeouts, RGB rendering, the Gymnasium checker and preservation of the old map.
 These verify internal consistency; they cannot certify live-game parity.
 
-Validation on 2026-10-02: **154 tests passed** (139 existing, 15 new), with three
+Teammate map validation on 2026-10-02: **154 tests passed** (139 existing, 15 new), with three
 existing dependency/Gym registration warnings. An additional SB3 `DummyVecEnv`
 reset/step smoke check passed, and closing Electrical's door prevented an A* exit.
 No policy training was run.

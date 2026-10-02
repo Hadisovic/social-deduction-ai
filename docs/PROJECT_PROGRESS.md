@@ -2,6 +2,56 @@
 
 > **Canonical Document**: Detailed technical history, experimental results, architectural pivot, and roadmap status for the **Social Deduction AI** project.
 
+## 2026-10-02: Phase 2 reliable navigation COMPLETE
+
+Clean `main` was fast-forwarded from `0b12c09` to the teammate's map commit
+`381936787236ada3ddfda3705521fe3d2b680864` before implementation. Phase 1.5 is
+accepted/frozen for controlled navigation: 63 destinations, 14 rooms, 7 corridor
+regions, 67,924 connected grid nodes. No geometry/artwork/destination redesign was
+needed. Windows CRLF conversion caused two initial byte-provenance test failures;
+`.gitattributes` preserves original bytes. The fresh baseline was 152 passed and
+2 failed; after the checkout fix all 15 map tests passed.
+
+The service uses reverse multi-source Dijkstra fields cached over validated grid
+edges, swept-clear waypoint simplification, valid interaction regions and a
+speed-bounded controller. It supports task/room/location targets, cancellation,
+replacement, known-geometry replanning and explicit terminal failure statuses.
+`AmongUsMapEnv.advance_motion` is shared with Gym and manual control, so execution
+uses normal collision physics. Phase 1 interfaces and legacy navigation remain
+unchanged. No social game or training was started.
+
+| Verification | Result |
+|---|---|
+| Full regression suite | **197 passed**, one existing Gymnasium warning |
+| New navigation tests | **43 passed** |
+| Directed destination pairs | **3,906 / 3,906 successful** |
+| Stratified random spawns | **1,008 / 1,008 successful**, seed 20261002 |
+| Combined physical execution | **100% (4,914 / 4,914)**, 1,535,435 steps |
+| Collisions / blocked steps / replans | **0 / 0 / 0** in the default static benchmark |
+| Failure categories / repeated problem regions | **None**; every regional group passed |
+| Longest route | O2 to Reactor, 53.55 units / 21.77 simulated seconds, successful |
+| Planning mean / p95 | **63.84 / 206.63 ms** |
+| Cold / cached planning mean | **234.98 / 63.58 ms** |
+| Controller / physics cost | **179.71 / 90.60 microseconds per executed step** |
+| Full measured benchmark wall time | **826.13 s** |
+
+The gate requires all default cases and physical assertions to pass, stronger than
+aggregate 99%. Targeted tests additionally establish cancellation, blocked/stuck/
+timeout handling, oscillation detection and a known closed-door `NO_ROUTE` outcome.
+Timings are machine/workload dependent; some regression work ran concurrently.
+Route efficiency is execution fidelity to the planned route, not a continuous
+shortest-path optimality result. Dynamic multi-player avoidance and live-client
+parity remain outside this evidence.
+
+See [service API, alternatives and reproduction](navigation_service.md),
+[benchmark summary](benchmarks/phase2/README.md),
+[per-case CSV](benchmarks/phase2/cases.csv), and
+[configuration/provenance JSON](benchmarks/phase2/summary.json).
+Implementation revision: `git log -1 --format=%H -- navigation_service.py`;
+final handoff revision: `git log -1 --format=%H` on this completed checkout.
+**Next: Phase 3 scripted five-player simulator**, with trusted integration and
+wrapper-level leakage tests. Phase 3 was not started in this change.
+
 ## 2026-10-02: separate source-backed map implemented
 
 The owner approved combining sourced geometry/data and supplied artwork to replace
@@ -220,8 +270,8 @@ Instead of coupling social deduction to end-to-end continuous pixels or raw loco
                                          |
                                          v
 +---------------------------------------------------------------------------------+
-|  Phase 2: Reliable Navigation Service                       [ CURRENT / NEXT ]   |
-|  - Continuous controller, diagonal clearance, arrival tolerance, 1,560 routes   |
+|  Phase 2: Reliable Navigation Service                       [ COMPLETE ]   |
+|  - Interaction arrival, cancellation/replanning, 3,906 pairs + 1,008 spawns   |
 +---------------------------------------------------------------------------------+
                                          |
                                          v
@@ -251,7 +301,7 @@ Instead of coupling social deduction to end-to-end continuous pixels or raw loco
 
 ---
 
-## 6. Comprehensive Test Status
+## 6. Historical Phase 1 Test Status (current results above)
 
 As of Phase 1 completion, the project maintains an automated test suite with **139 unique tests passing and 0 failures**:
 
@@ -282,9 +332,10 @@ As of Phase 1 completion, the project maintains an automated test suite with **1
 
 ## 8. Open Technical Questions & Future Considerations
 
-- **Phase 2 (Navigation Service)**:
-  - What arrival distance threshold ($10\text{ px}$ vs $15\text{ px}$) provides the best balance between task interaction trigger reliability and wall collision clearance?
-  - What replanning frequency is required when corridors are temporarily blocked by other moving players?
+- **Navigation integration after Phase 2**:
+  - Static arrival and recovery contracts are settled in `navigation_service.md`.
+  - Future moving-player/door mechanics need observed-state integration and a new
+    dynamic benchmark; the completed static benchmark does not establish them.
 - **Phase 3 (Scripted Simulator)**:
   - What deterministic tie-breaking order should resolve simultaneous actions occurring on the exact same simulation tick (e.g., simultaneous kill vs body report vs meeting call)?
   - How should uncompleted tasks belonging to an eliminated crewmate be reassigned among surviving crew to maintain a fair team quota without disclosing death ticks?
@@ -303,3 +354,5 @@ As of Phase 1 completion, the project maintains an automated test suite with **1
 | `0bf49b5` | Oct 2026 | Enforce obstacle detours, cell revisit penalties, and stuck recovery (Stage 2). |
 | `7511134` | Oct 2026 | Construct and validate full-scale Skeld navigation map with 40 tasks and A* validation (Stage 2.5). |
 | `8a0b4c9` | Oct 2026 | Establish social-deduction information boundaries, value types, and provenance (Phase 1). |
+| `3819367` | Oct 2026 | Source-backed native Skeld map, renderer, assets and 15 tests (Phase 1.5). |
+| See navigation revision above | Oct 2026 | Reliable navigation; 197 tests and 4,914 physical executions passing (Phase 2). |

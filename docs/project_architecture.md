@@ -1,4 +1,4 @@
-# Architecture — Phase 1
+# Architecture — information boundary and navigation
 
 ## Research definition
 
@@ -59,11 +59,26 @@ scripted focal player, Brier/log loss before role disclosure, and memory/evidenc
 ablations across at least three training seeds. Randomize identity independently
 of roles. Use paired seeds and uncertainty intervals; no raw frame-level splits.
 
-## Phase 2 handoff
+## Phase 2 navigation infrastructure
 
-Harden clearance on grid edges/endpoints, floor/sensor agreement and consistency
-between planner radius clearance and movement AABBs. Implement controller arrival,
-cancellation and replanning. Benchmark actual execution for 1,560 task pairs and
-random spawns. Dynamic door support must use observed/public state, not omniscient
-queries. Keep the legacy navigation experiments unchanged unless an independently
-justified fix is required. Do not start Phase 2 as part of this change.
+`navigation_service.py` is separate from `social_deduction/`. A shared
+`NavigationPlanner` uses public native map geometry and bounded reverse-distance
+field caches. Each player owns a `NavigationService` for task/room/location targets,
+physical motion commands, arrival, cancellation, replanning and explicit outcomes.
+`AmongUsMapEnv.advance_motion` executes the same swept collision function used by
+Gym and manual control. The service cannot assign player positions.
+
+`benchmark_navigation.py` executes all 3,906 directed pairs of 63 destinations plus
+1,008 continuous random spawns stratified over 21 room/corridor regions. See
+[navigation design and API](navigation_service.md) and the
+[acceptance evidence](benchmarks/phase2/README.md).
+
+The trusted runner owns simulator references and applies speed-bounded commands.
+Actors issue macro-intentions and receive only approved outcomes. Geometry changes
+must be public/observed: a planner must not be refreshed from hidden door or player
+state. Service diagnostics are not automatically actor observation fields. Phase 1
+interfaces and legacy navigation experiments remain unchanged.
+
+Phase 3 still needs the five-player scripted match engine, tick ordering, task
+rules, event publication and Skeld visibility adaptation with wrapper leakage
+tests. It is not implemented by the navigation service.
