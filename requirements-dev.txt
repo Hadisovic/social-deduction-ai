@@ -1,0 +1,6 @@
+-r requirements.txt
+pytest>=8,<10
+# Validated Windows regression stack; newer Torch failed c10.dll initialization
+# on the development host. Runtime dependency ranges remain in requirements.txt.
+torch==2.6.0; sys_platform == "win32"
+stable-baselines3==2.7.0; sys_platform == "win32"

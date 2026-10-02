@@ -1,57 +1,62 @@
-# Stealth RL Navigation
+# Stealth RL Navigation — Social-Deduction Research
 
-> A curriculum-trained Proximal Policy Optimization (PPO) agent discovering 2D continuous navigation, obstacle detour routing, stuck recovery, and dynamic stealth avoidance in a custom Gymnasium/Pygame sandbox.
+> A research simulator for a crewmate that learns to use legitimate observations, memory, evidence, and uncertainty to improve team outcomes.
 
----
+## Project definition
 
-## Overview
+This project investigates whether a compact learned crewmate using visibility-filtered observations, persistent evidence memory, and explicit role uncertainty improves team win rate over scripted and memory-ablated baselines against held-out teammate and opponent strategies. Known-map navigation, collision, and task execution are controlled infrastructure. The primary target is an Among-Us-like environment we control, not the commercial game client.
 
-This project is a reinforcement-learning experiment exploring autonomous agent navigation through progressive curriculum stages. Rather than hardcoding A* pathfinding, waypoint graphs, collision-avoidance heuristics, or scripted recovery routines, the agent is provided raw sensory observations (spatial coordinates, radial obstacle rays, observer visual state) and structured reward feedback. All navigational intelligence—including steering around walls and breaking out of deadlocks—must be discovered end-to-end by the neural network.
+The project started as continuous PPO navigation research. Stage 1 demonstrated point-to-point movement on its evaluated open-arena distribution. Stage 2 remains an optional learned-detour experiment, not a prerequisite for social learning. Stage 2.5 supplies known-map geometry and validation infrastructure; a reliable executable navigation service is still planned.
 
-The simulation runs in a continuous 2D environment rendered with Pygame-CE and wrapped with a standard Gymnasium interface for Stable-Baselines3.
+## Current status
 
-![Environment Overview](docs/images/environment_overview.png)
-*Stage 2 environment: Top-down 1100x700 arena with solid interior obstacles, randomized player spawn, and target goal.*
+| Category | Status |
+|---|---|
+| CURRENTLY IMPLEMENTED | Stage 1/2 navigation environments, PPO scripts, rewards, evaluation, inspectors; Skeld map, 40 destinations, 22-value navigation observation, validation A* |
+| CURRENTLY VALIDATED | Historical Stage 1 benchmark below; Skeld's 34-test suite; 42 new information-boundary tests; 139 total pytest tests pass plus standalone regression suites |
+| PHASE 1 | Implemented and ready for review/freeze; information contract and isolated observation-boundary foundation; see [contract](docs/information_contract.md) and [handoff](HANDOFF.md) |
+| PLANNED | Reliable navigation controller, complete scripted social game, evidence memory/beliefs, learned strategic crewmate |
+| FUTURE / OPTIONAL | Learned impostor, self-play, sabotage, vents, multiple maps/counts, CNN perception, language, learned minigames |
 
-![Sensory and Vision Overview](docs/images/vision_and_sensors.png)
-*Debug visualization: Observer dynamic patrol routes, polygonal vision cones occluded by obstacles, and radial distance rays.*
+The social game does **not** exist yet. Contract fixtures and public-event schemas do not implement kills, meetings, voting, or task execution. Existing navigation observation vectors are not the new actor interface.
 
----
+## Primary roadmap
 
-## Why This Project Exists
+| Phase | Deliverable | Gate |
+|---|---|---|
+| 1 — Definition and information contract | Truth/observation/memory/label separation; provenance; paired-world leakage tests | Contract tests and navigation regressions pass; review and freeze |
+| 2 — Reliable navigation service | Planner edges consistent with physics, arrival/cancel/replan, executable-route benchmark | All 1,560 task pairs plus seeded random spawns evaluated; target >=99% success, systematic failures resolved |
+| 3 — Scripted social simulator | Five players, timed tasks, visibility, bodies/reports, structured meetings/votes, outcomes and replay | 1,000 seeded matches without invalid state; intended win routes and information boundaries tested |
+| 4 — Memory and beliefs | Provenance-preserving histories, rule baseline, compact supervised role predictor | Beat prior-only/rule baselines on held-out bot families using Brier/log loss |
+| 5 — Learned strategic crewmate | One learned actor with frozen mixed bots and high-level actions | Held-out team-outcome improvement across >=3 training seeds; memory/evidence ablations |
+| 6 — Optional expansion | Add complexity only to answer a new experimental question | Preserve the core result against unfamiliar partners/opponents |
 
-In many 2D games and robotics tasks, obstacle avoidance and stuck handling are implemented via classical geometry engines, navigation meshes, or emergency steering rules. While effective, these methods do not generalize well to dynamic perception tasks with patrol guards, moving vision cones, and emergent deadlocks.
+These are proposed engineering/research gates, not guarantees. Phase 2 does not start automatically after Phase 1.
 
-The core premise of this project is to test whether continuous actor-critic reinforcement learning (PPO) can reliably learn:
-1. **Goal-directed displacement** across an unconstrained continuous domain.
-2. **Geometric detour routing** around non-convex obstacles without artificial path hints.
-3. **Internal recovery strategies** when forward movement is blocked.
-4. **Dynamic stealth avoidance** in later stages when patrolling guards intersect the route.
+## Infrastructure versus learned intelligence
 
----
+Use classical geometry, a planner/controller, and scripted task mechanics where they are reliable. Focus the learning budget on evidence interpretation, uncertainty, information gathering, task priorities, and meeting decisions. A* is allowed for the planned social agent using known geometry and observed dynamic state. The historical pure-navigation experiments retain their no-waypoint protocol.
 
-## Curriculum
+Vision and recurrence are not prerequisites for a playable social simulator. An initial strategic baseline can consume structured evidence summaries; recurrence must justify itself experimentally. See [architecture](docs/project_architecture.md) for interfaces and scope.
 
-The learning pipeline is structured into incremental stages, allowing the agent to master foundational locomotion before encountering complex obstacles and perceptual threats.
+## Historical navigation curriculum
 
-| Stage | Environment | Primary Objective | Current Status |
-|:---:|:---|:---|:---|
-| **Stage 1** | Open arena, randomized start & goal, no obstacles, no guards | Learn basic 2D goal navigation from raw displacement vectors | **COMPLETE / PASSED** *(100% success rate, 2.93s avg time, 93.86% path efficiency)* |
-| **Stage 2** | Fixed central obstacles, randomized start & goal, no guards | Learn geometric obstacle detours, wall sliding, anti-looping, and deadlock recovery | **IMPLEMENTED / TRAINING NEXT** *(Guaranteed obstacle detour on every episode)* |
-| **Stage 2.5** | The Skeld (Among Us) navigation map — 14 rooms, organic corridors, 40 task destinations | Long-horizon continuous navigation across complex ship topology | **ENVIRONMENT BUILT / NOT TRAINED** *(34/34 tests passing, 100% walkable connectivity)* |
-| **Stage 3** | Fixed obstacles, randomized start/goal, **1 patrol guard** | Learn dynamic line-of-sight awareness and detection avoidance | **Planned** |
-| **Stage 4** | Fixed obstacles, randomized start/goal, **3 patrol guards** | Multi-guard timing, cover utilization, and complete stealth navigation | **Planned** |
-| **Stage 5** | Randomized obstacle layouts & guard patrol patterns | Policy generalization across unseen arena geometry | **Planned** |
+| Stage | What it demonstrates | Status in the new project |
+|---|---|---|
+| 1 | Open-arena point-to-point navigation | Completed baseline; preserve checkpoint |
+| 2 | Forced obstacle detours and recovery | Implemented; full training not run; optional bounded experiment |
+| 2.5 | Known Skeld-like map, destinations and reachability validation | Implemented environment; untrained; foundation for Phase 2 |
+| 3/4 | One/multiple patrol observers | Legacy arena modes; optional stealth experiments, not social milestones |
+| 5 | Random geometry/patrol generalization | Optional future navigation research |
 
-> **Official Stage 1 Benchmark (43-Obs Architecture)**:
-> Stage 1 has been fully retrained with the locked 43-input observation space. Across 100 stochastic evaluation episodes:
-> - **Success Rate**: 100.00% (100 / 100)
-> - **Average Successful Time**: 2.93 s (Fastest: 1.83 s, Slowest: 4.83 s)
-> - **Average Path Efficiency**: 93.86% (Initial distance: 507.86 px)
-> - **Episode Reward**: Mean 120.93 (Std Dev 6.43, Median 119.59)
-> - **Preserved Brain**: `models/stage1/best_model/best_model.zip` initializes Stage 2 training.
+### Historical Stage 1 benchmark (43-input architecture)
 
----
+Across the recorded 100 stochastic evaluation episodes: **100/100 successes**, average successful time **2.93 s** (1.83–4.83 s), average path efficiency **93.86%**, initial distance **507.86 px**, mean reward **120.93** (SD 6.43; median 119.59). These results apply to that open-arena evaluation distribution, not unseen maps or social behavior. The preserved checkpoint is `models/stage1/best_model/best_model.zip`; compatibility with it does not constrain future actor design.
+
+![Original arena](docs/images/environment_overview.png)
+![Navigation sensors](docs/images/vision_and_sensors.png)
+
+The following reference sections document the existing navigation experiments, not the social actor contract.
 
 ## Environment & Physics
 
@@ -174,60 +179,6 @@ This formulation ensures mathematical validity ($\le 100.0\%$) and resolves boun
 
 ---
 
-## Stage 2.5: The Skeld Navigation Environment
-
-Stage 2.5 is a standalone research environment modeled on the **The Skeld** map from *Among Us* by Innersloth. It is designed as a future curriculum milestone for testing long-horizon map navigation, room-to-room routing, and eventual CNN visual navigation research.
-
-### Map Overview
-
-- **14 rooms** (Cafeteria, Weapons, O2, Navigation, Shields, Communications, Storage, Admin, Electrical, Lower Engine, Security, Reactor, Upper Engine, MedBay)
-- **76 AABB collision rectangles** approximating the ship hull and interior walls
-- **31 task interaction positions** across all rooms (for future RL task mechanics)
-- **4 isolated vent networks** (documented for future social-deduction research)
-- **Coordinate source**: Among Us Fandom Wiki interactive map markers (8565×4794 px → 1100×700 px)
-
-### Observation Space (22 Dimensions)
-
-| Index | Name | Range | Description |
-|:---:|:---|:---:|:---|
-| 0–1 | Player position | [0, 1] | Normalized x/y coordinates |
-| 2–3 | Goal relative vector | [-1, 1] | Goal displacement normalized by window size |
-| 4–19 | 16 wall raycasts | [0, 1] | 360° at 22.5° intervals, max 200 px |
-| 20 | Stuck flag | {0, 1} | 1.0 after 15 consecutive blocked steps |
-| 21 | Stagnation progress | [0, 1] | How long player has been stationary |
-
-### Spawning
-Every episode, the player and goal are independently placed in **different random rooms** using rejection sampling that guarantees:
-- No overlap with any solid rect
-- 20 px safety margin from all wall surfaces
-- Minimum 200 px start-goal distance (where possible)
-
-### Running the Inspector
-```powershell
-python inspect_skeld.py
-```
-- Arrow keys / WASD: Move player
-- SPACE: New random episode
-- R: Toggle raycasts, L: Labels, T: Tasks, V: Vents, H: HUD
-
-### Training (Do NOT run until Stage 2 is complete)
-```powershell
-python train_skeld.py --timesteps 250000 --n-envs 4
-```
-
-### Running the Test Suite
-```powershell
-python test_skeld_environment.py
-```
-All **21/21 tests** pass, covering geometry integrity, spawn safety, physics correctness, and SB3 compatibility.
-
-### Documentation
-- `docs/skeld_research.md` — Coordinate mapping, topology research, task list
-- `docs/skeld_accuracy.md` — Accuracy assessment vs. real game, known simplifications
-- `docs/asset_sources.md` — Research sources and copyright/licensing notes
-
----
-
 Both curriculum stages feature unified, single-command workflows that train headlessly at maximum speed while concurrently spawning an independent visual spectator window:
 
 ### Stage 1 Training + Live Spectator
@@ -265,10 +216,10 @@ python evaluate_stage2.py --model models/stage2/best_model/best_model.zip --epis
 
 ## Stage 2.5: The Skeld Navigation Environment
 
-Stage 2.5 introduces a full-scale, topologically faithful navigation environment based on **The Skeld** map from *Among Us*, engineered specifically for long-horizon continuous navigation and visual representation research.
+Stage 2.5 is a known-map navigation environment inspired by **The Skeld** from *Among Us*. Its geometry and inspector are preserved as infrastructure for Phase 2; learned navigation and visual representation experiments are optional.
 
 > **Status**: **ENVIRONMENT BUILT / NOT TRAINED**  
-> **Mandatory Next Step**: **MANUAL MAP INSPECTION BEFORE ANY RL TRAINING** via `python inspect_skeld.py`. No training has been launched.
+> **Next step**: Phase 2 navigation-service hardening after Phase 1 review. No Skeld training has been launched; full training is not on the main critical path.
 
 ![The Skeld Overview](docs/images/skeld_overview.png)
 *Figure 1: The Skeld Stage 2.5 environment. Uniform 1600.0 × 895.45 logical world space rendered with letterboxing into an 1100 × 700 display window. Shows all 14 authentic rooms, 40 task destinations, vents, and real-time internal A\* route validation.*
@@ -281,7 +232,7 @@ To eliminate aspect-ratio distortion present in early prototypes, Stage 2.5 enfo
 2. **Logical World Space (Physics & RL)**: $1600.0 \times 895.44658\text{ px}$.
    - Uniform World Scale: $S_{\text{world}} = \frac{1600.0}{8565.0} \approx 0.18680677$.
    - **Aspect Ratio Preservation**: Mathematically identical to reference space within machine precision ($< 10^{-7}$ relative error).
-   - All physics calculations, circle-AABB collisions, wall sliding, raycasting, and task interaction distances operate purely in world units.
+   - All physics calculations, AABB movement collision checks, wall sliding, raycasting, and goal distances operate purely in world units.
 3. **Display Space (Rendering Only)**: $1100 \times 700\text{ px}$.
    - Display Scale: $s_{\text{display}} = \frac{1100.0}{1600.0} = 0.6875$.
    - Letterboxing: Vertical offset $Y = 42.19\text{ px}$ centers the ship vertically without stretching.
@@ -292,10 +243,10 @@ To eliminate aspect-ratio distortion present in early prototypes, Stage 2.5 enfo
 The map rejects the naive "free-space except where wall rects exist" assumption by utilizing a **dual-layer safety model**:
 
 ![Collision & Walkability Debug](docs/images/skeld_collision_debug.png)
-*Figure 2: Physical walkability audit. 50 solid wall rects (red) and 32 walkable floor segments (green). An internal 4px occupancy grid proves single connected component topology with zero exterior leaks.*
+*Figure 2: Physical walkability audit. 50 solid wall rects (red) and 32 walkable floor segments (green). An internal 4px occupancy grid checks single-component grid connectivity; physical execution remains a separate validation requirement.*
 
 - **50 Solid Wall Rectangles**: Outer perimeter hull and interior room boundaries/consoles.
-- **32 Walkable Floor Polygons**: Explicit navigable interior corridors and room floors.
+- **32 Walkable Floor Regions**: Explicit navigable interior corridors and room floors.
 - **Dual-Layer Movement Solver**: Axis-separated movement verifies both that candidate positions are clear of solid wall AABBs and remain strictly inside valid ship floor boundaries.
 - **Exterior Vacuum Non-Walkability**: The space outside the hull is strictly non-walkable. The agent cannot leak or escape into the void.
 
@@ -310,19 +261,19 @@ The map rejects the naive "free-space except where wall rects exist" assumption 
 ### 40 Authentic Task Destinations
 
 ![Task Destinations](docs/images/skeld_task_points.png)
-*Figure 3: All 40 authentic task destinations extracted from community reference coordinates. Every task is verified 100% reachable with zero wall collisions.*
+*Figure 3: All 40 authentic task destinations extracted from community reference coordinates. All destination markers pass the grid reachability checks; executable-route validation is planned.*
 
 All 40 task destinations are represented as rich inspectable `TaskDestination` dataclasses containing verified IDs, display names, room assignments, world coordinates, and confidence metadata.
 - **Reachability**: **40 / 40 reachable (0 unreachable)** verified by occupancy-grid pathfinding.
-- **All-Pairs Task Connectivity**: All 1,560 directed task-to-task pairs have verified walkable paths.
+- **All-Pairs Task Connectivity**: All destinations map to the connected grid component; the checked-in pair test queries 10 selected pairs and the route test checks 9 representative routes. Exhaustive physical execution of all 1,560 directed pairs remains Phase 2 work.
 - **Goal Modes**: Supports `task` (random spawn $\to$ authentic task), `task_to_task` (crewmate chore sequence), and `room_to_room`.
 
 ### Internal Validation Pathfinder & Route Verification
 
-An internal 4px occupancy grid ($400 \times 224 = 89,600\text{ cells}$) with player radius clearance inflation validates physical walkability without leaking any pathfinding hints to the RL agent.
+An internal 4px occupancy grid ($400 \times 224 = 89,600\text{ cells}$) with radius-based clearance supports reachability validation. It is not exposed to the existing navigation PPO. Phase 2 will validate planner edges and physical controller execution before using it as social-agent infrastructure.
 
-**Representative Route Validation (Actual Geometry A\*)**:
-| Origin Room | Destination Room | Path Exists | Optimal Route Length | Clearance Status |
+**Representative grid A* routes (historical measurements, not controller execution or continuous-space optimality proofs)**:
+| Origin Room | Destination Room | Path Exists | Grid Route Length | Intended Route |
 |---|---|---|---|---|
 | **Cafeteria** | **Electrical** | **YES** | 1001.8 px | Clear (traverses Storage corridor) |
 | **Cafeteria** | **Navigation** | **YES** | 977.6 px | Clear (traverses Weapons / East corridor) |
@@ -339,7 +290,7 @@ An internal 4px occupancy grid ($400 \times 224 = 89,600\text{ cells}$) with pla
 ![16-Ray Obstacle Sensors](docs/images/skeld_rays.png)
 *Figure 4: Proposed 16-ray radial distance sensors (V1 experiment proposal) calibrated to local corridor geometry (220 px range).*
 
-> **IMPORTANT ARCHITECTURAL NOTICE**: The 22-dimensional observation vector (`[0:2]` player position, `[2:4]` goal vector, `[4:20]` 16 obstacle rays, `[20]` stuck flag, `[21]` stagnation progress) is designated strictly as **`PROPOSED_STRUCTURED_OBSERVATION_V1`**. It is an **experimental proposal and is NOT permanently locked**. The environment is decoupled from this specific vector layout. Future experiments may evaluate 24- or 32-ray configurations or visual CNN representations.
+> **IMPORTANT ARCHITECTURAL NOTICE**: The 22-dimensional observation vector (`[0:2]` player position, `[2:4]` goal vector, `[4:20]` 16 obstacle rays, `[20]` stuck flag, `[21]` stagnation progress) is designated strictly as **`PROPOSED_STRUCTURED_OBSERVATION_V1`**. It is an **experimental proposal and is NOT permanently locked**. The current implementation uses this layout; changing it requires corresponding code and tests. Sensor sweeps and CNN representations are optional future experiments, not Phase 1 requirements.
 
 ### Interactive Map Inspector
 
@@ -368,6 +319,7 @@ The project includes an extensive test suite verifying mathematical correctness,
 
 | Test File | Verification Scope |
 |:---|:---|
+| `test_information_contract.py` | Social Phase 1: paired-world leakage tests, action candidates, visibility, provenance, memory and training-label isolation |
 | `test_observation_43dim.py` | 43-element observation vector, 16 ray angles (22.5°), observer slot indexing, stuck & stagnation flags |
 | `test_stage2_forced_detour_and_revisit.py` | Forced obstacle detour generation (200 resets), seed reproducibility, fallback layout validity, spatial revisit schedule (visits 1–3+), 3-step jitter protection, trajectory anti-loop penalty (-4.0), Stage 1 immunity, bounded path efficiency |
 | `test_stage2_stuck_stagnation_recovery.py` | Blocked detection, stuck escalation, stagnation -25 trigger/rearm, recovery refund formula, anti-farming proof |
@@ -384,8 +336,10 @@ The project includes an extensive test suite verifying mathematical correctness,
 
 To run the automated suite:
 ```powershell
-# Run all unit tests (97 tests total)
-pytest -v
+python -m pip install -r requirements-dev.txt
+
+# Run pytest-discoverable tests (standalone run_* suites below are additional)
+python -m pytest -v
 
 # Run individual standalone integration suites
 python test_skeld_environment.py
@@ -397,12 +351,20 @@ python test_stage2_forced_detour_and_revisit.py
 python test_ppo_infrastructure.py
 ```
 
+The infrastructure suite includes two short 512-step PPO smoke checks using
+temporary models. It does not retrain the preserved Stage 1 checkpoint. Historical
+suite counts include nested standalone checks and should not be added to pytest
+counts as if they were unique tests. See HANDOFF for this phase's exact results.
+
 ---
 
 ## Repository Structure
 
 ```
 .
+├── social_deduction/                       # Phase 1 actor/truth/observation/training boundaries (no game engine)
+├── test_information_contract.py            # Phase 1 information-leakage regression tests
+├── HANDOFF.md                              # Current phase, decisions, validation and next work
 ├── config.py                               # Stages 1-2: Environment, physics, raycast, and RL hyperparameters
 ├── environment.py                          # Stages 1-2: Core Pygame 2D stealth environment and renderer
 ├── rl_environment.py                       # Stages 1-2: Gymnasium-compatible wrapper and reward calculation
@@ -427,10 +389,13 @@ python test_ppo_infrastructure.py
 │   ├── skeld_research.md                   # Skeld coordinate research and room topology
 │   ├── skeld_accuracy.md                   # Accuracy assessment and known simplifications
 │   ├── asset_sources.md                    # Research sources and copyright/licensing notes
+│   ├── project_architecture.md             # New research architecture and module responsibilities
+│   ├── information_contract.md             # V1 rules, legitimate knowledge, provenance and invariants
 │   └── images/                             # Curated environment and sensor screenshots
 ├── models/                                 # Saved PPO checkpoints and best models (gitignored)
 ├── logs/                                   # Evaluation logs, monitor CSVs, TensorBoard (gitignored)
 ├── requirements.txt                        # Python package dependencies
+├── requirements-dev.txt                    # Runtime dependencies plus pytest
 └── README.md
 ```
 
@@ -441,6 +406,11 @@ python test_ppo_infrastructure.py
 ### Prerequisites
 - Python 3.10 through 3.14 (tested on Windows 11 with Python 3.12 and 3.14).
 - Git.
+
+For the Phase 1 regression environment, use **Python 3.12**. The Windows
+development requirements pin Torch 2.6.0 and SB3 2.7.0: this pair imports cleanly
+on the current host and loads the preserved Stage 1 checkpoint. Newer Torch
+failed Windows DLL initialization here; the runtime requirements are unchanged.
 
 ### Windows Setup
 ```powershell
@@ -468,29 +438,13 @@ python main.py
 
 ---
 
-## Design Philosophy
+## Design principles and continuation
 
-The project intentionally adheres to strict principles of emergent reinforcement learning:
-1. **No Artificial Navigation Hints**: The network receives no waypoints, pathfinding graphs, optimal paths, or directional steering hints (e.g., "steer left" or "steer right").
-2. **No Scripted Recovery Assistance**: When blocked or stagnant, the environment never intervenes with scripted turns, reverse helpers, emergency steps, or teleportation. Recovery behavior must be discovered end-to-end.
-3. **Emergence from First Principles**: All navigational intelligence emerges entirely from:
-   - 43 continuous state observations
-   - 16 radial distance raycasts
-   - Structured reward feedback (progress incentive, blocked penalty, stagnation penalty, anti-loop revisit penalty)
-4. **Bounded Recovery Economics**: Rewards for overcoming deadlocks are strictly fractional refunds of prior blocked penalties, ensuring that colliding with obstacles or hovering can never become profitable.
+- Actor inputs come only from the [information contract](docs/information_contract.md); simulator truth and training labels remain separate.
+- Memory preserves provenance: a claim never silently becomes a direct observation.
+- Known geometry is legitimate; hidden dynamic world state is not.
+- Validate outcome improvement and evidence use against held-out policies, with memory ablations and multiple seeds.
+- Freeze reliable infrastructure instead of repeatedly redesigning it without experimental evidence.
+- Keep historical Stage 1/2 behavior intact. Their no-waypoint/no-scripted-recovery restriction applies to those optional experiments only.
 
----
-
-## Research Roadmap & Future Directions
-
-### Visual vs. Sensor-Based Navigation (Future Work)
-While current curriculum stages utilize compact 43-dimensional numerical feature vectors (positions, goal displacement, 16 radial raycasts), a planned future experiment will compare:
-- **Sensor/Vector Navigation**: Low-latency, geometrically precise vector observations (current architecture).
-- **CNN-Based Visual Navigation**: Deep convolutional networks learning navigation and stealth directly from rendered 2D pixel frames.
-
-Anticipated research progression:
-$$\text{Vector Navigation} \longrightarrow \text{Visual / CNN Navigation} \longrightarrow \text{Recurrent Memory (LSTM/GRU)} \longrightarrow \text{Multi-Agent Social Sandbox}$$
-
-### Long-Term Vision
-The long-term research direction explores visually driven multi-agent navigation and decision-making inspired by social-deduction environments.
-
+Read [HANDOFF.md](HANDOFF.md) before continuing. Phase 1 adds boundary types/tests only. No social gameplay or new model training is implemented.
