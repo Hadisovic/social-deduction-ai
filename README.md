@@ -38,6 +38,7 @@ The learning pipeline is structured into incremental stages, allowing the agent 
 |:---:|:---|:---|:---|
 | **Stage 1** | Open arena, randomized start & goal, no obstacles, no guards | Learn basic 2D goal navigation from raw displacement vectors | **COMPLETE / PASSED** *(100% success rate, 2.93s avg time, 93.86% path efficiency)* |
 | **Stage 2** | Fixed central obstacles, randomized start & goal, no guards | Learn geometric obstacle detours, wall sliding, anti-looping, and deadlock recovery | **IMPLEMENTED / TRAINING NEXT** *(Guaranteed obstacle detour on every episode)* |
+| **Stage 2.5** | The Skeld (Among Us) navigation map — 14 rooms, organic corridors, 40 task destinations | Long-horizon continuous navigation across complex ship topology | **ENVIRONMENT BUILT / NOT TRAINED** *(34/34 tests passing, 100% walkable connectivity)* |
 | **Stage 3** | Fixed obstacles, randomized start/goal, **1 patrol guard** | Learn dynamic line-of-sight awareness and detection avoidance | **Planned** |
 | **Stage 4** | Fixed obstacles, randomized start/goal, **3 patrol guards** | Multi-guard timing, cover utilization, and complete stealth navigation | **Planned** |
 | **Stage 5** | Randomized obstacle layouts & guard patrol patterns | Policy generalization across unseen arena geometry | **Planned** |
@@ -173,7 +174,59 @@ This formulation ensures mathematical validity ($\le 100.0\%$) and resolves boun
 
 ---
 
-## Training Workflows
+## Stage 2.5: The Skeld Navigation Environment
+
+Stage 2.5 is a standalone research environment modeled on the **The Skeld** map from *Among Us* by Innersloth. It is designed as a future curriculum milestone for testing long-horizon map navigation, room-to-room routing, and eventual CNN visual navigation research.
+
+### Map Overview
+
+- **14 rooms** (Cafeteria, Weapons, O2, Navigation, Shields, Communications, Storage, Admin, Electrical, Lower Engine, Security, Reactor, Upper Engine, MedBay)
+- **76 AABB collision rectangles** approximating the ship hull and interior walls
+- **31 task interaction positions** across all rooms (for future RL task mechanics)
+- **4 isolated vent networks** (documented for future social-deduction research)
+- **Coordinate source**: Among Us Fandom Wiki interactive map markers (8565×4794 px → 1100×700 px)
+
+### Observation Space (22 Dimensions)
+
+| Index | Name | Range | Description |
+|:---:|:---|:---:|:---|
+| 0–1 | Player position | [0, 1] | Normalized x/y coordinates |
+| 2–3 | Goal relative vector | [-1, 1] | Goal displacement normalized by window size |
+| 4–19 | 16 wall raycasts | [0, 1] | 360° at 22.5° intervals, max 200 px |
+| 20 | Stuck flag | {0, 1} | 1.0 after 15 consecutive blocked steps |
+| 21 | Stagnation progress | [0, 1] | How long player has been stationary |
+
+### Spawning
+Every episode, the player and goal are independently placed in **different random rooms** using rejection sampling that guarantees:
+- No overlap with any solid rect
+- 20 px safety margin from all wall surfaces
+- Minimum 200 px start-goal distance (where possible)
+
+### Running the Inspector
+```powershell
+python inspect_skeld.py
+```
+- Arrow keys / WASD: Move player
+- SPACE: New random episode
+- R: Toggle raycasts, L: Labels, T: Tasks, V: Vents, H: HUD
+
+### Training (Do NOT run until Stage 2 is complete)
+```powershell
+python train_skeld.py --timesteps 250000 --n-envs 4
+```
+
+### Running the Test Suite
+```powershell
+python test_skeld_environment.py
+```
+All **21/21 tests** pass, covering geometry integrity, spawn safety, physics correctness, and SB3 compatibility.
+
+### Documentation
+- `docs/skeld_research.md` — Coordinate mapping, topology research, task list
+- `docs/skeld_accuracy.md` — Accuracy assessment vs. real game, known simplifications
+- `docs/asset_sources.md` — Research sources and copyright/licensing notes
+
+---
 
 Both curriculum stages feature unified, single-command workflows that train headlessly at maximum speed while concurrently spawning an independent visual spectator window:
 
@@ -210,6 +263,105 @@ python evaluate_stage2.py --model models/stage2/best_model/best_model.zip --epis
 
 ---
 
+## Stage 2.5: The Skeld Navigation Environment
+
+Stage 2.5 introduces a full-scale, topologically faithful navigation environment based on **The Skeld** map from *Among Us*, engineered specifically for long-horizon continuous navigation and visual representation research.
+
+> **Status**: **ENVIRONMENT BUILT / NOT TRAINED**  
+> **Mandatory Next Step**: **MANUAL MAP INSPECTION BEFORE ANY RL TRAINING** via `python inspect_skeld.py`. No training has been launched.
+
+![The Skeld Overview](docs/images/skeld_overview.png)
+*Figure 1: The Skeld Stage 2.5 environment. Uniform 1600.0 × 895.45 logical world space rendered with letterboxing into an 1100 × 700 display window. Shows all 14 authentic rooms, 40 task destinations, vents, and real-time internal A\* route validation.*
+
+### Architecture & Mathematical Coordinate Separation
+
+To eliminate aspect-ratio distortion present in early prototypes, Stage 2.5 enforces strict separation between reference coordinates, logical simulation physics, and display presentation:
+
+1. **Reference Space**: $8565.0 \times 4794.0\text{ px}$ (Aspect Ratio $\approx 1.78660826$).
+2. **Logical World Space (Physics & RL)**: $1600.0 \times 895.44658\text{ px}$.
+   - Uniform World Scale: $S_{\text{world}} = \frac{1600.0}{8565.0} \approx 0.18680677$.
+   - **Aspect Ratio Preservation**: Mathematically identical to reference space within machine precision ($< 10^{-7}$ relative error).
+   - All physics calculations, circle-AABB collisions, wall sliding, raycasting, and task interaction distances operate purely in world units.
+3. **Display Space (Rendering Only)**: $1100 \times 700\text{ px}$.
+   - Display Scale: $s_{\text{display}} = \frac{1100.0}{1600.0} = 0.6875$.
+   - Letterboxing: Vertical offset $Y = 42.19\text{ px}$ centers the ship vertically without stretching.
+   - Exact invertible mappings: `world_to_screen(wx, wy)` and `screen_to_world(sx, sy)`.
+
+### Physical Collision Geometry & Walkable Hull
+
+The map rejects the naive "free-space except where wall rects exist" assumption by utilizing a **dual-layer safety model**:
+
+![Collision & Walkability Debug](docs/images/skeld_collision_debug.png)
+*Figure 2: Physical walkability audit. 50 solid wall rects (red) and 32 walkable floor segments (green). An internal 4px occupancy grid proves single connected component topology with zero exterior leaks.*
+
+- **50 Solid Wall Rectangles**: Outer perimeter hull and interior room boundaries/consoles.
+- **32 Walkable Floor Polygons**: Explicit navigable interior corridors and room floors.
+- **Dual-Layer Movement Solver**: Axis-separated movement verifies both that candidate positions are clear of solid wall AABBs and remain strictly inside valid ship floor boundaries.
+- **Exterior Vacuum Non-Walkability**: The space outside the hull is strictly non-walkable. The agent cannot leak or escape into the void.
+
+### Calibrated Physics Ratios
+
+- **Doorway / Player Clearance**: Narrowest doorway is 40.0 px wide. Player radius is 10.0 px (diameter 20.0 px). Ratio $\frac{\text{doorway}}{\text{diameter}} = 2.0$.
+- **Player Speed**: 160.0 px/s (traverses ship width in ~10s at full throttle).
+- **Goal Radius**: 12.0 px (fits cleanly within 35 px wall alcoves with $\ge 20\text{ px}$ clearance).
+- **Task Interaction Radius**: 25.0 px ($2.5\times$ player radius).
+- **Sensor Ray Range**: 16 rays at 22.5° intervals, max range 220.0 px ($11.0\times$ player diameter, $4.4\times$ average corridor width, $1.22\times$ average room dimension).
+
+### 40 Authentic Task Destinations
+
+![Task Destinations](docs/images/skeld_task_points.png)
+*Figure 3: All 40 authentic task destinations extracted from community reference coordinates. Every task is verified 100% reachable with zero wall collisions.*
+
+All 40 task destinations are represented as rich inspectable `TaskDestination` dataclasses containing verified IDs, display names, room assignments, world coordinates, and confidence metadata.
+- **Reachability**: **40 / 40 reachable (0 unreachable)** verified by occupancy-grid pathfinding.
+- **All-Pairs Task Connectivity**: All 1,560 directed task-to-task pairs have verified walkable paths.
+- **Goal Modes**: Supports `task` (random spawn $\to$ authentic task), `task_to_task` (crewmate chore sequence), and `room_to_room`.
+
+### Internal Validation Pathfinder & Route Verification
+
+An internal 4px occupancy grid ($400 \times 224 = 89,600\text{ cells}$) with player radius clearance inflation validates physical walkability without leaking any pathfinding hints to the RL agent.
+
+**Representative Route Validation (Actual Geometry A\*)**:
+| Origin Room | Destination Room | Path Exists | Optimal Route Length | Clearance Status |
+|---|---|---|---|---|
+| **Cafeteria** | **Electrical** | **YES** | 1001.8 px | Clear (traverses Storage corridor) |
+| **Cafeteria** | **Navigation** | **YES** | 977.6 px | Clear (traverses Weapons / East corridor) |
+| **Navigation** | **Reactor** | **YES** | 1491.1 px | Clear (full trans-ship traversal via Cafeteria/Engines) |
+| **MedBay** | **Shields** | **YES** | 1132.8 px | Clear (traverses Cafeteria & East Hall) |
+| **Security** | **Admin** | **YES** | 985.1 px | Clear (traverses Lower Engine / Storage) |
+| **Electrical** | **Weapons** | **YES** | 1151.5 px | Clear (traverses Storage & Cafeteria Hall) |
+| **Lower Engine** | **O2** | **YES** | 1263.9 px | Clear (traverses Storage & Shields Hall) |
+| **Storage** | **Reactor** | **YES** | 1045.1 px | Clear (traverses Lower Engine corridor) |
+| **Weapons** | **Electrical** | **YES** | 1151.5 px | Clear (symmetric route verification) |
+
+### Observation Architecture Status
+
+![16-Ray Obstacle Sensors](docs/images/skeld_rays.png)
+*Figure 4: Proposed 16-ray radial distance sensors (V1 experiment proposal) calibrated to local corridor geometry (220 px range).*
+
+> **IMPORTANT ARCHITECTURAL NOTICE**: The 22-dimensional observation vector (`[0:2]` player position, `[2:4]` goal vector, `[4:20]` 16 obstacle rays, `[20]` stuck flag, `[21]` stagnation progress) is designated strictly as **`PROPOSED_STRUCTURED_OBSERVATION_V1`**. It is an **experimental proposal and is NOT permanently locked**. The environment is decoupled from this specific vector layout. Future experiments may evaluate 24- or 32-ray configurations or visual CNN representations.
+
+### Interactive Map Inspector
+
+Launch the visual developer inspector to verify map topology, doorways, and pathfinding:
+```powershell
+python inspect_skeld.py
+```
+- `W / A / S / D` or Arrow Keys: Move player
+- `Left Click`: Set custom goal destination in world coordinates
+- `Tab / N`: Cycle through authentic task destinations
+- `R`: Toggle 16 radial obstacle raycasts
+- `C`: Toggle collision debug overlay (solid wall rects + walkable floor polygons)
+- `T`: Toggle task destination markers and interaction radii
+- `L`: Toggle room and region name labels
+- `V`: Toggle vent markers
+- `G`: Toggle real-time internal A\* validation route overlay
+- `H`: Toggle comprehensive diagnostic HUD (true spatial region, nearest task, clearance, FPS)
+- `SPACE`: Reset episode with random spawn
+- `ESC / Q`: Quit inspector
+
+---
+
 ## Automated Test Suites
 
 The project includes an extensive test suite verifying mathematical correctness, physics stability, and curriculum safety:
@@ -228,13 +380,15 @@ The project includes an extensive test suite verifying mathematical correctness,
 | `test_stage2_watch.py` | Spectator initialization, checkpoint polling, boundary switching, clean exit |
 | `test_stealth_env.py` | Pygame base physics, AABB collisions, observer vision cones, line-of-sight raycasts (15 tests) |
 | `test_ppo_infrastructure.py` | PPO model initialization, policy shapes, training smoke, evaluation and checkpointing (14 tests) |
+| `test_skeld_environment.py` | Full Skeld Stage 2.5 suite: aspect ratio, single connected component, 40 task reachability, representative routes, dual-layer collision, hull safety, Gymnasium/SB3 compatibility (34 tests) |
 
 To run the automated suite:
 ```powershell
-# Run all unit tests
+# Run all unit tests (97 tests total)
 pytest -v
 
 # Run individual standalone integration suites
+python test_skeld_environment.py
 python test_rl_env.py
 python test_stage1_randomization.py
 python test_stage2_randomization.py
@@ -249,13 +403,19 @@ python test_ppo_infrastructure.py
 
 ```
 .
-├── config.py                               # Environment, physics, raycast, and RL hyperparameters
-├── environment.py                          # Core Pygame 2D stealth environment and renderer
-├── rl_environment.py                       # Gymnasium-compatible wrapper and reward calculation
-├── geometry.py                             # Vector math, raycasting, and obstacle distance queries
-├── player.py                               # Player entity with circle-AABB wall sliding
-├── observer.py                             # Patrolling guard entity with polygon vision cones
-├── main.py                                 # Manual keyboard interactive mode
+├── config.py                               # Stages 1-2: Environment, physics, raycast, and RL hyperparameters
+├── environment.py                          # Stages 1-2: Core Pygame 2D stealth environment and renderer
+├── rl_environment.py                       # Stages 1-2: Gymnasium-compatible wrapper and reward calculation
+├── geometry.py                             # Shared: Vector math, raycasting, and obstacle distance queries
+├── player.py                               # Shared: Player entity with circle-AABB wall sliding
+├── observer.py                             # Stages 3-4: Patrolling guard entity with polygon vision cones
+├── skeld_config.py                         # Stage 2.5: Skeld map constants, 1600x895.45 world geometry, 40 tasks
+├── skeld_navigation.py                     # Stage 2.5: 4px occupancy grid, player clearance inflation, A* pathfinder
+├── skeld_environment.py                    # Stage 2.5: Gymnasium navigation environment for The Skeld
+├── inspect_skeld.py                        # Stage 2.5: Interactive visual map inspector (WASD, A* path, HUD)
+├── train_skeld.py                          # Stage 2.5: PPO training script (EXPERIMENTAL / NOT YET APPROVED)
+├── test_skeld_environment.py               # Stage 2.5: 34-test comprehensive validation suite
+├── main.py                                 # Manual keyboard interactive mode (Stages 1-4)
 ├── train_stage1.py                         # Stage 1 PPO training script (--watch support)
 ├── train_stage2.py                         # Stage 2 PPO continuation script (--watch support)
 ├── evaluate_stage1.py                      # Headless Stage 1 checkpoint evaluation
@@ -264,6 +424,9 @@ python test_ppo_infrastructure.py
 ├── live_watch_stage2.py                    # Standalone live spectator for Stage 2 with HUD
 ├── training_callbacks.py                   # Periodic deterministic evaluation and best-model saving
 ├── docs/
+│   ├── skeld_research.md                   # Skeld coordinate research and room topology
+│   ├── skeld_accuracy.md                   # Accuracy assessment and known simplifications
+│   ├── asset_sources.md                    # Research sources and copyright/licensing notes
 │   └── images/                             # Curated environment and sensor screenshots
 ├── models/                                 # Saved PPO checkpoints and best models (gitignored)
 ├── logs/                                   # Evaluation logs, monitor CSVs, TensorBoard (gitignored)
