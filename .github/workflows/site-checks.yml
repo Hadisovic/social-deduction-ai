@@ -1,0 +1,31 @@
+name: Site checks
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'site/**'
+      - 'project-status.json'
+      - 'README.md'
+      - '.github/workflows/site-checks.yml'
+      - '.github/workflows/pages.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: Validate status, paths, assets, and secrets
+        run: node site/scripts/validate-site.mjs --base-path /social-deduction-ai/
+      - name: Build a Pages-shaped site artifact
+        run: node site/scripts/build-site.mjs "$RUNNER_TEMP/site-validation-build"
+      - name: Validate the built artifact
+        run: node site/scripts/validate-site.mjs --base-path /social-deduction-ai/ --root "$RUNNER_TEMP/site-validation-build"

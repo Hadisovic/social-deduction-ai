@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#050910">
+  <meta name="description" content="Walk the Skeld with Hadi and Masa and explore the milestones behind an Among Us-inspired social-deduction AI project.">
+  <title>The Crewmate Project — An explorable research story</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="navigation-data.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main class="experience" id="experience">
+    <div class="starfield starfield-far" aria-hidden="true"></div>
+    <div class="starfield starfield-near" aria-hidden="true"></div>
+    <i class="drifting-star drift-star-one" aria-hidden="true"></i>
+    <i class="drifting-star drift-star-two" aria-hidden="true"></i>
+    <i class="drifting-star drift-star-three" aria-hidden="true"></i>
+    <i class="shooting-star" id="shootingStar" aria-hidden="true"></i>
+    <header class="mission-header">
+      <a class="wordmark" href="#experience" aria-label="The Crewmate Project, return to the ship">
+        <span class="wordmark-mark" aria-hidden="true"><i></i><b></b></span>
+        <span><strong>THE CREWMATE PROJECT</strong><small>AN EXPLORABLE RESEARCH STORY</small></span>
+      </a>
+      <div class="project-thesis"><b>FROM LEARNING TO MOVE</b><span>to learning who to trust.</span></div>
+      <div class="project-signal" aria-label="Project status">
+        <span class="signal-light" aria-hidden="true"></span>
+        <span><strong id="phaseCompletion"></strong><small>CORE PHASES COMPLETE</small></span>
+      </div>
+    </header>
+
+    <section class="world-viewport" id="worldViewport" aria-label="Interactive Skeld ship map">
+      <div class="world-camera" id="worldCamera">
+        <div class="ship-world" id="shipWorld">
+          <img class="ship-art" id="shipArt" src="assets/world/skeld.webp" alt="" draggable="false" fetchpriority="high">
+          <svg class="route-art" id="routeArt" viewBox="0 0 5792 3168" aria-hidden="true" focusable="false">
+            <path class="route-history" id="routeHistory"></path>
+            <path class="route-next" id="routeNext"></path>
+            <path class="route-future" id="routeFuture"></path>
+            <path class="route-parked" id="routeParked"></path>
+            <path class="route-active-shadow" id="routeActiveShadow"></path>
+            <path class="route-active" id="routeActive"></path>
+            <path class="route-vent" id="routeVent"></path>
+            <circle class="vent-marker" id="ventMarkerA" r="30"></circle>
+            <circle class="vent-marker" id="ventMarkerB" r="30"></circle>
+            <circle class="route-destination" id="routeDestination" r="34" cx="0" cy="0"></circle>
+            <g id="routeDebug" class="route-debug" hidden>
+              <path class="route-debug-edges"></path>
+              <path class="route-debug-nodes"></path>
+              <rect class="route-debug-bounds"></rect>
+            </g>
+          </svg>
+          <div class="crew" id="crewHadi" data-crew="hadi" aria-hidden="true">
+            <img class="crew-sprite" alt="" draggable="false">
+          </div>
+          <div class="crew" id="crewMasa" data-crew="masa" aria-hidden="true">
+            <img class="crew-sprite" alt="" draggable="false">
+          </div>
+        </div>
+      </div>
+
+      <div class="marker-layer" id="markerLayer" aria-label="Milestone tasks"></div>
+      <div class="crew-name-layer" id="crewNameLayer" aria-hidden="true"></div>
+
+      <div class="opening-caption" aria-label="About this project">
+        <span class="caption-kicker"><i aria-hidden="true"></i> AN INDEPENDENT RESEARCH SIM</span>
+        <h1>Can a crewmate learn who to trust?</h1>
+        <p>Follow the work from navigation to memory, beliefs, and the next big question: what should it do?</p>
+      </div>
+
+      <div class="team-key" aria-label="The two project collaborators shown on the map">
+        <span class="team-key-label">PROJECT COLLABORATORS</span>
+        <span class="team-person" id="teamHadi" data-person="hadi"><i class="team-dot" aria-hidden="true"></i><b>Hadi</b><small>RED</small></span>
+        <span class="team-person" id="teamMasa" data-person="masa"><i class="team-dot" aria-hidden="true"></i><b>Masa</b><small>BLACK</small></span>
+      </div>
+
+      <div class="map-legend" aria-label="Milestone status key">
+        <span><i class="legend-lamp lamp-on" aria-hidden="true"></i> COMPLETE</span>
+        <span><i class="legend-lamp lamp-next" aria-hidden="true"></i> NEXT</span>
+        <span><i class="legend-lamp lamp-off" aria-hidden="true"></i> LATER</span>
+        <span><i class="legend-lamp lamp-parked" aria-hidden="true"></i> PARKED</span>
+      </div>
+
+      <div class="world-controls" aria-label="Ship view controls">
+        <button class="world-control map-control" id="mapButton" type="button" title="Return to the full ship view">
+          <span class="control-map-icon" aria-hidden="true">⌖</span><span>VIEW MAP</span><kbd>M</kbd>
+        </button>
+        <button class="world-control log-control" id="logButton" type="button" title="Open the complete project log">
+          <span aria-hidden="true">≡</span><span>SHIP LOG</span>
+        </button>
+      </div>
+
+      <div class="travel-status" id="travelStatus" aria-live="polite" aria-atomic="true">Choose a lit task to begin the journey.</div>
+      <div class="ship-caption" aria-hidden="true"><span>THE SKELD</span><i></i><span>PROJECT MILESTONES ABOARD</span></div>
+    </section>
+
+    <div class="vent-overlay" id="ventOverlay" aria-hidden="true"></div>
+
+    <nav class="milestone-trail" id="milestoneTrail" aria-label="Choose a project milestone">
+      <div class="trail-heading"><span>THE JOURNEY</span><small>SELECT A TASK</small></div>
+      <div class="trail-scroll" id="trailScroll"></div>
+      <div class="trail-hint" aria-hidden="true">SCROLL <span>›</span></div>
+    </nav>
+  </main>
+
+  <dialog class="terminal-dialog" id="milestoneDialog" aria-labelledby="panelTitle">
+    <article class="terminal" id="terminal">
+      <div class="terminal-topline"><span><i class="terminal-led" aria-hidden="true"></i><span id="panelLocation">SHIP CONSOLE</span></span><span class="terminal-index" id="panelIndex">P-04</span></div>
+      <button class="terminal-close" id="closeMilestone" type="button" aria-label="Close milestone and return to the ship">×</button>
+      <div class="terminal-content" id="terminalContent"></div>
+      <div class="terminal-foot"><span>PROJECT TEAM · HADI + MASA</span><span>ESC TO RETURN</span></div>
+    </article>
+  </dialog>
+
+  <dialog class="log-dialog" id="logDialog" aria-labelledby="logTitle">
+    <article class="ship-log">
+      <div class="terminal-topline"><span><i class="terminal-led" aria-hidden="true"></i> FLIGHT RECORDER</span><span>PROJECT HISTORY</span></div>
+      <button class="terminal-close" id="closeLog" type="button" aria-label="Close the project log">×</button>
+      <h2 id="logTitle">The ship's log</h2>
+      <p class="log-intro">A short record of what changed, what passed its checks, what was repaired, and what waits ahead.</p>
+      <button class="share-intro" id="shareIntro" type="button">COPY A SHORT INTRO <span aria-hidden="true">↗</span></button>
+      <div class="log-current"><span class="log-beacon"></span><div><b id="logCurrentLabel"></b><p>The crewmate can remember clues and estimate impostor probabilities in scripted matches. It still does not choose actions.</p></div></div>
+      <section class="log-section" aria-labelledby="repairsTitle"><h3 id="repairsTitle">Repairs along the way</h3><div class="repair-list" id="repairList"></div></section>
+      <section class="log-section log-next" aria-labelledby="nextTitle"><h3 id="nextTitle"></h3><p>Connect the belief model to one crewmate policy. Measure whole-match crew wins against the same scripted opponents. This work has not started.</p></section>
+      <p class="log-note">The map and two characters are a storytelling view of the project. The current AI system receives structured information from its simulated crewmate; it does not visually read the commercial game.</p>
+      <p class="log-status-meta">STATUS CHECKED <time id="projectLastUpdated"></time> · AGAINST <code id="projectVerifiedCommit"></code> · <a href="https://github.com/Hadisovic/social-deduction-ai" target="_blank" rel="noopener noreferrer">VIEW RESEARCH REPOSITORY</a></p>
+    </article>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <noscript><p class="no-script">This ship log needs JavaScript enabled to show the map journey.</p></noscript>
+</body>
+</html>
