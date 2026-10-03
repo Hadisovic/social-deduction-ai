@@ -6,8 +6,9 @@
 - Phase 1/2/3 remain complete and preserved. Phase 3 baseline revision:
   `e8c5d664a3f17684c3fd844a4ef27ad089b65b12`; Phase 4 milestone commits:
   `68780df` (memory/data) and `e16d8ea` (training/evaluation/observer).
-- **Phase 4 is complete** after the final results and validation commit. Resolve the
-  exact revision with `git log -1 --format=%H`.
+- **Phase 4 is complete** at implementation/results revision
+  `fdc9f4401b781f64e3e79a2cd0bb3a80bcb515e8`. This handoff is a documentation-only
+  follow-up; resolve its exact revision with `git log -1 --format=%H`.
 - Final checks: full pytest suite (327 tests), five independent dataset/feature
   replays, selected-model exact retraining, final evaluation, and live rendered
   matches. The final push was to `origin/main`; see the repository history.
