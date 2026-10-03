@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "split_counts": {
+    "train": {
+      "matches": 800,
+      "samples": 36465
+    },
+    "validation": {
+      "matches": 200,
+      "samples": 9391
+    },
+    "test": {
+      "matches": 200,
+      "samples": 9119
+    },
+    "heldout": {
+      "matches": 200,
+      "samples": 9122
+    }
+  },
+  "exact_match_and_feature_replays": [
+    10000,
+    10017,
+    20000,
+    30000,
+    40000
+  ],
+  "source_hashes_match": true,
+  "overlapping_matches": 0,
+  "invalid_samples": 0,
+  "terminal_samples": 0,
+  "navigation_failures": 0,
+  "illegal_actions": 0,
+  "temporal_note": "Pre-action inputs can share the timestamp of the subsequent terminal kill; no finished observations sampled."
+}

@@ -1,0 +1,72 @@
+{
+  "change": "Correct TIMEOUT acceptance guard casing; no extraction, sampling, features or arrays changed.",
+  "generated_source_sha256": "883b2c22e2200761ab952958d3b7807402ec6cba3b42616192f0f1a8f93e131b",
+  "accepted_source_sha256": "cad92a40eed92497eaaab0e26a90ae784d57b82bd2d3b3b058927a05bda63960",
+  "verified_matches": 1400,
+  "timeouts": 0,
+  "original_generation_config": {
+    "schema": "belief-dataset-v1",
+    "feature_schema": "belief-features-v1",
+    "features": [
+      "seen",
+      "seen_age",
+      "visible",
+      "sightings",
+      "interaction_fraction",
+      "body_known",
+      "public_absent",
+      "ejected",
+      "direct_elimination",
+      "direct_near_body",
+      "near_report",
+      "reports",
+      "votes_cast",
+      "votes_received",
+      "skips",
+      "claimed_elimination",
+      "claimed_near_body",
+      "accused",
+      "defended",
+      "location_claims",
+      "direct_contradiction",
+      "claim_conflict"
+    ],
+    "sources": {
+      "phase4_data.py": "883b2c22e2200761ab952958d3b7807402ec6cba3b42616192f0f1a8f93e131b",
+      "phase4_scripts.py": "fecd39960d378dc236de42ca98e8ed572767314b310e18ad2f0b16a93e740f43",
+      "belief/memory.py": "2cd348305f1450daa07f81c30a15ecedecb80c5221b9faa931ab67c0f72dac73",
+      "belief/features.py": "8809c12ff931775847f5ef56402c3942ec2126be4606f6dde3cd27a823076877",
+      "phase3_engine.py": "316e6ea3585dd2de6a89300c9fd2f3d1593bc584f9e4ada28fabb376c4ac8a25",
+      "phase3_bots.py": "dac423d42c94c9abdd12df9020a995ede9d32817cc1a26614f7ce693a1d5ca33",
+      "phase3_runner.py": "36b0259514638d0af4161aa7704acb29990e3e1c25fb283c44d9254c19f55e22",
+      "navigation_service.py": "3a1af1e6d7eb143144293e75704e60f29fcb2741bd3fdbeca33ad969d9af406d",
+      "among_us_map.py": "ac1252257b939980e22bb2460281ccb5e48c4cfd2525871d2ea7b2c2d23ba2fa",
+      "among_us_map_simulation.py": "6dba865da797ef7536c654512798b21daccb4040400c35d9694d97401441d24a",
+      "social_deduction/actor.py": "5f12a781dcd45ba88ea1e75dbb7bebad7f494ae4046ad7f16cd548aee543c882",
+      "social_deduction/phase3_api.py": "f7cf97cd81896f5ba5149cdb4224012f3cd7a97545859dcd44e07e7a95eefa35",
+      "social_deduction/phase3_observation.py": "8c3b680a5bd2ae63f5b91b294034e01d505a47a3d79af2481fe4070f955d4e35",
+      "social_deduction/truth.py": "a98637897c8783b236f1ead92a0a33d2c7d145ac90c196f43676e96767c8de1d",
+      "social_deduction/training.py": "7728e2d20041625ce330ab01b49bac37db9d9cca36e4521608757f784c001a69",
+      "assets/skeld/among_us_map.json": "571ab771cdbc1d204614922c2e2c7b29291ea4a83a10c0201e6a5ecc89bd43ee"
+    },
+    "splits": {
+      "train": [
+        10000,
+        800
+      ],
+      "validation": [
+        20000,
+        200
+      ],
+      "test": [
+        30000,
+        200
+      ],
+      "heldout": [
+        40000,
+        200
+      ]
+    },
+    "quick": false
+  }
+}

@@ -12,16 +12,18 @@ from social_deduction.phase3_api import EventView
 
 def test_observer_does_not_change_scripted_trajectory_or_receive_outcome():
     torch.set_num_threads(1)
-    first = ScriptedMatch(15)
-    observer = MatchObserver(first,BeliefModel(CandidateNet()))
-    while not first.game.is_terminal:
-        observer.step(first)
-    second = ScriptedMatch(15,planner=first.game.planner); second.run()
-    assert first.trajectory_hash == second.trajectory_hash
-    for memory in observer.memories.values():
-        assert memory.phase is not Phase.FINISHED
-        assert not any(type(e.payload) is MatchEnded for e in memory.events)
-        assert memory.tick*.2 < first.game.time
+    for seed in (15,25):
+        first = ScriptedMatch(seed)
+        observer = MatchObserver(first,BeliefModel(CandidateNet()))
+        while not first.game.is_terminal:
+            observer.step(first)
+        second = ScriptedMatch(seed,planner=first.game.planner); second.run()
+        assert first.trajectory_hash == second.trajectory_hash
+        for pid,memory in observer.memories.items():
+            assert memory.phase is not Phase.FINISHED
+            assert not any(type(e.payload) is MatchEnded for e in memory.events)
+            assert memory.tick <= first.game.tick
+            assert observer.active[pid] == first.game.observe(pid).own.active
     original = observer.focal; observer.cycle(); assert observer.focal != original
 
 

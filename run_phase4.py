@@ -27,7 +27,12 @@ def main(argv=None):
     from phase4_observer import MatchObserver
     from phase4_renderer import BeliefPanel
     pygame.init()
-    screen = pygame.display.set_mode((1800,900))
+    # Fit mixed-DPI multi-monitor desktops; keep the frozen map renderer's canvas.
+    desktops = pygame.display.get_desktop_sizes()
+    scale = min(1., *(min(w*.9/1800,h*.85/900) for w,h in desktops))
+    size = (round(1800*scale),round(900*scale))
+    screen = pygame.display.set_mode(size,display=0)
+    canvas = pygame.Surface((1800,900))
     pygame.display.set_caption('Social Deduction AI | Phase 4 | Loading')
     screen.fill((12,20,33)); pygame.display.flip(); pygame.event.pump()
     match = ScriptedMatch(args.seed)
@@ -87,10 +92,14 @@ def main(argv=None):
                 while accumulator >= match.game.config.dt and steps < 32 and not match.game.is_terminal:
                     observer.step(match); accumulator -= match.game.config.dt; steps += 1
             game = match.game
-            screen.blit(renderer.draw(game,options,paused,speed,clock.get_fps()),(0,0))
+            canvas.blit(renderer.draw(game,options,paused,speed,clock.get_fps()),(0,0))
             focal = observer.focal
             memory,belief = observer.memories[focal],observer.beliefs[focal]
-            screen.blit(panel.draw(memory,belief,observer.active[focal],expanded,event_offset),(1440,0))
+            canvas.blit(panel.draw(memory,belief,observer.active[focal],expanded,event_offset),(1440,0))
+            if size == canvas.get_size():
+                screen.blit(canvas,(0,0))
+            else:
+                pygame.transform.smoothscale(canvas,size,screen)
             pygame.display.set_caption(f'Phase 4 | seed {game.seed} | {game.time:.1f}s | {speed:g}x | F focal, M memory, 1 truth')
             pygame.display.flip()
             if args.capture:
@@ -106,7 +115,7 @@ def main(argv=None):
                 for state in states:
                     if state not in captured:
                         path = args.capture/f'seed-{game.seed}-{state}.png'
-                        pygame.image.save(screen,str(path))
+                        pygame.image.save(canvas,str(path))
                         print(f'Captured {path} | belief={belief.by_player}',flush=True)
                         captured.add(state)
             frames += 1

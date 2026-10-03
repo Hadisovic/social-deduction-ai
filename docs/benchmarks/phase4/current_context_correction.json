@@ -1,0 +1,10 @@
+{
+  "change": "Current-only ablation now retains current meeting participants. Only x_current public_absent during discussion/voting changes. All labels, sampling, other feature arrays and full-model weights unchanged.",
+  "stage": "Final audit protocol correction after initial results; no hyperparameter or release selection changes.",
+  "derivation": "In a live meeting, the full causal public_absent summary equals absence from that current meeting participant list (no resurrection).",
+  "shards": 1400,
+  "samples_changed": 26192,
+  "generated_feature_source_sha256": "8809c12ff931775847f5ef56402c3942ec2126be4606f6dde3cd27a823076877",
+  "accepted_feature_source_sha256": "24b9aee88fd386a9bc8192feb945947d407187eee092938312d490496ce61e5b",
+  "validation": "Independent simulation/feature replay across five seeds verifies the corrected arrays."
+}

@@ -1,4 +1,23 @@
-# Architecture — information boundary and navigation
+# Architecture — information boundary, simulation and beliefs
+
+## Current executable architecture (Phase 4 complete)
+
+`Phase3Game` -> trusted `project_game` -> immutable `Phase3Observation` ->
+`ActorMemory` -> identity-free candidate features -> shared `CandidateNet` ->
+four public-ID probabilities and entropy. `ScriptedMatch` retains action control;
+no belief enters a strategic policy yet. The Phase 1 fixture API and Phase 2 map/
+navigation remain unchanged, as do all Phase 3 engine/controller/renderer files.
+
+Memory/features/model modules under `belief/` cannot import world truth, labels,
+controllers or replay logs. `phase4_data.py` is the trusted boundary joining actor
+features with separate `role_labels` loss targets. Whole-match train/validation/
+test splits and a reserved patient impostor family support evaluation. Model
+selection and scalar temperature fitting use validation only. The release model
+is a 2,849-parameter equivariant set scorer, with explicit memory instead of
+recurrence; prediction never chooses an action. See [belief model](belief_model.md)
+and [measured Phase 4 results](benchmarks/phase4/README.md).
+
+The remaining sections preserve the rationale of the earlier foundation phases.
 
 ## Research definition
 
@@ -11,10 +30,10 @@ a null result is informative. Commercial-client control is outside this target.
 
 ## Accepted roadmap and scope
 
-Keep the six phases in README. The refinement is to implement a small executable
-information boundary now, without a transition engine. A documentation-only
-contract would not catch leaks; building the full simulator now would entangle
-rules, physics, and observations before the boundary is tested.
+The six phases in README separate boundary, map/navigation, simulation, belief,
+strategy and multi-agent expansion. Phase 1 deliberately began with an executable
+information boundary before a transition engine. Phase 3 subsequently implemented
+the playable engine; Phase 4 consumes its validated actor interface.
 
 Phase 1 provides immutable snapshots, a crew observation projector, safe action
 candidates, typed event provenance, a minimal observation-history container,
@@ -29,7 +48,7 @@ objects are fixtures/adapters for a future simulator, not a playable game.
 - `social_deduction/training.py`: privileged role targets; never an actor dependency.
 - `test_information_contract.py`: paired-world, temporal, provenance and boundary tests.
 
-Future orchestration: truth -> `observe(world, player_id)` -> actor observation ->
+Original Phase 1 fixture orchestration: truth -> `observe(world, player_id)` -> actor observation ->
 `remember(history, observation)` -> strategic policy. Only the trusted runner calls
 the projector; policies must not receive its closure, world, training labels,
 simulator debug dictionaries, RNG state, or helper references. Action candidates
@@ -44,7 +63,7 @@ malicious policy code. Process isolation can be added for untrusted policies.
 
 Static map values are shared immutable public data. Phase 1 uses small rectangular
 fixtures with range and wall-occlusion checks. It does not adapt Skeld geometry or
-change navigation. Phase 3 must test actual renderer/visibility/event integration.
+change navigation. Phase 3 now tests actual renderer/visibility/event integration.
 
 ## Later learning and evaluation
 
@@ -79,6 +98,6 @@ must be public/observed: a planner must not be refreshed from hidden door or pla
 state. Service diagnostics are not automatically actor observation fields. Phase 1
 interfaces and legacy navigation experiments remain unchanged.
 
-Phase 3 still needs the five-player scripted match engine, tick ordering, task
-rules, event publication and Skeld visibility adaptation with wrapper leakage
-tests. It is not implemented by the navigation service.
+Phase 3 separately supplies the five-player match engine, tick ordering, task
+rules, authenticated event publication and Skeld visibility with paired-world
+leakage tests. The navigation service remains independent of those rules.

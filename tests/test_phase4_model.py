@@ -65,6 +65,16 @@ def test_generation_deterministic_causal_and_aligned():
     assert am['trajectory_hash'] == bm['trajectory_hash']
     assert len(a['y']) > 4 and a['tick'].min() == 0
     assert 'finished' not in a['stage']
-    assert (a['tick']*.2 < am['result']['simulation_time']).all()
+    assert (a['tick']*.2 <= am['result']['simulation_time']+1e-9).all()
     assert np.all(a['candidates'][np.arange(len(a['y'])),a['y']] == am['impostor_id'])
     assert am['impostor_id'] not in a['actor']
+
+
+def test_pre_action_sample_can_share_terminal_kill_timestamp():
+    # This real seed exposed an overstrict audit check. The sampler records
+    # living/nonterminal input BEFORE the action that creates parity at that tick.
+    data, record = generate_match(10209)
+    at_finish = np.isclose(data['tick']*.2,record['result']['simulation_time'])
+    assert at_finish.any()
+    assert set(data['stage'][at_finish]) == {'roaming'}
+    assert not (data['tick']*.2 > record['result']['simulation_time']+1e-9).any()

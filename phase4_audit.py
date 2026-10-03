@@ -30,9 +30,12 @@ def audit_dataset(directory, replay_seeds=(10000,10017,20000,30000,40000)):
             assert set(data['actor']) == set(metadata['colors'])-{metadata['impostor_id']}
             assert np.all(data['candidates'][np.arange(n),data['y']]==metadata['impostor_id'])
             assert 'finished' not in data['stage']
-            assert (data['tick']*.2 < metadata['result']['simulation_time']).all()
+            # A killing action can finish at the SAME timestamp as its pre-action
+            # observation. Generation samples before step; equal time is not a
+            # post-outcome packet. Finished phases are independently forbidden.
+            assert (data['tick']*.2 <= metadata['result']['simulation_time']+1e-9).all()
             assert metadata['metrics']['illegal_actions']==metadata['metrics']['navigation_failures']==0
-            assert metadata['result']['reason'] != 'timeout'
+            assert metadata['result']['reason'].upper() != 'TIMEOUT'
             expected_family = {'patient'} if split=='heldout' else {'hunter','self_report'}
             assert metadata['impostor_style'] in expected_family
             for view in VIEWS:
@@ -47,4 +50,5 @@ def audit_dataset(directory, replay_seeds=(10000,10017,20000,30000,40000)):
         counts[split]={'matches':count,'samples':samples}
     return {'status':'passed','split_counts':counts,'exact_match_and_feature_replays':sorted(replays),
             'source_hashes_match':True,'overlapping_matches':0,'invalid_samples':0,
-            'terminal_samples':0,'navigation_failures':0,'illegal_actions':0}
+            'terminal_samples':0,'navigation_failures':0,'illegal_actions':0,
+            'temporal_note':'Pre-action inputs can share the timestamp of the subsequent terminal kill; no finished observations sampled.'}

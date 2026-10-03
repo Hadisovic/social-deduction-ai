@@ -2,6 +2,67 @@
 
 > **Canonical Document**: Detailed technical history, experimental results, architectural pivot, and roadmap status for the **Social Deduction AI** project.
 
+## 2026-10-02: Phase 4 event memory and belief experiment COMPLETE
+
+Started from clean, synchronized `main` at `e8c5d664a3f17684c3fd844a4ef27ad089b65b12`;
+the fresh baseline was 291 passing tests. Memory/data checkpoint: `68780df`;
+training/evaluation/observer checkpoint: `e16d8ea`. The current handoff records
+the final result revision. No Phase 1/2/3 engine, geometry, navigation, controller
+or original renderer file changed.
+
+The actor-safe memory retains canonical DIRECT/PUBLIC/CLAIM events, compressed
+sightings, exact observed room/time support, last sightings, claims, public votes
+and conservative contradictions across meetings. Four historical non-self
+identities remain candidates, including ejected players. Training labels are
+joined separately after encoding; hidden state never enters model features.
+
+| Acceptance | Result |
+|---|---|
+| Full tests | **327 passed**, one existing Gym spec warning |
+| Dataset | **1,400 matches / 5,600 focal crews / 64,097 samples** |
+| Train / validation / ID test / patient-family test | **800 / 200 / 200 / 200 matches** |
+| Failures / timeouts / illegal actions / navigation failures | **0 / 0 / 0 / 0** |
+| Exact independent feature + match replays | **5/5** across all partitions |
+| Selected model | **2,849-parameter DeepSets scorer, seed 29**, epoch 23 |
+| ID calibrated learned accuracy / NLL / Brier / ECE | **70.54% / .5955 / .3189 / .0129** |
+| Patient-family calibrated learned | **67.41% / .6375 / .3442 / .0134** |
+| Patient-family calibrated rules | **63.15% / .8005 / .4019 / .0501** |
+| Exact selected-model retraining | **Identical state dict and temperature** |
+| CPU inference, one representative memory | **.246 ms mean**, including feature extraction |
+| Real demo matches | **7, 15, 25**, local source artwork and independent belief panel |
+
+Patient-family NLL difference versus calibrated rules is -.1630 (95% match-bootstrap
+interval [-.2272,-.1090]). Validation-temperature calibration slightly worsens both
+final sets; the released T=1.1016 remains the validation-only choice. Early states
+are near chance and maximum entropy; later scripted meetings are often easy. The
+corrected current-only ablation retains the live meeting roster but removes
+historical claims, votes and sightings; its NLL is 1.2455 (ID) / 1.2546 (patient),
+near the uniform prior. No-claims and collapsed-provenance ablations are smaller
+degradations. This is evidence within a narrow scripted
+distribution, not general social intelligence or improved team win rate.
+
+```powershell
+python run_phase4.py
+python train_phase4.py
+python evaluate_phase4.py
+```
+
+The release checkpoint is 15,722 bytes; regenerable shards are ignored. A mixed-DPI
+window clipping issue was fixed at the composite display without changing the
+frozen renderer. Dataset audit corrected an overstrict timestamp check: inputs
+sampled before a terminal killing action can legitimately share its timestamp.
+The TIMEOUT guard casing was corrected; all 1,400 existing outcomes were verified
+non-timeout before an explicit acceptance-only source amendment, with no array
+changes. The amendment and independent replays preserve provenance. A separate
+current-context correction updated 26,192 `x_current` public-absence fields to
+retain the live meeting roster, followed by five exact feature replays and
+retraining/evaluation of only that ablation. Full-model inputs and checkpoint
+remain unchanged; see `benchmarks/phase4/current_context_correction.json`.
+
+See [implementation and contract](belief_model.md), [results and plots](benchmarks/phase4/README.md),
+and [handoff](../HANDOFF.md). The `predict(actor_memory)` interface is ready for the
+separately scoped **Phase 5 strategic policy**. No learned action selection was added.
+
 ## 2026-10-02: Phase 3 five-player simulator COMPLETE
 
 Implementation revision: `c2c6ea269fffbefc96993acead6f6127806c354b`.

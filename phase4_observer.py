@@ -17,7 +17,13 @@ class MatchObserver:
         self.update(match)
 
     def update(self, match):
-        if match.game.is_terminal or match.game.tick % match.decision_ticks:
+        if match.game.is_terminal:
+            # The final action may kill this observer. Update its own UI status
+            # without admitting any terminal packet to memory or inference.
+            for pid in self.memories:
+                self.active[pid] = match.game.observe(pid).own.active
+            return
+        if match.game.tick % match.decision_ticks:
             return
         for pid,memory in self.memories.items():
             observation = match.game.observe(pid)

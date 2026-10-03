@@ -177,7 +177,8 @@ All use identical matches/sampling/labels and retrain the selected architecture
 with seed 17 and the same optimizer budget. Each has its own validation temperature.
 
 - Current-only: fresh memory from current sightings and newly delivered events;
-  the repeated historical public prefix is removed explicitly. A public claim
+  the current meeting's public participant list is retained as current context.
+  The repeated historical public prefix is otherwise removed explicitly. A public claim
   learned earlier is unavailable even if the engine repeats it in a later packet.
 - No claims: all explicit claim-derived features and contradiction signals removed.
   Public votes remain legitimate downstream behavior; this is an input ablation,
@@ -200,7 +201,8 @@ print(belief.by_player, belief.entropy)  # logits and stable player_ids also ava
 The default seed 15 selects the first initially known crewmate and tracks all crew
 observers independently from match start. F changes observer; an eliminated focal
 actor's memory/probabilities freeze and are labeled. M toggles memory inspection.
-The right panel takes only memory, beliefs and own active status. It shows four
+PgUp/PgDn browse earlier evidence. The display fits the connected desktops while
+preserving the original renderer's canvas. The right panel takes only memory, beliefs and own active status. It shows four
 probabilities, entropy, last sightings, source-tagged evidence and conflict counts.
 The original map/game panel is explicitly a spectator view; `1` separately reveals
 debug roles and never changes model inputs. Space pauses, Right steps while paused,

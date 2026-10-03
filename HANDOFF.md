@@ -1,126 +1,59 @@
 # Continuation handoff
 
-## Current state (2026-10-02)
+## Current state (2026-10-03)
 
 - Repository: `Hadisovic/social-deduction-ai`, branch `main`.
-- Phase 3 starting revision: `deae77c3dda88290659abc3659d5eb472c07aa07`.
-- Phase 1 complete/frozen: `8a0b4c9`; map milestone: `3819367`;
-  Phase 2 implementation: `9dcc0a217da468c6d906816937fbd5bd11af128f`.
-- **PHASE 3 COMPLETE**: 291 tests; 1,000 complete seeds and 1,000 identical
-  independent replays; all required failure categories zero.
-- Phase 3 implementation revision: `c2c6ea269fffbefc96993acead6f6127806c354b`.
-- This documentation follow-up records that immutable revision. Resolve its own
-  final handoff revision with `git log -1 --format=%H`.
-- Phase 4 has not started. No learned policy, belief model, training or checkpoint
-  changes were made.
+- Phase 1/2/3 remain complete and preserved. Phase 3 baseline revision:
+  `e8c5d664a3f17684c3fd844a4ef27ad089b65b12`; Phase 4 milestone commits:
+  `68780df` (memory/data) and `e16d8ea` (training/evaluation/observer).
+- **Phase 4 is complete** after the final results and validation commit. Resolve the
+  exact revision with `git log -1 --format=%H`.
+- Final checks: full pytest suite (327 tests), five independent dataset/feature
+  replays, selected-model exact retraining, final evaluation, and live rendered
+  matches. The final push was to `origin/main`; see the repository history.
 
-## Run the complete game
+## Phase 4 outcome
 
-```powershell
-python run_phase3.py
-python run_phase3.py --seed 15 --speed 4
-python run_phase3.py --seed 25 --speed 4
-python run_phase3_batch.py --matches 1000 --workers 8
-.venv\Scripts\python.exe -m pytest -q
-```
+The phase adds bounded typed event memory, permutation-safe 22-feature candidate
+vectors, a calibrated set-based impostor-belief model, seeded scripted study data,
+leakage/identity audits, retrained ablations, evaluation, and an interactive
+belief observer. It does not add a strategic policy: task selection, reporting,
+accusations and voting remain scripted.
 
-The no-flags visual command was launched in a real Windows window from the
-repository root. It automatically uses the existing `.venv` if present. Space
-pauses, Right steps, +/- changes speed, R repeats, N changes seed; 1 toggles
-spectator roles, G routes, V range, T tasks, L labels, C collision, E log, B bodies,
-Tab sidebar, Escape exits. Real complete matches 7, 15 and 25 were inspected.
+The experiment contains 1,400 complete matches and 64,097 samples, with match-level
+train/validation/ID-test/patient-family splits. Final calibrated model accuracy is
+70.54% (NLL .5955) on ID and 67.41% (NLL .6375) on the held-out patient family.
+These results establish performance only on the controlled five-player scripted
+distribution. The current-only ablation was corrected to retain the public live
+meeting roster; its NLL is 1.2455 / 1.2546. See
+`docs/benchmarks/phase4/README.md` and its linked machine-readable records.
 
-The owner-requested sprites and task panels are installed locally in ignored
-`assets/phase3_local/`. The public repository contains their pinned manifest and
-loader, not the ripped game PNGs. An offline clone uses original procedural
-characters; `python phase3_assets.py --install` explicitly installs the selected
-local pack. Read `docs/phase3_asset_provenance.md` before distributing artwork.
-No new package dependencies were needed.
+The release checkpoint is `artifacts/phase4/belief.pt`. Run the UI with
+`python run_phase4.py`, regenerate data/train with `python train_phase4.py`, and
+evaluate with `python evaluate_phase4.py`. Generated shards and run intermediates
+are ignored; a fresh training run regenerates them. The small selected checkpoints,
+selection record, benchmark report and demo captures are committed.
 
 ## Architecture and preserved contracts
 
-`Phase3Game` owns physical entities, private tasks, bodies, rules and authenticated
-publication. `project_game` creates detached, exact-type immutable
-`Phase3Observation` packets. `ScriptedController.decide` receives only those values;
-it imports no engine, truth, geometry helper or renderer. `ScriptedMatch` gathers
-all actors' inputs before collecting actions, schedules fixed ticks/decisions,
-and hashes full actor inputs/actions and privileged event logs. The renderer is
-a read-only spectator. Visual and batch modes share that same runner.
+`ActorMemory` accepts only typed actor observations and maintains bounded causal
+events. `belief/features.py` derives candidate-relative features. `BeliefModel`
+returns a distribution over legal crew candidates; it receives no role labels,
+truth snapshots, match seed or hidden state. Identity/color permutation and temporal
+boundary tests protect the interface. The observer reads terminal own-alive status
+only for the UI and does not update model memory from it.
 
-The original Phase 1 modules are unchanged. Native visibility and own-impostor
-controls live in additive `social_deduction/phase3_api.py` and
-`phase3_observation.py`. Phase 2's `NavigationService` and
-`AmongUsMapEnv.advance_motion` are reused unchanged, with the same native map.
-There is no gameplay teleport or second movement system.
-
-Key files:
-
-- `phase3_engine.py`: fixed-tick rules, entities, transitions, task quota and wins.
-- `phase3_bots.py`: independent role-aware scripts with bounded recent observations.
-- `phase3_runner.py`: orchestration, trajectory hashes and audit replay output.
-- `run_phase3.py`, `phase3_renderer.py`: desktop demo and spectator overlays.
-- `run_phase3_batch.py`: seeded acceptance, independent replays, metrics/provenance.
-- `phase3_assets.py`, `assets/phase3_assets.json`: selected local artwork and fallback.
-- `docs/social_simulator.md`: complete API, rules, architecture and limitations.
-- `docs/benchmarks/phase3/`: acceptance CSV/JSON, test output, three representative
-  privileged JSONL traces and a truth-versus-actor timeline.
-- `test_phase3_*.py`: 93 new checks, including 26 full-packet boundary checks.
-
-## Settled rules
-
-- Four crew/one impostor; independent seeded identities, colors, roles, tasks and
-  controller behavior. Match seed and hidden role state do not enter actor packets.
-- Eight fixed private tasks; four seconds each, retained partial progress.
-  Fake tasks are ambiguous animations and never count toward the quota.
-- On hidden death, orphan work stays with its owner until a public meeting roster
-  reveals absence. Then unfinished work is privately reassigned to active crew.
-- Native geometry blocks 360-degree range-limited sight. Kills need visible close
-  targets and ready cooldown. Direct witnesses must see both killer and victim.
-- Reports reveal reporter/victim/region, never killer or death time. Meetings
-  publish living participants, clear bodies, cancel intentions and freeze positions,
-  interactions and cooldowns. No meeting teleport; fresh intentions resume play.
-- Reports/emergency calls precede kills in simultaneous ticks; public ID breaks ties.
-- One authenticated finite claim per speaking turn; claims can be false. DIRECT,
-  PUBLIC and CLAIM provenance remain distinct. Claimed time is not delivery time.
-- One public vote/skip per participant; self-vote allowed. A unique player plurality
-  must beat skip; all ties and all-skip eject nobody. No role reveal on ejection.
-- Central wins: no impostor, parity, all initial tasks complete, in that order.
-  Deadline is a draw/TIMEOUT and fails the default acceptance gate.
-
-## Final validation
-
-Fresh baseline: 197 passed. Final suite: **291 passed**, one existing Gym spec
-warning, 101.78 seconds during concurrent work. All original tests were retained.
-The added tests include 93 Phase 3 checks plus one deterministic legacy viewer
-regression. A diagnostic full run exposed the old training viewer entering an
-iteration without a model after its initial render handled close; one guard in
-`live_watch_training.py` fixes this. Indexed task PNG scaling was also found by
-real visual QA and fixed in the optional loader. `pip check` passed.
-
-Seeds 0–999: **1,000 complete + 1,000 identical full replays**. Zero crashes,
-invalid states, timeouts, illegal scripted actions, navigation failures or replay
-differences. Source hashes stayed unchanged throughout the run. Results:
-**870 task wins, 41 impostor ejections, 89 parity wins** (911 crew / 89 impostor).
-Mean duration 58.932 simulated seconds; 294.749 steps; mean concurrent worker
-runtime 5.724 seconds. Total wall time 1,290.18 seconds with eight workers,
-including every replay. See the benchmark report for cost breakdowns and caveats.
-
-Only intentional reports and three privileged traces are committed. Local PNGs,
-visual captures, audit downloads, progress journal and scratch test outputs stay
-ignored. The mixed truth replay log must never become a learner's input. Use
-`Phase3Observation` and its explicitly typed evidence instead.
+Phase 1/2/3 gameplay, scripts, navigation and map assets were not modified by the
+Phase 4 implementation. Phase 3's 291-test contract remains in force. See
+`docs/PROJECT_PROGRESS.md`, `docs/project_architecture.md`, `docs/belief_model.md`,
+and `docs/phase4_design.md` for project state and technical details.
 
 ## Limits and next phase
 
-This is a controlled static-map research simulator. Exact structured localization,
-no player-player collision, coarse fixed ticks and timed task substitutes remain
-intentional simplifications. Scripts are validation fixtures and are not balanced
-around 50/50. Commercial-client parity, networking, minigames, dynamic doors,
-vents, sabotage, ghost play, CNN perception and LLM discussion are unimplemented.
-The local artwork has documented redistribution limits; some colors have only a
-single directional frame. Timings include concurrency, validation and hashing.
-
-The next separately scoped phase is **Event Memory + Suspicion / Belief Model**.
-It can consume stable actor packets, direct sightings and public claims/votes,
-with role labels reserved for training/evaluation. Preserve the whole-input and
-legal-candidate invariance tests when adding memory. No Phase 4 work has begun.
+No Phase 5 policy or win-rate claim is implemented. The next research step should
+connect the belief interface to a policy, define a policy-level baseline and
+pre-register match-level evaluation before tuning. Current limits include five
+players, one impostor, structured claims, a static map, no sabotage/vents/free-form
+language, and narrow scripted opponents. Near-perfect late meeting accuracy is a
+property of this controlled script distribution, not evidence of robust human
+deception reasoning.

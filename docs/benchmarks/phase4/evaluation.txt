@@ -1,0 +1,21 @@
+pygame-ce 2.5.8 (SDL 2.32.10, Python 3.12.10)
+
+test: 200 matches / 9119 samples
+prior                  accuracy=0.2500 NLL=1.3863 Brier=0.7500 ECE=0.0000
+rules_raw              accuracy=0.6505 NLL=1.0194 Brier=0.5705 ECE=0.2494
+rules_calibrated       accuracy=0.6505 NLL=0.7755 Brier=0.3878 ECE=0.0576
+learned_raw            accuracy=0.7054 NLL=0.5936 Brier=0.3186 ECE=0.0080
+learned_calibrated     accuracy=0.7054 NLL=0.5955 Brier=0.3189 ECE=0.0129
+current                accuracy=0.2982 NLL=1.2455 Brier=0.7049 ECE=0.0018
+no_claims              accuracy=0.7011 NLL=0.6057 Brier=0.3221 ECE=0.0193
+collapsed              accuracy=0.7019 NLL=0.5994 Brier=0.3202 ECE=0.0155
+
+heldout: 200 matches / 9122 samples
+prior                  accuracy=0.2500 NLL=1.3863 Brier=0.7500 ECE=0.0000
+rules_raw              accuracy=0.6315 NLL=1.0409 Brier=0.5807 ECE=0.2396
+rules_calibrated       accuracy=0.6315 NLL=0.8005 Brier=0.4019 ECE=0.0501
+learned_raw            accuracy=0.6741 NLL=0.6360 Brier=0.3439 ECE=0.0095
+learned_calibrated     accuracy=0.6741 NLL=0.6375 Brier=0.3442 ECE=0.0134
+current                accuracy=0.2901 NLL=1.2546 Brier=0.7081 ECE=0.0079
+no_claims              accuracy=0.6739 NLL=0.6657 Brier=0.3536 ECE=0.0105
+collapsed              accuracy=0.6780 NLL=0.6446 Brier=0.3476 ECE=0.0128

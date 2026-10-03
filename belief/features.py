@@ -19,9 +19,14 @@ INDEX = {name: i for i, name in enumerate(FEATURE_NAMES)}
 
 
 def current_memory(observation, previous_tick):
-    """Remove repeated historical publications, not just the Python memory object."""
+    """Drop historical publications but retain the currently public meeting roster.
+
+    Its canonical Meeting envelope materializes information also present in the
+    current PublicContext; it does not restore old claims, votes or sightings.
+    """
     fresh = replace(observation, evidence=tuple(e for e in observation.evidence
-                                                if e.tick > previous_tick))
+        if e.tick > previous_tick or (type(e.payload) is Meeting and
+            e.payload.meeting_id == observation.context.meeting_id)))
     memory = ActorMemory()
     memory.update(fresh)
     return memory

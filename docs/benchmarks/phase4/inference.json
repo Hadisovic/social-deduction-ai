@@ -1,0 +1,10 @@
+{
+  "iterations": 1000,
+  "mean_ms": 0.24585189996287227,
+  "memory_events": 34,
+  "device": "cpu",
+  "threads": 1,
+  "includes": "memory feature extraction + network + softmax + output mapping",
+  "checkpoint_sha256": "e931b1fa8a421d9a329a29280d676bf52f793cc8f07c02b8da61f2b3e5e537d1",
+  "checkpoint_bytes": 15722
+}

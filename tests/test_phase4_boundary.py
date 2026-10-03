@@ -7,7 +7,8 @@ import torch
 from belief.memory import ActorMemory
 from belief.features import encode
 from belief.model import BeliefModel, CandidateNet, DEFAULT_CHECKPOINT
-from social_deduction.actor import Identity, Point, Role
+from social_deduction.actor import Identity, Point, Provenance, Role
+from social_deduction.phase3_api import EventView, WitnessedElimination
 from social_deduction.truth import BodyTruth, InternalEvent, TaskTruth
 from test_phase3_boundary import planner, scene, project, change_others
 
@@ -51,7 +52,8 @@ def test_matched_histories_cannot_change_memory_features_or_belief(scene,predict
         changed = replace(world,internal_events=(InternalEvent(0,'secret','p0'),InternalEvent(999,'future','p1')))
     memories = [ActorMemory(),ActorMemory()]
     # Shared observed prefix, then unseen counterfactual changes across two updates.
-    prefix = change_others(replace(world,tick=10,bodies=()),actor,lambda p:replace(p,position=own.position,room=own.room))
+    prefix = change_others(replace(world,tick=10,bodies=()),actor,lambda p:replace(
+        p,position=own.position,room=own.room,interacting=p.identity.player_id==others[0].identity.player_id))
     for memory in memories:
         memory.update(project(scene,prefix))
     for tick in (20,30):
@@ -64,8 +66,12 @@ def test_matched_histories_cannot_change_memory_features_or_belief(scene,predict
 
 
 def test_public_id_color_and_roster_permutation_equivariance(scene,predictor):
-    memory = ActorMemory(); memory.update(project(scene))
+    _,world,actor = scene
+    candidates = [p.identity.player_id for p in world.players if p.identity.player_id!=actor]
+    witness = EventView(9,Provenance.DIRECT,WitnessedElimination(candidates[0],candidates[1],Point(0.,0.),'Reactor'))
+    memory = ActorMemory(); memory.update(project(scene,direct_events=(witness,)))
     original = predictor.predict(memory)
+    assert max(original.probabilities)-min(original.probabilities) > 1e-6
     data = memory.to_dict()
     mapping = {pid:f'identity-{7-i}' for i,pid in enumerate(i.player_id for i in memory.roster)}
     def rename(value):

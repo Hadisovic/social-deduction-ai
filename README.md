@@ -5,10 +5,40 @@
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/)
 [![PyTorch 2.6](https://img.shields.io/badge/PyTorch-2.6-ee4c2c.svg)](https://pytorch.org/)
 [![Gymnasium](https://img.shields.io/badge/Gymnasium-1.1+-darkgreen.svg)](https://gymnasium.farama.org/)
-[![Tests Passing](https://img.shields.io/badge/tests-291%20passed-success.svg)](test_information_contract.py)
+[![Tests Passing](https://img.shields.io/badge/tests-327%20passed-success.svg)](docs/benchmarks/phase4/pytest.txt)
 [![Phase 1](https://img.shields.io/badge/phase%201-complete%20%2F%20frozen-blueviolet.svg)](docs/information_contract.md)
 
-## Watch the five-player simulator
+## Watch a crewmate form beliefs
+
+```powershell
+python run_phase4.py
+```
+
+The real five-player match runs while a learned observer estimates which of the
+four other players is the impostor. The right panel shows probabilities, entropy,
+last sightings and source-tagged memory. F changes focal crew, M opens/closes memory,
+PgUp/PgDn browse evidence, and `1` independently reveals spectator truth. Space
+pauses, Right steps, `+/-` changes speed, R repeats and N changes seed.
+
+**Phase 4 is complete:** 1,400 matches / 64,097 samples; a 2,849-parameter shared
+set model; 327 passing tests. Against the held-out patient impostor family, the
+calibrated model achieves **67.4% accuracy / 0.637 NLL**, versus **63.2% / 0.800**
+for calibrated evidence rules. Early ambiguous states remain uncertain. Scripts
+still choose all actions; Phase 5 has not begun.
+
+```powershell
+python train_phase4.py          # Generate/resume, train, calibrate, evaluate
+python train_phase4.py --quick  # Separate smoke experiment
+python evaluate_phase4.py      # Reevaluate both final sets and ablations
+```
+
+The compact release checkpoint is committed; training data is regenerable and
+ignored. See [memory, boundary and reproduction](docs/belief_model.md) and
+[measured results, uncertainty and limitations](docs/benchmarks/phase4/README.md).
+
+![Live crewmate beliefs](docs/benchmarks/phase4/demo/seed-7-exploration.png)
+
+## Watch the original five-player simulator
 
 ```powershell
 python run_phase3.py
@@ -31,8 +61,8 @@ python run_phase3_batch.py --matches 1000 --workers 8
 
 This headless command independently replays every seed and writes CSV/JSON results.
 Read the [rules, architecture, controls and limitations](docs/social_simulator.md)
-and [acceptance evidence](docs/benchmarks/phase3/README.md). The learned crewmate,
-event-memory/belief model and strategic RL remain later work.
+and [acceptance evidence](docs/benchmarks/phase3/README.md). Phase 4 adds a learned
+belief observer; learned strategic behavior remains later work.
 
 ## Preserved source-backed Skeld navigation inspector
 
@@ -66,8 +96,8 @@ The research goal is to train an **autonomous crewmate** that:
 - Maintains and updates an explicit probabilistic belief/suspicion model over hidden player roles.
 - Learns high-level strategic decision-making (task completion, patrol routes, grouping, reporting bodies, and voting) through reinforcement learning.
 
-The current Phase 3 actors are small scripted baselines used to validate the
-environment. They do not yet implement this learned reasoning pipeline.
+The Phase 3 actors remain scripted. Phase 4 now implements persistent legitimate
+memory and learned role probabilities as an independent observer.
 
 ---
 
@@ -93,8 +123,8 @@ flowchart TD
     end
 
     subgraph Agent [Autonomous Agent Pipeline]
-        MEM["Event Memory Store<br/><i>(Sightings, Claims, Timestamps)</i><br/><b>[Phase 4: Planned]</b>"]
-        BELIEF["Belief & Suspicion Model<br/><i>(Role Probabilities, Consistency)</i><br/><b>[Phase 4: Planned]</b>"]
+        MEM["Event Memory Store<br/><i>(Sightings, Claims, Timestamps)</i><br/><b>[Phase 4: Complete]</b>"]
+        BELIEF["Belief & Suspicion Model<br/><i>(Role Probabilities, Consistency)</i><br/><b>[Phase 4: Complete]</b>"]
         POL["Strategic Policy<br/><i>(Task/Patrol/Report/Vote Intentions)</i><br/><b>[Phase 5: Planned]</b>"]
     end
 
@@ -131,7 +161,7 @@ flowchart TD
 | **Phase 1.5** | **Source-backed Map** | Separate native-coordinate Skeld sandbox, blueprint, reference artwork and collision checks; live-game parity unverified. | **FROZEN FOR NAVIGATION** |
 | **Phase 2** | **Navigation Service** | Swept-clear routes, interaction arrival, cancellation/replanning, 3,906 directed pairs + 1,008 random spawns. | **COMPLETE** |
 | **Phase 3** | **Scripted Game Simulator** | Full five-player matches, information-safe scripts, visual demo, 1,000 seeds + 1,000 exact replays. | **COMPLETE** |
-| **Phase 4** | **Memory & Belief Model** | Spatio-temporal event memory, consistency tracking, impossibility detection, and role posterior estimation. | **PLANNED** |
+| **Phase 4** | **Memory & Belief Model** | Provenance-aware memory, conservative contradictions, calibrated shared candidate model, held-out evaluation. | **COMPLETE** |
 | **Phase 5** | **Learned Crewmate Policy** | Strategic actor-critic policy (PPO) optimizing crew task completion, grouping, and voting accuracy. | **PLANNED** |
 | **Phase 6** | **Multi-Agent Expansion** | Learned impostor strategies, competitive self-play, saboteurs, vent networks, and symbolic communication. | **FUTURE** |
 
@@ -162,8 +192,12 @@ flowchart TD
    - Zero crashes, invalid states, timeouts, illegal scripted actions or navigation failures.
    - 870 task victories, 41 impostor ejections and 89 impostor parity wins.
    - [Committed acceptance evidence](docs/benchmarks/phase3/README.md).
-6. **Test Suite Health**:
-   - **291 tests passing**: all 197 original checks plus 93 Phase 3 checks and one legacy-viewer exit regression.
+6. **Memory and Belief**:
+   - 1,400 match-level split episodes, four focal crew histories per match, 64,097 samples.
+   - Learned model beats prior and calibrated rules on both final sets; exact retraining verified.
+   - [Results, calibration, ablations and leakage audit](docs/benchmarks/phase4/README.md).
+7. **Test Suite Health**:
+   - **327 tests passing**: all 291 previous checks plus 36 Phase 4 checks.
 
 ---
 
@@ -195,6 +229,7 @@ pytest -q
 ### 3. Watch a Full Scripted Match
 
 ```powershell
+python run_phase4.py
 python run_phase3.py
 python run_phase3.py --seed 15 --speed 4
 python run_phase3_batch.py --matches 1000 --workers 8
@@ -251,6 +286,8 @@ Comprehensive project documentation is maintained in the [`docs/`](docs/) direct
 - [**docs/asset_sources.md**](docs/asset_sources.md): Legacy procedural-asset policy and separate source-backed map notices.
 - [**docs/navigation_service.md**](docs/navigation_service.md): Phase 2 architecture, API, failure handling and benchmark reproduction.
 - [**docs/social_simulator.md**](docs/social_simulator.md): Phase 3 architecture, rules, information integrity, scripts and launch commands.
+- [**docs/belief_model.md**](docs/belief_model.md): Phase 4 actor memory, learned beliefs, data discipline, inference and reproduction.
+- [**docs/benchmarks/phase4/README.md**](docs/benchmarks/phase4/README.md): Final metrics, calibration, ablations, uncertainty and acceptance evidence.
 - [**docs/phase3_asset_provenance.md**](docs/phase3_asset_provenance.md): Audit of all three requested sources and exact locally used artwork.
 - [**HANDOFF.md**](HANDOFF.md): Engineering state, frozen boundaries, validation and continuation notes.
 

@@ -1,0 +1,286 @@
+{
+  "schema": "belief-dataset-v1",
+  "config": {
+    "schema": "belief-dataset-v1",
+    "feature_schema": "belief-features-v1",
+    "features": [
+      "seen",
+      "seen_age",
+      "visible",
+      "sightings",
+      "interaction_fraction",
+      "body_known",
+      "public_absent",
+      "ejected",
+      "direct_elimination",
+      "direct_near_body",
+      "near_report",
+      "reports",
+      "votes_cast",
+      "votes_received",
+      "skips",
+      "claimed_elimination",
+      "claimed_near_body",
+      "accused",
+      "defended",
+      "location_claims",
+      "direct_contradiction",
+      "claim_conflict"
+    ],
+    "sources": {
+      "phase4_data.py": "cad92a40eed92497eaaab0e26a90ae784d57b82bd2d3b3b058927a05bda63960",
+      "phase4_scripts.py": "fecd39960d378dc236de42ca98e8ed572767314b310e18ad2f0b16a93e740f43",
+      "belief/memory.py": "2cd348305f1450daa07f81c30a15ecedecb80c5221b9faa931ab67c0f72dac73",
+      "belief/features.py": "24b9aee88fd386a9bc8192feb945947d407187eee092938312d490496ce61e5b",
+      "phase3_engine.py": "316e6ea3585dd2de6a89300c9fd2f3d1593bc584f9e4ada28fabb376c4ac8a25",
+      "phase3_bots.py": "dac423d42c94c9abdd12df9020a995ede9d32817cc1a26614f7ce693a1d5ca33",
+      "phase3_runner.py": "36b0259514638d0af4161aa7704acb29990e3e1c25fb283c44d9254c19f55e22",
+      "navigation_service.py": "3a1af1e6d7eb143144293e75704e60f29fcb2741bd3fdbeca33ad969d9af406d",
+      "among_us_map.py": "ac1252257b939980e22bb2460281ccb5e48c4cfd2525871d2ea7b2c2d23ba2fa",
+      "among_us_map_simulation.py": "6dba865da797ef7536c654512798b21daccb4040400c35d9694d97401441d24a",
+      "social_deduction/actor.py": "5f12a781dcd45ba88ea1e75dbb7bebad7f494ae4046ad7f16cd548aee543c882",
+      "social_deduction/phase3_api.py": "f7cf97cd81896f5ba5149cdb4224012f3cd7a97545859dcd44e07e7a95eefa35",
+      "social_deduction/phase3_observation.py": "8c3b680a5bd2ae63f5b91b294034e01d505a47a3d79af2481fe4070f955d4e35",
+      "social_deduction/truth.py": "a98637897c8783b236f1ead92a0a33d2c7d145ac90c196f43676e96767c8de1d",
+      "social_deduction/training.py": "7728e2d20041625ce330ab01b49bac37db9d9cca36e4521608757f784c001a69",
+      "assets/skeld/among_us_map.json": "571ab771cdbc1d204614922c2e2c7b29291ea4a83a10c0201e6a5ecc89bd43ee"
+    },
+    "splits": {
+      "train": [
+        10000,
+        800
+      ],
+      "validation": [
+        20000,
+        200
+      ],
+      "test": [
+        30000,
+        200
+      ],
+      "heldout": [
+        40000,
+        200
+      ]
+    },
+    "quick": false
+  },
+  "this_invocation_seconds": 0.002139299991540611,
+  "splits": {
+    "train": {
+      "matches": 800,
+      "samples": 36465,
+      "focal_actors": 3200,
+      "reasons": {
+        "periodic": 19072,
+        "Meeting+Report": 2563,
+        "StructuredClaim": 9702,
+        "Vote": 2563,
+        "Ejection": 2397,
+        "BodySeen": 54,
+        "BodySeen+WitnessedElimination": 90,
+        "WitnessedElimination": 24
+      },
+      "events": {
+        "Report": 2563,
+        "Meeting": 2563,
+        "StructuredClaim": 9702,
+        "Vote": 9702,
+        "Ejection": 2397,
+        "BodySeen": 144,
+        "WitnessedElimination": 114
+      },
+      "outcomes": {
+        "TASKS_COMPLETED": 676,
+        "PARITY": 68,
+        "IMPOSTOR_EJECTED": 56
+      },
+      "impostor_families": {
+        "self_report": 432,
+        "hunter": 368
+      },
+      "role_ids": {
+        "p1": 166,
+        "p3": 160,
+        "p4": 154,
+        "p0": 170,
+        "p2": 150
+      },
+      "role_colors": {
+        "White": 84,
+        "Brown": 86,
+        "Blue": 99,
+        "Orange": 65,
+        "Pink": 96,
+        "Black": 62,
+        "Green": 79,
+        "Yellow": 76,
+        "Purple": 96,
+        "Red": 57
+      },
+      "worker_seconds": 4944.722064100206
+    },
+    "validation": {
+      "matches": 200,
+      "samples": 9391,
+      "focal_actors": 800,
+      "reasons": {
+        "periodic": 4798,
+        "Meeting+Report": 675,
+        "StructuredClaim": 2562,
+        "Vote": 675,
+        "Ejection": 638,
+        "BodySeen": 18,
+        "BodySeen+WitnessedElimination": 21,
+        "WitnessedElimination": 4
+      },
+      "events": {
+        "Report": 675,
+        "Meeting": 675,
+        "StructuredClaim": 2562,
+        "Vote": 2562,
+        "Ejection": 638,
+        "BodySeen": 39,
+        "WitnessedElimination": 25
+      },
+      "outcomes": {
+        "TASKS_COMPLETED": 170,
+        "IMPOSTOR_EJECTED": 12,
+        "PARITY": 18
+      },
+      "impostor_families": {
+        "self_report": 91,
+        "hunter": 109
+      },
+      "role_ids": {
+        "p0": 30,
+        "p4": 49,
+        "p1": 46,
+        "p3": 33,
+        "p2": 42
+      },
+      "role_colors": {
+        "Yellow": 17,
+        "Red": 22,
+        "Brown": 16,
+        "Purple": 23,
+        "Black": 30,
+        "Orange": 17,
+        "Green": 20,
+        "White": 17,
+        "Pink": 23,
+        "Blue": 15
+      },
+      "worker_seconds": 1298.3078419986414
+    },
+    "test": {
+      "matches": 200,
+      "samples": 9119,
+      "focal_actors": 800,
+      "reasons": {
+        "periodic": 4676,
+        "Meeting+Report": 656,
+        "StructuredClaim": 2478,
+        "Vote": 656,
+        "Ejection": 616,
+        "WitnessedElimination": 6,
+        "BodySeen": 12,
+        "BodySeen+WitnessedElimination": 19
+      },
+      "events": {
+        "Report": 656,
+        "Meeting": 656,
+        "StructuredClaim": 2478,
+        "Vote": 2478,
+        "Ejection": 616,
+        "WitnessedElimination": 25,
+        "BodySeen": 31
+      },
+      "outcomes": {
+        "TASKS_COMPLETED": 168,
+        "PARITY": 19,
+        "IMPOSTOR_EJECTED": 13
+      },
+      "impostor_families": {
+        "self_report": 114,
+        "hunter": 86
+      },
+      "role_ids": {
+        "p0": 43,
+        "p3": 49,
+        "p2": 45,
+        "p4": 33,
+        "p1": 30
+      },
+      "role_colors": {
+        "Brown": 15,
+        "Purple": 18,
+        "Green": 20,
+        "White": 22,
+        "Yellow": 20,
+        "Red": 20,
+        "Black": 26,
+        "Pink": 26,
+        "Blue": 15,
+        "Orange": 18
+      },
+      "worker_seconds": 1230.519155199756
+    },
+    "heldout": {
+      "matches": 200,
+      "samples": 9122,
+      "focal_actors": 800,
+      "reasons": {
+        "periodic": 4811,
+        "Meeting+Report": 634,
+        "StructuredClaim": 2394,
+        "Vote": 634,
+        "Ejection": 621,
+        "BodySeen+WitnessedElimination": 18,
+        "BodySeen": 7,
+        "WitnessedElimination": 3
+      },
+      "events": {
+        "Report": 634,
+        "Meeting": 634,
+        "StructuredClaim": 2394,
+        "Vote": 2394,
+        "Ejection": 621,
+        "WitnessedElimination": 21,
+        "BodySeen": 25
+      },
+      "outcomes": {
+        "TASKS_COMPLETED": 177,
+        "IMPOSTOR_EJECTED": 5,
+        "PARITY": 18
+      },
+      "impostor_families": {
+        "patient": 200
+      },
+      "role_ids": {
+        "p3": 34,
+        "p2": 40,
+        "p1": 41,
+        "p4": 44,
+        "p0": 41
+      },
+      "role_colors": {
+        "Pink": 16,
+        "Yellow": 20,
+        "Red": 21,
+        "Purple": 23,
+        "White": 20,
+        "Black": 29,
+        "Blue": 21,
+        "Green": 21,
+        "Brown": 10,
+        "Orange": 19
+      },
+      "worker_seconds": 1226.6229466000805
+    }
+  },
+  "worker_count": 8,
+  "generation_failures": 0,
+  "disk_bytes": 9570835,
+  "generation_wall_seconds": 1094.6345817999681
+}

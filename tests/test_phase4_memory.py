@@ -105,6 +105,15 @@ def test_current_ablation_drops_historical_public_prefix(obs):
     assert not current_memory(packet_now, 27).events
     m = ActorMemory(); m.update(packet_now)
     assert m.events
+    # The live meeting context still discloses its participants; removing that
+    # state would unfairly weaken a current-observation-only baseline.
+    participants = tuple(i.player_id for i in obs.roster if i.player_id != a)
+    meeting = EventView(10,Provenance.PUBLIC,Meeting('current-meeting',participants))
+    in_meeting = replace(packet(obs,30,[meeting,claim(a,20)],Phase.DISCUSSION),
+                         context=PublicContext(Phase.DISCUSSION,'current-meeting',participants))
+    current = current_memory(in_meeting,27)
+    assert current.events == [meeting]
+    assert encode(current)[current.candidates.index(a),INDEX['public_absent']] == 1
 
 
 def test_equivariant_features_and_uniform_ambiguous_rules(obs):

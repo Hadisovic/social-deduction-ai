@@ -1,0 +1,104 @@
+{
+  "exact_retraining_state_dict": true,
+  "exact_retraining_temperature": true,
+  "retraining_best_epoch": 23,
+  "negative_control": {
+    "method": "Random categorical target per match/focal training history; true validation labels",
+    "seed": 8675309,
+    "validation_raw_metrics": {
+      "accuracy": 0.1525053183411133,
+      "argmax_accuracy": 0.14914994045480612,
+      "nll": 1.4131402668953106,
+      "brier": 0.7628677280789447,
+      "confidence": 0.26079621190838637,
+      "entropy": 1.385255432575359,
+      "ece": 0.12320309336483673,
+      "reliability": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "mass": 0.0,
+          "confidence": null,
+          "accuracy": null,
+          "samples": 0
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "mass": 0.0,
+          "confidence": null,
+          "accuracy": null,
+          "samples": 0
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "mass": 0.9800168496486212,
+          "confidence": 0.2595931014317214,
+          "accuracy": 0.14148595510300752,
+          "samples": 9189
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "mass": 0.019892241260469658,
+          "confidence": 0.31941661621383616,
+          "accuracy": 0.6915153039071792,
+          "samples": 201
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "mass": 9.09090909090909e-05,
+          "confidence": 0.40354666470101425,
+          "accuracy": 1.0,
+          "samples": 1
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "mass": 0.0,
+          "confidence": null,
+          "accuracy": null,
+          "samples": 0
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "mass": 0.0,
+          "confidence": null,
+          "accuracy": null,
+          "samples": 0
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "mass": 0.0,
+          "confidence": null,
+          "accuracy": null,
+          "samples": 0
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "mass": 0.0,
+          "confidence": null,
+          "accuracy": null,
+          "samples": 0
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "mass": 0.0,
+          "confidence": null,
+          "accuracy": null,
+          "samples": 0
+        }
+      ],
+      "samples": 9391,
+      "matches": 200
+    },
+    "best_epoch": 1
+  },
+  "notice": "Diagnostic only. Release selection unchanged; final tests are not used by this script."
+}

@@ -107,7 +107,7 @@ def generate_match(seed, heldout=False):
         match.step()
     if match.game.metrics['illegal_actions'] or match.game.metrics['navigation_failures']:
         raise RuntimeError(f'Invalid generated match {seed}: {match.game.metrics}')
-    if match.game.result.reason == 'timeout':
+    if match.game.result.reason.upper() == 'TIMEOUT':
         raise RuntimeError(f'Timeout in dataset match {seed}')
     arrays = {f'x_{v}': np.stack(values[v]) for v in VIEWS}
     arrays.update(y=np.asarray(targets, dtype=np.int64), tick=np.asarray(ticks),
