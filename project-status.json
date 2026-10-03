@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "project": "Hadisovic/social-deduction-ai",
+  "lastVerifiedCommit": "9ccc9e1c86841cda4a4cc1a55c9f9fea8e11ce35",
+  "lastUpdated": "2026-10-03",
+  "currentPhase": 4,
+  "nextPhase": 5,
+  "currentPhaseName": "Event Memory + Learned Suspicion / Belief Model",
+  "nextPhaseName": "Learned Crewmate Strategic Policy",
+  "roadmap": [
+    { "id": "phase-1", "label": "Phase 1", "name": "Information Boundaries", "status": "complete" },
+    { "id": "phase-1.5", "label": "Phase 1.5", "name": "Skeld Research Map", "status": "complete" },
+    { "id": "phase-2", "label": "Phase 2", "name": "Reliable Navigation", "status": "complete" },
+    { "id": "phase-3", "label": "Phase 3", "name": "Scripted Five-Player Social Simulator", "status": "complete" },
+    { "id": "phase-4", "label": "Phase 4", "name": "Event Memory + Learned Suspicion / Belief Model", "status": "complete" },
+    { "id": "phase-5", "label": "Phase 5", "name": "Learned Crewmate Strategic Policy", "status": "next" },
+    { "id": "phase-6", "label": "Phase 6", "name": "Multi-Agent Expansion", "status": "future" }
+  ],
+  "headlineResults": {
+    "phase2": {
+      "directedDestinationPairsPassed": 3906,
+      "randomSpawnsPassed": 1008,
+      "combinedSuccessRatePercent": 100,
+      "collisions": 0,
+      "blockedSteps": 0,
+      "replans": 0,
+      "physicalExecutionSteps": 1535435
+    },
+    "phase3": {
+      "scriptedMatchesCompleted": 1000,
+      "exactIndependentReplays": 1000
+    },
+    "phase4": {
+      "scriptedMatches": 1400,
+      "samples": 64097,
+      "inDistributionAccuracyPercent": 70.54,
+      "heldOutPatientFamilyAccuracyPercent": 67.41,
+      "testsPassed": 327
+    }
+  }
+}

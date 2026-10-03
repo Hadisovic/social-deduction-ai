@@ -8,6 +8,8 @@
 [![Tests Passing](https://img.shields.io/badge/tests-327%20passed-success.svg)](docs/benchmarks/phase4/pytest.txt)
 [![Phase 1](https://img.shields.io/badge/phase%201-complete%20%2F%20frozen-blueviolet.svg)](docs/information_contract.md)
 
+Explore the [interactive project journey](https://hadisovic.github.io/social-deduction-ai/) for a visual, non-technical guide to the milestones and current research frontier.
+
 ## Watch a crewmate form beliefs
 
 ```powershell

@@ -1,0 +1,1494 @@
+{
+  "source": "assets/skeld/among_us_map.json",
+  "geometryRevision": "a1acf39d1751a553141cc7153e9386e37199ee2d",
+  "mapMetadataRevision": "b09c40b7e12d35c6cae996a26a943185b341c907",
+  "coordinateSpace": "native game units; world-pixel projection matches the displayed Skeld artwork",
+  "physicalModel": {
+    "floor": "union of walkable-area regions with the map envelope padding",
+    "blocked": "all supplied wall paths and obstacle polygons/lines, expanded by the character radius",
+    "characterRadiusGameUnits": 0.22,
+    "additionalSafetyMarginGameUnits": 0.045,
+    "effectiveClearanceGameUnits": 0.265,
+    "diagonalRule": "accept an edge only when its complete swept segment is covered by the clearance-adjusted floor",
+    "shortcutRule": "the same clearance-adjusted floor is sampled by the runtime line-of-sight and simplifier"
+  },
+  "counts": {
+    "navVertices": 7272,
+    "navEdges": 25202,
+    "components": 1,
+    "largestComponent": 7272,
+    "gridStepGameUnits": 0.175,
+    "collisionGridStepGameUnits": 0.05,
+    "directedMissionPairsTested": 132,
+    "allDestinationPairsTested": 156,
+    "allDestinationPairsPassed": 156,
+    "pairFormationSamplesChecked": 3549,
+    "initialCrewRoutesTested": 13
+  },
+  "anchorSnapAudit": {
+    "crewHadi": {
+      "marker": [
+        3000,
+        750
+      ],
+      "arrival": [
+        2993.123,
+        748.253
+      ],
+      "offsetPx": 7.1,
+      "arrivalWalkable": true
+    },
+    "crewMasa": {
+      "marker": [
+        2900,
+        900
+      ],
+      "arrival": [
+        2888.774,
+        874.338
+      ],
+      "offsetPx": 28.0,
+      "arrivalWalkable": true
+    },
+    "mission01": {
+      "marker": [
+        3200,
+        950
+      ],
+      "arrival": [
+        3242.257,
+        935.447
+      ],
+      "offsetPx": 44.7,
+      "arrivalWalkable": true
+    },
+    "mission02": {
+      "marker": [
+        1390,
+        665
+      ],
+      "arrival": [
+        1391.739,
+        588.436
+      ],
+      "offsetPx": 76.6,
+      "arrivalWalkable": true
+    },
+    "mission03": {
+      "marker": [
+        1400,
+        2170
+      ],
+      "arrival": [
+        1408.698,
+        2032.62
+      ],
+      "offsetPx": 137.7,
+      "arrivalWalkable": true
+    },
+    "mission04": {
+      "marker": [
+        880,
+        1440
+      ],
+      "arrival": [
+        890.184,
+        1449.013
+      ],
+      "offsetPx": 13.6,
+      "arrivalWalkable": true
+    },
+    "mission05": {
+      "marker": [
+        2380,
+        1115
+      ],
+      "arrival": [
+        2388.89,
+        1106.967
+      ],
+      "offsetPx": 12.0,
+      "arrivalWalkable": true
+    },
+    "mission06": {
+      "marker": [
+        1830,
+        1430
+      ],
+      "arrival": [
+        1826.374,
+        1423.619
+      ],
+      "offsetPx": 7.3,
+      "arrivalWalkable": true
+    },
+    "mission07": {
+      "marker": [
+        3850,
+        1760
+      ],
+      "arrival": [
+        3843.371,
+        1748.905
+      ],
+      "offsetPx": 12.9,
+      "arrivalWalkable": true
+    },
+    "mission08": {
+      "marker": [
+        2495,
+        2180
+      ],
+      "arrival": [
+        2490.063,
+        2173.984
+      ],
+      "offsetPx": 7.8,
+      "arrivalWalkable": true
+    },
+    "mission09": {
+      "marker": [
+        3850,
+        900
+      ],
+      "arrival": [
+        3845.6,
+        911.64
+      ],
+      "offsetPx": 12.4,
+      "arrivalWalkable": true
+    },
+    "mission10": {
+      "marker": [
+        3890,
+        2600
+      ],
+      "arrival": [
+        3882.637,
+        2627.836
+      ],
+      "offsetPx": 28.8,
+      "arrivalWalkable": true
+    },
+    "mission11": {
+      "marker": [
+        5390,
+        1300
+      ],
+      "arrival": [
+        5383.962,
+        1302.002
+      ],
+      "offsetPx": 6.4,
+      "arrivalWalkable": true
+    },
+    "mission12": {
+      "marker": [
+        4540,
+        2280
+      ],
+      "arrival": [
+        4549.28,
+        2268.824
+      ],
+      "offsetPx": 14.5,
+      "arrivalWalkable": true
+    },
+    "parked": {
+      "marker": [
+        1260,
+        2270
+      ],
+      "arrival": [
+        1282.933,
+        2389.053
+      ],
+      "offsetPx": 121.2,
+      "arrivalWalkable": true
+    }
+  },
+  "ventApproaches": {
+    "shields": {
+      "artwork": [
+        4551.5,
+        2537.9
+      ],
+      "approach": [
+        4548.555,
+        2540.935
+      ],
+      "offsetPx": 4.2,
+      "approachWalkable": true
+    },
+    "navigation": {
+      "artwork": [
+        5326.7,
+        1589.3
+      ],
+      "approach": [
+        5320.773,
+        1595.342
+      ],
+      "offsetPx": 8.5,
+      "approachWalkable": true
+    }
+  },
+  "ventEdge": {
+    "type": "special",
+    "from": "shields vent",
+    "to": "navigation vent",
+    "ordinaryWalkPathBetweenVents": false
+  },
+  "routeAudit": [
+    {
+      "from": "mission01",
+      "to": "mission02",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 4,
+      "lengthPx": 1934.9
+    },
+    {
+      "from": "mission01",
+      "to": "mission03",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 15,
+      "lengthPx": 3535.5
+    },
+    {
+      "from": "mission01",
+      "to": "mission04",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 18,
+      "lengthPx": 4448.7
+    },
+    {
+      "from": "mission01",
+      "to": "mission05",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 5,
+      "lengthPx": 1273.2
+    },
+    {
+      "from": "mission01",
+      "to": "mission06",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 19,
+      "lengthPx": 4333.1
+    },
+    {
+      "from": "mission01",
+      "to": "mission07",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 4,
+      "lengthPx": 1205.0
+    },
+    {
+      "from": "mission01",
+      "to": "mission08",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 11,
+      "lengthPx": 2769.7
+    },
+    {
+      "from": "mission01",
+      "to": "mission09",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 3,
+      "lengthPx": 615.8
+    },
+    {
+      "from": "mission01",
+      "to": "mission10",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 7,
+      "lengthPx": 2207.9
+    },
+    {
+      "from": "mission01",
+      "to": "mission11",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 10,
+      "lengthPx": 3845.5
+    },
+    {
+      "from": "mission01",
+      "to": "mission12",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 4,
+      "lengthPx": 2424.7
+    },
+    {
+      "from": "mission01",
+      "to": "parked",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 14,
+      "lengthPx": 3585.3
+    },
+    {
+      "from": "mission02",
+      "to": "mission01",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 4,
+      "lengthPx": 1941.3
+    },
+    {
+      "from": "mission02",
+      "to": "mission03",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 22,
+      "lengthPx": 5393.6
+    },
+    {
+      "from": "mission02",
+      "to": "mission04",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 25,
+      "lengthPx": 6306.7
+    },
+    {
+      "from": "mission02",
+      "to": "mission05",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 5,
+      "lengthPx": 1286.0
+    },
+    {
+      "from": "mission02",
+      "to": "mission06",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 26,
+      "lengthPx": 6191.1
+    },
+    {
+      "from": "mission02",
+      "to": "mission07",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 10,
+      "lengthPx": 3057.6
+    },
+    {
+      "from": "mission02",
+      "to": "mission08",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 18,
+      "lengthPx": 4627.7
+    },
+    {
+      "from": "mission02",
+      "to": "mission09",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 7,
+      "lengthPx": 2547.4
+    },
+    {
+      "from": "mission02",
+      "to": "mission10",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 14,
+      "lengthPx": 4063.8
+    },
+    {
+      "from": "mission02",
+      "to": "mission11",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 17,
+      "lengthPx": 5711.9
+    },
+    {
+      "from": "mission02",
+      "to": "mission12",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 11,
+      "lengthPx": 4285.9
+    },
+    {
+      "from": "mission02",
+      "to": "parked",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 21,
+      "lengthPx": 5443.4
+    },
+    {
+      "from": "mission03",
+      "to": "mission01",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 15,
+      "lengthPx": 3552.4
+    },
+    {
+      "from": "mission03",
+      "to": "mission02",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 21,
+      "lengthPx": 5401.2
+    },
+    {
+      "from": "mission03",
+      "to": "mission04",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 3,
+      "lengthPx": 977.0
+    },
+    {
+      "from": "mission03",
+      "to": "mission05",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 22,
+      "lengthPx": 4743.4
+    },
+    {
+      "from": "mission03",
+      "to": "mission06",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 3,
+      "lengthPx": 871.6
+    },
+    {
+      "from": "mission03",
+      "to": "mission07",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 17,
+      "lengthPx": 3229.2
+    },
+    {
+      "from": "mission03",
+      "to": "mission08",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 11,
+      "lengthPx": 1600.7
+    },
+    {
+      "from": "mission03",
+      "to": "mission09",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 18,
+      "lengthPx": 3864.4
+    },
+    {
+      "from": "mission03",
+      "to": "mission10",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 17,
+      "lengthPx": 3385.7
+    },
+    {
+      "from": "mission03",
+      "to": "mission11",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 20,
+      "lengthPx": 5026.1
+    },
+    {
+      "from": "mission03",
+      "to": "mission12",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 13,
+      "lengthPx": 3605.1
+    },
+    {
+      "from": "mission03",
+      "to": "parked",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 4,
+      "lengthPx": 793.3
+    },
+    {
+      "from": "mission04",
+      "to": "mission01",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 18,
+      "lengthPx": 4469.1
+    },
+    {
+      "from": "mission04",
+      "to": "mission02",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 24,
+      "lengthPx": 6310.3
+    },
+    {
+      "from": "mission04",
+      "to": "mission03",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 3,
+      "lengthPx": 973.3
+    },
+    {
+      "from": "mission04",
+      "to": "mission05",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 25,
+      "lengthPx": 5652.5
+    },
+    {
+      "from": "mission04",
+      "to": "mission06",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 3,
+      "lengthPx": 946.9
+    },
+    {
+      "from": "mission04",
+      "to": "mission07",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 20,
+      "lengthPx": 4137.7
+    },
+    {
+      "from": "mission04",
+      "to": "mission08",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 14,
+      "lengthPx": 2507.3
+    },
+    {
+      "from": "mission04",
+      "to": "mission09",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 21,
+      "lengthPx": 4770.6
+    },
+    {
+      "from": "mission04",
+      "to": "mission10",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 20,
+      "lengthPx": 4294.5
+    },
+    {
+      "from": "mission04",
+      "to": "mission11",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 23,
+      "lengthPx": 5940.2
+    },
+    {
+      "from": "mission04",
+      "to": "mission12",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 16,
+      "lengthPx": 4513.9
+    },
+    {
+      "from": "mission04",
+      "to": "parked",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 7,
+      "lengthPx": 1703.3
+    },
+    {
+      "from": "mission05",
+      "to": "mission01",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 5,
+      "lengthPx": 1271.9
+    },
+    {
+      "from": "mission05",
+      "to": "mission02",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 5,
+      "lengthPx": 1286.0
+    },
+    {
+      "from": "mission05",
+      "to": "mission03",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 22,
+      "lengthPx": 4723.2
+    },
+    {
+      "from": "mission05",
+      "to": "mission04",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 25,
+      "lengthPx": 5636.4
+    },
+    {
+      "from": "mission05",
+      "to": "mission06",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 26,
+      "lengthPx": 5520.7
+    },
+    {
+      "from": "mission05",
+      "to": "mission07",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 11,
+      "lengthPx": 2383.2
+    },
+    {
+      "from": "mission05",
+      "to": "mission08",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 18,
+      "lengthPx": 3957.4
+    },
+    {
+      "from": "mission05",
+      "to": "mission09",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 8,
+      "lengthPx": 1880.0
+    },
+    {
+      "from": "mission05",
+      "to": "mission10",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 15,
+      "lengthPx": 3392.1
+    },
+    {
+      "from": "mission05",
+      "to": "mission11",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 18,
+      "lengthPx": 5034.8
+    },
+    {
+      "from": "mission05",
+      "to": "mission12",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 12,
+      "lengthPx": 3608.9
+    },
+    {
+      "from": "mission05",
+      "to": "parked",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 21,
+      "lengthPx": 4773.0
+    },
+    {
+      "from": "mission06",
+      "to": "mission01",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 19,
+      "lengthPx": 4365.7
+    },
+    {
+      "from": "mission06",
+      "to": "mission02",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 25,
+      "lengthPx": 6206.9
+    },
+    {
+      "from": "mission06",
+      "to": "mission03",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 3,
+      "lengthPx": 871.6
+    },
+    {
+      "from": "mission06",
+      "to": "mission04",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 3,
+      "lengthPx": 950.3
+    },
+    {
+      "from": "mission06",
+      "to": "mission05",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 26,
+      "lengthPx": 5549.1
+    },
+    {
+      "from": "mission06",
+      "to": "mission07",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 21,
+      "lengthPx": 4033.0
+    },
+    {
+      "from": "mission06",
+      "to": "mission08",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 15,
+      "lengthPx": 2403.9
+    },
+    {
+      "from": "mission06",
+      "to": "mission09",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 22,
+      "lengthPx": 4667.2
+    },
+    {
+      "from": "mission06",
+      "to": "mission10",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 21,
+      "lengthPx": 4191.2
+    },
+    {
+      "from": "mission06",
+      "to": "mission11",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 24,
+      "lengthPx": 5836.9
+    },
+    {
+      "from": "mission06",
+      "to": "mission12",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 17,
+      "lengthPx": 4410.6
+    },
+    {
+      "from": "mission06",
+      "to": "parked",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 8,
+      "lengthPx": 1600.0
+    },
+    {
+      "from": "mission07",
+      "to": "mission01",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 4,
+      "lengthPx": 1204.6
+    },
+    {
+      "from": "mission07",
+      "to": "mission02",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 11,
+      "lengthPx": 3056.3
+    },
+    {
+      "from": "mission07",
+      "to": "mission03",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 17,
+      "lengthPx": 3221.6
+    },
+    {
+      "from": "mission07",
+      "to": "mission04",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 20,
+      "lengthPx": 4135.9
+    },
+    {
+      "from": "mission07",
+      "to": "mission05",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 12,
+      "lengthPx": 2401.3
+    },
+    {
+      "from": "mission07",
+      "to": "mission06",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 21,
+      "lengthPx": 4019.1
+    },
+    {
+      "from": "mission07",
+      "to": "mission08",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 13,
+      "lengthPx": 2455.7
+    },
+    {
+      "from": "mission07",
+      "to": "mission09",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 8,
+      "lengthPx": 1506.7
+    },
+    {
+      "from": "mission07",
+      "to": "mission10",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 10,
+      "lengthPx": 1855.2
+    },
+    {
+      "from": "mission07",
+      "to": "mission11",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 13,
+      "lengthPx": 3488.4
+    },
+    {
+      "from": "mission07",
+      "to": "mission12",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 7,
+      "lengthPx": 2072.0
+    },
+    {
+      "from": "mission07",
+      "to": "parked",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 16,
+      "lengthPx": 3271.3
+    },
+    {
+      "from": "mission08",
+      "to": "mission01",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 11,
+      "lengthPx": 2767.4
+    },
+    {
+      "from": "mission08",
+      "to": "mission02",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 17,
+      "lengthPx": 4616.2
+    },
+    {
+      "from": "mission08",
+      "to": "mission03",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 11,
+      "lengthPx": 1597.0
+    },
+    {
+      "from": "mission08",
+      "to": "mission04",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 14,
+      "lengthPx": 2511.3
+    },
+    {
+      "from": "mission08",
+      "to": "mission05",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 18,
+      "lengthPx": 3961.2
+    },
+    {
+      "from": "mission08",
+      "to": "mission06",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 15,
+      "lengthPx": 2394.5
+    },
+    {
+      "from": "mission08",
+      "to": "mission07",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 13,
+      "lengthPx": 2444.3
+    },
+    {
+      "from": "mission08",
+      "to": "mission09",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 14,
+      "lengthPx": 3079.4
+    },
+    {
+      "from": "mission08",
+      "to": "mission10",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 12,
+      "lengthPx": 2618.6
+    },
+    {
+      "from": "mission08",
+      "to": "mission11",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 15,
+      "lengthPx": 4259.0
+    },
+    {
+      "from": "mission08",
+      "to": "mission12",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 8,
+      "lengthPx": 2838.0
+    },
+    {
+      "from": "mission08",
+      "to": "parked",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 10,
+      "lengthPx": 1646.8
+    },
+    {
+      "from": "mission09",
+      "to": "mission01",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 4,
+      "lengthPx": 619.3
+    },
+    {
+      "from": "mission09",
+      "to": "mission02",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 8,
+      "lengthPx": 2553.2
+    },
+    {
+      "from": "mission09",
+      "to": "mission03",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 18,
+      "lengthPx": 3853.5
+    },
+    {
+      "from": "mission09",
+      "to": "mission04",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 21,
+      "lengthPx": 4766.7
+    },
+    {
+      "from": "mission09",
+      "to": "mission05",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 9,
+      "lengthPx": 1891.5
+    },
+    {
+      "from": "mission09",
+      "to": "mission06",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 22,
+      "lengthPx": 4651.0
+    },
+    {
+      "from": "mission09",
+      "to": "mission07",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 8,
+      "lengthPx": 1511.8
+    },
+    {
+      "from": "mission09",
+      "to": "mission08",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 14,
+      "lengthPx": 3087.7
+    },
+    {
+      "from": "mission09",
+      "to": "mission10",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 11,
+      "lengthPx": 2510.3
+    },
+    {
+      "from": "mission09",
+      "to": "mission11",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 14,
+      "lengthPx": 4153.1
+    },
+    {
+      "from": "mission09",
+      "to": "mission12",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 8,
+      "lengthPx": 2727.2
+    },
+    {
+      "from": "mission09",
+      "to": "parked",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 17,
+      "lengthPx": 3903.3
+    },
+    {
+      "from": "mission10",
+      "to": "mission01",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 7,
+      "lengthPx": 2200.5
+    },
+    {
+      "from": "mission10",
+      "to": "mission02",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 14,
+      "lengthPx": 4048.6
+    },
+    {
+      "from": "mission10",
+      "to": "mission03",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 17,
+      "lengthPx": 3381.9
+    },
+    {
+      "from": "mission10",
+      "to": "mission04",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 20,
+      "lengthPx": 4295.1
+    },
+    {
+      "from": "mission10",
+      "to": "mission05",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 15,
+      "lengthPx": 3393.6
+    },
+    {
+      "from": "mission10",
+      "to": "mission06",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 21,
+      "lengthPx": 4179.5
+    },
+    {
+      "from": "mission10",
+      "to": "mission07",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 10,
+      "lengthPx": 1856.6
+    },
+    {
+      "from": "mission10",
+      "to": "mission08",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 12,
+      "lengthPx": 2617.0
+    },
+    {
+      "from": "mission10",
+      "to": "mission09",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 11,
+      "lengthPx": 2508.9
+    },
+    {
+      "from": "mission10",
+      "to": "mission11",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 11,
+      "lengthPx": 2265.9
+    },
+    {
+      "from": "mission10",
+      "to": "mission12",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 4,
+      "lengthPx": 848.3
+    },
+    {
+      "from": "mission10",
+      "to": "parked",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 16,
+      "lengthPx": 3431.7
+    },
+    {
+      "from": "mission11",
+      "to": "mission01",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 10,
+      "lengthPx": 3843.5
+    },
+    {
+      "from": "mission11",
+      "to": "mission02",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 17,
+      "lengthPx": 5694.2
+    },
+    {
+      "from": "mission11",
+      "to": "mission03",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 20,
+      "lengthPx": 5031.2
+    },
+    {
+      "from": "mission11",
+      "to": "mission04",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 23,
+      "lengthPx": 5944.3
+    },
+    {
+      "from": "mission11",
+      "to": "mission05",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 18,
+      "lengthPx": 5036.4
+    },
+    {
+      "from": "mission11",
+      "to": "mission06",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 24,
+      "lengthPx": 5828.7
+    },
+    {
+      "from": "mission11",
+      "to": "mission07",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 13,
+      "lengthPx": 3497.5
+    },
+    {
+      "from": "mission11",
+      "to": "mission08",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 15,
+      "lengthPx": 4265.5
+    },
+    {
+      "from": "mission11",
+      "to": "mission09",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 14,
+      "lengthPx": 4150.8
+    },
+    {
+      "from": "mission11",
+      "to": "mission10",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 11,
+      "lengthPx": 2276.5
+    },
+    {
+      "from": "mission11",
+      "to": "mission12",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 6,
+      "lengthPx": 1516.8
+    },
+    {
+      "from": "mission11",
+      "to": "parked",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 19,
+      "lengthPx": 5081.0
+    },
+    {
+      "from": "mission12",
+      "to": "mission01",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 4,
+      "lengthPx": 2411.7
+    },
+    {
+      "from": "mission12",
+      "to": "mission02",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 11,
+      "lengthPx": 4259.8
+    },
+    {
+      "from": "mission12",
+      "to": "mission03",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 13,
+      "lengthPx": 3601.9
+    },
+    {
+      "from": "mission12",
+      "to": "mission04",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 16,
+      "lengthPx": 4515.1
+    },
+    {
+      "from": "mission12",
+      "to": "mission05",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 12,
+      "lengthPx": 3604.8
+    },
+    {
+      "from": "mission12",
+      "to": "mission06",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 17,
+      "lengthPx": 4399.4
+    },
+    {
+      "from": "mission12",
+      "to": "mission07",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 7,
+      "lengthPx": 2065.0
+    },
+    {
+      "from": "mission12",
+      "to": "mission08",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 8,
+      "lengthPx": 2836.4
+    },
+    {
+      "from": "mission12",
+      "to": "mission09",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 8,
+      "lengthPx": 2720.1
+    },
+    {
+      "from": "mission12",
+      "to": "mission10",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 4,
+      "lengthPx": 846.2
+    },
+    {
+      "from": "mission12",
+      "to": "mission11",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 6,
+      "lengthPx": 1503.6
+    },
+    {
+      "from": "mission12",
+      "to": "parked",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 12,
+      "lengthPx": 3651.7
+    },
+    {
+      "from": "parked",
+      "to": "mission01",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 14,
+      "lengthPx": 3594.7
+    },
+    {
+      "from": "parked",
+      "to": "mission02",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 20,
+      "lengthPx": 5443.5
+    },
+    {
+      "from": "parked",
+      "to": "mission03",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 4,
+      "lengthPx": 781.8
+    },
+    {
+      "from": "parked",
+      "to": "mission04",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 7,
+      "lengthPx": 1694.9
+    },
+    {
+      "from": "parked",
+      "to": "mission05",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 21,
+      "lengthPx": 4785.7
+    },
+    {
+      "from": "parked",
+      "to": "mission06",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 8,
+      "lengthPx": 1579.3
+    },
+    {
+      "from": "parked",
+      "to": "mission07",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 16,
+      "lengthPx": 3271.5
+    },
+    {
+      "from": "parked",
+      "to": "mission08",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 10,
+      "lengthPx": 1642.8
+    },
+    {
+      "from": "parked",
+      "to": "mission09",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 17,
+      "lengthPx": 3906.7
+    },
+    {
+      "from": "parked",
+      "to": "mission10",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 16,
+      "lengthPx": 3430.1
+    },
+    {
+      "from": "parked",
+      "to": "mission11",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 19,
+      "lengthPx": 5070.6
+    },
+    {
+      "from": "parked",
+      "to": "mission12",
+      "status": "PASS",
+      "walkable": true,
+      "segments": 12,
+      "lengthPx": 3649.5
+    }
+  ],
+  "allRoutesWalkable": true,
+  "allArrivalsWalkable": true
+}
