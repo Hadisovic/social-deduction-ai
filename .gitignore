@@ -49,3 +49,6 @@ assets/phase3_local/
 artifacts/phase4/data/
 artifacts/phase4/runs/
 artifacts/phase4/quick/
+
+# Regenerable strategic training runs. Keep config and small chosen smoke artifacts explicit.
+artifacts/phase5/runs/

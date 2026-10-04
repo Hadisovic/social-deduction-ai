@@ -1,0 +1,23 @@
+{
+  "status": "checkpoint_screening_only",
+  "finalists": [
+    {
+      "run": "options-17-v2",
+      "checkpoint": "artifacts\\phase5\\runs\\options-17-v2\\checkpoint-8192.pt"
+    },
+    {
+      "run": "options-29-v2",
+      "checkpoint": "artifacts\\phase5\\runs\\options-29-v2\\checkpoint-2048.pt"
+    },
+    {
+      "run": "options-43-v2",
+      "checkpoint": "artifacts\\phase5\\runs\\options-43-v2\\checkpoint-8192.pt"
+    },
+    {
+      "run": "options-17-v2-ablation",
+      "checkpoint": "artifacts\\phase5\\runs\\options-17-v2-ablation\\checkpoint-8192.pt"
+    }
+  ],
+  "basis": "20 shared validation seeds; 100-match validation follows",
+  "final_test_opened": false
+}

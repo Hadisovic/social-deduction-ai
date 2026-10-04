@@ -55,12 +55,20 @@ class Destination:
 
 class AmongUsMap:
     """Immutable static map. Door changes create a fresh map, never hidden state."""
-    def __init__(self, player_radius=None, closed_doors=()):
+    def __init__(self, player_radius=None, closed_doors=(), *, clearance_policy='conservative'):
         self.data = json.loads((ASSET_DIR / 'among_us_map.json').read_text(encoding='utf-8'))
         defaults = self.data['simulation_defaults']
         self.radius = float(defaults['player_radius'] if player_radius is None else player_radius)
         if not math.isfinite(self.radius) or self.radius <= 0:
             raise ValueError('player_radius must be finite and positive')
+        if clearance_policy not in ('conservative', 'legacy_polygon'):
+            raise ValueError('Unknown clearance policy')
+        self.clearance_policy = clearance_policy
+        # GEOS round buffers inscribe 4*12 chords. Compensate their apothem so
+        # even the middle of every chord respects the true player-circle radius.
+        # The old policy is retained explicitly for historical replay comparisons.
+        self.buffer_radius = (self.radius / math.cos(math.pi/48) + 1e-9
+                              if clearance_policy == 'conservative' else self.radius)
         self.cell_size = defaults['grid_cell']
         self.closed_doors = frozenset(closed_doors)
         known = {d['id'] for d in self.data['doors']}
@@ -77,7 +85,7 @@ class AmongUsMap:
         self.barriers = unary_union([self.wall_lines, self.objects])
         # AreaCollider regions are classification envelopes, not authoritative floor.
         # Select the connected interior AFTER applying native collider clearance.
-        candidate = envelope.difference(self.barriers.buffer(self.radius, quad_segs=12))
+        candidate = envelope.difference(self.barriers.buffer(self.buffer_radius, quad_segs=12))
         self.center_components = sorted(polygons(candidate), key=lambda p: p.area, reverse=True)
         if not self.center_components:
             raise ValueError('No floor survives player clearance')
@@ -86,7 +94,7 @@ class AmongUsMap:
         closed = [Polygon(d['points']) for d in self.data['doors'] if d['id'] in self.closed_doors]
         if closed:
             doors = unary_union(closed)
-            self.center_domain = self.center_domain.difference(doors.buffer(self.radius, quad_segs=12))
+            self.center_domain = self.center_domain.difference(doors.buffer(self.buffer_radius, quad_segs=12))
             self.objects = unary_union([self.objects, doors])
             self.barriers = unary_union([self.barriers, doors])
         # Physical floor used by raycasts/rendering; native walls still take precedence.

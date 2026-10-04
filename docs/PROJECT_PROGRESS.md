@@ -2,6 +2,58 @@
 
 > **Canonical Document**: Detailed technical history, experimental results, architectural pivot, and roadmap status for the **Social Deduction AI** project.
 
+## 2026-10-04: Phase 5 simulator study evaluated
+
+All 9,000 final matches completed after immutable validation selection. The
+released seed17/8192 option policy won88.4% of500 ID matches and90.4% of500
+held-out patient matches. It completed1.67/1.68 own tasks per match. Its paired
+advantage over idle/random is clear; superiority over scripted play is not.
+Three full-memory seeds and one current-only seed are reported alongside V1,
+untrained, random, idle and scripted controls. One ablation is not replicated
+evidence of a memory benefit. This establishes useful simulator behavior only.
+
+The default viewer uses the frozen release checkpoint. Twelve figures and full
+metrics are in `docs/benchmarks/phase5/expanded/`. The372-test suite passed.
+Final evaluation took approximately185.0 elapsed minutes using four CPU workers
+on an Intel i9-14900HX; detailed timing caveats are in execution-metadata.json.
+The external teammate download includes full experimental details and proposed
+Phase6 steps. Adapting opponents/self-play remain future work.
+
+## 2026-10-03: Expanded Phase 5 learning study authorized and running
+
+The owner superseded the one-run limit. The preserved 32,768-decision run finished
+in 36.6 minutes: 299 training matches, no own task completions. Its 20-match
+validation scored 55% crew wins, showing why team wins alone are insufficient.
+
+The versioned options controller lets the neural network experience its chosen
+task through completion, with actor-visible interruptions and time-aware rewards.
+It does not add a scripted report, vote or suspicion threshold. Seed 17 improved
+from 60% to 85% to 100% crew wins at 2,048/4,096/6,144 decisions on the same 20
+diagnostic validation matches. These small, reused validation samples are not
+final-test evidence. Three full-memory seeds and one current-only comparison are
+running. Larger validation follows; patient-family tests remain unopened.
+
+Nine regenerated figures cover learning, interaction budgets, PPO diagnostics,
+checkpoint validation, outcome uncertainty, voting, actions, seeds and contribution.
+See `docs/benchmarks/phase5/expanded/README.md`. The external teammate handoff now
+includes a proposed Phase 6 sequence, gated on a useful single learned crewmate.
+The local website draft describes Phase 5 only; publication awaits evaluation.
+
+## 2026-10-03: Phase 5 prototype implemented; longer training pending approval
+
+The focal crewmate now has a 47,938-parameter masked PPO policy with actor-only
+features and a frozen Phase 4 belief network. The environment, trainer, paired
+evaluator and live policy viewer are runnable. Two 512-transition smoke trainings
+verify weight updates; they do not establish strategic improvement. Three-seed
+full/current comparisons and final test evaluation remain pending.
+
+Conservative buffers repair exact circular clearance while preserving map JSON
+and radius. Eight targeted corridor tests plus 9,828 benchmark routes pass without
+collisions or navigation failures. Red palette decoding, missing walking cycles,
+meeting caller/reporter labels and spectator interpolation are also implemented.
+See the execution record in `phase5_strategic_policy_specification.md` and the
+latest `HANDOFF.md` entry. Phase 4 results below remain historical.
+
 ## 2026-10-02: Phase 4 event memory and belief experiment COMPLETE
 
 Started from clean, synchronized `main` at `e8c5d664a3f17684c3fd844a4ef27ad089b65b12`;

@@ -24,7 +24,7 @@ def room(name):
     return ROOM_NAMES.get(key, key)
 
 
-def build():
+def build(output=None):
     raw = json.loads((SOURCES / 'skeld.json').read_text())
     layers = raw['colliders']['layers']
     data = {'schema_version': 1, 'name': 'The Skeld', 'coordinates': 'native game units; x right, y up',
@@ -136,7 +136,7 @@ def build():
     data['simulation_defaults'] = {'player_radius': .22, 'speed': 2.5, 'dt': 1/30,
         'ray_range': 5.5, 'grid_cell': .06, 'area_envelope_padding': .25,
         'confidence': 'player radius/speed are configurable approximations, not measured client physics'}
-    path = ASSETS / 'among_us_map.json'
+    path = Path(output) if output is not None else ASSETS / 'among_us_map.json'
     path.write_text(json.dumps(data, indent=2) + '\n', encoding='utf-8')
     print(path)
     print({key:len(data[key]) for key in ['regions','walls','obstacles','visibility','doors','consoles','vents','tasks']})

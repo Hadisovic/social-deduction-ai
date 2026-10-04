@@ -32,8 +32,37 @@ const TEAM_COLORS = Object.freeze({
 });
 const SPRITES = Object.freeze({
   red: Object.freeze({ base: 'assets/world/team/red', frames: { down: 18, left: 17, right: 17, up: 17 } }),
-  black: Object.freeze({ base: 'assets/world/team/black', frames: { down: 1, left: 1, right: 1, up: 1 } })
+  black: Object.freeze({ base: 'assets/world/team/red', frames: { down: 18, left: 17, right: 17, up: 17 } })
 });
+const COLORED_SPRITES = new Map();
+async function prepareSprites() {
+  const jobs = [];
+  for (const [direction, count] of Object.entries(SPRITES.red.frames)) {
+    for (let frame = 1; frame <= count; frame++) {
+      jobs.push(new Promise((resolve, reject) => {
+        const image = new Image();
+        image.onerror = () => reject(new Error(`Missing character frame: ${direction}/${frame}`));
+        image.onload = () => {
+          try {
+            const canvas = document.createElement('canvas');
+            canvas.width = image.naturalWidth; canvas.height = image.naturalHeight;
+            const ctx = canvas.getContext('2d', { willReadFrequently: true });
+            ctx.drawImage(image, 0, 0);
+            const original = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            for (const color of ['red', 'black']) {
+              const decoded = new ImageData(CREW_PALETTE.recolor(original.data, color), canvas.width, canvas.height);
+              ctx.putImageData(decoded, 0, 0);
+              COLORED_SPRITES.set(`${color}/${direction}/${frame}`, canvas.toDataURL('image/png'));
+            }
+            resolve();
+          } catch (error) { reject(error); }
+        };
+        image.src = `${SPRITES.red.base}/${direction}/${String(frame).padStart(2, '0')}.png`;
+      }));
+    }
+  }
+  await Promise.all(jobs);
+}
 const WAYPOINTS = Object.freeze(Object.fromEntries(Object.entries(NAV_DATA.anchors).map(([id, p]) => [id, { x: p[0], y: p[1] }])));
 const VENTS = Object.freeze({
   shields: Object.freeze({ x: NAV_DATA.vents.shields[0], y: NAV_DATA.vents.shields[1] }),
@@ -152,12 +181,13 @@ const MILESTONES = Object.freeze([
     ]
   },
   {
-    id: 'mission11', number: '11', originalMilestone: 'PHASE 5', phaseStatusId: 'phase-5', short: 'Strategic policy', title: 'Strategic Policy', status: 'next', waypoint: 'mission11',
-    date: 'NEXT · NOT STARTED', location: 'NAVIGATION · NEXT-MISSION TERMINAL',
-    summary: 'Connect beliefs to task, report, and vote choices, then measure whether the crew wins more often.',
-    detail: 'This is the next real research test. One crewmate policy will choose actions inside the existing simulator, and full-match crew wins will be compared against the same scripted opponents.',
-    metric: '0 POLICIES', metricLabel: 'learned action policies built so far',
-    tags: ['NEXT UP', 'NOT BUILT'], notes: 'The next phase should test decisions and match outcomes. Belief accuracy by itself is not enough. The optional vent sequence on this website is only a storytelling shortcut; the research simulator does not currently support vent travel.'
+    id: 'mission11', number: '11', originalMilestone: 'PHASE 5', phaseStatusId: 'phase-5', short: 'Strategic policy', title: 'Strategic Policy', status: 'complete', waypoint: 'mission11',
+    date: '03 OCT · LEARNING STUDY', location: 'NAVIGATION · LEARNED DECISIONS',
+    summary: 'One crewmate learns to choose tasks, reports, meetings and votes from its own observations and remembered clues.',
+    detail: 'PPO trains a new strategic network while the suspicion model stays frozen. The network selects goals; A* executes movement. Longer movement actions let a chosen task finish, while a newly seen body or witnessed kill returns control to the network. Scripted, random and idle players provide comparison points.',
+    metric: 'EVALUATED', metricLabel: 'independent training seeds and whole-match outcomes',
+    tags: ['ONE LEARNED CREWMATE', '9,000 FINAL MATCHES'],
+    notes: 'Validation selected the policy before final testing. Independent tests show useful learned task contribution versus idle and random controls; superiority over scripted play is not established. The evidence includes own tasks, voting coverage, action choices and uncertainty. PPO loss is not accuracy.'
   },
   {
     id: 'mission12', number: '12', originalMilestone: 'PHASE 6', phaseStatusId: 'phase-6', short: 'Multi-agent future', title: 'Multi-Agent Future', status: 'future', waypoint: 'mission12',
@@ -178,7 +208,7 @@ const PARKED_BRANCH = Object.freeze({
   tags: ['IMPLEMENTATION PRESERVED', 'NOT THE CURRENT QUESTION'], notes: 'The research direction changed because navigation is a mechanical sub-problem; the harder goal is reasoning with partial information and choosing useful actions.'
 });
 const DESTINATIONS = Object.freeze([...MILESTONES, PARKED_BRANCH]);
-const STATUS_LABEL = Object.freeze({ complete: 'COMPLETE', parked: 'PARKED BRANCH', next: 'NEXT', future: 'FUTURE' });
+const STATUS_LABEL = Object.freeze({ complete: 'COMPLETE', 'in-progress': 'IN PROGRESS', parked: 'PARKED BRANCH', next: 'NEXT', future: 'FUTURE' });
 const $ = (selector, root = document) => root.querySelector(selector);
 const shipImage = $('#shipArt'), viewportEl = $('#worldViewport'), cameraEl = $('#shipWorld');
 const markerLayer = $('#markerLayer'), nameLayer = $('#crewNameLayer'), trailScroll = $('#trailScroll');
@@ -218,7 +248,7 @@ function roundGridCoordinate(value) {
 function distance(a, b) { return Math.hypot(a.x - b.x, a.y - b.y); }
 function clamp(value, min, max) { return Math.max(min, Math.min(max, value)); }
 function escapeHTML(value) { return String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]); }
-function statusPlain(status) { return ({ complete: 'complete', parked: 'parked off the main route', next: 'the next mission, not started', future: 'future work' })[status]; }
+function statusPlain(status) { return ({ complete: 'complete', 'in-progress': 'research and evaluation in progress', parked: 'parked off the main route', next: 'the next mission, not started', future: 'future work' })[status]; }
 function mapPixelToGame(point) {
   const dx = point.x - MAP_PROJECTION.x[2], dy = point.y - MAP_PROJECTION.y[2];
   return { x: (MAP_PROJECTION.y[1] * dx - MAP_PROJECTION.x[1] * dy) / MAP_PROJECTION.inverseDet,
@@ -460,7 +490,7 @@ function updateMarkers() {
     button.style.setProperty('--screen-x', `${(p.x + offset.x).toFixed(1)}px`);
     button.style.setProperty('--screen-y', `${(p.y + offset.y).toFixed(1)}px`);
     button.classList.toggle('is-selected', state.targetDestination?.id === destination.id);
-    button.classList.toggle('is-next', destination.status === 'next');
+    button.classList.toggle('is-next', ['next', 'in-progress'].includes(destination.status));
     button.hidden = p.x < -145 || p.x > state.viewport.width + 145 || p.y < 10 || p.y > state.viewport.height + 30;
   }
   for (const key of Object.keys(TEAM)) {
@@ -483,8 +513,8 @@ function setSpriteDirection(key, direction, moving, dt = 0) {
       root._walkClock %= EXPERIENCE.walkFrameDuration; root._walkFrame = ((root._walkFrame || 0) + steps) % spriteSet.frames[direction];
     }
   } else { root._walkFrame = 0; root._walkClock = 0; }
-  const frame = moving && key === 'hadi' ? (root._walkFrame % spriteSet.frames[direction]) + 1 : 1;
-  const src = `${spriteSet.base}/${direction}/${String(frame).padStart(2, '0')}.png`;
+  const frame = moving && !state.reducedMotion ? ((root._walkFrame || 0) % spriteSet.frames[direction]) + 1 : 1;
+  const src = COLORED_SPRITES.get(`${cfg.color}/${direction}/${frame}`);
   if (img.getAttribute('src') !== src) img.setAttribute('src', src);
 }
 function placeCrew(hadi, masa, directionHadi = 'down', directionMasa = directionHadi, moving = false, dt = 0) {
@@ -783,16 +813,18 @@ function showMilestone(mission, trigger) {
   $('#panelIndex').textContent = mission.id === 'parked' ? 'PARKED BRANCH' : `MISSION ${mission.number}`;
   const media = mission.screenshot ? `<figure class="panel-media"><img src="${escapeHTML(mission.screenshot)}" alt="${escapeHTML(mission.imageAlt || '')}" loading="eager"><figcaption>${escapeHTML(mission.imageCaption || '')}</figcaption></figure>` : '';
   const extraEvidence = mission.extraScreenshot ? `<figure class="panel-media"><img src="${escapeHTML(mission.extraScreenshot)}" alt="${escapeHTML(mission.extraImageAlt || '')}" loading="lazy"><figcaption>${escapeHTML(mission.extraImageCaption || '')}</figcaption></figure>` : '';
+  const charts = (mission.evidence || []).map(chart => `<details class="panel-chart"><summary>${escapeHTML(chart.title)}</summary><figure class="panel-media"><a href="${escapeHTML(chart.path)}" target="_blank" rel="noopener"><img src="${escapeHTML(chart.path)}" alt="${escapeHTML(chart.title)}" loading="lazy"></a><figcaption>${escapeHTML(chart.caption)}</figcaption></figure></details>`).join('');
   const tags = mission.tags?.length ? `<ul class="panel-note-tags">${mission.tags.map(tag => `<li>${escapeHTML(tag)}</li>`).join('')}</ul>` : '';
   const repairs = mission.repairs?.length ? mission.repairs.map(repair => `<div class="panel-repair"><b>ISSUE FOUND · ${escapeHTML(repair.title)}</b><span>FIX APPLIED · ${escapeHTML(repair.fix)}</span></div>`).join('') : '';
   const notes = mission.notes || mission.detail;
+  const explanation = mission.detail && mission.detail !== notes ? `<p>${escapeHTML(mission.detail)}</p>` : '';
   const statusLine = mission.id === 'parked' ? `PARKED BRANCH · ${STATUS_LABEL.parked}` : `MISSION ${mission.number} · ${mission.originalMilestone} · ${STATUS_LABEL[mission.status]}`;
   $('#terminalContent').innerHTML = `
     <div class="panel-status" data-status="${mission.status}"><i aria-hidden="true"></i><span>${escapeHTML(statusLine)}</span><span class="panel-date">${escapeHTML(mission.date)}</span></div>
     <h2 id="panelTitle">${escapeHTML(mission.title)}</h2>
     <p class="panel-summary">${escapeHTML(mission.summary)}</p>
     <div class="panel-stat"><strong>${escapeHTML(mission.metric)}</strong><span>${escapeHTML(mission.metricLabel)}</span></div>
-    ${media}<details class="panel-notes"><summary>OPEN THE MISSION LOG</summary><p>${escapeHTML(notes)}</p>${tags}${extraEvidence}${repairs}</details>`;
+    ${media}<details class="panel-notes"><summary>OPEN THE MISSION LOG</summary>${explanation}<p>${escapeHTML(notes)}</p>${tags}${extraEvidence}${charts}${repairs}</details>`;
   if (!milestoneDialog.open) milestoneDialog.showModal();
   $('#closeMilestone').focus({ preventScroll: true });
   setTravelMessage(mission.id === 'parked' ? 'Parked off the main research route.' : `Mission ${mission.number} · ${STATUS_LABEL[mission.status]}.`);
@@ -838,7 +870,7 @@ function toast(message) {
   const element = $('#toast'); element.textContent = message; element.classList.add('is-visible');
   window.clearTimeout(toastTimer); toastTimer = window.setTimeout(() => element.classList.remove('is-visible'), 2500);
 }
-const intro = 'We are building an Among Us-inspired social-deduction AI in a research simulator. It now has a tested Skeld map, full scripted five-player matches, and a crewmate observer that remembers clues and estimates who might be the impostor. The next step is to teach one crewmate to choose actions and test whether the crew wins more often. The players still act from scripts today.';
+const intro = 'We are building an Among Us-inspired social-deduction AI in a research simulator. One learned crewmate now chooses actions using its observations, memory and a frozen suspicion model. We are testing whether it contributes useful tasks and votes and improves crew outcomes against scripted opponents. Adapting opponents and self-play come only after that single-crewmate test succeeds.';
 function zoomAt(clientX, clientY, factor) {
   if (state.motion || milestoneDialog.open || logDialog.open) return;
   const oldScale = cameraScale(), targetZoom = clamp(state.cameraZoom * factor, .82, 3.25);
@@ -985,7 +1017,7 @@ function setupDeveloperDebug() {
 }
 function setStartingSprite(key, direction = 'down') {
   const cfg = TEAM[key], spriteSet = SPRITES[cfg.color];
-  crewEls[key].image.src = `${spriteSet.base}/${direction}/01.png`;
+  crewEls[key].image.src = COLORED_SPRITES.get(`${cfg.color}/${direction}/1`);
   crewEls[key].root.dataset.color = cfg.color; crewEls[key].root.dataset.facing = direction; crewEls[key].root.classList.add('is-idle');
 }
 function initialize() {
@@ -1006,13 +1038,20 @@ function applyProjectStatus(projectStatus) {
   for (const mission of MILESTONES) {
     if (!mission.phaseStatusId) continue;
     const phase = phaseById.get(mission.phaseStatusId);
-    if (!phase || !['complete', 'next', 'future'].includes(phase.status)) throw new Error(`Invalid canonical status for ${mission.phaseStatusId}.`);
+    if (!phase || !['complete', 'in-progress', 'next', 'future'].includes(phase.status)) throw new Error(`Invalid canonical status for ${mission.phaseStatusId}.`);
     mission.status = phase.status;
+  }
+  if (projectStatus.phase5Study) {
+    const study = projectStatus.phase5Study;
+    const mission = MILESTONES.find(item => item.id === 'mission11');
+    mission.metric = study.metric; mission.metricLabel = study.metricLabel;
+    mission.notes = study.notes; mission.tags = study.tags; mission.evidence = study.figures;
+    mission.date = study.date;
   }
   const completed = projectStatus.roadmap.filter(phase => phase.status === 'complete').length;
   $('#phaseCompletion').textContent = `${completed} / ${projectStatus.roadmap.length}`;
-  $('#logCurrentLabel').textContent = `RIGHT NOW · PHASE ${projectStatus.currentPhase} IS COMPLETE`;
-  $('#nextTitle').textContent = `Next assignment · Phase ${projectStatus.nextPhase}`;
+  $('#logCurrentLabel').textContent = `RIGHT NOW · PHASE ${projectStatus.currentPhase} · ${STATUS_LABEL[phaseById.get(`phase-${projectStatus.currentPhase}`).status]}`;
+  $('#nextTitle').textContent = `Future research · Phase ${projectStatus.nextPhase}`;
   $('#projectLastUpdated').dateTime = projectStatus.lastUpdated;
   $('#projectLastUpdated').textContent = projectStatus.lastUpdated;
   $('#projectVerifiedCommit').textContent = projectStatus.lastVerifiedCommit.slice(0, 7);
@@ -1022,7 +1061,7 @@ fetch('./project-status.json', { cache: 'no-store' })
     if (!response.ok) throw new Error(`Public project status could not be loaded (${response.status}).`);
     return response.json();
   })
-  .then(projectStatus => { applyProjectStatus(projectStatus); initialize(); })
+  .then(async projectStatus => { applyProjectStatus(projectStatus); await prepareSprites(); initialize(); })
   .catch(error => {
     console.error('The project status file is required for this site.', error);
     setTravelMessage('Project status did not load. Please refresh the ship log.');

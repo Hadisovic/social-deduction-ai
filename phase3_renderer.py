@@ -45,19 +45,30 @@ def character_sprite(color, height=38, direction="right", frame=0, body=False):
 
     Feet are the bottom-center anchor. Frames depend only on simulation time,
     never wall-clock time. Render large then downsample for legible small actors.
-    A collapsed suit/visor marks a body without gore or proprietary artwork.
+    Bodies use a half-suit, separate boots and a white bone silhouette.
     """
     surf = pygame.Surface((80, 100), pygame.SRCALPHA)
     shade = tuple(round(channel * .61) for channel in color)
     light = tuple(min(255, round(channel * .84 + 39)) for channel in color)
     pygame.draw.ellipse(surf, (4, 9, 15, 135), (9, 83, 60, 13))
     if body:
-        pygame.draw.ellipse(surf, INK, (8, 60, 64, 31))
-        pygame.draw.ellipse(surf, shade, (12, 64, 55, 23))
-        pygame.draw.ellipse(surf, color, (14, 63, 46, 18))
-        pygame.draw.ellipse(surf, INK, (42, 66, 28, 19))
-        pygame.draw.ellipse(surf, (133, 196, 214), (46, 69, 20, 12))
-        pygame.draw.line(surf, (229, 250, 255), (49, 71), (61, 71), 2)
+        # Lower suit remains standing at the death position. No visor/head:
+        # the former collapsed-visor oval was indistinguishable from a marker.
+        pygame.draw.rect(surf, INK, (9, 54, 19, 28), border_radius=6)
+        pygame.draw.rect(surf, shade, (13, 58, 12, 21), border_radius=4)
+        for x in (24, 47):
+            pygame.draw.rect(surf, INK, (x, 73, 21, 20), border_radius=6)
+            pygame.draw.rect(surf, shade, (x+4, 75, 13, 14), border_radius=4)
+        pygame.draw.rect(surf, INK, (19, 46, 51, 38), border_radius=11)
+        pygame.draw.rect(surf, color, (23, 50, 43, 29), border_radius=8)
+        pygame.draw.ellipse(surf, INK, (19, 42, 51, 19))
+        pygame.draw.ellipse(surf, shade, (24, 47, 41, 10))
+        pygame.draw.rect(surf, INK, (36, 28, 17, 25), border_radius=5)
+        pygame.draw.circle(surf, INK, (37, 27), 10)
+        pygame.draw.circle(surf, INK, (52, 27), 10)
+        pygame.draw.rect(surf, (246,242,221), (40, 28, 9, 23), border_radius=3)
+        pygame.draw.circle(surf, (246,242,221), (37, 27), 6)
+        pygame.draw.circle(surf, (246,242,221), (52, 27), 6)
     else:
         stride = (0, 4, 0, -4)[frame % 4]
         # The side pack is behind the body, not an extra collision shape.
@@ -81,6 +92,12 @@ def character_sprite(color, height=38, direction="right", frame=0, body=False):
             pygame.draw.line(surf, (236, 252, 255), (visor_x + 7, 31), (visor_x + 23, 31), 3)
     if direction == "left":
         surf = pygame.transform.flip(surf, True, False)
+    if body:
+        # Match the local artwork path's visible-height convention. Cropping
+        # removes empty head space; body size is not a tiny fraction of a canvas.
+        surf = surf.subsurface(surf.get_bounding_rect()).copy()
+        target_height = max(18, round(height * .65))
+        return pygame.transform.smoothscale(surf, (round(surf.get_width()*target_height/surf.get_height()), target_height))
     return pygame.transform.smoothscale(surf, (max(12, round(height * .8)), height))
 
 
@@ -142,12 +159,12 @@ class Phase3Renderer:
             self.text(surf, line, (pos[0], pos[1] + index * line_height), color, font)
         return len(lines) * line_height
 
-    def actor(self, surf, player, now, position=None, height=None):
+    def actor(self, surf, player, now, position=None, height=None, velocity=None):
         pos = self.map_renderer.point(player.position) if position is None else position
-        vx, vy = player.velocity
+        vx, vy = player.velocity if velocity is None else velocity
         moving = math.hypot(vx, vy) > 1e-5
         direction = ("up" if vy > 0 else "down") if abs(vy) > abs(vx) else ("left" if vx < 0 else "right")
-        height = height or max(22, round(self.map_renderer.scale * .97))
+        height = height or max(32, round(self.map_renderer.scale * .97))
         frame = int(now * 8) % 4 if moving else 0
         body = _value(player.status) == "dead"
         sprite = character_image(player.color_name, height, direction, frame, body)
@@ -158,7 +175,7 @@ class Phase3Renderer:
             sprite.set_alpha(80)
         surf.blit(sprite, sprite.get_rect(midbottom=(round(pos[0]), round(pos[1] + height * .07))))
 
-    def draw(self, game, options=None, paused=False, speed=1., fps=0.):
+    def draw(self, game, options=None, paused=False, speed=1., fps=0., visual_state=None, animation_time=None):
         options = options or ViewOptions()
         surf = pygame.Surface(self.size)
         surf.fill((8, 13, 22))
@@ -178,13 +195,16 @@ class Phase3Renderer:
                 if body.reported:
                     continue
                 victim = game.players[body.victim_id]
-                height = max(24, round(m.scale))
+                height = max(32, round(m.scale))
                 sprite = character_image(victim.color_name, height, 'right', 0, body=True)
                 if sprite is None:
                     sprite = character_sprite(player_color(victim.color_name), height, body=True)
                 point = m.point(body.position)
                 surf.blit(sprite, sprite.get_rect(midbottom=(point[0], point[1] + 3)))
-                pygame.draw.circle(surf, (245, 124, 129), point, max(10, round(m.scale * .4)), 1)
+                # The corpse is the marker. A surrounding circle belongs only
+                # to the explicitly enabled collision/debug overlay.
+                if options.collision:
+                    pygame.draw.circle(surf, (245, 124, 129), point, max(10, round(m.scale * .4)), 1)
                 self.text(surf, "BODY", (point[0] - 16, point[1] + 7), (255, 169, 172), self.small)
         players = sorted(game.players.values(), key=lambda p: (-p.position[1], p.player_id))
         labels = []
@@ -192,12 +212,14 @@ class Phase3Renderer:
             if _value(player.status) != "alive":
                 continue
             color = player_color(player.color_name)
-            point = m.point(player.position)
+            visual = (visual_state or {}).get(player.player_id)
+            point = m.point(visual[0] if visual else player.position)
             if options.routes and player.navigator.route:
                 m.line(surf, player.navigator.route, color, 2)
             if options.visibility:
                 pygame.draw.circle(surf, color, point, round(game.config.sight_range * m.scale), 1)
-            self.actor(surf, player, game.time)
+            self.actor(surf, player, game.time if animation_time is None else animation_time,
+                       position=point, velocity=visual[1] if visual else None)
             if options.labels:
                 rect = self.small.render(player.player_id, True, TEXT).get_rect(topleft=(point[0] + 11, point[1] - 20)).inflate(6, 2)
                 while any(rect.colliderect(prior) for prior in labels):
@@ -309,7 +331,8 @@ class Phase3Renderer:
         pygame.draw.rect(surf, (19, 33, 50), panel, border_radius=14)
         pygame.draw.rect(surf, (61, 99, 120), panel, 1, border_radius=14)
         self.text(surf, "MEETING  /  " + str(_value(game.phase)).upper(), (66, 151), ACCENT, self.title)
-        self.text(surf, "Structured claims are statements by speakers. They are not verified facts.", (66, 187), MUTED, self.small)
+        self.text(surf, self.meeting_origin(game), (66, 187), TEXT, self.font)
+        self.text(surf, "Claims are statements by speakers, not verified facts.", (66, 213), MUTED, self.small)
         for index, player_id in enumerate(game.context.participants):
             player = game.players[player_id]
             x = 106 + index * 155
@@ -360,6 +383,23 @@ class Phase3Renderer:
         if not votes:
             self.text(surf, "Voting has not begun.", (self.map_width - 315, y), MUTED, self.small)
         self.text(surf, "NO ROLE REVEAL AFTER EJECTION", (68, 699), MUTED, self.small)
+
+    @staticmethod
+    def meeting_origin(game):
+        # Read only the public trigger immediately preceding the current meeting.
+        started = next((i for i in range(len(game.event_log)-1, -1, -1)
+                        if game.event_log[i]['kind'] == 'meeting_started'
+                        and game.event_log[i].get('meeting_id') == game.context.meeting_id), None)
+        if started is None:
+            return 'Meeting trigger unavailable'
+        for event in reversed(game.event_log[:started]):
+            if event['kind'] == 'meeting_started': break
+            if event['kind'] == 'report':
+                return (f"{Phase3Renderer.identity(game, event['reporter_id'])} reported "
+                        f"{Phase3Renderer.identity(game, event['victim_id'])}'s body / {event['room']}")
+            if event['kind'] == 'emergency_called':
+                return f"{Phase3Renderer.identity(game, event['reporter_id'])} called an emergency meeting"
+        return 'Meeting trigger unavailable'
 
     @staticmethod
     def identity(game, player_id):

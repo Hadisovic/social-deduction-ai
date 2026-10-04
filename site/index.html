@@ -8,6 +8,7 @@
   <title>The Crewmate Project — An explorable research story</title>
   <link rel="stylesheet" href="styles.css">
   <script src="navigation-data.js" defer></script>
+  <script src="sprite-palette.js" defer></script>
   <script src="app.js" defer></script>
 </head>
 <body>
@@ -77,7 +78,7 @@
 
       <div class="map-legend" aria-label="Milestone status key">
         <span><i class="legend-lamp lamp-on" aria-hidden="true"></i> COMPLETE</span>
-        <span><i class="legend-lamp lamp-next" aria-hidden="true"></i> NEXT</span>
+        <span><i class="legend-lamp lamp-next" aria-hidden="true"></i> IN PROGRESS</span>
         <span><i class="legend-lamp lamp-off" aria-hidden="true"></i> LATER</span>
         <span><i class="legend-lamp lamp-parked" aria-hidden="true"></i> PARKED</span>
       </div>
@@ -120,9 +121,9 @@
       <h2 id="logTitle">The ship's log</h2>
       <p class="log-intro">A short record of what changed, what passed its checks, what was repaired, and what waits ahead.</p>
       <button class="share-intro" id="shareIntro" type="button">COPY A SHORT INTRO <span aria-hidden="true">↗</span></button>
-      <div class="log-current"><span class="log-beacon"></span><div><b id="logCurrentLabel"></b><p>The crewmate can remember clues and estimate impostor probabilities in scripted matches. It still does not choose actions.</p></div></div>
+      <div class="log-current"><span class="log-beacon"></span><div><b id="logCurrentLabel"></b><p>One crewmate learned strategic actions from its own observations, memory and frozen suspicion estimates. Across 9,000 final matches, the study compares learned contribution with scripted, random, idle and untrained controls.</p></div></div>
       <section class="log-section" aria-labelledby="repairsTitle"><h3 id="repairsTitle">Repairs along the way</h3><div class="repair-list" id="repairList"></div></section>
-      <section class="log-section log-next" aria-labelledby="nextTitle"><h3 id="nextTitle"></h3><p>Connect the belief model to one crewmate policy. Measure whole-match crew wins against the same scripted opponents. This work has not started.</p></section>
+      <section class="log-section log-next" aria-labelledby="nextTitle"><h3 id="nextTitle"></h3><p>Only after one learned crewmate works, explore adapting opponents and self-play. Phase 6 is future work; the single-crewmate evidence gate comes first.</p></section>
       <p class="log-note">The map and two characters are a storytelling view of the project. The current AI system receives structured information from its simulated crewmate; it does not visually read the commercial game.</p>
       <p class="log-status-meta">STATUS CHECKED <time id="projectLastUpdated"></time> · AGAINST <code id="projectVerifiedCommit"></code> · <a href="https://github.com/Hadisovic/social-deduction-ai" target="_blank" rel="noopener noreferrer">VIEW RESEARCH REPOSITORY</a></p>
     </article>

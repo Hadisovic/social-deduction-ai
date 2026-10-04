@@ -1,0 +1,17 @@
+{
+  "status": "adaptive_validation_research_in_progress",
+  "authorization": "Owner authorized further learning and evaluation on 2026-10-03, superseding the one-run limit.",
+  "preserved_baseline": {"training_seed": 17, "decisions": 32768, "execution_protocol": "strategic-decisions-v1"},
+  "first_option_experiment": {"training_seed": 17, "decisions": 8192, "execution_protocol": "strategic-options-v2", "checkpoints_every": 2048},
+  "diagnostic_validation_seeds": [620000, 620019],
+  "selection_validation_seeds": [620000, 620099],
+  "final_id_seeds": [630000, 630499],
+  "final_patient_seeds": [640000, 640499],
+  "next_training_seeds_if_promising": [29, 43],
+  "current_only_ablation": "Train separately after demonstrating a useful full-memory controller; do not label inference-time masking a trained ablation.",
+  "selection": "Reject illegal/failed-navigation policies. Compare crew wins, own contribution, voting and behavior with scripted/random/idle. Choose using validation only; do not infer skill from wins carried by other players.",
+  "stopping": "Inspect checkpoint curves; replicate useful behavior, extend only promising learning, and stop unchanged configurations on a validation plateau. Record failures as well as successes.",
+  "budget_note": "Longer actions consume more simulated time per policy decision; comparisons must show decisions, simulated seconds and completed matches.",
+  "final_test_opened": false,
+  "phase6_gate": "Only after one learned crewmate works, explore adapting opponents and self-play."
+}

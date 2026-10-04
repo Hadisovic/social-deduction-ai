@@ -1,0 +1,861 @@
+{
+  "metrics": {
+    "artifacts\\phase5\\runs\\full-17-approved\\policy.pt": {
+      "ID": {
+        "matches": 500,
+        "crew_win_rate": 0.462,
+        "win_rate_wilson95": [
+          0.41875551183784954,
+          0.5058239591704992
+        ],
+        "mean_own_tasks": 0.0,
+        "mean_survival": 76.25079999999998,
+        "voting_accuracy": 0.9787581699346405,
+        "voting_match_bootstrap95": [
+          0.9655737063547039,
+          0.9901800327332242
+        ],
+        "votes_cast": 612,
+        "votes_correct": 599,
+        "skips": 0,
+        "illegal_actions": 0,
+        "navigation_failures": 0,
+        "timeouts": 1,
+        "correct_ejections": 49,
+        "innocent_ejections": 9
+      },
+      "patient": {
+        "matches": 500,
+        "crew_win_rate": 0.418,
+        "win_rate_wilson95": [
+          0.37555228526740775,
+          0.4616981521716604
+        ],
+        "mean_own_tasks": 0.0,
+        "mean_survival": 78.7864,
+        "voting_accuracy": 0.9858267716535433,
+        "voting_match_bootstrap95": [
+          0.9761509003067959,
+          0.9939119512567487
+        ],
+        "votes_cast": 635,
+        "votes_correct": 626,
+        "skips": 0,
+        "illegal_actions": 0,
+        "navigation_failures": 0,
+        "timeouts": 1,
+        "correct_ejections": 33,
+        "innocent_ejections": 1
+      }
+    },
+    "artifacts\\phase5\\runs\\options-17-initial-control\\policy.pt": {
+      "ID": {
+        "matches": 500,
+        "crew_win_rate": 0.374,
+        "win_rate_wilson95": [
+          0.3326992639903926,
+          0.41722213987939505
+        ],
+        "mean_own_tasks": 0.0,
+        "mean_survival": 78.06960000000001,
+        "voting_accuracy": 0.0,
+        "voting_match_bootstrap95": [
+          0.0,
+          0.0
+        ],
+        "votes_cast": 591,
+        "votes_correct": 0,
+        "skips": 66,
+        "illegal_actions": 0,
+        "navigation_failures": 0,
+        "timeouts": 2,
+        "correct_ejections": 14,
+        "innocent_ejections": 66
+      },
+      "patient": {
+        "matches": 500,
+        "crew_win_rate": 0.37,
+        "win_rate_wilson95": [
+          0.328821530528825,
+          0.4131608702892099
+        ],
+        "mean_own_tasks": 0.0,
+        "mean_survival": 81.7784,
+        "voting_accuracy": 0.0,
+        "voting_match_bootstrap95": [
+          0.0,
+          0.0
+        ],
+        "votes_cast": 581,
+        "votes_correct": 0,
+        "skips": 67,
+        "illegal_actions": 0,
+        "navigation_failures": 0,
+        "timeouts": 4,
+        "correct_ejections": 13,
+        "innocent_ejections": 8
+      }
+    },
+    "artifacts\\phase5\\runs\\options-17-v2-ablation\\checkpoint-8192.pt": {
+      "ID": {
+        "matches": 500,
+        "crew_win_rate": 0.91,
+        "win_rate_wilson95": [
+          0.8816900083946269,
+          0.9320578044100325
+        ],
+        "mean_own_tasks": 1.884,
+        "mean_survival": 46.27960000000001,
+        "voting_accuracy": null,
+        "voting_match_bootstrap95": null,
+        "votes_cast": 0,
+        "votes_correct": 0,
+        "skips": 383,
+        "illegal_actions": 0,
+        "navigation_failures": 0,
+        "timeouts": 0,
+        "correct_ejections": 15,
+        "innocent_ejections": 4
+      },
+      "patient": {
+        "matches": 500,
+        "crew_win_rate": 0.924,
+        "win_rate_wilson95": [
+          0.8974030342199025,
+          0.9441312892658914
+        ],
+        "mean_own_tasks": 1.928,
+        "mean_survival": 47.182,
+        "voting_accuracy": null,
+        "voting_match_bootstrap95": null,
+        "votes_cast": 0,
+        "votes_correct": 0,
+        "skips": 389,
+        "illegal_actions": 0,
+        "navigation_failures": 0,
+        "timeouts": 0,
+        "correct_ejections": 4,
+        "innocent_ejections": 0
+      }
+    },
+    "artifacts\\phase5\\runs\\options-17-v2\\checkpoint-8192.pt": {
+      "ID": {
+        "matches": 500,
+        "crew_win_rate": 0.884,
+        "win_rate_wilson95": [
+          0.8529575380244137,
+          0.9091867549438526
+        ],
+        "mean_own_tasks": 1.674,
+        "mean_survival": 49.7588,
+        "voting_accuracy": 0.9423868312757202,
+        "voting_match_bootstrap95": [
+          0.920997920997921,
+          0.9614514771425812
+        ],
+        "votes_cast": 486,
+        "votes_correct": 458,
+        "skips": 0,
+        "illegal_actions": 0,
+        "navigation_failures": 0,
+        "timeouts": 0,
+        "correct_ejections": 31,
+        "innocent_ejections": 11
+      },
+      "patient": {
+        "matches": 500,
+        "crew_win_rate": 0.904,
+        "win_rate_wilson95": [
+          0.8750124461326017,
+          0.9268268620944284
+        ],
+        "mean_own_tasks": 1.684,
+        "mean_survival": 50.0244,
+        "voting_accuracy": 0.9566115702479339,
+        "voting_match_bootstrap95": [
+          0.9375,
+          0.9740518962075848
+        ],
+        "votes_cast": 484,
+        "votes_correct": 463,
+        "skips": 0,
+        "illegal_actions": 0,
+        "navigation_failures": 0,
+        "timeouts": 0,
+        "correct_ejections": 14,
+        "innocent_ejections": 1
+      }
+    },
+    "artifacts\\phase5\\runs\\options-29-v2\\checkpoint-2048.pt": {
+      "ID": {
+        "matches": 500,
+        "crew_win_rate": 0.916,
+        "win_rate_wilson95": [
+          0.8884001169044927,
+          0.9372562004777957
+        ],
+        "mean_own_tasks": 1.89,
+        "mean_survival": 46.479600000000005,
+        "voting_accuracy": null,
+        "voting_match_bootstrap95": null,
+        "votes_cast": 0,
+        "votes_correct": 0,
+        "skips": 384,
+        "illegal_actions": 0,
+        "navigation_failures": 0,
+        "timeouts": 0,
+        "correct_ejections": 15,
+        "innocent_ejections": 2
+      },
+      "patient": {
+        "matches": 500,
+        "crew_win_rate": 0.922,
+        "win_rate_wilson95": [
+          0.8951458937794419,
+          0.9424189281804758
+        ],
+        "mean_own_tasks": 1.908,
+        "mean_survival": 46.5912,
+        "voting_accuracy": null,
+        "voting_match_bootstrap95": null,
+        "votes_cast": 0,
+        "votes_correct": 0,
+        "skips": 385,
+        "illegal_actions": 0,
+        "navigation_failures": 0,
+        "timeouts": 0,
+        "correct_ejections": 2,
+        "innocent_ejections": 0
+      }
+    },
+    "artifacts\\phase5\\runs\\options-43-v2\\checkpoint-8192.pt": {
+      "ID": {
+        "matches": 500,
+        "crew_win_rate": 0.898,
+        "win_rate_wilson95": [
+          0.8683647750455783,
+          0.9215660286038228
+        ],
+        "mean_own_tasks": 1.864,
+        "mean_survival": 47.950799999999994,
+        "voting_accuracy": 0.0,
+        "voting_match_bootstrap95": [
+          0.0,
+          0.0
+        ],
+        "votes_cast": 1,
+        "votes_correct": 0,
+        "skips": 391,
+        "illegal_actions": 0,
+        "navigation_failures": 0,
+        "timeouts": 0,
+        "correct_ejections": 9,
+        "innocent_ejections": 3
+      },
+      "patient": {
+        "matches": 500,
+        "crew_win_rate": 0.892,
+        "win_rate_wilson95": [
+          0.8617447145307382,
+          0.9162775845410336
+        ],
+        "mean_own_tasks": 1.836,
+        "mean_survival": 47.6536,
+        "voting_accuracy": null,
+        "voting_match_bootstrap95": null,
+        "votes_cast": 0,
+        "votes_correct": 0,
+        "skips": 397,
+        "illegal_actions": 0,
+        "navigation_failures": 0,
+        "timeouts": 0,
+        "correct_ejections": 7,
+        "innocent_ejections": 0
+      }
+    },
+    "idle": {
+      "ID": {
+        "matches": 500,
+        "crew_win_rate": 0.472,
+        "win_rate_wilson95": [
+          0.4286219475993197,
+          0.5158050310384108
+        ],
+        "mean_own_tasks": 0.0,
+        "mean_survival": 67.0548,
+        "voting_accuracy": null,
+        "voting_match_bootstrap95": null,
+        "votes_cast": 0,
+        "votes_correct": 0,
+        "skips": 538,
+        "illegal_actions": 0,
+        "navigation_failures": 0,
+        "timeouts": 1,
+        "correct_ejections": 12,
+        "innocent_ejections": 4
+      },
+      "patient": {
+        "matches": 500,
+        "crew_win_rate": 0.44,
+        "win_rate_wilson95": [
+          0.3971110206093619,
+          0.4838039336143465
+        ],
+        "mean_own_tasks": 0.0,
+        "mean_survival": 69.3948,
+        "voting_accuracy": null,
+        "voting_match_bootstrap95": null,
+        "votes_cast": 0,
+        "votes_correct": 0,
+        "skips": 554,
+        "illegal_actions": 0,
+        "navigation_failures": 0,
+        "timeouts": 1,
+        "correct_ejections": 12,
+        "innocent_ejections": 0
+      }
+    },
+    "random": {
+      "ID": {
+        "matches": 500,
+        "crew_win_rate": 0.51,
+        "win_rate_wilson95": [
+          0.4662728891685752,
+          0.5535746184608068
+        ],
+        "mean_own_tasks": 0.392,
+        "mean_survival": 69.6284,
+        "voting_accuracy": 0.2967032967032967,
+        "voting_match_bootstrap95": [
+          0.2563559322033898,
+          0.3386372737674225
+        ],
+        "votes_cast": 455,
+        "votes_correct": 135,
+        "skips": 119,
+        "illegal_actions": 0,
+        "navigation_failures": 0,
+        "timeouts": 0,
+        "correct_ejections": 37,
+        "innocent_ejections": 30
+      },
+      "patient": {
+        "matches": 500,
+        "crew_win_rate": 0.466,
+        "win_rate_wilson95": [
+          0.4226999925744605,
+          0.5098184814856409
+        ],
+        "mean_own_tasks": 0.446,
+        "mean_survival": 73.1,
+        "voting_accuracy": 0.27848101265822783,
+        "voting_match_bootstrap95": [
+          0.23788546255506607,
+          0.31958929883547454
+        ],
+        "votes_cast": 474,
+        "votes_correct": 132,
+        "skips": 126,
+        "illegal_actions": 0,
+        "navigation_failures": 0,
+        "timeouts": 0,
+        "correct_ejections": 25,
+        "innocent_ejections": 2
+      }
+    },
+    "scripted": {
+      "ID": {
+        "matches": 500,
+        "crew_win_rate": 0.908,
+        "win_rate_wilson95": [
+          0.8794606777802376,
+          0.9303176334985452
+        ],
+        "mean_own_tasks": 1.884,
+        "mean_survival": 46.34,
+        "voting_accuracy": 0.8125,
+        "voting_match_bootstrap95": [
+          0.6908982683982684,
+          0.9148936170212766
+        ],
+        "votes_cast": 48,
+        "votes_correct": 39,
+        "skips": 341,
+        "illegal_actions": 0,
+        "navigation_failures": 0,
+        "timeouts": 0,
+        "correct_ejections": 32,
+        "innocent_ejections": 4
+      },
+      "patient": {
+        "matches": 500,
+        "crew_win_rate": 0.916,
+        "win_rate_wilson95": [
+          0.8884001169044927,
+          0.9372562004777957
+        ],
+        "mean_own_tasks": 1.908,
+        "mean_survival": 46.606,
+        "voting_accuracy": 0.7,
+        "voting_match_bootstrap95": [
+          0.5636079545454545,
+          0.8226043643263754
+        ],
+        "votes_cast": 50,
+        "votes_correct": 35,
+        "skips": 342,
+        "illegal_actions": 0,
+        "navigation_failures": 0,
+        "timeouts": 0,
+        "correct_ejections": 12,
+        "innocent_ejections": 0
+      }
+    }
+  },
+  "paired": {
+    "artifacts\\phase5\\runs\\full-17-approved\\policy.pt": {
+      "ID": {
+        "scripted": {
+          "matches": 500,
+          "win_rate_difference": -0.446,
+          "bootstrap95": [
+            -0.492,
+            -0.4
+          ]
+        },
+        "idle": {
+          "matches": 500,
+          "win_rate_difference": -0.01,
+          "bootstrap95": [
+            -0.05,
+            0.028
+          ]
+        },
+        "random": {
+          "matches": 500,
+          "win_rate_difference": -0.048,
+          "bootstrap95": [
+            -0.106,
+            0.006
+          ]
+        }
+      },
+      "patient": {
+        "scripted": {
+          "matches": 500,
+          "win_rate_difference": -0.498,
+          "bootstrap95": [
+            -0.546,
+            -0.45
+          ]
+        },
+        "idle": {
+          "matches": 500,
+          "win_rate_difference": -0.022,
+          "bootstrap95": [
+            -0.064,
+            0.018
+          ]
+        },
+        "random": {
+          "matches": 500,
+          "win_rate_difference": -0.048,
+          "bootstrap95": [
+            -0.106,
+            0.008
+          ]
+        }
+      }
+    },
+    "artifacts\\phase5\\runs\\options-17-initial-control\\policy.pt": {
+      "ID": {
+        "scripted": {
+          "matches": 500,
+          "win_rate_difference": -0.534,
+          "bootstrap95": [
+            -0.582,
+            -0.486
+          ]
+        },
+        "idle": {
+          "matches": 500,
+          "win_rate_difference": -0.098,
+          "bootstrap95": [
+            -0.144,
+            -0.054
+          ]
+        },
+        "random": {
+          "matches": 500,
+          "win_rate_difference": -0.136,
+          "bootstrap95": [
+            -0.192,
+            -0.078
+          ]
+        }
+      },
+      "patient": {
+        "scripted": {
+          "matches": 500,
+          "win_rate_difference": -0.546,
+          "bootstrap95": [
+            -0.59,
+            -0.502
+          ]
+        },
+        "idle": {
+          "matches": 500,
+          "win_rate_difference": -0.07,
+          "bootstrap95": [
+            -0.112,
+            -0.026
+          ]
+        },
+        "random": {
+          "matches": 500,
+          "win_rate_difference": -0.096,
+          "bootstrap95": [
+            -0.152,
+            -0.042
+          ]
+        }
+      }
+    },
+    "artifacts\\phase5\\runs\\options-17-v2-ablation\\checkpoint-8192.pt": {
+      "ID": {
+        "scripted": {
+          "matches": 500,
+          "win_rate_difference": 0.002,
+          "bootstrap95": [
+            -0.022,
+            0.026
+          ]
+        },
+        "idle": {
+          "matches": 500,
+          "win_rate_difference": 0.438,
+          "bootstrap95": [
+            0.392,
+            0.482
+          ]
+        },
+        "random": {
+          "matches": 500,
+          "win_rate_difference": 0.4,
+          "bootstrap95": [
+            0.352,
+            0.448
+          ]
+        }
+      },
+      "patient": {
+        "scripted": {
+          "matches": 500,
+          "win_rate_difference": 0.008,
+          "bootstrap95": [
+            -0.014,
+            0.03
+          ]
+        },
+        "idle": {
+          "matches": 500,
+          "win_rate_difference": 0.484,
+          "bootstrap95": [
+            0.436,
+            0.532
+          ]
+        },
+        "random": {
+          "matches": 500,
+          "win_rate_difference": 0.458,
+          "bootstrap95": [
+            0.41,
+            0.506
+          ]
+        }
+      }
+    },
+    "artifacts\\phase5\\runs\\options-17-v2\\checkpoint-8192.pt": {
+      "ID": {
+        "scripted": {
+          "matches": 500,
+          "win_rate_difference": -0.024,
+          "bootstrap95": [
+            -0.056,
+            0.008049999999999273
+          ]
+        },
+        "idle": {
+          "matches": 500,
+          "win_rate_difference": 0.412,
+          "bootstrap95": [
+            0.364,
+            0.458
+          ]
+        },
+        "random": {
+          "matches": 500,
+          "win_rate_difference": 0.374,
+          "bootstrap95": [
+            0.324,
+            0.426
+          ]
+        }
+      },
+      "patient": {
+        "scripted": {
+          "matches": 500,
+          "win_rate_difference": -0.012,
+          "bootstrap95": [
+            -0.042,
+            0.016
+          ]
+        },
+        "idle": {
+          "matches": 500,
+          "win_rate_difference": 0.464,
+          "bootstrap95": [
+            0.414,
+            0.512
+          ]
+        },
+        "random": {
+          "matches": 500,
+          "win_rate_difference": 0.438,
+          "bootstrap95": [
+            0.388,
+            0.48604999999999926
+          ]
+        }
+      }
+    },
+    "artifacts\\phase5\\runs\\options-29-v2\\checkpoint-2048.pt": {
+      "ID": {
+        "scripted": {
+          "matches": 500,
+          "win_rate_difference": 0.008,
+          "bootstrap95": [
+            -0.016,
+            0.032
+          ]
+        },
+        "idle": {
+          "matches": 500,
+          "win_rate_difference": 0.444,
+          "bootstrap95": [
+            0.396,
+            0.49
+          ]
+        },
+        "random": {
+          "matches": 500,
+          "win_rate_difference": 0.406,
+          "bootstrap95": [
+            0.36,
+            0.452
+          ]
+        }
+      },
+      "patient": {
+        "scripted": {
+          "matches": 500,
+          "win_rate_difference": 0.006,
+          "bootstrap95": [
+            -0.016,
+            0.03
+          ]
+        },
+        "idle": {
+          "matches": 500,
+          "win_rate_difference": 0.482,
+          "bootstrap95": [
+            0.434,
+            0.528
+          ]
+        },
+        "random": {
+          "matches": 500,
+          "win_rate_difference": 0.456,
+          "bootstrap95": [
+            0.408,
+            0.504
+          ]
+        }
+      }
+    },
+    "artifacts\\phase5\\runs\\options-43-v2\\checkpoint-8192.pt": {
+      "ID": {
+        "scripted": {
+          "matches": 500,
+          "win_rate_difference": -0.01,
+          "bootstrap95": [
+            -0.036,
+            0.018
+          ]
+        },
+        "idle": {
+          "matches": 500,
+          "win_rate_difference": 0.426,
+          "bootstrap95": [
+            0.38,
+            0.474
+          ]
+        },
+        "random": {
+          "matches": 500,
+          "win_rate_difference": 0.388,
+          "bootstrap95": [
+            0.34,
+            0.436
+          ]
+        }
+      },
+      "patient": {
+        "scripted": {
+          "matches": 500,
+          "win_rate_difference": -0.024,
+          "bootstrap95": [
+            -0.05,
+            0.002
+          ]
+        },
+        "idle": {
+          "matches": 500,
+          "win_rate_difference": 0.452,
+          "bootstrap95": [
+            0.406,
+            0.502
+          ]
+        },
+        "random": {
+          "matches": 500,
+          "win_rate_difference": 0.426,
+          "bootstrap95": [
+            0.38,
+            0.474
+          ]
+        }
+      }
+    },
+    "idle": {
+      "ID": {
+        "scripted": {
+          "matches": 500,
+          "win_rate_difference": -0.436,
+          "bootstrap95": [
+            -0.482,
+            -0.39
+          ]
+        },
+        "random": {
+          "matches": 500,
+          "win_rate_difference": -0.038,
+          "bootstrap95": [
+            -0.094,
+            0.02
+          ]
+        }
+      },
+      "patient": {
+        "scripted": {
+          "matches": 500,
+          "win_rate_difference": -0.476,
+          "bootstrap95": [
+            -0.524,
+            -0.428
+          ]
+        },
+        "random": {
+          "matches": 500,
+          "win_rate_difference": -0.026,
+          "bootstrap95": [
+            -0.08,
+            0.03
+          ]
+        }
+      }
+    },
+    "random": {
+      "ID": {
+        "scripted": {
+          "matches": 500,
+          "win_rate_difference": -0.398,
+          "bootstrap95": [
+            -0.446,
+            -0.352
+          ]
+        },
+        "idle": {
+          "matches": 500,
+          "win_rate_difference": 0.038,
+          "bootstrap95": [
+            -0.018,
+            0.096
+          ]
+        }
+      },
+      "patient": {
+        "scripted": {
+          "matches": 500,
+          "win_rate_difference": -0.45,
+          "bootstrap95": [
+            -0.498,
+            -0.404
+          ]
+        },
+        "idle": {
+          "matches": 500,
+          "win_rate_difference": 0.026,
+          "bootstrap95": [
+            -0.03,
+            0.082
+          ]
+        }
+      }
+    },
+    "scripted": {
+      "ID": {
+        "idle": {
+          "matches": 500,
+          "win_rate_difference": 0.436,
+          "bootstrap95": [
+            0.39,
+            0.482
+          ]
+        },
+        "random": {
+          "matches": 500,
+          "win_rate_difference": 0.398,
+          "bootstrap95": [
+            0.35,
+            0.446
+          ]
+        }
+      },
+      "patient": {
+        "idle": {
+          "matches": 500,
+          "win_rate_difference": 0.476,
+          "bootstrap95": [
+            0.426,
+            0.524
+          ]
+        },
+        "random": {
+          "matches": 500,
+          "win_rate_difference": 0.45,
+          "bootstrap95": [
+            0.402,
+            0.496
+          ]
+        }
+      }
+    }
+  },
+  "uncertainty": "95% Wilson match intervals and paired whole-match bootstrap; not training-seed confidence intervals.",
+  "status": "final_evaluation_complete",
+  "selected_checkpoint": "artifacts\\phase5\\runs\\options-17-v2\\checkpoint-8192.pt",
+  "matches_per_method": 1000,
+  "method_count": 9,
+  "selection_lock_sha256": "fed3bbce2bf5a4d81260dcf690d6b16c7d57e43eeb3bbe00a3ce6171e950d8f2"
+}

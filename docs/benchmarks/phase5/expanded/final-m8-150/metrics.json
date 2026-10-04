@@ -1,0 +1,61 @@
+{
+  "status": "evaluation",
+  "sources_sha256": {
+    "phase5_features.py": "0c12db6a50470b56ab9420c0bee5c56e7d1d29f36b0ff3dfcba7e290b341f7bf",
+    "phase5_env.py": "502423fcb7a4d5187d35f532006b193061804f05f7f43c995767cb685530e963",
+    "phase5_options.py": "97d0a5ee05183cf3880e7c9fd079e9f9bbdebb6e8ad0f26819c76b3b9642c059",
+    "phase5_runtime.py": "fb166e3a84047a4f431f66632f34ee8148eda65dfd55523bb13f6646836d7e8b",
+    "phase5_policy.py": "e98036186b54737a9de5b105a3aed5ae11f6bb560ec0c4b9e33b830b88176223",
+    "phase5_runner.py": "58d9cd1dada86e0f6d6aae9e22adeb2571d639717dbcd33572e6c7a6e06eb2d9",
+    "phase5_evaluation.py": "2834b571a9be092e094fec045827626cf2901507977ccaa0bb32e40bc127d182"
+  },
+  "matches_per_method": 100,
+  "match_offset": 150,
+  "metrics": {
+    "artifacts\\phase5\\runs\\options-17-initial-control\\policy.pt": {
+      "ID": {
+        "matches": 50,
+        "crew_win_rate": 0.44,
+        "win_rate_wilson95": [
+          0.3116198721023534,
+          0.5769421319985648
+        ],
+        "mean_own_tasks": 0.0,
+        "mean_survival": 78.184,
+        "voting_accuracy": 0.0,
+        "votes_cast": 56,
+        "skips": 7,
+        "ejection_rate": 0.14,
+        "correct_ejections": 2,
+        "innocent_ejections": 5,
+        "timeouts": 1,
+        "illegal_actions": 0,
+        "navigation_failures": 0
+      },
+      "patient": {
+        "matches": 50,
+        "crew_win_rate": 0.3,
+        "win_rate_wilson95": [
+          0.1910338908960936,
+          0.4375061227736339
+        ],
+        "mean_own_tasks": 0.0,
+        "mean_survival": 82.66,
+        "voting_accuracy": 0.0,
+        "votes_cast": 64,
+        "skips": 6,
+        "ejection_rate": 0.08,
+        "correct_ejections": 3,
+        "innocent_ejections": 1,
+        "timeouts": 0,
+        "illegal_actions": 0,
+        "navigation_failures": 0
+      }
+    }
+  },
+  "paired": {
+    "artifacts\\phase5\\runs\\options-17-initial-control\\policy.pt": {}
+  },
+  "seconds": 580.8257962998468,
+  "notice": "No strategic-gain claim from smoke results; match seeds paired across methods."
+}
