@@ -1,5 +1,23 @@
 # Continuation handoff
 
+## CURRENT: Phase 5 completed and published (2026-10-04)
+
+All approved Phase5 work is complete. PR #2 merged at commit
+4212d05e4b282cc07d0546f8508ba1066eb1cb7e. GitHub Pages build/deploy run
+37165652825 succeeded. Live site: https://hadisovic.github.io/social-deduction-ai/.
+The published mission shows88.4%/90.4% crew wins with twelve evidence figures;
+Phase6 remains future work. Red/black collaborator corrections are preserved.
+Local main contains the merged release.372 tests passed; desktop/mobile browser,
+palette, source/build validators and release viewer launch were checked.
+
+The external Phase_5_Teammate_Handoff.md and Phase_5_Teammate_Package.zip remain
+outside this repository. They include all experiment stages, counts, settings,
+timings with caveats, Intel i9-14900HX hardware and worker details, result tables,
+twelve graphs, learning assessment and the gated Phase6 sequence. Evaluation took
+about3h05m elapsed. No further training or final-test selection changes occurred.
+The completion heartbeat is paused after live verification. Historical entries
+below describe earlier states and do not authorize restarting finished workers.
+
 ## CURRENT: final results complete; publication being verified (2026-10-04)
 
 Session65107 exited successfully: 9,000 final matches, 90/90 chunks, nine methods.
