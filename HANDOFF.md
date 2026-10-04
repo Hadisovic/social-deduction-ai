@@ -1,5 +1,15 @@
 # Continuation handoff
 
+## CURRENT documentation update (2026-10-04)
+
+The owner now explicitly wants the teammate document in the repository,
+superseding earlier external-only instructions. The canonical concise guide is
+docs/phase5_teammate_guide.md, linked from README, with repo-relative pictures and
+graph links. It explains the Phase5 fixed focal belief panel (no switch key;
+F is Phase4 only), results/limits, experiment settings/timings and a proposed
+Phase6 tuning and multi-agent sequence. No policy, training or viewer behavior
+is changed by this documentation update. The external download mirrors the guide.
+
 ## CURRENT: Phase 5 completed and published (2026-10-04)
 
 All approved Phase5 work is complete. PR #2 merged at commit

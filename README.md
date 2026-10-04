@@ -12,6 +12,9 @@ Explore the [interactive project journey](https://hadisovic.github.io/social-ded
 
 ## Watch the evaluated Phase 5 strategic crewmate
 
+Read the [illustrated teammate guide](docs/phase5_teammate_guide.md) for controls,
+updates, graph explanations, results, timings and the proposed Phase 6 experiments.
+
 ```powershell
 python run_phase5.py
 ```
