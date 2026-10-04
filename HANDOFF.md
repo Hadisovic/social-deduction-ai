@@ -1,5 +1,239 @@
 # Continuation handoff
 
+## CURRENT: final results complete; publication being verified (2026-10-04)
+
+Session65107 exited successfully: 9,000 final matches, 90/90 chunks, nine methods.
+Locked seed17/8192 wins 88.4% ID and 90.4% patient; own tasks1.67/1.68; vote
+accuracy94.2%/95.7%, cast486/484. Clear gains versus idle/random, no established
+superiority over scripted. No final-test selection changes. Phase5 simulator
+study is accepted; real-game transfer and replicated memory benefit are unproven.
+Release copied byte-for-byte to artifacts/phase5/release/policy.pt with SHA256
+metadata. run_phase5.py defaults to it; dummy-video launch passed.
+
+372 Python tests passed (203.73s, three warnings). Twelve report/public graphs
+generated; Node source/build validators, palette tests and syntax passed.
+External teammate document now has full ledger/timings/hardware and all result
+tables. Phase_5_Teammate_Package.zip beside it includes twelve graph PNGs and
+execution-metadata.json. Training sum129.4min (overlapping runs); final evaluation
+about185.0min elapsed,721.8 summed worker-job minutes. Overall substantive study
+span about4.67hours including reviews/gaps. Stage spans are filesystem estimates.
+
+Remaining: finish browser verification at desktop/mobile, review/stage/commit
+authorized changes, PR checks/merge and verify live GitHub Pages deployment.
+No live publication claimed yet. Preserve red/black palette/animation fixes.
+Automation must remain active until publication and deliverables are verified.
+
+## CURRENT: locked final evaluation running (2026-10-04)
+
+**Latest owner documentation requirement:** after completion, expand the external
+teammate document with ALL training, validation, testing and evaluation details.
+Include seeds, steps, checkpoint selection, data partitions, methods/controls,
+metrics and uncertainty, measured duration per run/stage and total elapsed time,
+plus processor/hardware and process/worker setup. Distinguish summed worker/run
+time from elapsed wall time when jobs overlap. Recover timings from persisted
+records where possible; label estimates and unavailable timings explicitly.
+Explain the experimental process and the final learning-sufficiency decision.
+
+Validation session22518 completed successfully. `phase5_analysis.py` was run
+without --lock, the curves/paired comparisons/tasks/votes were inspected, and
+`selection-decision.md` records the decision before final testing. No additional
+training is justified in this batch. Selected full-memory seed17 checkpoint8192:
+96/100 validation wins, 1.69 own tasks, 93/93 non-skip votes correct. Scripted92%,
+idle50%, random42%. Paired versus scripted +4 points [0,+9]: no clear superiority.
+Three full-memory seeds demonstrate useful task behavior; one ablation is exploratory.
+
+`python phase5_analysis.py --lock` created the immutable selection lock. DO NOT
+rerun selection, train/tune using final outcomes, or change the selected checkpoint.
+The checkpoint curve plot now uses the SAME20 diagnostic seeds for every point;
+the larger-sample comparison remains separate. No training/evaluation code changed.
+
+**RUNNING session65107:** `python -u tools/evaluate_phase5_locked.py`, escalated
+after Windows blocked process-pool pipes. Four local CPU workers evaluate NINE
+methods x1,000 matches =9,000 matches, half ID/half patient. Preserve this healthy
+job and inspect persisted `expanded/final-*/matches.jsonl` progress. Do not modify
+source modules loaded by its workers or start duplicate evaluation jobs. Selection
+is locked and the final test partition is now open. Partial outcomes are not final.
+
+After completion inspect `final-results.json`, refresh report/figures and the
+external teammate file, and assess sufficiency honestly. The report's pre-final
+status detection only notices completed chunk metrics; if refreshing it mid-run,
+correct any stale "unopened" wording in the documents (do not alter worker code).
+After workers exit, improve that detection if needed. Update the teammate status
+header and any stale pending-validation prose as well as its measured block.
+
+Then export final graphs/story with `tools/export_phase5_site.py`, verify the
+website and finish the existing GitHub Pages publication flow. Also integrate
+the locked selected checkpoint as the viewer's default release after final review;
+it currently defaults to the earlier smoke policy. Preserve all other artifacts.
+The teammate document stays OUTSIDE the repository at the path below and includes
+the gated Phase6 list. No final results or live publication have been claimed.
+Keep the heartbeat active until all requested work is actually done.
+
+## Expanded training authorization (2026-10-03, CURRENT)
+
+**Current execution status:** all five substantive runs are complete: preserved
+v1 seed 17 at 32,768 decisions, and V2 seeds 17/29/43 plus current-only seed 17 at
+8,192 decisions each. V2 runs took 22.7–23.4 minutes apiece (replicates overlapped).
+All four V2 checkpoint series have 20-match diagnostic validation. Seed 17 reached
+100% wins at 6,144 and 8,192 decisions; other full seeds reached 95%. These are
+reused small validation sets, not final evidence. Untrained initialization controls
+for seeds 17/29/43 scored 50%/35%/50% wins and zero own tasks on those 20 seeds.
+
+**RUNNING:** `tools/validate_phase5_replicates.py` session 22518 (escalated because
+Windows denied process-pool pipes in the sandbox). It now evaluates 100 validation
+matches for each screened full/current checkpoint, v1, and random/scripted/idle.
+Its earlier checkpoint jobs are finished. Do not start another process against
+the same evaluation directories. Training sessions and diagnostic/initial-control
+workers have completed successfully. Preview server remains session 88477, port4175.
+
+**Next sequence:** after session22518 completes, run `python phase5_analysis.py`
+and inspect `validation-review.json`, curves and behavior. Decide from validation
+whether a further training experiment is justified; do not blindly add compute
+after a plateau. If selection is ready, run `python phase5_analysis.py --lock`.
+Then `python -u tools/evaluate_phase5_locked.py` runs 1,000 final matches per method
+(500 ID/500 patient), using four workers and disjoint 100-match chunks. This new
+script may also need escalation for Windows process-pool pipes. It refuses missing
+selection locks or changed checkpoint digests and checks the complete seed manifest.
+It does NOT automatically start further learning. Final outcomes cannot tune selection.
+
+After final results, regenerate `python tools/update_phase5_teammate.py "<external
+teammate document path shown below>"`, inspect
+the figures and write an honest learning-sufficiency assessment. The current-only
+ablation has ONE seed; do not claim replicated memory benefit. Run
+`python tools/export_phase5_site.py` to copy sanitized final graphs and populate
+`project-status.json.phase5Study`. This exporter refuses unfinished final testing.
+It does not publish. Website runtime/validator already support Phase 5 in-progress
+and an expandable evidence gallery; the draft contains no old UI repair history.
+Build/validate, check the browser, then finish the existing GitHub publication flow.
+
+Current report: `docs/benchmarks/phase5/expanded/README.md` (nine figures before
+final tests, twelve afterward). Full Python suite passed365 tests; seven additional
+chunk/whole-match-statistics checks passed afterward. Node status/assets/palette
+checks passed. The external teammate document is refreshed by the helper above;
+it contains the requested gated Phase 6 list and current measured results.
+
+The teammate helper requires the existing external document as a positional
+argument; no machine-specific output path is embedded in the helper source.
+
+The owner's latest request supersedes the earlier one-run limit: train further
+as evidence warrants, create meaningful NN evaluation graphs, update the external
+teammate document, and add a suggested Phase 6 list. Multi-agent learning/self-play
+must wait until one learned crewmate works. No multi-agent implementation is authorized.
+
+Preserve baseline `artifacts/phase5/runs/full-17-approved` (32,768 decisions).
+The automatic `tools/complete_phase5_single.py` evaluator was STOPPED before any
+validation/final matches; do not restart it while model selection is ongoing.
+It would prematurely reveal the final holdout.
+
+Baseline training showed no own tasks through 269 completed matches. A separate
+`phase5_options.py` experiment preserves v1 and runs chosen travel/task actions
+up to 24s (follow/flee up to 3s), interrupting on actor-visible events or completion.
+It composes original physics/rewards/discounts and never chooses a social action.
+An equivalence test passed. Seed-17 options training is running with 8,192 decisions
+in `artifacts/phase5/runs/options-17-v2`, checkpoints every 2,048 decisions.
+`phase5_options_training.py` records policy/value losses, entropy, KL, clipping,
+explained variance, decisions and simulated seconds. Different option lengths
+mean equal decision counts are not matched simulation budgets.
+
+Next: validate before extending, replicate a useful approach on seeds 29/43,
+compare a separately trained current-only ablation, lock selection on validation,
+then open final ID/patient tests. Do not tune using final outcomes. Baselines
+include idle to expose wins carried by scripted teammates. The updated evaluator
+and viewer dispatch by checkpoint execution protocol and check its source hash.
+
+The downloadable handoff remains outside the repository at
+`C:\Users\masaa\.codex\visualizations\2026\10\02\01a0fc9e-88fa-7ce2-aa36-8902b0b5fd96\Phase_5_Teammate_Handoff.md`.
+Its Phase 6 suggestions are explicitly gated. Update measured results after runs.
+Heartbeat `finish-phase-5-training-results-and-website` has the expanded prompt.
+Keep the public Phase 5 story about learned strategy/results only, not earlier
+UI/map/player repairs. Final website implementation/publication is still pending.
+
+## Authorized single-run experiment (2026-10-03, running)
+
+The owner approved **one full-memory run, seed 17, 32,768 transitions**, followed
+by graphs, outcome documentation, a judgment about further learning, and a website
+Phase 5 update. Do not start the six-run protocol or another training run.
+The requested website Phase 5 story must discuss strategy/learning/results only;
+keep earlier map/UI/avatar repairs out of that phase's content. The website's two
+collaborator characters should use the corrected palettes and walking animation.
+
+Training is `train_phase5.py --steps 32768 --seed 17 --output
+artifacts/phase5/runs/full-17-approved`. Progress is persisted in `updates.jsonl`
+and `episodes.jsonl`; intermediate weights are saved every 8,192 transitions.
+`tools/complete_phase5_single.py` waits for completion, evaluates 100 validation
+matches per method, checks three intermediate checkpoints on the same 20 validation
+seeds, records the learning assessment, then evaluates 200 final matches per method
+(100 ID/100 patient). Methods are learned, original scripted and random-legal.
+It generates six scientific figures and `docs/benchmarks/phase5/single-seed-17/README.md`.
+Only a single initialization seed is evaluated; do not claim a multi-seed result.
+
+The website character code now decodes the existing RGB frames at runtime and
+animates both collaborators. Original PNGs are untouched. Node palette tests and
+a local browser travel check passed. The public Phase 5 story/status/validator still
+need updating from actual measured outcomes after evaluation completes.
+
+Never rerun training automatically if a later plotting, evaluation or website step
+fails. Preserve the checkpoint and repair the later stage. Final website publication
+must be verified; do not claim the local preview is the live GitHub Pages deployment.
+
+## Phase 5 implementation update (2026-10-03)
+
+The owner subsequently authorized starting Phase 5 and then requested approval
+before any longer training run, with an estimated duration. Two 512-transition
+smoke models already exist under `artifacts/phase5/quick/`; no extended training
+has run. `python run_phase5.py` loads the smoke focal-crewmate policy.
+
+New Phase 5 modules provide actor-only feature/candidate construction, a masked
+shared-candidate actor-critic, frozen Phase 4 inference, time-aware PPO, original
+scripted opponents, paired evaluation and a spectator policy panel. The full
+runner trains three full-memory and three current-only models, ranks full models
+on reserved validation seeds, and only then evaluates final ID/patient seeds.
+This is a serial reference implementation; strategic improvement is unproven.
+
+Conservative collision buffers now cover the true radius-0.22 circle. The source
+blueprint is byte-identical. Both 4,914-route benchmarks pass at dt=1/30 and .2,
+with zero collisions, blocked steps or replans; eight targeted corridor tests pass.
+`clearance_policy='legacy_polygon'` preserves historical replay geometry.
+
+The red sprite source was an RGB material mask. Five other colors aliased every
+walk frame to a still pose; they now use recolored complete mask animations.
+Meeting banners show the public reporter/victim/room or emergency caller.
+Phase 5 display interpolation uses recorded physical steps without changing rules.
+
+The original smoke checkpoint predates the final room-action descriptor correction.
+It remains a UI/pipeline demo only; fresh training uses public room coordinates and
+records the feature-source hash. Fourteen rooms are strategic room destinations;
+seven hallway regions remain traversable. Preserve historical smoke reports.
+The owner's teammate handoff is outside the repository, as requested.
+
+Final verification: **362 tests passed**, three dependency/Gym warnings;
+`docs/benchmarks/phase5/pytest.xml`. The reviewed 16-match smoke evaluation in
+`docs/benchmarks/phase5/smoke-reviewed/` recorded zero illegal actions and zero
+navigation failures. Headless runs use SDL video/audio dummy drivers.
+
+## Historical rendering repair and Phase 5 specification review (2026-10-03)
+
+Starting review HEAD: `172f648` on `main`. The owner authorized rendering repairs
+and an expanded specification, not Phase 5 training. Current UI changes improve
+offline half-body sprites, restrict body circles to debug mode, increase small
+avatar visibility, fix selected-monitor sizing and add an actor-only bottom HUD.
+The missing pinned local artwork pack was installed (119 verified PNGs, still
+ignored). Run `python run_phase4.py`; optional `--display 0 --window-scale 1`.
+
+Validation: **334 tests passed**, including seven new UI checks; three existing
+dependency/Gym warnings. Source geometry and Phase 4 weights are unchanged.
+`docs/phase5_strategic_policy_specification.md` preserves the pasted original and
+appends the corrected implementation checklist. Do not implement the original
+43-feature/12-action draft without reading the amendment: live team task totals,
+hidden live-player counts, candidate coverage and belief-threshold masks conflict
+with the existing contract or learned-decision objective.
+
+`tools/audit_phase5_corridors.py` / `docs/phase5_corridor_audit.json` show eight
+successful collision-free runs, but exact circular clearance is slightly violated
+by polygon-buffer corner approximation on one O2 route (~0.00018831 units).
+The stricter audit exits 1 deliberately. This remains a Phase 5.0 prerequisite;
+no corridor widening, player-radius reduction or map edits were made.
+
 ## Current state (2026-10-03)
 
 - Repository: `Hadisovic/social-deduction-ai`, branch `main`.

@@ -5,16 +5,61 @@
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/)
 [![PyTorch 2.6](https://img.shields.io/badge/PyTorch-2.6-ee4c2c.svg)](https://pytorch.org/)
 [![Gymnasium](https://img.shields.io/badge/Gymnasium-1.1+-darkgreen.svg)](https://gymnasium.farama.org/)
-[![Tests Passing](https://img.shields.io/badge/tests-327%20passed-success.svg)](docs/benchmarks/phase4/pytest.txt)
+[![Tests Passing](https://img.shields.io/badge/tests-372%20passed-success.svg)](docs/benchmarks/phase5/expanded/pytest.xml)
 [![Phase 1](https://img.shields.io/badge/phase%201-complete%20%2F%20frozen-blueviolet.svg)](docs/information_contract.md)
 
 Explore the [interactive project journey](https://hadisovic.github.io/social-deduction-ai/) for a visual, non-technical guide to the milestones and current research frontier.
 
-## Watch a crewmate form beliefs
+## Watch the evaluated Phase 5 strategic crewmate
+
+```powershell
+python run_phase5.py
+```
+
+One focal crewmate now chooses actions with a PPO neural policy. The Phase 4
+belief network stays frozen; A* handles physical navigation. The supplied release
+is the validation-selected seed-17 policy trained for 8,192 option decisions.
+It won 88.4% of 500 familiar-family matches and 90.4% of 500 held-out patient-family
+matches, completing 1.67/1.68 own tasks per match. It clearly outperformed idle
+and random controls; superiority over scripted play was not established.
+The policy sidebar shows legal action probabilities, value and the last choice.
+Meeting banners identify the reporter or emergency caller. All ten local sprite
+colors have walking frames; red material masks are decoded to a red suit.
+
+The conservative circle-clearance repair passed 4,914 routes at each of 30 Hz and
+5 Hz: 9,828 successful executions, no collisions or navigation failures. Source
+map vertices and the physical radius remain unchanged. See
+`docs/phase5_corridor_audit_fixed.json` and `docs/benchmarks/phase5/`.
+The preserved first run completed 32,768
+decisions but completed no own tasks in 299 training matches. A separate version
+lets network-selected movement/task actions finish before resampling a goal.
+Three full-memory seeds and a separately trained current-only comparison are
+were evaluated with validation-only checkpoint selection and independent final tests.
+The [expanded experiment report and graphs](docs/benchmarks/phase5/expanded/README.md)
+distinguish training, validation and final-test evidence across 9,000 final matches.
+Phase 5's simulator study is complete. Phase 6 remains future work, starting with
+adapting opponents only after this learned-crewmate baseline is frozen.
+
+```powershell
+# Watch an available experimental checkpoint with its recorded execution protocol.
+python run_phase5.py --checkpoint artifacts/phase5/runs/options-17-v2/checkpoint-6144.pt
+# Regenerate graphs from persisted measurements; this does not train or open tests.
+python phase5_research_report.py
+```
+
+## Watch a crewmate form beliefs (Phase 4)
 
 ```powershell
 python run_phase4.py
 ```
+
+The focal avatar and Report / Use / Meeting availability cards appear along the
+bottom of the map (spectator indicators). F changes the focal crewmate. The window
+now fits its selected monitor and can be resized without stretching sprites;
+`--display 0 --window-scale 1` requests the full 1800 x 900 canvas.
+The [reviewed Phase 5 specification](docs/phase5_strategic_policy_specification.md#review-amendment--2026-10-03)
+preserves the original proposal and appends required corrections, the rendering
+fix and the original corridor-clearance prerequisite, now resolved above.
 
 The real five-player match runs while a learned observer estimates which of the
 four other players is the impostor. The right panel shows probabilities, entropy,
@@ -26,7 +71,7 @@ pauses, Right steps, `+/-` changes speed, R repeats and N changes seed.
 set model; 327 passing tests. Against the held-out patient impostor family, the
 calibrated model achieves **67.4% accuracy / 0.637 NLL**, versus **63.2% / 0.800**
 for calibrated evidence rules. Early ambiguous states remain uncertain. Scripts
-still choose all actions; Phase 5 has not begun.
+still choose all actions in the Phase 4 viewer; the separate Phase 5 viewer uses a learned focal policy.
 
 ```powershell
 python train_phase4.py          # Generate/resume, train, calibrate, evaluate
@@ -127,7 +172,7 @@ flowchart TD
     subgraph Agent [Autonomous Agent Pipeline]
         MEM["Event Memory Store<br/><i>(Sightings, Claims, Timestamps)</i><br/><b>[Phase 4: Complete]</b>"]
         BELIEF["Belief & Suspicion Model<br/><i>(Role Probabilities, Consistency)</i><br/><b>[Phase 4: Complete]</b>"]
-        POL["Strategic Policy<br/><i>(Task/Patrol/Report/Vote Intentions)</i><br/><b>[Phase 5: Planned]</b>"]
+        POL["Strategic Policy<br/><i>(Task/Report/Vote Intentions)</i><br/><b>[Phase 5: Training + Validation]</b>"]
     end
 
     subgraph Service [Navigation Service]
@@ -164,7 +209,7 @@ flowchart TD
 | **Phase 2** | **Navigation Service** | Swept-clear routes, interaction arrival, cancellation/replanning, 3,906 directed pairs + 1,008 random spawns. | **COMPLETE** |
 | **Phase 3** | **Scripted Game Simulator** | Full five-player matches, information-safe scripts, visual demo, 1,000 seeds + 1,000 exact replays. | **COMPLETE** |
 | **Phase 4** | **Memory & Belief Model** | Provenance-aware memory, conservative contradictions, calibrated shared candidate model, held-out evaluation. | **COMPLETE** |
-| **Phase 5** | **Learned Crewmate Policy** | Strategic actor-critic policy (PPO) optimizing crew task completion, grouping, and voting accuracy. | **PLANNED** |
+| **Phase 5** | **Learned Crewmate Policy** | PPO strategic actor-critic with frozen beliefs; replicated training and validation are underway. | **IN PROGRESS** |
 | **Phase 6** | **Multi-Agent Expansion** | Learned impostor strategies, competitive self-play, saboteurs, vent networks, and symbolic communication. | **FUTURE** |
 
 ---

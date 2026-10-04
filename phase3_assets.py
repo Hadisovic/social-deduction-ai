@@ -44,19 +44,61 @@ def blob_hash(data):
     return hashlib.sha1(b'blob ' + str(len(data)).encode() + b'\0' + data).hexdigest()
 
 
+MATERIAL_PALETTES = {
+    'red': ((198,17,17), (122,8,56)),
+    'purple': ((107,47,188), (59,23,124)),
+    'black': ((63,71,78), (30,31,38)),
+    'pink': ((238,84,187), (172,43,174)),
+    'white': ((215,225,241), (132,149,192)),
+    'brown': ((113,73,30), (94,38,21)),
+}
+
+
+def resolve_red_palette(source, color='red'):
+    """Decode the upstream red RGB material-mask into suit/shadow/visor colors.
+
+    Other colors already contain their display palette. Work on a surface copy;
+    pinned PNG bytes, alpha, outlines and neutral bone highlights stay intact.
+    """
+    import numpy as np
+    import pygame
+    result = source.copy()
+    pixels = pygame.surfarray.pixels3d(result)
+    original = pixels.astype(np.float32)
+    suit, shadow = MATERIAL_PALETTES[color]
+    for channel, palette in enumerate((suit, (148,201,219), shadow)):
+        others = [i for i in range(3) if i != channel]
+        selected = ((original[:,:,channel] > 1.6*original[:,:,others[0]]) &
+                    (original[:,:,channel] > 1.6*original[:,:,others[1]]))
+        pixels[selected] = np.rint(original[:,:,channel][selected,None]/255 * np.array(palette)).astype(np.uint8)
+    del pixels
+    return result
+
+
 @lru_cache(maxsize=512)
 def character_image(color, height, direction, frame, body=False):
+    color = color.lower()
     key = f'body:{color.lower()}' if body else f'player:{color.lower()}:{direction}:{frame % 4}'
+    # Five upstream colors alias every walking frame to the same standing PNG.
+    # Reuse the complete material-mask animation with that color's display palette.
+    recolor = color == 'red'
+    if not body and color in MATERIAL_PALETTES:
+        hashes = {manifest()['files'].get(f'player:{color}:{direction}:{i}', {}).get('git_blob_sha1') for i in range(4)}
+        if len(hashes) == 1:
+            key = f'player:red:{direction}:{frame % 4}'
+            recolor = True
     source = load_image(key)
     if source is None:
         return None
     import pygame
+    if recolor:
+        source = resolve_red_palette(source, color)
     # Preserve source bytes and aspect ratio; feet remain the renderer's anchor.
     bounds = source.get_bounding_rect()
     if bounds.height == 0:
         return None
     cropped = source.subsurface(bounds)
-    target_height = max(10, round(height * .50)) if body else height
+    target_height = max(18, round(height * .65)) if body else height
     return pygame.transform.smoothscale(cropped, (max(1, round(bounds.width * target_height / bounds.height)), target_height))
 
 
@@ -96,6 +138,8 @@ def install():
     with ThreadPoolExecutor(max_workers=8) as pool:
         count = sum(pool.map(fetch, entries.values()))
     load_image.cache_clear()
+    character_image.cache_clear()
+    task_image.cache_clear()
     print(f'Local pack verified: {len(entries)} PNG files ({count} downloaded) in {LOCAL}')
     print('Artwork attribution: Innersloth, via AI0702/Among-Us-clone. Local pack is ignored by Git.')
 

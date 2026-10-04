@@ -34,11 +34,11 @@ assert(status.schemaVersion === 1, 'Unsupported project-status.json schemaVersio
 assert(status.project === 'Hadisovic/social-deduction-ai', 'Project status points to the wrong repository.');
 assert(/^\d{4}-\d{2}-\d{2}$/.test(status.lastUpdated), 'lastUpdated must be an ISO date.');
 assert(/^[0-9a-f]{40}$/i.test(status.lastVerifiedCommit), 'lastVerifiedCommit must be a full Git SHA.');
-assert(status.currentPhase === 4 && status.nextPhase === 5, 'Public phase numbers must remain Phase 4 complete and Phase 5 next.');
+assert(status.currentPhase === 5 && status.nextPhase === 6, 'The current study is Phase 5; Phase 6 follows its evidence gate.');
 
 const expectedRoadmap = [
   ['phase-1', 'complete'], ['phase-1.5', 'complete'], ['phase-2', 'complete'],
-  ['phase-3', 'complete'], ['phase-4', 'complete'], ['phase-5', 'next'], ['phase-6', 'future']
+  ['phase-3', 'complete'], ['phase-4', 'complete'], ['phase-5', 'complete'], ['phase-6', 'future']
 ];
 assert(Array.isArray(status.roadmap) && status.roadmap.length === expectedRoadmap.length, 'Roadmap must contain exactly the seven tracked phases.');
 const phaseIds = new Set();
@@ -49,9 +49,9 @@ for (const [index, [id, expectedStatus]] of expectedRoadmap.entries()) {
   assert(!phaseIds.has(phase.id), `Duplicate roadmap phase id: ${phase.id}.`);
   phaseIds.add(phase.id);
 }
-assert(status.roadmap.filter(phase => phase.status === 'next').length === 1, 'Exactly one phase must be NEXT.');
-assert(status.roadmap.find(phase => phase.id === `phase-${status.currentPhase}`)?.status === 'complete', 'The current phase must be complete.');
-assert(status.roadmap.find(phase => phase.id === `phase-${status.nextPhase}`)?.status === 'next', 'The next phase must be marked NEXT.');
+assert(status.roadmap.filter(phase => phase.status === 'in-progress').length === 0, 'This evaluated study is complete; future work has not started.');
+assert(status.roadmap.find(phase => phase.id === `phase-${status.currentPhase}`)?.status === 'complete' && status.phase5Study?.stage === 'evaluated', 'A completed Phase 5 requires evaluated study evidence.');
+assert(status.roadmap.find(phase => phase.id === `phase-${status.nextPhase}`)?.status === 'future', 'Multi-agent work remains gated future work.');
 assert(status.currentPhaseName === status.roadmap.find(phase => phase.id === `phase-${status.currentPhase}`).name, 'currentPhaseName must match the roadmap.');
 assert(status.nextPhaseName === status.roadmap.find(phase => phase.id === `phase-${status.nextPhase}`).name, 'nextPhaseName must match the roadmap.');
 
@@ -88,8 +88,11 @@ for (const claim of [
 assert(/structured information from its simulated crewmate/i.test(html) && /does not visually read the commercial game/i.test(html),
   'The landing page must keep the simulator information boundary clear.');
 assert(/scripted players/i.test(app) && /not evidence of human-level social play/i.test(app), 'Phase 3 must remain clearly described as scripted.');
-assert(/This is a belief estimate, not an action or a vote/i.test(app) && /This work has not started/i.test(html),
-  'Phase 4 and Phase 5 limitations must remain explicit.');
+assert(/This is a belief estimate, not an action or a vote/i.test(app) && /Only after one learned crewmate works/i.test(html),
+  'Preserve the Phase 4 belief/action distinction and the Phase 6 evidence gate.');
+const strategicStory = app.slice(app.indexOf("id: 'mission11'"), app.indexOf("id: 'mission12'"));
+assert(/PPO/.test(strategicStory) && /validation/i.test(strategicStory) && !/sprite|avatar|palette|corridor repair/i.test(strategicStory),
+  'Phase 5 must explain learned strategy and evaluation without old presentation repairs.');
 assert(/hadi: Object\.freeze\(\{ name: 'Hadi', color: 'red'/.test(app) && /masa: Object\.freeze\(\{ name: 'Masa', color: 'black'/.test(app),
   'The collaborator colors must remain Hadi=red and Masa=black.');
 assert(css.includes('@media (prefers-reduced-motion: reduce)') && app.includes("matchMedia('(prefers-reduced-motion: reduce)')"),
@@ -110,6 +113,16 @@ const exactPath = async relative => {
 for (const file of requiredFiles) assert(await exactPath(file), `Required site file is missing or case-mismatched: ${file}.`);
 
 const localReferences = new Set();
+if (status.phase5Study) {
+  assert(status.phase5Study.stage === 'evaluated', 'Public study metrics require completed final evaluation.');
+  assert(status.phase5Study.matchesPerMethod === 1000, 'Report the full locked final evaluation budget.');
+  assert(Array.isArray(status.phase5Study.figures) && status.phase5Study.figures.length >= 9, 'Phase 5 evidence graphs are missing.');
+  for (const figure of status.phase5Study.figures) {
+    assert(/^assets\/phase5\/[a-z_]+\.png$/.test(figure.path), 'Phase 5 chart must be a local public PNG.');
+    assert(figure.title && figure.caption, 'Each evaluation graph needs an explanation.');
+    localReferences.add(figure.path);
+  }
+}
 for (const match of html.matchAll(/\b(?:src|href)="([^"]+)"/g)) localReferences.add(match[1]);
 for (const match of css.matchAll(/url\(\s*['"]?([^)'"\s]+)['"]?\s*\)/g)) localReferences.add(match[1]);
 for (const match of app.matchAll(/(?:screenshot|extraScreenshot):\s*'([^']+)'/g)) localReferences.add(match[1]);

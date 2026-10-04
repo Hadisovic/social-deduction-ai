@@ -223,7 +223,10 @@ def main():
     parser.add_argument('--case', help='Exact case ID from cases.csv; quote it in the shell')
     parser.add_argument('--max-cases', type=int, help='Smoke subset; never reports a full gate pass')
     parser.add_argument('--output', type=Path, default=ROOT / 'docs/benchmarks/phase2')
+    parser.add_argument('--dt', type=float, default=1/30, help='Physical execution timestep')
     args = parser.parse_args()
+    if not math.isfinite(args.dt) or args.dt <= 0:
+        parser.error('--dt must be positive and finite')
     began = perf_counter()
     env = AmongUsMapEnv()
     stamp = perf_counter()
@@ -246,7 +249,7 @@ def main():
             if rows:
                 print(f"{len(rows)}/{len(cases)} executed; failures={sum(not r['success'] for r in rows)}; wall={perf_counter()-began:.1f}s", flush=True)
             previous = case.destination
-        rows.append(execute_case(env, planner, case, seed=args.seed, config=config, dt=env.dt))
+        rows.append(execute_case(env, planner, case, seed=args.seed, config=config, dt=args.dt))
     full = args.suite == 'all' and not args.case and args.max_cases is None and args.random_per_region >= 48
     clean_outcomes = all(r['success'] for r in rows)
     source_paths = ['navigation_service.py', 'benchmark_navigation.py', 'among_us_map.py',
@@ -256,7 +259,8 @@ def main():
         'gate_rule': 'Complete directed pairs plus >=48 spawns per region, zero unexplained failures; all execution assertions pass.',
         'seed': args.seed, 'random_per_region': args.random_per_region,
         'destination_count': len(env.map.destinations), 'region_count': len(env.map.regions),
-        'dt': env.dt, 'controller_config': asdict(config), 'player_radius': env.map.radius,
+        'dt': args.dt, 'controller_config': asdict(config), 'player_radius': env.map.radius,
+        'clearance_policy': env.map.clearance_policy, 'buffer_radius': env.map.buffer_radius,
         'grid_cell_size': env.map.cell_size, 'cache_size': planner.cache_size,
         'field_builds': planner.field_builds, 'field_build_seconds': planner.field_build_seconds,
         'planner_setup_seconds': setup_seconds, 'run_wall_seconds': perf_counter() - began,

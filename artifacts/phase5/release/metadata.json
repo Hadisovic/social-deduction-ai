@@ -1,0 +1,6 @@
+{
+  "selected_checkpoint": "artifacts\\phase5\\runs\\options-17-v2\\checkpoint-8192.pt",
+  "sha256": "1038054357cf1c2e0372de7e6c4c226aaa73162d667372e1cf876de82aa867b1",
+  "evaluation": "docs/benchmarks/phase5/expanded/final-results.json",
+  "status": "evaluated_simulator_release"
+}

@@ -1,0 +1,189 @@
+{
+  "schema": "phase5-corridor-audit-v1",
+  "date": "2026-10-03",
+  "map_sha256": "9e5e0cd925ab3ede95aae67e42dbb6ebd67717bf8e7365eb655628c669a2d58c",
+  "radius": 0.22,
+  "doors": 13,
+  "closed_doors": [],
+  "cases": [
+    {
+      "passage": "upper_engine_south",
+      "reverse": false,
+      "dt": 0.03333333333333333,
+      "start": [
+        -16.98000000000012,
+        -0.7800000000003529
+      ],
+      "goal": [
+        -16.98000000000012,
+        -6.480000000000231
+      ],
+      "status": "success",
+      "success": true,
+      "swept_segments_valid": true,
+      "collisions": 0,
+      "replans": 0,
+      "steps": 68,
+      "minimum_center_to_barrier": 0.47962999999987943,
+      "exact_circle_clearance": true,
+      "minimum_margin_over_radius": 0.25962999999987946
+    },
+    {
+      "passage": "upper_engine_south",
+      "reverse": false,
+      "dt": 0.2,
+      "start": [
+        -16.98000000000012,
+        -0.7800000000003529
+      ],
+      "goal": [
+        -16.98000000000012,
+        -6.480000000000231
+      ],
+      "status": "success",
+      "success": true,
+      "swept_segments_valid": true,
+      "collisions": 0,
+      "replans": 0,
+      "steps": 12,
+      "minimum_center_to_barrier": 0.47962999999987943,
+      "exact_circle_clearance": true,
+      "minimum_margin_over_radius": 0.25962999999987946
+    },
+    {
+      "passage": "upper_engine_south",
+      "reverse": true,
+      "dt": 0.03333333333333333,
+      "start": [
+        -16.98000000000012,
+        -6.480000000000231
+      ],
+      "goal": [
+        -16.98000000000012,
+        -0.7800000000003529
+      ],
+      "status": "success",
+      "success": true,
+      "swept_segments_valid": true,
+      "collisions": 0,
+      "replans": 0,
+      "steps": 68,
+      "minimum_center_to_barrier": 0.47962999999987943,
+      "exact_circle_clearance": true,
+      "minimum_margin_over_radius": 0.25962999999987946
+    },
+    {
+      "passage": "upper_engine_south",
+      "reverse": true,
+      "dt": 0.2,
+      "start": [
+        -16.98000000000012,
+        -6.480000000000231
+      ],
+      "goal": [
+        -16.98000000000012,
+        -0.7800000000003529
+      ],
+      "status": "success",
+      "success": true,
+      "swept_segments_valid": true,
+      "collisions": 0,
+      "replans": 0,
+      "steps": 12,
+      "minimum_center_to_barrier": 0.47962999999987943,
+      "exact_circle_clearance": true,
+      "minimum_margin_over_radius": 0.25962999999987946
+    },
+    {
+      "passage": "big_y_o2",
+      "reverse": false,
+      "dt": 0.03333333333333333,
+      "start": [
+        9.419999999999316,
+        -3.694822225952521e-13
+      ],
+      "goal": [
+        9.419999999999316,
+        -9.480000000000167
+      ],
+      "status": "success",
+      "success": true,
+      "swept_segments_valid": true,
+      "collisions": 0,
+      "replans": 0,
+      "steps": 380,
+      "minimum_center_to_barrier": 0.2198116912966598,
+      "exact_circle_clearance": false,
+      "minimum_margin_over_radius": -0.0001883087033401898
+    },
+    {
+      "passage": "big_y_o2",
+      "reverse": false,
+      "dt": 0.2,
+      "start": [
+        9.419999999999316,
+        -3.694822225952521e-13
+      ],
+      "goal": [
+        9.419999999999316,
+        -9.480000000000167
+      ],
+      "status": "success",
+      "success": true,
+      "swept_segments_valid": true,
+      "collisions": 0,
+      "replans": 0,
+      "steps": 71,
+      "minimum_center_to_barrier": 0.21981169129666084,
+      "exact_circle_clearance": false,
+      "minimum_margin_over_radius": -0.00018830870333916283
+    },
+    {
+      "passage": "big_y_o2",
+      "reverse": true,
+      "dt": 0.03333333333333333,
+      "start": [
+        9.419999999999316,
+        -9.480000000000167
+      ],
+      "goal": [
+        9.419999999999316,
+        -3.694822225952521e-13
+      ],
+      "status": "success",
+      "success": true,
+      "swept_segments_valid": true,
+      "collisions": 0,
+      "replans": 0,
+      "steps": 380,
+      "minimum_center_to_barrier": 0.22036423903095972,
+      "exact_circle_clearance": true,
+      "minimum_margin_over_radius": 0.0003642390309597232
+    },
+    {
+      "passage": "big_y_o2",
+      "reverse": true,
+      "dt": 0.2,
+      "start": [
+        9.419999999999316,
+        -9.480000000000167
+      ],
+      "goal": [
+        9.419999999999316,
+        -3.694822225952521e-13
+      ],
+      "status": "success",
+      "success": true,
+      "swept_segments_valid": true,
+      "collisions": 0,
+      "replans": 0,
+      "steps": 70,
+      "minimum_center_to_barrier": 0.22036423903095903,
+      "exact_circle_clearance": true,
+      "minimum_margin_over_radius": 0.0003642390309590293
+    }
+  ],
+  "simulation_runs_passed": true,
+  "exact_circle_clearance_passed": false,
+  "interpretation": "Route clearance is not corridor width. Polygonal buffer approximation can slightly undercut exact circle clearance; flag separately. No live-game parity claim."
+}

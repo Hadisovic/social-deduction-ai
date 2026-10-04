@@ -1,20 +1,55 @@
 {
   "schemaVersion": 1,
   "project": "Hadisovic/social-deduction-ai",
-  "lastVerifiedCommit": "9ccc9e1c86841cda4a4cc1a55c9f9fea8e11ce35",
-  "lastUpdated": "2026-10-03",
-  "currentPhase": 4,
-  "nextPhase": 5,
-  "currentPhaseName": "Event Memory + Learned Suspicion / Belief Model",
-  "nextPhaseName": "Learned Crewmate Strategic Policy",
+  "lastVerifiedCommit": "9696818871f58246333fdf372051626c62b120dd",
+  "lastUpdated": "2026-10-04",
+  "currentPhase": 5,
+  "nextPhase": 6,
+  "currentPhaseName": "Learned Crewmate Strategic Policy",
+  "nextPhaseName": "Multi-Agent Expansion",
   "roadmap": [
-    { "id": "phase-1", "label": "Phase 1", "name": "Information Boundaries", "status": "complete" },
-    { "id": "phase-1.5", "label": "Phase 1.5", "name": "Skeld Research Map", "status": "complete" },
-    { "id": "phase-2", "label": "Phase 2", "name": "Reliable Navigation", "status": "complete" },
-    { "id": "phase-3", "label": "Phase 3", "name": "Scripted Five-Player Social Simulator", "status": "complete" },
-    { "id": "phase-4", "label": "Phase 4", "name": "Event Memory + Learned Suspicion / Belief Model", "status": "complete" },
-    { "id": "phase-5", "label": "Phase 5", "name": "Learned Crewmate Strategic Policy", "status": "next" },
-    { "id": "phase-6", "label": "Phase 6", "name": "Multi-Agent Expansion", "status": "future" }
+    {
+      "id": "phase-1",
+      "label": "Phase 1",
+      "name": "Information Boundaries",
+      "status": "complete"
+    },
+    {
+      "id": "phase-1.5",
+      "label": "Phase 1.5",
+      "name": "Skeld Research Map",
+      "status": "complete"
+    },
+    {
+      "id": "phase-2",
+      "label": "Phase 2",
+      "name": "Reliable Navigation",
+      "status": "complete"
+    },
+    {
+      "id": "phase-3",
+      "label": "Phase 3",
+      "name": "Scripted Five-Player Social Simulator",
+      "status": "complete"
+    },
+    {
+      "id": "phase-4",
+      "label": "Phase 4",
+      "name": "Event Memory + Learned Suspicion / Belief Model",
+      "status": "complete"
+    },
+    {
+      "id": "phase-5",
+      "label": "Phase 5",
+      "name": "Learned Crewmate Strategic Policy",
+      "status": "complete"
+    },
+    {
+      "id": "phase-6",
+      "label": "Phase 6",
+      "name": "Multi-Agent Expansion",
+      "status": "future"
+    }
   ],
   "headlineResults": {
     "phase2": {
@@ -37,5 +72,79 @@
       "heldOutPatientFamilyAccuracyPercent": 67.41,
       "testsPassed": 327
     }
+  },
+  "phase5Study": {
+    "stage": "evaluated",
+    "matchesPerMethod": 1000,
+    "metric": "88.4% / 90.4%",
+    "metricLabel": "crew wins: familiar / unseen patient opponents \u00b7 500 matches each",
+    "date": "PHASE 5 \u00b7 EVALUATED",
+    "tags": [
+      "THREE TRAINING SEEDS",
+      "SELECTION LOCKED BEFORE TESTING"
+    ],
+    "notes": "The selected policy completed 1.67 own tasks per familiar-family match and 1.68 against unseen patient opponents. Checkpoint selection used validation only. The graphs compare all evaluated runs with scripted, random, idle and untrained controls. The selected policy clearly improves on idle and random controls; superiority over scripted play is not established. Voting accuracy is conditional on casting a vote. The current-only ablation has one training seed, so a replicated memory benefit is not established. These are simulator results; adapting opponents and self-play remain future work.",
+    "figures": [
+      {
+        "path": "assets/phase5/learning_curves.png",
+        "title": "Learning across runs",
+        "caption": "Training returns, team wins and own tasks; these are training outcomes."
+      },
+      {
+        "path": "assets/phase5/interaction_budget.png",
+        "title": "How much game experience?",
+        "caption": "Longer actions consume more game time. Compare both decisions and simulated time."
+      },
+      {
+        "path": "assets/phase5/ppo_diagnostics.png",
+        "title": "Neural-network optimization",
+        "caption": "Policy and value losses, entropy, KL, clipping and value prediction. Loss is not accuracy."
+      },
+      {
+        "path": "assets/phase5/validation_comparison.png",
+        "title": "Validation and model selection",
+        "caption": "Reserved validation matches were used to select checkpoints. They are not final test results."
+      },
+      {
+        "path": "assets/phase5/validation_curve.png",
+        "title": "Learning by checkpoint",
+        "caption": "Saved checkpoints use the same small diagnostic validation set."
+      },
+      {
+        "path": "assets/phase5/voting_accuracy.png",
+        "title": "Voting accuracy and participation",
+        "caption": "Correct impostor votes among cast votes, alongside incorrect votes and skips."
+      },
+      {
+        "path": "assets/phase5/action_distribution.png",
+        "title": "What the policy chooses",
+        "caption": "Fractions of controller decisions, not fractions of game time."
+      },
+      {
+        "path": "assets/phase5/seed_outcomes.png",
+        "title": "Shared match seeds",
+        "caption": "The same seeded scenarios across methods; green is a crew win, red is a loss or timeout."
+      },
+      {
+        "path": "assets/phase5/behavior.png",
+        "title": "Tasks and survival",
+        "caption": "Individual contribution matters because scripted teammates can carry a passive player."
+      },
+      {
+        "path": "assets/phase5/evaluation.png",
+        "title": "Final crew wins",
+        "caption": "500 familiar-family and 500 unseen patient-family matches per method; 95% match intervals."
+      },
+      {
+        "path": "assets/phase5/paired_differences.png",
+        "title": "Comparison with scripted play",
+        "caption": "Paired match differences and uncertainty; zero means equal crew win rates."
+      },
+      {
+        "path": "assets/phase5/training_seed_comparison.png",
+        "title": "Independent training seeds",
+        "caption": "Three full-memory training seeds; the current-only comparison has one seed and is exploratory."
+      }
+    ]
   }
 }

@@ -1,0 +1,19 @@
+{
+  "status": "running",
+  "authorization": "Owner approved one training run, followed by evaluation, graphs, learning assessment and website update.",
+  "training_run_count": 1,
+  "training_seeds_actually_run": [17],
+  "training_transitions": 32768,
+  "policy": "full-memory with frozen Phase 4 belief backbone",
+  "comparison_methods": ["random legal", "original scripted", "learned seed 17"],
+  "validation_matches_per_method": 100,
+  "validation_seeds": [620000, 620099],
+  "diagnostic_checkpoint_steps": [8192, 16384, 24576, 32768],
+  "diagnostic_checkpoint_validation_seeds": [620000, 620019],
+  "final_matches_per_method": 200,
+  "final_id_seeds": [630000, 630099],
+  "final_patient_seeds": [640000, 640099],
+  "selection": "Evaluate the fixed end-of-budget checkpoint; use intermediate checkpoints only as a learning-curve diagnostic.",
+  "note": "The inherited training configuration includes the earlier six-run template. Only seed 17 full-memory is executed here. No current-only ablation or additional training seed is authorized.",
+  "further_training": "Requires a new owner decision after reviewing these results."
+}

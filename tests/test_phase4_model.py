@@ -70,9 +70,15 @@ def test_generation_deterministic_causal_and_aligned():
     assert am['impostor_id'] not in a['actor']
 
 
-def test_pre_action_sample_can_share_terminal_kill_timestamp():
+def test_pre_action_sample_can_share_terminal_kill_timestamp(monkeypatch):
     # This real seed exposed an overstrict audit check. The sampler records
     # living/nonterminal input BEFORE the action that creates parity at that tick.
+    # This historical trajectory belongs to the Phase 4 polygon-clearance map.
+    # Keep the regression on that geometry instead of changing the expected event.
+    import phase4_data
+    from among_us_map import AmongUsMap
+    from navigation_service import NavigationPlanner
+    monkeypatch.setattr(phase4_data, '_planner', NavigationPlanner(AmongUsMap(clearance_policy='legacy_polygon')))
     data, record = generate_match(10209)
     at_finish = np.isclose(data['tick']*.2,record['result']['simulation_time'])
     assert at_finish.any()

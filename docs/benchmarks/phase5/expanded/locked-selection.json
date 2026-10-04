@@ -1,0 +1,30 @@
+{
+  "status": "locked_before_final_tests",
+  "selected_checkpoint": "artifacts\\phase5\\runs\\options-17-v2\\checkpoint-8192.pt",
+  "checkpoint_sha256": {
+    "artifacts\\phase5\\runs\\options-17-v2\\checkpoint-8192.pt": "1038054357cf1c2e0372de7e6c4c226aaa73162d667372e1cf876de82aa867b1",
+    "artifacts\\phase5\\runs\\options-29-v2\\checkpoint-2048.pt": "a4096ac2c052132d6708f1363b1ca984c80b6d3b5c6496c5d73d9c30aca94e4f",
+    "artifacts\\phase5\\runs\\options-43-v2\\checkpoint-8192.pt": "9e66807ab6e9e607f5ec36ee064cfc6d4657e1b1f80cbfbc3e523280ef57f728",
+    "artifacts\\phase5\\runs\\options-17-v2-ablation\\checkpoint-8192.pt": "90ce5533fd3c3a526a8a4f1496aa1a1b6bed27ad160a41ddc0ad87ad644ab157",
+    "artifacts\\phase5\\runs\\full-17-approved\\policy.pt": "28aa266c08418e10fe0de672f43b37e8a5befc40b533e309937039822ab03642",
+    "artifacts\\phase5\\runs\\options-17-initial-control\\policy.pt": "7e60a279745d7123455cbde5d9d868aada9f09af5f3436f7cc54589f3c1ca5a3"
+  },
+  "baseline_methods": [
+    "random",
+    "scripted",
+    "idle"
+  ],
+  "matches_per_method": 1000,
+  "seed_partitions": {
+    "ID": [
+      630000,
+      630499
+    ],
+    "patient": [
+      640000,
+      640499
+    ]
+  },
+  "validation_review_sha256": "8fd575a16b79a1554a859cf878a5d4ec85f4f9fe6f3fe4ae9360606fcca132e3",
+  "notice": "Freeze selection; final results are reporting only, not a signal to choose another checkpoint."
+}

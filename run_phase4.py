@@ -11,6 +11,8 @@ def main(argv=None):
     parser.add_argument('--exit-on-finish',action='store_true')
     parser.add_argument('--capture',type=Path)
     parser.add_argument('--checkpoint',type=Path)
+    parser.add_argument('--display',type=int,default=0,help='Monitor index; 0 selects the primary display')
+    parser.add_argument('--window-scale',type=float,help='Override automatic window fit (0.25 to 2.0)')
     args = parser.parse_args(argv)
     if not 0 < args.speed <= 32 or args.max_frames is not None and args.max_frames <= 0:
         parser.error('Speed must be in (0,32]; max-frames must be positive')
@@ -26,12 +28,17 @@ def main(argv=None):
     from phase3_runner import ScriptedMatch
     from phase4_observer import MatchObserver
     from phase4_renderer import BeliefPanel
+    from phase4_avatar_hud import AvatarHUD
+    from spectator_display import fitted_window_size
     pygame.init()
-    # Fit mixed-DPI multi-monitor desktops; keep the frozen map renderer's canvas.
+    # Fit only the selected display: a small secondary monitor must not shrink
+    # the primary window. This transform affects pixels, never world geometry.
     desktops = pygame.display.get_desktop_sizes()
-    scale = min(1., *(min(w*.9/1800,h*.85/900) for w,h in desktops))
-    size = (round(1800*scale),round(900*scale))
-    screen = pygame.display.set_mode(size,display=0)
+    try:
+        size = fitted_window_size(desktops,args.display,args.window_scale)
+    except ValueError as error:
+        parser.error(str(error))
+    screen = pygame.display.set_mode(size,pygame.RESIZABLE,display=args.display)
     canvas = pygame.Surface((1800,900))
     pygame.display.set_caption('Social Deduction AI | Phase 4 | Loading')
     screen.fill((12,20,33)); pygame.display.flip(); pygame.event.pump()
@@ -39,6 +46,7 @@ def main(argv=None):
     observer = MatchObserver(match,model)
     renderer = Phase3Renderer(match.game.map)
     panel = BeliefPanel()
+    avatar_hud = AvatarHUD(renderer.map_width)
     options = ViewOptions()
     clock = pygame.time.Clock()
     paused, expanded, running = False, True, True
@@ -56,6 +64,9 @@ def main(argv=None):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
+                elif event.type == pygame.VIDEORESIZE:
+                    size = (max(640,event.w),max(360,event.h))
+                    screen = pygame.display.set_mode(size,pygame.RESIZABLE,display=args.display)
                 elif event.type == pygame.KEYDOWN:
                     if event.key in (pygame.K_ESCAPE,pygame.K_q):
                         running = False
@@ -96,10 +107,15 @@ def main(argv=None):
             focal = observer.focal
             memory,belief = observer.memories[focal],observer.beliefs[focal]
             canvas.blit(panel.draw(memory,belief,observer.active[focal],expanded,event_offset),(1440,0))
+            avatar_hud.draw(canvas,game.observe(focal))
             if size == canvas.get_size():
                 screen.blit(canvas,(0,0))
             else:
-                pygame.transform.smoothscale(canvas,size,screen)
+                # Letterbox manual window resizing, preserving avatar proportions.
+                fit = min(size[0]/1800,size[1]/900)
+                scaled = pygame.transform.smoothscale(canvas,(round(1800*fit),round(900*fit)))
+                screen.fill((8,13,22))
+                screen.blit(scaled,((size[0]-scaled.get_width())//2,(size[1]-scaled.get_height())//2))
             pygame.display.set_caption(f'Phase 4 | seed {game.seed} | {game.time:.1f}s | {speed:g}x | F focal, M memory, 1 truth')
             pygame.display.flip()
             if args.capture:

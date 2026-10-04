@@ -90,6 +90,16 @@ and accuracy limits are separate from the optional character pack.
 
 ## Attribution
 
+### Local rendering corrections (2026-10-03)
+
+The pinned red PNGs use RGB material channels rather than final display colors.
+`phase3_assets.py` decodes those channels into suit, visor and shadow colors on
+copied surfaces. Alpha, neutral bone highlights and original PNG bytes are retained.
+Purple, black, pink, white and brown have repeated still-image aliases for their
+walk frames in the manifest. Their living animations now reuse the complete red
+material-mask walk cycle with color-specific palettes. Corpse art still uses each
+color's pinned body image. No new artwork download or manifest rewrite was needed.
+
 Among Us, The Skeld and the requested game artwork belong to Innersloth LLC.
 The selected local PNGs are obtained through AI0702/Among-Us-clone, whose README
 credits Innersloth. This independent research simulator is not affiliated with

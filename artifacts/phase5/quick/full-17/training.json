@@ -1,0 +1,202 @@
+{
+  "config": {
+    "schema": "strategic-candidates-v1",
+    "status": "preregistered_implementation",
+    "training_seeds": [
+      17,
+      29,
+      43
+    ],
+    "training_match_seeds": [
+      600000,
+      619999
+    ],
+    "validation_match_seeds": [
+      620000,
+      620099
+    ],
+    "test_id_match_seeds": [
+      630000,
+      630499
+    ],
+    "test_patient_match_seeds": [
+      640000,
+      640499
+    ],
+    "quick_seeds": [
+      960000,
+      960099
+    ],
+    "steps_per_seed": 32768,
+    "rollout_steps": 256,
+    "epochs": 4,
+    "batch_size": 64,
+    "gamma": 0.99,
+    "gae_lambda": 0.95,
+    "clip": 0.2,
+    "learning_rate": 0.0003,
+    "entropy_start": 0.02,
+    "entropy_end": 0.001,
+    "value_coefficient": 0.5,
+    "max_grad_norm": 0.5,
+    "workers": 1,
+    "worker_note": "serial reference runner before process-parallel optimization",
+    "reward": {
+      "crew_win": 10,
+      "impostor_win": -10,
+      "timeout": -5,
+      "own_elimination_once": -5,
+      "unique_own_task": 1,
+      "step_per_0_6_seconds": -0.005,
+      "report": 0,
+      "vote": 0
+    },
+    "action_kinds": [
+      "continue",
+      "wait",
+      "task",
+      "room",
+      "follow",
+      "flee",
+      "approach_body",
+      "report",
+      "emergency_travel",
+      "emergency",
+      "vote",
+      "skip",
+      "claim_suspect",
+      "claim_defend",
+      "claim_sighting",
+      "claim_location",
+      "claim_kill"
+    ],
+    "global_features": [
+      "x",
+      "y",
+      "active",
+      "moving",
+      "interacting",
+      "own_remaining",
+      "own_completed",
+      "nearest_task_distance",
+      "has_task",
+      "interaction_progress",
+      "meeting_allowance",
+      "time",
+      "speaker",
+      "voted",
+      "body_visible",
+      "body_distance",
+      "room_Cafeteria",
+      "room_Weapons",
+      "room_O2",
+      "room_Navigation",
+      "room_Shields",
+      "room_Communications",
+      "room_Storage",
+      "room_Admin",
+      "room_Electrical",
+      "room_Lower Engine",
+      "room_Security",
+      "room_Reactor",
+      "room_Upper Engine",
+      "room_MedBay",
+      "room_NorthHallway",
+      "room_CrossHallway",
+      "room_AdminHallway",
+      "room_BigYHallway",
+      "room_SouthHallway",
+      "room_Unknown",
+      "phase_roaming",
+      "phase_discussion",
+      "phase_voting",
+      "phase_finished"
+    ],
+    "belief_sha256": "e931b1fa8a421d9a329a29280d676bf52f793cc8f07c02b8da61f2b3e5e537d1",
+    "map_sha256": "9e5e0cd925ab3ede95aae67e42dbb6ebd67717bf8e7365eb655628c669a2d58c",
+    "clearance_policy": "conservative",
+    "evaluation": "500 ID + 500 patient matches per policy and training seed; exact paired match seeds; no heldout selection",
+    "communication": "learned selection among bounded actor-safe claims; no free language",
+    "seed": 17,
+    "ablation": false,
+    "steps": 512,
+    "quick": true,
+    "belief_frozen_verified": true,
+    "weights_changed": true,
+    "geometry_sha256": "67b40bdd03bba566b641be48e2c5f78fb81dab954113596adebc1387e40ed303"
+  },
+  "history": [
+    {
+      "steps": 256,
+      "episodes": 3,
+      "loss": 4.123544283211231,
+      "seconds": 75.56812760001048
+    },
+    {
+      "steps": 512,
+      "episodes": 5,
+      "loss": 5.76701945066452,
+      "seconds": 127.83272610022686
+    }
+  ],
+  "episodes": [
+    {
+      "match_seed": 960000,
+      "return": -15.636666666666713,
+      "crew_win": false,
+      "reason": "PARITY",
+      "time": 76.2,
+      "own_tasks": 0,
+      "survival": 41.0,
+      "illegal_actions": 0,
+      "navigation_failures": 0
+    },
+    {
+      "match_seed": 960001,
+      "return": -15.961666666666707,
+      "crew_win": false,
+      "reason": "PARITY",
+      "time": 115.2,
+      "own_tasks": 0,
+      "survival": 85.4,
+      "illegal_actions": 0,
+      "navigation_failures": 0
+    },
+    {
+      "match_seed": 960002,
+      "return": 4.271666666666582,
+      "crew_win": true,
+      "reason": "TASKS_COMPLETED",
+      "time": 87.4,
+      "own_tasks": 0,
+      "survival": 23.0,
+      "illegal_actions": 0,
+      "navigation_failures": 0
+    },
+    {
+      "match_seed": 960003,
+      "return": -15.736666666666705,
+      "crew_win": false,
+      "reason": "PARITY",
+      "time": 88.2,
+      "own_tasks": 0,
+      "survival": 59.6,
+      "illegal_actions": 0,
+      "navigation_failures": 0
+    },
+    {
+      "match_seed": 960004,
+      "return": -15.671666666666667,
+      "crew_win": false,
+      "reason": "PARITY",
+      "time": 80.4,
+      "own_tasks": 0,
+      "survival": 80.4,
+      "illegal_actions": 0,
+      "navigation_failures": 0
+    }
+  ],
+  "seconds": 127.84081250010058,
+  "checkpoint_sha256": "77f6cc1492e43a74c1cc7aedd3ea7615cc9ee5981be26ab4732a9c4959fe62b8",
+  "status": "smoke_only"
+}

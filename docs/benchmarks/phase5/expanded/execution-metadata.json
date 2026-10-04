@@ -1,0 +1,63 @@
+{
+  "hardware": {
+    "processor": "Intel Core i9-14900HX",
+    "physical_cores": 24,
+    "logical_processors": 32,
+    "physical_memory_bytes": 16869548032,
+    "source": "Read-only Win32_Processor and Win32_ComputerSystem query on experiment host"
+  },
+  "software": {
+    "python": "3.12.3",
+    "torch": "2.9.1+cpu",
+    "numpy": "1.26.4",
+    "platform": "Windows-11-10.0.26200-SP0"
+  },
+  "execution": {
+    "device": "CPU",
+    "torch_threads_per_worker": 1,
+    "final_process_workers": 4,
+    "validation_process_workers": 3,
+    "multi_device": false
+  },
+  "timings": {
+    "20-match diagnostic screening": {
+      "jobs": 18,
+      "matches": 400,
+      "summed_job_seconds": 1933.5195642991457,
+      "inferred_elapsed_seconds": 1881.8847670555115,
+      "inferred_start": "2026-10-03T23:13:18+03:00",
+      "inferred_end": "2026-10-03T23:44:40+03:00"
+    },
+    "Final testing": {
+      "jobs": 90,
+      "matches": 9000,
+      "summed_job_seconds": 43310.658744900255,
+      "inferred_elapsed_seconds": 11101.995695114136,
+      "inferred_start": "2026-10-04T00:11:52+03:00",
+      "inferred_end": "2026-10-04T03:16:54+03:00"
+    },
+    "Untrained diagnostic controls": {
+      "jobs": 3,
+      "matches": 60,
+      "summed_job_seconds": 429.02795690018684,
+      "inferred_elapsed_seconds": 152.76334023475647,
+      "inferred_start": "2026-10-03T23:33:25+03:00",
+      "inferred_end": "2026-10-03T23:35:58+03:00"
+    },
+    "100-match validation": {
+      "jobs": 6,
+      "matches": 800,
+      "summed_job_seconds": 3591.4186618998647,
+      "inferred_elapsed_seconds": 1441.9335598945618,
+      "inferred_start": "2026-10-03T23:44:43+03:00",
+      "inferred_end": "2026-10-04T00:08:45+03:00"
+    }
+  },
+  "timing_caution": "Job seconds are measured perf_counter durations. Stage spans are inferred from metrics file modification times minus measured job duration, include scheduling gaps, and are approximate. Summed job time is not CPU time or elapsed wall time.",
+  "substantive_study_span": {
+    "start": "2026-10-03T22:36:56+03:00",
+    "end": "2026-10-04T03:16:56+03:00",
+    "hours": 4.666572381324238,
+    "caution": "Filesystem-based elapsed span from earliest substantive run config to final summary; includes reviews, pauses and overlapping jobs, excludes earlier development/smoke work."
+  }
+}
