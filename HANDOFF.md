@@ -1,5 +1,56 @@
 # Continuation handoff
 
+## CURRENT — Phase 6.0 foundations, 2026-10-10
+
+Baseline main SHA: `6b78b08e41d0791e49ff486b996d7490666db970`.
+Branch: `feat/phase6-vision-crewmate-foundation`. Development uses the existing
+clean managed worktree; original untracked materials remain untouched.
+
+Phase 5 is complete. Phase 6 is in progress, not complete. Opt-in
+`GameConfig(rules_version=6, crewmate_sight_range=4.5, impostor_sight_range=6.75)`
+changes actual LOS-projected player/body evidence and event-time elimination
+witnesses. Walls/props block both roles. Legacy defaults, packet shape/config
+serialization and seed-7 replay hashes are preserved; model/map releases are
+byte-identical. Phase 6 spectator outlines are wall-clipped and privileged.
+
+`phase6/` reuses the candidate scorer, PPO update and physics. It provides three
+memory/belief conditions, 12/24-second options, Euclidean/route descriptors,
+lr/rollout configuration, independent fresh partitions, runtime/source hashes,
+and immutable output directories. Route distances are computed only at neural
+decision boundaries after a costly intermediate-packet diagnostic was stopped.
+Short smoke runs changed policy weights and preserved frozen belief weights.
+Paired development records repeat exactly; these are infrastructure checks,
+not a new strategic-performance claim. Earlier smoke artifacts are preserved
+with their pre-optimization source hashes; they are not deployable under changed
+runtime hashes and must not be used for selection. Do not erase or automatically
+retrain them. The current route-boundary smoke uses the final runtime sources.
+
+`python run_phase6.py` shows the frozen Phase 5 policy under new rules with four
+scripted opponents. Existing Phase 4/5 viewers keep their defaults. Phase 6
+impostor training, alternating learning and self-play remain unimplemented.
+
+Read `docs/phase6_experiment_plan.md`, `docs/phase6_vision_and_rules.md` and
+`docs/benchmarks/phase6/foundation/README.md` for exact checks, source records,
+limitations and the nine-model Phase 6.1 compute proposal. The trainer deliberately
+rejects >512 decisions; evaluation exposes only development seeds. Do not launch
+a large batch or open validation/final partitions without new budget approval.
+Build a reviewed batch/selection runner after approval, lock source/config/model
+selection before final tests, and compare all baselines under identical new rules.
+
+Verification: **416 passed**, zero skips (44 new tests); one existing Gymnasium
+render-spec warning. Three 256-decision smoke runs and 28 development match
+executions completed; repeated records are identical, with zero illegal/navigation
+failures. No reserved validation/final matches ran. See the curated results JSON.
+
+Changes belong in a PR against main. Do not merge this PR or publish experimental
+claims directly. The website draft adds internal checkpoints in the existing
+Phase 6 mission, preserving Phase 5 figures and collaborator navigation/colors.
+
+## Historical handoffs — everything below predates Phase 6
+
+The older “CURRENT” and running-session headings below are preserved history;
+they do not describe active jobs or authorize restarting experiments.
+
 ## CURRENT documentation update (2026-10-04)
 
 The owner now explicitly wants the teammate document in the repository,

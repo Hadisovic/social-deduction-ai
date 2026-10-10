@@ -52,3 +52,7 @@ artifacts/phase4/quick/
 
 # Regenerable strategic training runs. Keep config and small chosen smoke artifacts explicit.
 artifacts/phase5/runs/
+
+# Phase 6 development outputs; configs and curated reports are tracked separately.
+artifacts/phase6/runs/
+artifacts/phase6/smoke/

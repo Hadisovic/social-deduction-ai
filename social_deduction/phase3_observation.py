@@ -106,7 +106,8 @@ def project_game(world: WorldTruth, player_id: str, geometry: AmongUsMap,
                         tasks, own.meetings_remaining)
     packet = Phase3Observation(
         world.match_id, world.tick, world.tick * settings.dt, own_view, roster,
-        world.map, world.context, players, bodies, tuple(events), destinations, settings,
+        replace(world.map, sight_range=settings.sight_range), world.context,
+        players, bodies, tuple(events), destinations, settings,
         tuple(task.task_id for task in tasks if task.progress < 1 and task.console_id in nearby),
         interactable_destinations,
         max(0., own.private_cooldown) if own.role is Role.IMPOSTOR else None,

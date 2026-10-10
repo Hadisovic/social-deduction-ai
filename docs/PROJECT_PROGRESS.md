@@ -2,6 +2,26 @@
 
 > **Canonical Document**: Detailed technical history, experimental results, architectural pivot, and roadmap status for the **Social Deduction AI** project.
 
+## 2026-10-10: Phase 6.0 vision and experiment foundations
+
+Dedicated development branch starts from `6b78b08`. Historical Phase 4/5 releases,
+map geometry and results are preserved. Opt-in rules version 6 sets crew sight
+to 4.5 and impostor sight to 6.75 native units, with the same occluding barriers.
+Player/body evidence and elimination witnesses use the actual observer range;
+legacy packets and seed-7 actor/truth replay hashes remain unchanged.
+
+`phase6/` adds fresh partitions, controlled history/belief ablations, 12/24-second
+options, optional public route descriptors, a capped smoke trainer and paired
+development diagnostics. `run_phase6.py` previews a frozen Phase 5 crew under
+new rules against scripts. No learned impostor or self-play is implemented.
+The website's existing Phase 6 mission shows verified foundations and planned
+later checkpoints, without changing Phase 5 results or the map design.
+See [plan and compute gate](phase6_experiment_plan.md) and
+[actual foundation checks](benchmarks/phase6/foundation/README.md).
+
+Larger Phase 6.1 batches and reserved evaluation partitions await explicit budget
+approval. Completion of the foundation is not completion of Phase 6.
+
 ## 2026-10-04: Phase 5 simulator study evaluated
 
 All 9,000 final matches completed after immutable validation selection. The

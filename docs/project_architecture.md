@@ -1,6 +1,22 @@
 # Architecture — information boundary, simulation and beliefs
 
-## Current executable architecture (Phase 4 complete)
+## Current executable architecture (Phase 6 foundations)
+
+Phase 5's released strategic scorer chooses one focal crewmate's goals from
+legitimate actor packets, historical memory and frozen belief predictions; A*
+executes navigation. Phase 6 opts into asymmetric vision through the existing
+trusted engine and keeps the historical defaults. `phase6/` reuses the packet,
+candidate network, PPO update and base transition engine while versioning option
+durations, memory/belief conditions, route descriptors and experiment records.
+Role labels/rewards remain trainer-only. A longer impostor sight range never
+exposes private tasks or unseen positions. The separate preview has a frozen
+learned crew and scripted opponents; no learned impostor exists yet.
+
+See [Phase 6 plan](phase6_experiment_plan.md) and
+[vision rules](phase6_vision_and_rules.md). Large batches/final tests are gated;
+Phase 6 is not complete. Frozen Phase 4/5 releases and historical results remain.
+
+## Historical Phase 4 observer architecture
 
 `Phase3Game` -> trusted `project_game` -> immutable `Phase3Observation` ->
 `ActorMemory` -> identity-free candidate features -> shared `CandidateNet` ->
