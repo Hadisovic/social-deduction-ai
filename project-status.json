@@ -147,7 +147,7 @@
       }
     ]
   },
-  "nextStep": "Next research: approve Phase 6.1 replications after the seed-17 review",
+  "nextStep": "Next research: finish the fixed nine-model crew study; six runs await approval",
   "phase6Study": {
     "stage": "seed17-validation-complete",
     "vision": {
@@ -164,22 +164,22 @@
       {
         "label": "6.1 \u2014 stronger crewmate",
         "status": "in-progress",
-        "detail": "Three seed-17 models trained and checked on 200 shared validation matches each. They finish useful tasks; voting differs sharply. Replications await approval and final tests remain closed. This milestone is not accepted."
+        "detail": "Three of nine models trained and checked on 200 shared validation matches each. Finish the same study without changing its protocol. Six replications await execution approval; final tests stay closed. This milestone is not accepted."
       },
       {
         "label": "6.2 \u2014 learned impostor",
         "status": "planned",
-        "detail": "Train one new opponent only after the crewmate passes its evaluation gate."
+        "detail": "Planned: train and validate a learned impostor against learned and scripted crewmates after the crewmate evaluation gate. No learned impostor is operational."
       },
       {
-        "label": "6.3 \u2014 competitive adaptation",
+        "label": "6.3 \u2014 two-impostor population expansion",
         "status": "planned",
-        "detail": "Alternate training against frozen policies and check older opponents."
+        "detail": "Planned: gradually reach fully AI-controlled matches with exactly two impostors: 6 crew + 2, 8 crew + 2 (main target), then 10 crew + 2. The current simulator remains four crew and one impostor."
       },
       {
-        "label": "6.4 \u2014 multi-agent learning",
+        "label": "6.4 \u2014 adaptation and self-play",
         "status": "planned",
-        "detail": "Expand gradually and measure cooperation and cross-play. Self-play is not operational."
+        "detail": "Planned: alternating training, historical opponent pools, competitive adaptation and eventual multi-agent self-play after policy and population validation. Self-play is not operational."
       }
     ]
   }

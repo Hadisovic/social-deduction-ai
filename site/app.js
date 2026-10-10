@@ -193,12 +193,12 @@ const MILESTONES = Object.freeze([
     id: 'mission12', number: '12', originalMilestone: 'PHASE 6', phaseStatusId: 'phase-6', short: 'Phase 6 research', title: 'Phase 6 Foundations', status: 'in-progress', waypoint: 'mission12',
     date: '10 OCT · FIRST PILOT VALIDATED', location: 'SHIELDS · RESEARCH FRONTIER',
     summary: 'Crewmates have shorter vision than impostors, but walls block both.',
-    detail: 'The vision foundation is ready. Three first crewmate models now finish useful tasks in shared validation games. The model with memory and suspicion votes often; the other two mostly skip. More independent training runs are needed before deciding what helps.',
+    detail: 'The vision foundation is ready. Three crewmate models finish useful tasks in validation games; the model with memory and suspicion votes often, while the other two mostly skip. Next, finish the nine-model study with its protocol unchanged, then train a learned impostor against learned and scripted crew.',
     metric: 'FIRST PILOT', metricLabel: 'three models checked; replications and final tests pending',
     tags: ['CREW 4.5 · IMPOSTOR 6.75', 'NO SELF-PLAY YET'],
     screenshot: 'assets/phase6/vision-preview.png', imageAlt: 'Simulator spectator preview of role-specific wall-clipped vision',
     imageCaption: 'A verified simulator rules preview. The outlines are spectator aids; walls block both roles. No learned impostor is shown.',
-    notes: 'The first pilot clearly beats idle and random controls, but does not establish stronger play than the scripted crewmate. It uses one training initialization and validation games only; final tests are still closed. Further training awaits budget approval. Phase 6 is in progress, not complete. The Phase 5 results above keep their original rules and meaning.'
+    notes: 'The pilot beats idle and random controls, but does not establish stronger play than scripted crew. Six runs await approval; final tests stay closed. Future matches are planned with exactly two impostors: 6 crew + 2, 8 crew + 2 as the main target, then 10 crew + 2. Alternating training, historical opponents, adaptation and self-play come later. A local training dashboard, checkpoint/replay Skeld viewer and one-versus-two-process benchmarks (three only if faster and reproducible) are planned, not built. The current simulator still has four crew and one impostor. Task and voting mechanics stay unchanged; private observations, separate memories, task ownership and crew/impostor vision 4.5/6.75 remain protected. Phase 6 is in progress; historical Phase 5 results keep their original meaning.'
   }
 ]);
 

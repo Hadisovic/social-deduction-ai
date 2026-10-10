@@ -9,6 +9,11 @@ The approved stage has now completed at source revision `cd48b65a8de9de0cab33894
 See the [actual results and revised estimate](benchmarks/phase6/seed17-stage/README.md).
 The protocol below was frozen before execution; no selection rule changed.
 
+The [agreed continuation roadmap](phase6_roadmap.md) plans to finish the full
+nine-model comparison with this protocol unchanged. This document remains the
+record of the approved seed-17 stage; it does not authorize the remaining six or
+final tests. New population/dashboard/concurrency plans do not modify this study.
+
 ## Context map and design review
 
 | File | Purpose / change |

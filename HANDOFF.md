@@ -1,5 +1,50 @@
 # Continuation handoff
 
+## CURRENT — agreed future roadmap; documentation-only update, 2026-10-10
+
+Read `docs/phase6_roadmap.md` first tomorrow. This supersedes the old order of
+6.3/6.4, not the frozen crewmate protocol or existing results:
+
+1. **6.1:** Finish the nine-model study: full / history_no_belief / current_only
+   at seeds 17/29/43, 8192 decisions each. Three seed-17 models are complete.
+   Keep rewards, task/vote mechanics, PPO/config, partitions, 20-seed checkpoint
+   ranking and 200-match validation unchanged. Remaining six await execution
+   approval; separate approval/selection lock is required before final testing.
+2. **6.2:** Train/validate one learned impostor against frozen learned/scripted
+   crew after the crewmate gate, with a reviewed role-specific actor contract.
+3. **6.3:** Plan gradual fully AI-controlled matches with exactly two impostors:
+   6 crew + 2, **8 crew + 2 as the main target**, then 10 crew + 2. Current code
+   remains four crew + one impostor; population/model/replay support needs review.
+4. **6.4:** Alternating role training, historical opponent pools, competitive
+   adaptation and eventual multi-agent self-play after those earlier gates.
+
+Plan, do not build yet: a local live dashboard for progress, rewards, wins, tasks,
+votes, graphs, CPU/RAM and ETA, beside a compatible checkpoint/replay Skeld viewer.
+Also plan isolated one-versus-two-process training benchmarks, optionally three
+if measured faster and reproducible. Keep this benchmark outside the frozen 6.1
+study; preserve independent RNG state, per-agent memory and separate outputs.
+
+Research invariants: crew/impostor vision 4.5/6.75 with walls/props; private
+observations, individual task ownership and trainer-only truth. Do not change task
+or voting mechanics now. Preserve all checkpoints, logs, releases and historical
+results. No training, dashboard/simulator implementation, final-test opening or
+merge was authorized by this documentation request.
+
+Latest fetched main: `6b78b08e41d0791e49ff486b996d7490666db970`. Documentation branch:
+`codex/phase6-roadmap-next-stages`, based on PR #4 head
+`8187d51b6bbeb506fd2a59f25504adb368ab5006`. Keep
+[PR #3](https://github.com/Hadisovic/social-deduction-ai/pull/3) and
+[PR #4](https://github.com/Hadisovic/social-deduction-ai/pull/4) open/unmerged and
+unchanged. The new review is stacked against #4's branch. Read the pilot evidence
+and the next budget gate below; do not rerun seed 17 or overwrite sources to make
+old checkpoints pass compatibility checks. The following entries retain history.
+
+Documentation verification: source/built site validators, JavaScript syntax,
+Markdown links and diff checks passed. All 419 fingerprinted Phase 6 runtime,
+result and local checkpoint files remained byte-identical; only nine planning/
+documentation/copy files changed. Historical website results/statuses and vision
+were unchanged. No simulator/training code or research artifacts were edited.
+
 ## CURRENT — Phase 6.1 seed-17 pilot complete; stopped at approval gate
 
 The approved three 8,192-decision seed-17 models and all 1,640 registered validation
