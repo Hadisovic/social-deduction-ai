@@ -3,6 +3,7 @@
 ## CURRENT — Phase 6.0 foundations, 2026-10-10
 
 Baseline main SHA: `6b78b08e41d0791e49ff486b996d7490666db970`.
+Verified research commit: `9c4e8cdc7167910ba9a774dbb18c380cdab5e348`.
 Branch: `feat/phase6-vision-crewmate-foundation`. Development uses the existing
 clean managed worktree; original untracked materials remain untouched.
 

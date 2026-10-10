@@ -530,5 +530,6 @@
     "truth": "dc6fe1cc6002983acf19a187d86625b8bc5bebfff15a0225e3148b28d36ff6e0",
     "trajectory": "e737fc8956990b6f9fed8bb3cabb334957e44b28adba5c42ad89a5efcc31a401"
   },
-  "notice": "Phase 6 is not complete. No trained-impostor result, strategic-gain claim or reserved evaluation. Larger work awaits compute approval."
+  "notice": "Phase 6 is not complete. No trained-impostor result, strategic-gain claim or reserved evaluation. Larger work awaits compute approval.",
+  "verified_research_commit": "9c4e8cdc7167910ba9a774dbb18c380cdab5e348"
 }
