@@ -1,5 +1,16 @@
 # Continuation handoff
 
+## CURRENT — Phase 6.1 staged authorization
+
+The owner approved runner verification and only three 8,192-decision models:
+full / history_no_belief / current_only, all seed 17. See
+`docs/phase6_1_staged_protocol.md`. Train serially; screen four checkpoints per
+condition on 20 fresh validation seeds; lock selection; validate selected models
+and four controls on 200 seeds. Final familiar/patient partitions remain unopened.
+Report actual timings/behavior/failures before seeds 29 and 43. Preserve all earlier
+checkpoints and PR #3; do not merge automatically. Older scope limits below are
+historical where superseded by this explicit staged approval.
+
 ## CURRENT — Phase 6.0 foundations, 2026-10-10
 
 Baseline main SHA: `6b78b08e41d0791e49ff486b996d7490666db970`.

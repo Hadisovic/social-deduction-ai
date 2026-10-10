@@ -27,8 +27,10 @@ python -m phase6.evaluate --config artifacts/phase6/configs/reference.json --mat
 ```
 
 Choose fresh output directories. V toggles spectator vision in the preview.
-The smoke trainer caps runs at 512 decisions, and the evaluator exposes only
-development seeds. Larger training and reserved evaluation require budget approval.
+The smoke trainer caps runs at 512 decisions, and its evaluator exposes only
+development seeds. The separate [approved seed-17 stage](docs/phase6_1_staged_protocol.md)
+runner trains exactly three 8,192-decision conditions and uses validation only.
+Remaining initializations and final tests require further approval.
 No learned impostor, alternating training or multi-agent self-play is implemented.
 Read the [experiment plan and compute proposal](docs/phase6_experiment_plan.md),
 [vision rules and compatibility](docs/phase6_vision_and_rules.md), and

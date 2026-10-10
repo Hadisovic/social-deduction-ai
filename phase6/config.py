@@ -75,11 +75,12 @@ def verify_frozen():
 
 
 def source_hashes():
-    paths = list((ROOT / 'phase6').glob('*.py')) + [ROOT / name for name in (
+    paths = [p for package in ('phase6', 'belief', 'social_deduction')
+             for p in (ROOT / package).glob('*.py')] + [ROOT / name for name in (
         'phase3_engine.py', 'phase3_runner.py', 'phase5_env.py', 'phase5_features.py',
         'phase5_policy.py', 'phase5_options.py', 'phase5_options_training.py',
-        'phase5_training.py', 'phase5_runner.py', 'phase4_scripts.py', 'phase3_bots.py',
-        'social_deduction/phase3_api.py', 'social_deduction/phase3_observation.py',
+        'phase5_training.py', 'phase5_runner.py', 'phase5_runtime.py', 'phase5_analysis.py',
+        'phase5_research_report.py', 'phase4_scripts.py', 'phase3_bots.py',
         'among_us_map.py', 'navigation_service.py', 'run_phase6.py', 'assets/skeld/among_us_map.json')]
     return {p.relative_to(ROOT).as_posix(): hashlib.sha256(
         p.read_bytes().replace(b'\r\n', b'\n') if p.suffix == '.py' else p.read_bytes()).hexdigest()

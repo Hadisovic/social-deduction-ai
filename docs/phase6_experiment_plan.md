@@ -2,8 +2,9 @@
 
 Phase 6 is **in progress**, not complete. This branch implements Phase 6.0 and
 prepares Phase 6.1. No learned impostor, alternating learning or self-play exists.
-Longer training and opening reserved validation/final partitions require the
-owner's next compute approval. Historical Phase 5 final outcomes cannot select
+The owner subsequently approved only the seed-17 stage: see the
+[staged protocol](phase6_1_staged_protocol.md). Remaining seeds and final partitions
+require the owner's next compute approval. Historical Phase 5 final outcomes cannot select
 a Phase 6 model.
 
 ## Baseline and compatibility
