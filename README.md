@@ -5,10 +5,34 @@
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/)
 [![PyTorch 2.6](https://img.shields.io/badge/PyTorch-2.6-ee4c2c.svg)](https://pytorch.org/)
 [![Gymnasium](https://img.shields.io/badge/Gymnasium-1.1+-darkgreen.svg)](https://gymnasium.farama.org/)
-[![Tests Passing](https://img.shields.io/badge/tests-372%20passed-success.svg)](docs/benchmarks/phase5/expanded/pytest.xml)
+[![Tests Passing](https://img.shields.io/badge/tests-416%20passed-success.svg)](docs/benchmarks/phase6/foundation/pytest.xml)
 [![Phase 1](https://img.shields.io/badge/phase%201-complete%20%2F%20frozen-blueviolet.svg)](docs/information_contract.md)
 
 Explore the [interactive project journey](https://hadisovic.github.io/social-deduction-ai/) for a visual, non-technical guide to the milestones and current research frontier.
+
+## Phase 6 foundations — in progress
+
+Phase 6.0 adds opt-in role-specific vision: crew sees **4.5** simulator units,
+impostors **6.75**, and native walls/opaque props block both. Historical rules
+and Phase 4/5 releases remain frozen. Phase 6.1 experiment foundations reuse the
+existing PPO network with controlled memory/belief ablations, 12/24-second task
+holds, optional public route distances, fresh seed partitions and detailed logs.
+These are infrastructure changes, not evidence of stronger strategic play.
+
+```powershell
+python run_phase6.py          # Frozen Phase 5 crew under new rules; scripted impostor
+python -m phase6.audit
+python -m phase6.train --config artifacts/phase6/configs/reference.json --steps 256 --output artifacts/phase6/smoke/reference-17
+python -m phase6.evaluate --config artifacts/phase6/configs/reference.json --matches 2 --output artifacts/phase6/smoke/development
+```
+
+Choose fresh output directories. V toggles spectator vision in the preview.
+The smoke trainer caps runs at 512 decisions, and the evaluator exposes only
+development seeds. Larger training and reserved evaluation require budget approval.
+No learned impostor, alternating training or multi-agent self-play is implemented.
+Read the [experiment plan and compute proposal](docs/phase6_experiment_plan.md),
+[vision rules and compatibility](docs/phase6_vision_and_rules.md), and
+[foundation verification](docs/benchmarks/phase6/foundation/README.md).
 
 ## Watch the evaluated Phase 5 strategic crewmate
 
@@ -36,16 +60,16 @@ map vertices and the physical radius remain unchanged. See
 The preserved first run completed 32,768
 decisions but completed no own tasks in 299 training matches. A separate version
 lets network-selected movement/task actions finish before resampling a goal.
-Three full-memory seeds and a separately trained current-only comparison are
+Three full-memory seeds and a separately trained current-only comparison
 were evaluated with validation-only checkpoint selection and independent final tests.
 The [expanded experiment report and graphs](docs/benchmarks/phase5/expanded/README.md)
 distinguish training, validation and final-test evidence across 9,000 final matches.
-Phase 5's simulator study is complete. Phase 6 remains future work, starting with
-adapting opponents only after this learned-crewmate baseline is frozen.
+Phase 5's simulator study is complete. Phase 6 foundations are now implemented;
+stronger crewmate experiments precede training learned opponents.
 
 ```powershell
-# Watch an available experimental checkpoint with its recorded execution protocol.
-python run_phase5.py --checkpoint artifacts/phase5/runs/options-17-v2/checkpoint-6144.pt
+# Watch the committed evaluated release with its recorded execution protocol.
+python run_phase5.py --checkpoint artifacts/phase5/release/policy.pt
 # Regenerate graphs from persisted measurements; this does not train or open tests.
 python phase5_research_report.py
 ```
@@ -112,7 +136,7 @@ python run_phase3_batch.py --matches 1000 --workers 8
 This headless command independently replays every seed and writes CSV/JSON results.
 Read the [rules, architecture, controls and limitations](docs/social_simulator.md)
 and [acceptance evidence](docs/benchmarks/phase3/README.md). Phase 4 adds a learned
-belief observer; learned strategic behavior remains later work.
+belief observer; Phase 5 adds the separate learned focal-crewmate policy.
 
 ## Preserved source-backed Skeld navigation inspector
 
@@ -175,7 +199,7 @@ flowchart TD
     subgraph Agent [Autonomous Agent Pipeline]
         MEM["Event Memory Store<br/><i>(Sightings, Claims, Timestamps)</i><br/><b>[Phase 4: Complete]</b>"]
         BELIEF["Belief & Suspicion Model<br/><i>(Role Probabilities, Consistency)</i><br/><b>[Phase 4: Complete]</b>"]
-        POL["Strategic Policy<br/><i>(Task/Report/Vote Intentions)</i><br/><b>[Phase 5: Training + Validation]</b>"]
+        POL["Strategic Policy<br/><i>(Task/Report/Vote Intentions)</i><br/><b>[Phase 5: Complete; Phase 6: Foundations]</b>"]
     end
 
     subgraph Service [Navigation Service]
@@ -212,8 +236,8 @@ flowchart TD
 | **Phase 2** | **Navigation Service** | Swept-clear routes, interaction arrival, cancellation/replanning, 3,906 directed pairs + 1,008 random spawns. | **COMPLETE** |
 | **Phase 3** | **Scripted Game Simulator** | Full five-player matches, information-safe scripts, visual demo, 1,000 seeds + 1,000 exact replays. | **COMPLETE** |
 | **Phase 4** | **Memory & Belief Model** | Provenance-aware memory, conservative contradictions, calibrated shared candidate model, held-out evaluation. | **COMPLETE** |
-| **Phase 5** | **Learned Crewmate Policy** | PPO strategic actor-critic with frozen beliefs; replicated training and validation are underway. | **IN PROGRESS** |
-| **Phase 6** | **Multi-Agent Expansion** | Learned impostor strategies, competitive self-play, saboteurs, vent networks, and symbolic communication. | **FUTURE** |
+| **Phase 5** | **Learned Crewmate Policy** | Evaluated PPO strategic actor-critic with frozen beliefs; useful contribution, no established superiority over scripts. | **COMPLETE** |
+| **Phase 6** | **Multi-Agent Expansion** | Versioned vision and crewmate experiment foundations implemented; learned impostors, adaptation and self-play remain planned. | **IN PROGRESS** |
 
 ---
 

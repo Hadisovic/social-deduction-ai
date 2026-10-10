@@ -1,0 +1,10 @@
+{
+  "schema": "phase6-options-v1",
+  "memory": "full",
+  "distance": "euclidean",
+  "max_option_seconds": 24,
+  "learning_rate": 0.0003,
+  "rollout": 256,
+  "crewmate_sight_range": 4.5,
+  "impostor_sight_range": 6.75
+}

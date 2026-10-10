@@ -1,5 +1,5 @@
 """Trusted deterministic five-player rules. Policies never receive this module's state."""
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict, dataclass, field, replace
 from enum import Enum
 import hashlib
 import json
@@ -41,17 +41,47 @@ class GameConfig:
     voting_seconds: float = 6.0
     timeout: float = 240.0
     check_invariants: bool = True
+    rules_version: int = 1
+    crewmate_sight_range: float | None = None
+    impostor_sight_range: float | None = None
 
     def __post_init__(self):
         for key, value in asdict(self).items():
-            if key in ('check_invariants', 'tasks_per_crew'):
+            if key in ('check_invariants', 'tasks_per_crew', 'rules_version') or (key in
+                    ('crewmate_sight_range', 'impostor_sight_range') and value is None):
                 continue
-            if not math.isfinite(value) or value <= 0:
+            if type(value) not in (int, float) or not math.isfinite(value) or value <= 0:
                 raise ValueError(f'{key} must be positive and finite')
         if type(self.tasks_per_crew) is not int or not 1 <= self.tasks_per_crew <= 40:
             raise ValueError('tasks_per_crew must be an integer from 1 to 40')
         if self.kill_range > self.sight_range or self.report_range > self.sight_range:
             raise ValueError('Interaction ranges must fit within sight range')
+        if type(self.rules_version) is not int or self.rules_version not in (1, 6):
+            raise ValueError('Supported rules versions are legacy 1 and Phase 6')
+        if self.rules_version == 1 and any(v is not None for v in
+                (self.crewmate_sight_range, self.impostor_sight_range)):
+            raise ValueError('Role-specific vision requires opt-in rules_version=6')
+        if self.rules_version == 6:
+            if self.crewmate_sight_range is None or self.impostor_sight_range is None:
+                raise ValueError('Phase 6 requires both role-specific sight ranges')
+            if self.kill_range > self.impostor_sight_range or self.report_range > min(
+                    self.crewmate_sight_range, self.impostor_sight_range):
+                raise ValueError('Role-local interaction ranges must fit within sight')
+
+    def effective_sight_range(self, role):
+        if type(role) is not Role:
+            raise ValueError('Sight requires a legitimate actor role')
+        if self.rules_version == 1:
+            return self.sight_range
+        return self.crewmate_sight_range if role is Role.CREWMATE else self.impostor_sight_range
+
+    def to_dict(self):
+        """Keep legacy replay/config bytes unchanged; new rules are explicit."""
+        values = asdict(self)
+        if self.rules_version == 1:
+            for name in ('rules_version', 'crewmate_sight_range', 'impostor_sight_range'):
+                values.pop(name)
+        return values
 
 
 @dataclass
@@ -165,7 +195,8 @@ class Phase3Game:
         spawn_points = [(-.7, -2.8), (-1.4, -2.8), (0., -2.8), (-2.1, -2.8), (-.7, -3.5)]
         destinations = sorted((d for d in self.map.destinations
                                if d.category == 'task' and d.name != 'VentCleaning'), key=lambda d: d.id)
-        self._record('match_start', seed=self.seed, config=asdict(self.config), rules_version=1)
+        self._record('match_start', seed=self.seed, config=self.config.to_dict(),
+                     rules_version=self.config.rules_version)
         for slot, (identity, role, color, position) in enumerate(zip(identities, roles, colors, spawn_points)):
             motion = AmongUsMapEnv(speed=self.config.speed)
             if motion.map is not self.map:
@@ -237,13 +268,17 @@ class Phase3Game:
         if player_id not in self._observation_cache:
             started = perf_counter()
             p = self.players[player_id]
-            observation = project_game(self.snapshot(), player_id, self.map, self.planner, self.settings,
+            observation = project_game(self.snapshot(), player_id, self.map, self.planner,
+                self.settings_for(p.role),
                 navigation_status=p.navigator.status.value, navigation_target=p.navigation_target,
                 interaction_task=p.interaction_task, publications=tuple(self.publications),
                 direct_events=tuple(self.direct_events[player_id]))
             self._observation_cache[player_id] = observation
             self.metrics['visibility_seconds'] += perf_counter() - started
         return self._observation_cache[player_id]
+
+    def settings_for(self, role):
+        return replace(self.settings, sight_range=self.config.effective_sight_range(role))
 
     def legal_actions(self, player_id):
         return self.observe(player_id).actions
@@ -305,7 +340,8 @@ class Phase3Game:
 
     def _eliminate(self, killer, victim):
         for observer in self.players.values():
-            if observer.active and visible_between(self.map, observer.position, killer.position, self.config.sight_range) and visible_between(self.map, observer.position, victim.position, self.config.sight_range):
+            sight = self.config.effective_sight_range(observer.role)
+            if observer.active and visible_between(self.map, observer.position, killer.position, sight) and visible_between(self.map, observer.position, victim.position, sight):
                 event = EventView(self.tick, Provenance.DIRECT,
                     WitnessedElimination(killer.player_id, victim.player_id, Point(*victim.position), self.map.region(victim.position)))
                 self.direct_events[observer.player_id].append(event)

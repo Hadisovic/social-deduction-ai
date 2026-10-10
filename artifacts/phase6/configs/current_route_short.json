@@ -1,0 +1,10 @@
+{
+  "memory": "current_only",
+  "distance": "route",
+  "max_option_seconds": 12,
+  "learning_rate": 0.0003,
+  "rollout": 512,
+  "crewmate_sight_range": 4.5,
+  "impostor_sight_range": 6.75,
+  "schema": "phase6-options-v1"
+}

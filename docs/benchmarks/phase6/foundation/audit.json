@@ -1,0 +1,88 @@
+{
+  "baseline_sha": "6b78b08e41d0791e49ff486b996d7490666db970",
+  "frozen_sha256": {
+    "artifacts/phase4/belief.pt": "e931b1fa8a421d9a329a29280d676bf52f793cc8f07c02b8da61f2b3e5e537d1",
+    "artifacts/phase5/release/policy.pt": "1038054357cf1c2e0372de7e6c4c226aaa73162d667372e1cf876de82aa867b1"
+  },
+  "partitions": {
+    "train": [
+      1200000,
+      1219999
+    ],
+    "validation": [
+      1220000,
+      1220199
+    ],
+    "final_id": [
+      1230000,
+      1230499
+    ],
+    "final_patient": [
+      1240000,
+      1240499
+    ],
+    "development": [
+      1250000,
+      1250019
+    ],
+    "smoke_train": [
+      1260000,
+      1260099
+    ]
+  },
+  "sources": {
+    "among_us_map.py": "67b40bdd03bba566b641be48e2c5f78fb81dab954113596adebc1387e40ed303",
+    "assets/skeld/among_us_map.json": "9e5e0cd925ab3ede95aae67e42dbb6ebd67717bf8e7365eb655628c669a2d58c",
+    "navigation_service.py": "3a1af1e6d7eb143144293e75704e60f29fcb2741bd3fdbeca33ad969d9af406d",
+    "phase3_bots.py": "dac423d42c94c9abdd12df9020a995ede9d32817cc1a26614f7ce693a1d5ca33",
+    "phase3_engine.py": "4e62637693ed4ec012799a8434a224ef5762a0fced55d1b24e6e161725d00972",
+    "phase3_runner.py": "74c4899dd3ea1d51151ba5b37ecb9db3b214c13c65a4a6222b1c7ad7059ab59a",
+    "phase4_scripts.py": "fecd39960d378dc236de42ca98e8ed572767314b310e18ad2f0b16a93e740f43",
+    "phase5_env.py": "502423fcb7a4d5187d35f532006b193061804f05f7f43c995767cb685530e963",
+    "phase5_features.py": "0c12db6a50470b56ab9420c0bee5c56e7d1d29f36b0ff3dfcba7e290b341f7bf",
+    "phase5_options.py": "97d0a5ee05183cf3880e7c9fd079e9f9bbdebb6e8ad0f26819c76b3b9642c059",
+    "phase5_options_training.py": "f4e0c9b95d975e4122450c549bec8b5c7added294188221c8a6cb611de738918",
+    "phase5_policy.py": "e98036186b54737a9de5b105a3aed5ae11f6bb560ec0c4b9e33b830b88176223",
+    "phase5_runner.py": "58d9cd1dada86e0f6d6aae9e22adeb2571d639717dbcd33572e6c7a6e06eb2d9",
+    "phase5_training.py": "7fb799793b0fc6f47b1b32eae98a7144cf951930ccbad89e1c690d2e42b48582",
+    "phase6/__init__.py": "0237d84ee241e2a18a31574c71d0e5ab4c60a9b98a900d2ac87eb2dfda2dc89a",
+    "phase6/audit.py": "5e3b6bdd299c856a26794d2b1ed50ee9cc2cdcbd8c981692b1ffdaff4f4b2834",
+    "phase6/config.py": "ea8983f37ef91d31367b242964d530f8b2b9c341e48e9ccad56be3e82dfcd739",
+    "phase6/env.py": "e6b2c6df711275c9acd0844cbc49a885f18699417cd9adff4da0b61e76887888",
+    "phase6/evaluate.py": "df3db88b214f81ec403682277bcc7e72fb5c12ce7296bf9cbb22d7b33e018df8",
+    "phase6/train.py": "b73d8609a072fc4cd0d52ff81e2c65926e5441a685c64de39368e111aab559d8",
+    "run_phase6.py": "35045451858a27c47fea9145b14e118135e4dfbc056b1a06614b2aa586339130",
+    "social_deduction/phase3_api.py": "778fa0fe24df9e24e6eada33dfc0afd1e12a714965eeaecc2e89d75752861b8c",
+    "social_deduction/phase3_observation.py": "9e1f3f81307b089d841cba324d4a66fe05e1ad260a535bdd0bc912c4ddb00682"
+  },
+  "impostor_counts": {
+    "public_id": {
+      "p1": 193,
+      "p4": 201,
+      "p2": 223,
+      "p3": 194,
+      "p0": 189
+    },
+    "color": {
+      "Yellow": 111,
+      "Blue": 103,
+      "Brown": 89,
+      "Orange": 113,
+      "Red": 86,
+      "Black": 108,
+      "Pink": 86,
+      "White": 109,
+      "Purple": 99,
+      "Green": 96
+    },
+    "spawn_slot": {
+      "0": 225,
+      "2": 215,
+      "4": 166,
+      "3": 208,
+      "1": 186
+    }
+  },
+  "matches_audited": 1000,
+  "notice": "Counts are a correlation diagnostic, not a proof of independence. Role/identity/color RNG domains are separate. Opponent types and all seeds stay trainer-only."
+}

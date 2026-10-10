@@ -190,12 +190,15 @@ const MILESTONES = Object.freeze([
     notes: 'Validation selected the policy before final testing. Independent tests show useful learned task contribution versus idle and random controls; superiority over scripted play is not established. The evidence includes own tasks, voting coverage, action choices and uncertainty. PPO loss is not accuracy.'
   },
   {
-    id: 'mission12', number: '12', originalMilestone: 'PHASE 6', phaseStatusId: 'phase-6', short: 'Multi-agent future', title: 'Multi-Agent Future', status: 'future', waypoint: 'mission12',
-    date: 'LATER · FUTURE WORK', location: 'SHIELDS · OPEN QUESTION',
-    summary: 'Only after one learned crewmate works, explore adapting opponents and self-play.',
-    detail: 'Learned impostors, multi-agent training, self-play, and richer conversations are future questions—not current capabilities or promised results.',
-    metric: 'LATER', metricLabel: 'outside the current project scope',
-    tags: ['AFTER PHASE 5', 'NO SELF-PLAY YET'], notes: 'First establish whether one crewmate policy is useful and whether its results hold up against unfamiliar strategies.'
+    id: 'mission12', number: '12', originalMilestone: 'PHASE 6', phaseStatusId: 'phase-6', short: 'Phase 6 research', title: 'Phase 6 Foundations', status: 'in-progress', waypoint: 'mission12',
+    date: '10 OCT · FOUNDATION VERIFIED', location: 'SHIELDS · RESEARCH FRONTIER',
+    summary: 'Crewmates have shorter vision than impostors, but walls block both.',
+    detail: 'The first foundation is ready: different sight ranges change what players can actually see and remember. The next experiments will study task choices, voting and the value of memory before training a new opponent.',
+    metric: 'FOUNDATION', metricLabel: 'vision rules verified; stronger strategy remains research',
+    tags: ['CREW 4.5 · IMPOSTOR 6.75', 'NO SELF-PLAY YET'],
+    screenshot: 'assets/phase6/vision-preview.png', imageAlt: 'Simulator spectator preview of role-specific wall-clipped vision',
+    imageCaption: 'A verified simulator rules preview. The outlines are spectator aids; walls block both roles. No learned impostor is shown.',
+    notes: 'Only after one learned crewmate works, explore adapting opponents and self-play. Phase 6 is in progress, not complete. Short development checks verify the tools; they do not establish improved win rates. The Phase 5 results above keep their original rules and meaning.'
   }
 ]);
 
@@ -814,6 +817,7 @@ function showMilestone(mission, trigger) {
   const media = mission.screenshot ? `<figure class="panel-media"><img src="${escapeHTML(mission.screenshot)}" alt="${escapeHTML(mission.imageAlt || '')}" loading="eager"><figcaption>${escapeHTML(mission.imageCaption || '')}</figcaption></figure>` : '';
   const extraEvidence = mission.extraScreenshot ? `<figure class="panel-media"><img src="${escapeHTML(mission.extraScreenshot)}" alt="${escapeHTML(mission.extraImageAlt || '')}" loading="lazy"><figcaption>${escapeHTML(mission.extraImageCaption || '')}</figcaption></figure>` : '';
   const charts = (mission.evidence || []).map(chart => `<details class="panel-chart"><summary>${escapeHTML(chart.title)}</summary><figure class="panel-media"><a href="${escapeHTML(chart.path)}" target="_blank" rel="noopener"><img src="${escapeHTML(chart.path)}" alt="${escapeHTML(chart.title)}" loading="lazy"></a><figcaption>${escapeHTML(chart.caption)}</figcaption></figure></details>`).join('');
+  const checkpoints = (mission.researchCheckpoints || []).map(item => `<details class="panel-chart"><summary>${escapeHTML(item.label)} · ${escapeHTML(item.status)}</summary><p>${escapeHTML(item.detail)}</p></details>`).join('');
   const tags = mission.tags?.length ? `<ul class="panel-note-tags">${mission.tags.map(tag => `<li>${escapeHTML(tag)}</li>`).join('')}</ul>` : '';
   const repairs = mission.repairs?.length ? mission.repairs.map(repair => `<div class="panel-repair"><b>ISSUE FOUND · ${escapeHTML(repair.title)}</b><span>FIX APPLIED · ${escapeHTML(repair.fix)}</span></div>`).join('') : '';
   const notes = mission.notes || mission.detail;
@@ -824,7 +828,7 @@ function showMilestone(mission, trigger) {
     <h2 id="panelTitle">${escapeHTML(mission.title)}</h2>
     <p class="panel-summary">${escapeHTML(mission.summary)}</p>
     <div class="panel-stat"><strong>${escapeHTML(mission.metric)}</strong><span>${escapeHTML(mission.metricLabel)}</span></div>
-    ${media}<details class="panel-notes"><summary>OPEN THE MISSION LOG</summary>${explanation}<p>${escapeHTML(notes)}</p>${tags}${extraEvidence}${charts}${repairs}</details>`;
+    ${media}<details class="panel-notes"><summary>OPEN THE MISSION LOG</summary>${explanation}<p>${escapeHTML(notes)}</p>${tags}${extraEvidence}${charts}${checkpoints}${repairs}</details>`;
   if (!milestoneDialog.open) milestoneDialog.showModal();
   $('#closeMilestone').focus({ preventScroll: true });
   setTravelMessage(mission.id === 'parked' ? 'Parked off the main research route.' : `Mission ${mission.number} · ${STATUS_LABEL[mission.status]}.`);
@@ -1048,10 +1052,13 @@ function applyProjectStatus(projectStatus) {
     mission.notes = study.notes; mission.tags = study.tags; mission.evidence = study.figures;
     mission.date = study.date;
   }
+  if (projectStatus.phase6Study) {
+    MILESTONES.find(item => item.id === 'mission12').researchCheckpoints = projectStatus.phase6Study.checkpoints;
+  }
   const completed = projectStatus.roadmap.filter(phase => phase.status === 'complete').length;
   $('#phaseCompletion').textContent = `${completed} / ${projectStatus.roadmap.length}`;
   $('#logCurrentLabel').textContent = `RIGHT NOW · PHASE ${projectStatus.currentPhase} · ${STATUS_LABEL[phaseById.get(`phase-${projectStatus.currentPhase}`).status]}`;
-  $('#nextTitle').textContent = `Future research · Phase ${projectStatus.nextPhase}`;
+  $('#nextTitle').textContent = projectStatus.nextStep || `Future research · Phase ${projectStatus.nextPhase}`;
   $('#projectLastUpdated').dateTime = projectStatus.lastUpdated;
   $('#projectLastUpdated').textContent = projectStatus.lastUpdated;
   $('#projectVerifiedCommit').textContent = projectStatus.lastVerifiedCommit.slice(0, 7);

@@ -16,6 +16,26 @@ from phase3_assets import character_image, task_image
 from social_deduction.actor import Phase
 
 
+def visibility_outline(game, player, origin=None, rays=120):
+    """Spectator-only ray-clipped extent; distance shares the actor rule resolver.
+
+    This is a sampled visual outline, not an observation or an exact visibility
+    polygon. Entity/evidence eligibility uses the exact projector LOS test.
+    """
+    from shapely.geometry import LineString, Point
+    from shapely.ops import nearest_points
+    origin = origin or player.position
+    sight = game.config.effective_sight_range(player.role)
+    start = Point(origin)
+    points = []
+    for i in range(rays):
+        angle = 2 * math.pi * i / rays
+        target = (origin[0] + sight * math.cos(angle), origin[1] + sight * math.sin(angle))
+        hit = game.map.ray_barriers.intersection(LineString((origin, target)))
+        points.append(target if hit.is_empty else tuple(nearest_points(start, hit)[1].coords[0]))
+    return tuple(points)
+
+
 COLORS = {
     "red": (231, 70, 83), "blue": (71, 119, 232), "green": (65, 175, 102),
     "pink": (235, 122, 192), "orange": (240, 155, 63), "yellow": (237, 210, 87),
@@ -217,7 +237,10 @@ class Phase3Renderer:
             if options.routes and player.navigator.route:
                 m.line(surf, player.navigator.route, color, 2)
             if options.visibility:
-                pygame.draw.circle(surf, color, point, round(game.config.sight_range * m.scale), 1)
+                if getattr(game.config, 'rules_version', 1) == 1:
+                    pygame.draw.circle(surf, color, point, round(game.config.sight_range * m.scale), 1)
+                elif game.phase is Phase.ROAMING:
+                    m.line(surf, visibility_outline(game, player, visual[0] if visual else None), color, 1, True)
             self.actor(surf, player, game.time if animation_time is None else animation_time,
                        position=point, velocity=visual[1] if visual else None)
             if options.labels:
@@ -236,6 +259,8 @@ class Phase3Renderer:
             if options.collision:
                 pygame.draw.circle(surf, TEXT, point, round(self.world.radius * m.scale), 1)
         self.header(surf, game, paused, speed, fps)
+        if options.visibility and getattr(game.config, 'rules_version', 1) == 6:
+            self.text(surf, 'SPECTATOR VISION / WALL-CLIPPED / NOT POLICY INPUT', (22, 75), MUTED, self.small)
         if options.hud:
             self.sidebar(surf, game, options)
         else:
@@ -250,7 +275,8 @@ class Phase3Renderer:
     def header(self, surf, game, paused, speed, fps):
         pygame.draw.rect(surf, (12, 20, 33), (0, 0, self.size[0], 69))
         self.text(surf, "THE SKELD", (22, 12), font=self.title)
-        self.text(surf, "SCRIPTED SOCIAL DEDUCTION  /  PHASE 3", (23, 43), MUTED, self.small)
+        self.text(surf, "SCRIPTED SOCIAL DEDUCTION  /  PHASE 3" if getattr(game.config, 'rules_version', 1) == 1
+                  else "PHASE 6 RULES / SCRIPTED PREVIEW", (23, 43), MUTED, self.small)
         phase = str(_value(game.phase)).upper()
         self.text(surf, f"{phase}    {'PAUSED' if paused else 'RUNNING'}", (350, 14), ACCENT)
         self.text(surf, f"Seed {game.seed}   |   {game.time:6.1f}s   |   {speed:g}x   |   {fps:.0f} fps", (350, 41), MUTED, self.small)
