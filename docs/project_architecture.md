@@ -16,6 +16,28 @@ See [Phase 6 plan](phase6_experiment_plan.md) and
 [vision rules](phase6_vision_and_rules.md). Large batches/final tests are gated;
 Phase 6 is not complete. Frozen Phase 4/5 releases and historical results remain.
 
+## Planned Phase 6 expansion (not executable capabilities)
+
+The [current roadmap](phase6_roadmap.md) finishes the unchanged nine-model crew
+study (6.1), then trains/validates a learned impostor against learned/scripted
+crew (6.2). Phase 6.3 plans fully AI-controlled matches with exactly two impostors:
+6 crew + 2, **8 crew + 2 (main target)**, then 10 crew + 2. Player-count/role-count
+interfaces, beliefs, legal masks, spawn safety, outcome logic and compatible
+replays require review before implementation; current matches remain four crew
+and one impostor. Existing task and voting semantics are not changed now.
+
+Phase 6.4 then plans alternating role updates, historical opponent pools,
+competitive adaptation and eventual self-play. Each actor must retain private
+observations, its own memory and individual task ownership, even if future
+policies share weights. Vision stays crew 4.5 / impostor 6.75 with native LOS.
+
+A future local dashboard reads training telemetry and resource/ETA measurements;
+a separate compatible checkpoint/replay viewer renders Skeld with labeled
+spectator-only truth. Neither may inject debug state or consume training RNG.
+Separate one/two-process benchmarks, optionally three, will measure reproducible
+throughput before choosing future concurrency. These tools are planned and are
+not added by the documentation update.
+
 ## Historical Phase 4 observer architecture
 
 `Phase3Game` -> trusted `project_game` -> immutable `Phase3Observation` ->

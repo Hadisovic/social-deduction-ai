@@ -1,7 +1,9 @@
-# Phase 6 experiment plan — foundations, 10 October 2026
+# Phase 6 experiment plan — current roadmap and frozen study, 10 October 2026
 
-Phase 6 is **in progress**, not complete. This branch implements Phase 6.0 and
-prepares Phase 6.1. No learned impostor, alternating learning or self-play exists.
+Phase 6 is **in progress**, not complete. Phase 6.0 and the seed-17 Phase 6.1 pilot
+are verified. No learned impostor, expanded population, dashboard, alternating
+learning or self-play exists. The [current roadmap](phase6_roadmap.md) records the
+agreed future sequence; this documentation update runs no new experiments.
 The owner subsequently approved only the seed-17 stage: see the
 [staged protocol](phase6_1_staged_protocol.md). Remaining seeds and final partitions
 require the owner's next compute approval. Historical Phase 5 final outcomes cannot select
@@ -68,7 +70,7 @@ features contain no seed, role labels, truth dictionaries or future outcomes.
 | Partition | Inclusive seeds | Use |
 |---|---|---|
 | Training | 1200000–1219999 | New approved Phase 6 learning only |
-| Validation | 1220000–1220199 | Screening and checkpoint choice; not opened here |
+| Validation | 1220000–1220199 | Used for pilot screening/selection; same reserved validation for remaining study |
 | Final familiar | 1230000–1230499 | Locked independent evaluation; not opened here |
 | Final patient | 1240000–1240499 | Locked held-out opponent family; not opened here |
 | Development | 1250000–1250019 | Small reusable debugging diagnostics, never selection |
@@ -159,7 +161,8 @@ effect or Phase 6.1 acceptance is claimed. Stop here for review and budget appro
 
 Nine fresh models: three conditions (`full`, `history_no_belief`, `current_only`)
 × initialization seeds 17, 29, 43. Each: 8,192 decisions, Euclidean descriptor,
-24-second hold, lr 0.0003, rollout 256, identical asymmetric rules/opponents.
+24-second hold, lr 0.0003, rollout 256, constant entropy 0.02, gamma 0.99 and
+identical asymmetric rules/opponents. PPO epochs/minibatches and rewards stay fixed.
 Total 73,728 decisions. Change one major factor at a time; option length, route
 distance and PPO tuning follow only if diagnostics warrant them.
 
@@ -217,9 +220,25 @@ not novel adversarial generalization. Before broader robustness claims, register
 additional held-out behavior scenarios without reusing historical final tests.
 These proposed thresholds need approval with the batch protocol.
 
-6.2: one learned impostor against frozen crew, with a separately reviewed actor
-contract and legal supported kill/fake-task/claim choices. No sabotage/vent claims.
-6.3: alternate frozen-role updates, retain historical opponents, evaluate cross-play
-and forgetting. 6.4: increase learned crew count gradually and then investigate
-multi-agent adaptation/self-play. Each milestone requires its own review and
-compute gate; no arbitrary 100% win requirement applies.
+6.2: train and validate one learned impostor against frozen learned and scripted
+crew, with a reviewed private actor contract, legal supported actions, opponent
+checkpoint hashes and fresh evaluation. No sabotage/vent claims.
+
+6.3: gradually expand toward fully AI-controlled matches with exactly two
+impostors: 6 crew + 2, **8 crew + 2 (main target)**, then 10 crew + 2. Validate
+population/role-count support, observations, independent agent memories, private
+task ownership, masks, collision safety, role-count outcomes and replay/model
+compatibility before enlarged training. Existing five-player mechanics/results
+remain unchanged; no task or voting changes are made in this planning pass.
+
+6.4: introduce alternating frozen-role updates, historical opponent pools,
+competitive adaptation and eventual multi-agent self-play. Retain older opponents
+and evaluate cross-play and forgetting before expanding adaptation.
+
+The [roadmap](phase6_roadmap.md) also plans a local live telemetry dashboard
+(progress/rewards/wins/tasks/votes/graphs/CPU/RAM/ETA) alongside a checkpoint/replay
+Skeld viewer. One-versus-two-process benchmarks, optionally three if faster and
+reproducible, use isolated RNG/memory/output state outside the frozen nine-model
+study. No dashboard, concurrency or simulator implementation is authorized here.
+Each milestone retains its own review and compute gate; no arbitrary 100% win
+requirement applies. Final-test partitions remain closed.

@@ -22,6 +22,22 @@ the whole stage took 2.746 hours. Remaining six models are estimated at 4.28
 additional hours (planning range 3.42–6.42), awaiting approval. Final partitions
 remain unopened; Phase 6.1 is not accepted and no release model is replaced.
 
+The [agreed Phase 6 roadmap](docs/phase6_roadmap.md) is:
+
+| Milestone | Next direction | Status |
+|---|---|---|
+| 6.1 | Finish the nine-model crewmate study with its existing protocol | Three complete; six remaining, execution approval pending |
+| 6.2 | Train/validate a learned impostor against learned and scripted crew | Planned |
+| 6.3 | Fully AI-controlled matches with exactly two impostors: 6 crew + 2, **8 crew + 2 (main target)**, then 10 crew + 2 | Planned; current simulator is still four crew + one impostor |
+| 6.4 | Alternating training, historical opponent pools, adaptation and eventual self-play | Planned |
+
+A local live training dashboard and checkpoint/replay Skeld viewer are planned,
+along with one-versus-two-process training benchmarks (three only if faster and
+reproducible). They are not implemented. Preserve private observations, separate
+agent memories, individual task ownership and crew/impostor vision 4.5/6.75.
+Task/voting mechanics and the nine-model protocol stay unchanged. This roadmap
+update is documentation only; it does not launch training or approve final tests.
+
 Phase 6.0 adds opt-in role-specific vision: crew sees **4.5** simulator units,
 impostors **6.75**, and native walls/opaque props block both. Historical rules
 and Phase 4/5 releases remain frozen. Phase 6.1 experiment foundations reuse the
@@ -249,7 +265,7 @@ flowchart TD
 | **Phase 3** | **Scripted Game Simulator** | Full five-player matches, information-safe scripts, visual demo, 1,000 seeds + 1,000 exact replays. | **COMPLETE** |
 | **Phase 4** | **Memory & Belief Model** | Provenance-aware memory, conservative contradictions, calibrated shared candidate model, held-out evaluation. | **COMPLETE** |
 | **Phase 5** | **Learned Crewmate Policy** | Evaluated PPO strategic actor-critic with frozen beliefs; useful contribution, no established superiority over scripts. | **COMPLETE** |
-| **Phase 6** | **Multi-Agent Expansion** | Versioned vision and crewmate experiment foundations implemented; learned impostors, adaptation and self-play remain planned. | **IN PROGRESS** |
+| **Phase 6** | **Multi-Agent Expansion** | Vision and seed-17 pilot verified; finish nine-model crew study, then learned impostor, two-impostor population expansion and later adaptation/self-play. | **IN PROGRESS** |
 
 ---
 
