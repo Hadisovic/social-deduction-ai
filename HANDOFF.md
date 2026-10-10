@@ -1,5 +1,45 @@
 # Continuation handoff
 
+## CURRENT — clean Phase 6 documentation publication (2026-10-11)
+
+Read `docs/phase6_roadmap.md`, `docs/phase6_experiment_plan.md` and the frozen
+`docs/phase6_1_staged_protocol.md`. Phase 6 is in progress, not complete.
+This publication branch `codex/phase6-docs-main` starts from fetched main
+`6b78b08e41d0791e49ff486b996d7490666db970`; it selectively applies documentation
+and website status/copy. It does not import PR #3/#4 development commits.
+
+1. 6.1: finish full / history_no_belief / current_only at seeds 17/29/43,
+   8192 decisions each, with the registered protocol unchanged. Three seed-17
+   runs are complete on PR #4; six remain gated. Final partitions remain closed.
+2. 6.2: train/validate a learned impostor against frozen learned/scripted crew.
+3. 6.3: expand gradually to fully AI-controlled matches with exactly two
+   impostors: 6 crew + 2, **8 crew + 2 (10 players; main target)**, then 10 crew + 2.
+4. 6.4: alternating training, historical opponent pools, adaptation and eventual
+   self-play after policy/population gates.
+
+Plan the local live dashboard (progress/rewards/wins/tasks/votes/graphs/CPU/RAM/
+ETA), compatible checkpoint/replay Skeld viewer and isolated one/two-process
+benchmarks, optionally three if faster/reproducible. None is implemented here.
+Keep the current study serial. Preserve private observations, independent agent
+memory, individual task ownership, task/vote mechanics, historical releases and
+the branch study's crew/impostor vision 4.5/6.75. Main still uses legacy vision.
+
+[PR #3](https://github.com/Hadisovic/social-deduction-ai/pull/3) remains open at
+`16101131e9787c9bcbaebe250d25d6dd0d3574fb`; [PR #4](https://github.com/Hadisovic/social-deduction-ai/pull/4)
+remains open at `8187d51b6bbeb506fd2a59f25504adb368ab5006`. Do not merge them under
+this documentation authorization. Original stacked [PR #5](https://github.com/Hadisovic/social-deduction-ai/pull/5)
+remains preserved at `85d4b1e0983ccc61a8c8808939b8b1d13cd762c5`; merging it directly
+to main would inherit 151 development/artifact file changes. Use the clean main
+review instead. Pilot evidence/checkpoints remain on #4 and the original worktree;
+do not rerun seed 17 or rewrite model/source metadata. The main test badge and
+historical benchmark files retain their existing Phase 5 meaning. Entries below
+are historical; their older current/future headings do not supersede this plan.
+
+Publication checks passed locally: JSON/Markdown links, documentation-only diff,
+source/built site, JavaScript syntax, sprite palettes and desktop/mobile browser
+checks. All 419 protected files in the original research worktree remain
+byte-identical. No training, model inference matches or final tests ran.
+
 ## CURRENT documentation update (2026-10-04)
 
 The owner now explicitly wants the teammate document in the repository,

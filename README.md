@@ -10,6 +10,31 @@
 
 Explore the [interactive project journey](https://hadisovic.github.io/social-deduction-ai/) for a visual, non-technical guide to the milestones and current research frontier.
 
+## Phase 6 roadmap — in progress
+
+The [approved roadmap](docs/phase6_roadmap.md) is now published as documentation.
+Foundation [PR #3](https://github.com/Hadisovic/social-deduction-ai/pull/3) and
+pilot [PR #4](https://github.com/Hadisovic/social-deduction-ai/pull/4) remain unmerged;
+their simulator changes, trainers, checkpoints and benchmark records are not
+included in main by this publication. The released main implementation remains
+the evaluated Phase 5 crewmate in a four-crew/one-impostor simulator.
+
+| Milestone | Agreed direction | Status |
+|---|---|---|
+| 6.1 | Finish the nine-model crewmate study without changing its protocol | Three seed-17 runs completed on PR #4; six replications await execution approval |
+| 6.2 | Train and validate a learned impostor against learned/scripted crew | Planned |
+| 6.3 | Fully AI-controlled matches with exactly two impostors: 6 crew + 2, **8 crew + 2 (10 players; main target)**, then 10 crew + 2 | Planned; enlarged matches are not implemented |
+| 6.4 | Alternating training, historical opponent pools, adaptation and eventual self-play | Planned |
+
+A local live training dashboard with graphs, CPU/RAM and ETA, plus a checkpoint/
+replay Skeld viewer, is planned. Benchmark one versus two training processes,
+optionally three only if faster and reproducible, outside the frozen study.
+Private observations, independent agent memories and individual task ownership
+remain required. The research reference is crew/impostor vision **4.5/6.75**;
+its role-specific implementation awaits PR #3 review, while main retains legacy
+vision. Task/voting mechanics and historical results stay unchanged. No further
+training or final tests are launched by this publication.
+
 ## Watch the evaluated Phase 5 strategic crewmate
 
 Read the [illustrated teammate guide](docs/phase5_teammate_guide.md) for controls,
@@ -40,7 +65,8 @@ Three full-memory seeds and a separately trained current-only comparison are
 were evaluated with validation-only checkpoint selection and independent final tests.
 The [expanded experiment report and graphs](docs/benchmarks/phase5/expanded/README.md)
 distinguish training, validation and final-test evidence across 9,000 final matches.
-Phase 5's simulator study is complete. Phase 6 remains future work, starting with
+Phase 5's simulator study is complete. Phase 6 research is in progress on unmerged
+development branches; its approved roadmap starts with
 adapting opponents only after this learned-crewmate baseline is frozen.
 
 ```powershell
@@ -213,7 +239,7 @@ flowchart TD
 | **Phase 3** | **Scripted Game Simulator** | Full five-player matches, information-safe scripts, visual demo, 1,000 seeds + 1,000 exact replays. | **COMPLETE** |
 | **Phase 4** | **Memory & Belief Model** | Provenance-aware memory, conservative contradictions, calibrated shared candidate model, held-out evaluation. | **COMPLETE** |
 | **Phase 5** | **Learned Crewmate Policy** | PPO strategic actor-critic with frozen beliefs; replicated training and validation are underway. | **IN PROGRESS** |
-| **Phase 6** | **Multi-Agent Expansion** | Learned impostor strategies, competitive self-play, saboteurs, vent networks, and symbolic communication. | **FUTURE** |
+| **Phase 6** | **Multi-Agent Expansion** | Finish the fixed crew study; then learned impostor, two-impostor population expansion, later adaptation/self-play. Future capabilities planned; implementations remain in review. | **IN PROGRESS** |
 
 ---
 

@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
   "project": "Hadisovic/social-deduction-ai",
-  "lastVerifiedCommit": "9696818871f58246333fdf372051626c62b120dd",
-  "lastUpdated": "2026-10-04",
-  "currentPhase": 5,
+  "lastVerifiedCommit": "6b78b08e41d0791e49ff486b996d7490666db970",
+  "lastUpdated": "2026-10-11",
+  "currentPhase": 6,
   "nextPhase": 6,
-  "currentPhaseName": "Learned Crewmate Strategic Policy",
+  "currentPhaseName": "Multi-Agent Expansion",
   "nextPhaseName": "Multi-Agent Expansion",
   "roadmap": [
     {
@@ -48,7 +48,7 @@
       "id": "phase-6",
       "label": "Phase 6",
       "name": "Multi-Agent Expansion",
-      "status": "future"
+      "status": "in-progress"
     }
   ],
   "headlineResults": {
@@ -146,5 +146,48 @@
         "caption": "Three full-memory training seeds; the current-only comparison has one seed and is exploratory."
       }
     ]
+  },
+  "nextStep": "Finish the fixed nine-model crew study after execution approval",
+  "phase6Study": {
+    "stage": "roadmap-in-progress",
+    "implementationStatus": "development-prs-unmerged",
+    "researchEvidenceCommit": "8187d51b6bbeb506fd2a59f25504adb368ab5006",
+    "vision": {
+      "crewmate": 4.5,
+      "impostor": 6.75,
+      "status": "research-reference-unmerged"
+    },
+    "checkpoints": [
+      {
+        "label": "6.0 \u2014 baseline and vision",
+        "status": "in-review",
+        "detail": "Verified on development PR #3; role-specific implementation is not merged into main."
+      },
+      {
+        "label": "6.1 \u2014 stronger crewmate",
+        "status": "in-progress",
+        "detail": "Finish the unchanged nine-model study. Three seed-17 runs completed on unmerged PR #4; six replications await execution approval. Final tests stay closed."
+      },
+      {
+        "label": "6.2 \u2014 learned impostor",
+        "status": "planned",
+        "detail": "Train and validate a learned impostor against learned and scripted crew after the crewmate evaluation gate."
+      },
+      {
+        "label": "6.3 \u2014 two-impostor population expansion",
+        "status": "planned",
+        "detail": "Fully AI-controlled matches with exactly two impostors: 6 crew + 2, 8 crew + 2 (10 players; main target), then 10 crew + 2. Current matches remain four crew + one impostor."
+      },
+      {
+        "label": "6.4 \u2014 adaptation and self-play",
+        "status": "planned",
+        "detail": "Alternating training, historical opponent pools, competitive adaptation and eventual multi-agent self-play after policy/population validation."
+      }
+    ],
+    "plannedTools": {
+      "liveTrainingDashboard": "planned",
+      "checkpointReplaySkeldViewer": "planned",
+      "parallelTrainingBenchmarks": "planned; one versus two processes, optionally three if faster and reproducible"
+    }
   }
 }

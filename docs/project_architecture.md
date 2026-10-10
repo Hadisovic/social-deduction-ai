@@ -1,6 +1,26 @@
 # Architecture — information boundary, simulation and beliefs
 
-## Current executable architecture (Phase 4 complete)
+## Current executable architecture (Phase 5 release; Phase 6 planned/in review)
+
+The released Phase 5 PPO candidate scorer chooses a focal crewmate's strategic
+actions from legitimate observations, memory and frozen belief estimates; A*
+executes navigation. Main still runs the established five-player simulator.
+Phase 6's role-specific vision and study runners are on unmerged PRs #3/#4;
+this documentation publication does not add them to main.
+
+The [approved roadmap](phase6_roadmap.md) finishes the frozen nine-model crew
+study, then learns an impostor, then plans exactly-two-impostor populations:
+6 crew + 2, **8 crew + 2 (10 players; main target)**, then 10 crew + 2. Variable
+player/role counts, beliefs, masks, spawn safety, outcomes and replay compatibility
+need review before implementation. Alternating learning, historical opponent
+pools, adaptation and eventual self-play follow in 6.4. None is operational.
+
+The local dashboard/replay viewer and one/two/optional-three-process benchmarks
+are planned separately; spectator truth must never enter a policy or consume its
+RNG. Preserve independent actor memories, private observations and task ownership,
+with research reference vision 4.5/6.75. No task or vote mechanic changes occur.
+
+## Historical Phase 4 observer architecture
 
 `Phase3Game` -> trusted `project_game` -> immutable `Phase3Observation` ->
 `ActorMemory` -> identity-free candidate features -> shared `CandidateNet` ->

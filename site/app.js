@@ -190,12 +190,12 @@ const MILESTONES = Object.freeze([
     notes: 'Validation selected the policy before final testing. Independent tests show useful learned task contribution versus idle and random controls; superiority over scripted play is not established. The evidence includes own tasks, voting coverage, action choices and uncertainty. PPO loss is not accuracy.'
   },
   {
-    id: 'mission12', number: '12', originalMilestone: 'PHASE 6', phaseStatusId: 'phase-6', short: 'Multi-agent future', title: 'Multi-Agent Future', status: 'future', waypoint: 'mission12',
-    date: 'LATER · FUTURE WORK', location: 'SHIELDS · OPEN QUESTION',
-    summary: 'Only after one learned crewmate works, explore adapting opponents and self-play.',
-    detail: 'Learned impostors, multi-agent training, self-play, and richer conversations are future questions—not current capabilities or promised results.',
-    metric: 'LATER', metricLabel: 'outside the current project scope',
-    tags: ['AFTER PHASE 5', 'NO SELF-PLAY YET'], notes: 'First establish whether one crewmate policy is useful and whether its results hold up against unfamiliar strategies.'
+    id: 'mission12', number: '12', originalMilestone: 'PHASE 6', phaseStatusId: 'phase-6', short: 'Phase 6 roadmap', title: 'Phase 6 Roadmap', status: 'in-progress', waypoint: 'mission12',
+    date: '11 OCT · ROADMAP IN PROGRESS', location: 'SHIELDS · RESEARCH FRONTIER',
+    summary: 'Finish the crew study, then learn an impostor and expand the team.',
+    detail: 'The nine-model crewmate study keeps its existing protocol. Three first runs are recorded on an unmerged development branch; six await approval. Next, a learned impostor will be trained against learned and scripted crew. Future matches are planned with exactly two impostors: 6 crew + 2, 8 crew + 2 (10 players; main target), then 10 crew + 2.',
+    metric: 'IN PROGRESS', metricLabel: 'approved roadmap; future capabilities remain planned',
+    tags: ['IMPLEMENTATION IN REVIEW', 'NO SELF-PLAY YET'], notes: 'Alternating training, historical opponent pools, adaptation and eventual self-play are planned after those gates. A local live training dashboard, checkpoint/replay Skeld viewer and parallel-training benchmarks are planned, not implemented. Compare one versus two processes, optionally three only if faster and reproducible. Main still runs four crew and one impostor; vision changes and pilot trainers remain in separate unmerged reviews. Research reference vision is crew 4.5 and impostor 6.75. Private observations, independent memory and task ownership stay protected; task and voting mechanics stay unchanged. Final tests remain closed. Historical Phase 5 results above retain their original rules and meaning.'
   }
 ]);
 
