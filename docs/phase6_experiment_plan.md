@@ -138,7 +138,24 @@ Phase 5. Development intervals are diagnostics; tiny checks do not establish
 strategic improvement. Scripted impostor wins/eliminations are logged, not
 misrepresented as learned-impostor results.
 
-## Proposed first approved batch — isolate memory and learned suspicion
+## Staged approval and measured pilot
+
+The owner approved only the three seed-17 models and their validation. They
+completed under the [frozen staged protocol](phase6_1_staged_protocol.md), with
+[curated evidence](benchmarks/phase6/seed17-stage/README.md). Training took 91.58
+minutes, screening 15.73 minutes and extended validation 55.97 minutes; total
+stage 2.746 hours including verification/overhead. Each model completed 8,192
+decisions. Final-test partitions remain closed. The original nine-model proposal
+below is historical planning, not authorization for the remaining six.
+
+Measured estimate for six seed-29/43 replications: **4.28 additional hours**
+(3.05 training + 1.22 validation, controls reused, two workers), with a provisional
+3.42–6.42-hour planning range. It excludes final testing and new diagnostics.
+Useful own tasks and advantages over idle/random are observed, but voting differs
+sharply and superiority over scripted is not established. No replicated memory
+effect or Phase 6.1 acceptance is claimed. Stop here for review and budget approval.
+
+## Original nine-model proposal — isolate memory and learned suspicion
 
 Nine fresh models: three conditions (`full`, `history_no_belief`, `current_only`)
 × initialization seeds 17, 29, 43. Each: 8,192 decisions, Euclidean descriptor,

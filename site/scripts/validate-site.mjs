@@ -50,8 +50,8 @@ for (const [index, [id, expectedStatus]] of expectedRoadmap.entries()) {
   phaseIds.add(phase.id);
 }
 assert(status.roadmap.filter(phase => phase.status === 'in-progress').length === 1 && status.phase5Study?.stage === 'evaluated', 'Phase 5 stays evaluated; Phase 6 alone is in progress.');
-assert(status.phase6Study?.stage === 'foundation-verified' && status.phase6Study.vision.crewmate === 4.5 && status.phase6Study.vision.impostor === 6.75, 'Phase 6 public vision must match verified reference rules.');
-assert(status.phase6Study.checkpoints.length === 5 && status.phase6Study.checkpoints[0].status === 'complete' && status.phase6Study.checkpoints.slice(1).every(item => item.status === 'planned'), 'Only the foundation is verified; later Phase 6 milestones remain planned.');
+assert(status.phase6Study?.stage === 'seed17-validation-complete' && status.phase6Study.vision.crewmate === 4.5 && status.phase6Study.vision.impostor === 6.75, 'Phase 6 public vision must match verified reference rules.');
+assert(status.phase6Study.checkpoints.length === 5 && status.phase6Study.checkpoints[0].status === 'complete' && status.phase6Study.checkpoints[1].status === 'in-progress' && status.phase6Study.checkpoints.slice(2).every(item => item.status === 'planned'), 'Foundation is verified; the seed-17 pilot does not complete Phase 6.1 or later milestones.');
 assert(app.includes('mission.researchCheckpoints') && app.includes('projectStatus.phase6Study.checkpoints') && app.includes('walls block both'), 'The existing Phase 6 mission must represent internal checkpoints and actual vision.');
 assert(status.currentPhaseName === status.roadmap.find(phase => phase.id === `phase-${status.currentPhase}`).name, 'currentPhaseName must match the roadmap.');
 assert(status.nextPhaseName === status.roadmap.find(phase => phase.id === `phase-${status.nextPhase}`).name, 'nextPhaseName must match the roadmap.');

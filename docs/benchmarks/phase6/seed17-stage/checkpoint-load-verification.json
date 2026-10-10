@@ -1,0 +1,66 @@
+{
+  "status": "passed",
+  "checkpoints": [
+    {
+      "path": "artifacts/phase6/seed17-stage/full/checkpoint-2048.pt",
+      "sha256_matches": true
+    },
+    {
+      "path": "artifacts/phase6/seed17-stage/full/checkpoint-4096.pt",
+      "sha256_matches": true
+    },
+    {
+      "path": "artifacts/phase6/seed17-stage/full/checkpoint-6144.pt",
+      "sha256_matches": true
+    },
+    {
+      "path": "artifacts/phase6/seed17-stage/full/checkpoint-8192.pt",
+      "sha256_matches": true
+    },
+    {
+      "path": "artifacts/phase6/seed17-stage/full/policy.pt",
+      "sha256_matches": true
+    },
+    {
+      "path": "artifacts/phase6/seed17-stage/history_no_belief/checkpoint-2048.pt",
+      "sha256_matches": true
+    },
+    {
+      "path": "artifacts/phase6/seed17-stage/history_no_belief/checkpoint-4096.pt",
+      "sha256_matches": true
+    },
+    {
+      "path": "artifacts/phase6/seed17-stage/history_no_belief/checkpoint-6144.pt",
+      "sha256_matches": true
+    },
+    {
+      "path": "artifacts/phase6/seed17-stage/history_no_belief/checkpoint-8192.pt",
+      "sha256_matches": true
+    },
+    {
+      "path": "artifacts/phase6/seed17-stage/history_no_belief/policy.pt",
+      "sha256_matches": true
+    },
+    {
+      "path": "artifacts/phase6/seed17-stage/current_only/checkpoint-2048.pt",
+      "sha256_matches": true
+    },
+    {
+      "path": "artifacts/phase6/seed17-stage/current_only/checkpoint-4096.pt",
+      "sha256_matches": true
+    },
+    {
+      "path": "artifacts/phase6/seed17-stage/current_only/checkpoint-6144.pt",
+      "sha256_matches": true
+    },
+    {
+      "path": "artifacts/phase6/seed17-stage/current_only/checkpoint-8192.pt",
+      "sha256_matches": true
+    },
+    {
+      "path": "artifacts/phase6/seed17-stage/current_only/policy.pt",
+      "sha256_matches": true
+    }
+  ],
+  "final_test_opened": false
+}

@@ -1,0 +1,53 @@
+{
+  "full_minus_other": {
+    "history_no_belief": {
+      "crew_win": {
+        "mean_difference": 0.025,
+        "paired_bootstrap95": [
+          -0.02,
+          0.07
+        ]
+      },
+      "own_tasks": {
+        "mean_difference": -0.045,
+        "paired_bootstrap95": [
+          -0.145,
+          0.05
+        ]
+      }
+    },
+    "current_only": {
+      "crew_win": {
+        "mean_difference": 0.0,
+        "paired_bootstrap95": [
+          -0.045,
+          0.045
+        ]
+      },
+      "own_tasks": {
+        "mean_difference": -0.035,
+        "paired_bootstrap95": [
+          -0.15,
+          0.075
+        ]
+      }
+    },
+    "phase5_release_transfer": {
+      "crew_win": {
+        "mean_difference": 0.03,
+        "paired_bootstrap95": [
+          -0.02,
+          0.085
+        ]
+      },
+      "own_tasks": {
+        "mean_difference": 0.16,
+        "paired_bootstrap95": [
+          0.01,
+          0.305
+        ]
+      }
+    }
+  },
+  "notice": "Exploratory paired validation-match uncertainty; one training initialization, selection reused, no final-test or training-seed claims."
+}

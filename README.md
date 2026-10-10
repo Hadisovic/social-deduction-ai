@@ -5,12 +5,22 @@
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/)
 [![PyTorch 2.6](https://img.shields.io/badge/PyTorch-2.6-ee4c2c.svg)](https://pytorch.org/)
 [![Gymnasium](https://img.shields.io/badge/Gymnasium-1.1+-darkgreen.svg)](https://gymnasium.farama.org/)
-[![Tests Passing](https://img.shields.io/badge/tests-416%20passed-success.svg)](docs/benchmarks/phase6/foundation/pytest.xml)
+[![Tests Passing](https://img.shields.io/badge/tests-431%20passed-success.svg)](docs/benchmarks/phase6/seed17-stage/runner-pytest.xml)
 [![Phase 1](https://img.shields.io/badge/phase%201-complete%20%2F%20frozen-blueviolet.svg)](docs/information_contract.md)
 
 Explore the [interactive project journey](https://hadisovic.github.io/social-deduction-ai/) for a visual, non-technical guide to the milestones and current research frontier.
 
 ## Phase 6 foundations — in progress
+
+The approved [Phase 6.1 seed-17 pilot](docs/benchmarks/phase6/seed17-stage/README.md)
+completed three 8,192-decision models and validation only. Full / history without
+belief / current-only won 90.0% / 87.5% / 90.0% of 200 paired validation matches,
+with 1.905 / 1.950 / 1.940 own tasks per match. The full model cast 167 votes
+(159 correct); the ablations cast one and zero. All exceeded idle/random controls;
+none established superiority over scripted play. Training took 91.58 minutes;
+the whole stage took 2.746 hours. Remaining six models are estimated at 4.28
+additional hours (planning range 3.42–6.42), awaiting approval. Final partitions
+remain unopened; Phase 6.1 is not accepted and no release model is replaced.
 
 Phase 6.0 adds opt-in role-specific vision: crew sees **4.5** simulator units,
 impostors **6.75**, and native walls/opaque props block both. Historical rules

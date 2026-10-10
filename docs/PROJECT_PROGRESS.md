@@ -2,6 +2,27 @@
 
 > **Canonical Document**: Detailed technical history, experimental results, architectural pivot, and roadmap status for the **Social Deduction AI** project.
 
+## 2026-10-10: Phase 6.1 seed-17 pilot completed; replications gated
+
+The approved full / history_no_belief / current_only runs each completed 8,192
+decisions. Four saved checkpoints per condition were screened on 20 paired fresh
+validation seeds; locked checkpoints were evaluated on 200 with four controls.
+Full and current-only won 90.0%, history without belief 87.5%; scripted 91.0%,
+frozen Phase 5 transfer 87.0%, idle 55.5%, random 46.5%. Paired uncertainty supports
+advantages over idle/random but not superiority over scripted. Learned own task
+contribution was 1.905 / 1.950 / 1.940. Full cast 167 votes, 159 correct, no skips;
+the ablations cast one and zero. All own-report counts were zero. Voting calibration
+and training-seed stability remain open questions.
+
+431 tests passed; all 60 selected screening rows reproduced exactly in extended
+validation. Historical models, all checkpoints, source digests and selection are
+preserved. No illegal actions, navigation failures, timeouts or registered fail-safe
+stops. Training took 91.58 minutes (16.382 simulated hours), the whole stage 2.746
+hours. Remaining six are estimated at 4.28 additional hours, range 3.42–6.42.
+They await approval; final partitions stay unopened and PR #3 is not merged.
+This is validation from one initialization per condition, not Phase 6.1 acceptance.
+See [complete pilot evidence](benchmarks/phase6/seed17-stage/README.md).
+
 ## 2026-10-10: Phase 6.0 vision and experiment foundations
 
 Dedicated development branch starts from `6b78b08`. Historical Phase 4/5 releases,

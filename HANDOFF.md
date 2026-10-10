@@ -1,15 +1,36 @@
 # Continuation handoff
 
-## CURRENT — Phase 6.1 staged authorization
+## CURRENT — Phase 6.1 seed-17 pilot complete; stopped at approval gate
 
-The owner approved runner verification and only three 8,192-decision models:
-full / history_no_belief / current_only, all seed 17. See
-`docs/phase6_1_staged_protocol.md`. Train serially; screen four checkpoints per
-condition on 20 fresh validation seeds; lock selection; validate selected models
-and four controls on 200 seeds. Final familiar/patient partitions remain unopened.
-Report actual timings/behavior/failures before seeds 29 and 43. Preserve all earlier
-checkpoints and PR #3; do not merge automatically. Older scope limits below are
-historical where superseded by this explicit staged approval.
+The approved three 8,192-decision seed-17 models and all 1,640 registered validation
+executions completed successfully at frozen source revision
+`cd48b65a8de9de0cab33894ddb2558057487847d`. New branch:
+`codex/phase6-1-seed17-stage`, based on PR #3's `1610113`. PR #3 stays unmerged.
+See `docs/benchmarks/phase6/seed17-stage/README.md` and the registered protocol.
+Full / history_no_belief / current_only: 90.0% / 87.5% / 90.0% crew wins,
+1.905 / 1.950 / 1.940 own tasks per 200 paired ID validation matches. Full cast
+167 votes (159 correct, zero skips); the ablations cast one/zero and skipped
+178/179. No own reports. No illegal actions, navigation failures or timeouts.
+All beat idle/random; superiority over scripted (91.0%) is not established.
+
+All trained to 8192; the immutable 20-seed screen selected 6144 / 4096 / 2048.
+The first 20 of 200 extended seeds repeat screening exactly (60 rows). All initial
+tensor hashes match; source/checkpoint/frozen release hashes verified. 431 tests
+passed before execution. Fifteen experimental checkpoint copies and full curated
+records are committed; all prior checkpoints and raw local outputs remain.
+Actual training: 91.58 minutes and 16.382 simulated hours; whole stage: 2.746 hours.
+Remaining six estimate: 4.28 additional hours, planning range 3.42–6.42, with controls
+reused. No seeds 29/43, final familiar/patient matches, merge or production deploy.
+
+**Wait for new budget approval before remaining six. Phase 6.1 is not accepted.**
+Task behavior is useful; voting still needs scrutiny: full never skips and made
+8 wrong votes, while ablations mostly abstain. Five innocent team ejections in
+full matches do not by themselves attribute each ejection to the focal policy.
+Do not claim replicated memory benefits from one initialization. Future seed
+support requires a reviewed runner extension; the current CLI deliberately fixes
+seed 17. Keep recorded sources intact or preserve a compatible source snapshot.
+The website draft labels 6.1 in progress; 6.2–6.4 remain planned. Historical scope
+limits below are superseded only by the explicit three-model staged approval.
 
 ## CURRENT — Phase 6.0 foundations, 2026-10-10
 

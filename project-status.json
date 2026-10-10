@@ -147,9 +147,9 @@
       }
     ]
   },
-  "nextStep": "Next research: Phase 6.1 \u2014 improve the crewmate",
+  "nextStep": "Next research: approve Phase 6.1 replications after the seed-17 review",
   "phase6Study": {
-    "stage": "foundation-verified",
+    "stage": "seed17-validation-complete",
     "vision": {
       "crewmate": 4.5,
       "impostor": 6.75,
@@ -163,8 +163,8 @@
       },
       {
         "label": "6.1 \u2014 stronger crewmate",
-        "status": "planned",
-        "detail": "Compare task commitments, voting, memory and suspicion with matched experiments. Larger runs await budget approval."
+        "status": "in-progress",
+        "detail": "Three seed-17 models trained and checked on 200 shared validation matches each. They finish useful tasks; voting differs sharply. Replications await approval and final tests remain closed. This milestone is not accepted."
       },
       {
         "label": "6.2 \u2014 learned impostor",

@@ -191,14 +191,14 @@ const MILESTONES = Object.freeze([
   },
   {
     id: 'mission12', number: '12', originalMilestone: 'PHASE 6', phaseStatusId: 'phase-6', short: 'Phase 6 research', title: 'Phase 6 Foundations', status: 'in-progress', waypoint: 'mission12',
-    date: '10 OCT · FOUNDATION VERIFIED', location: 'SHIELDS · RESEARCH FRONTIER',
+    date: '10 OCT · FIRST PILOT VALIDATED', location: 'SHIELDS · RESEARCH FRONTIER',
     summary: 'Crewmates have shorter vision than impostors, but walls block both.',
-    detail: 'The first foundation is ready: different sight ranges change what players can actually see and remember. The next experiments will study task choices, voting and the value of memory before training a new opponent.',
-    metric: 'FOUNDATION', metricLabel: 'vision rules verified; stronger strategy remains research',
+    detail: 'The vision foundation is ready. Three first crewmate models now finish useful tasks in shared validation games. The model with memory and suspicion votes often; the other two mostly skip. More independent training runs are needed before deciding what helps.',
+    metric: 'FIRST PILOT', metricLabel: 'three models checked; replications and final tests pending',
     tags: ['CREW 4.5 · IMPOSTOR 6.75', 'NO SELF-PLAY YET'],
     screenshot: 'assets/phase6/vision-preview.png', imageAlt: 'Simulator spectator preview of role-specific wall-clipped vision',
     imageCaption: 'A verified simulator rules preview. The outlines are spectator aids; walls block both roles. No learned impostor is shown.',
-    notes: 'Only after one learned crewmate works, explore adapting opponents and self-play. Phase 6 is in progress, not complete. Short development checks verify the tools; they do not establish improved win rates. The Phase 5 results above keep their original rules and meaning.'
+    notes: 'The first pilot clearly beats idle and random controls, but does not establish stronger play than the scripted crewmate. It uses one training initialization and validation games only; final tests are still closed. Further training awaits budget approval. Phase 6 is in progress, not complete. The Phase 5 results above keep their original rules and meaning.'
   }
 ]);
 

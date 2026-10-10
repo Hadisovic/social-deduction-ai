@@ -5,6 +5,10 @@ history_no_belief and current_only, all initialization seed 17. The remaining
 six models and all final tests remain unapproved. PR #3 stays open/unmerged.
 This branch starts from its verified `16101131e9787c9bcbaebe250d25d6dd0d3574fb`.
 
+The approved stage has now completed at source revision `cd48b65a8de9de0cab33894ddb2558057487847d`.
+See the [actual results and revised estimate](benchmarks/phase6/seed17-stage/README.md).
+The protocol below was frozen before execution; no selection rule changed.
+
 ## Context map and design review
 
 | File | Purpose / change |
