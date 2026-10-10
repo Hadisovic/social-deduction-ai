@@ -2,6 +2,23 @@
 
 > **Canonical Document**: Detailed technical history, experimental results, architectural pivot, and roadmap status for the **Social Deduction AI** project.
 
+## 2026-10-11: Phase 6 roadmap published separately from implementation
+
+The [agreed roadmap](phase6_roadmap.md) marks Phase 6 in progress: finish the
+unchanged nine-model crew study (6.1), learned impostor against learned/scripted
+crew (6.2), fully AI-controlled two-impostor matches at 6 crew + 2, **8 crew + 2
+(10 players; main target)**, then 10 crew + 2 (6.3), followed by alternating
+training, historical pools, adaptation and eventual self-play (6.4).
+
+Live training visualization with resource/ETA graphs, checkpoint/replay Skeld
+viewing and isolated parallel-training benchmarks are planned, not implemented.
+Main remains the Phase 5 runtime; PR #3's vision implementation and PR #4's
+seed-17 study remain unmerged, with evidence preserved on their branches. The
+documentation-only publication imports no source, model or benchmark changes.
+Six further models and final tests remain gated; role-specific research vision
+4.5/6.75, private memories/observations and task ownership are preserved in that
+plan. Existing task/vote mechanics and historical results below are unchanged.
+
 ## 2026-10-04: Phase 5 simulator study evaluated
 
 All 9,000 final matches completed after immutable validation selection. The
