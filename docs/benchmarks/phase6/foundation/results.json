@@ -1,0 +1,535 @@
+{
+  "status": "foundation_verification_only",
+  "date": "2026-10-10",
+  "baseline_sha": "6b78b08e41d0791e49ff486b996d7490666db970",
+  "branch": "feat/phase6-vision-crewmate-foundation",
+  "rules": {
+    "version": 6,
+    "crewmate_sight_range": 4.5,
+    "impostor_sight_range": 6.75
+  },
+  "hardware": {
+    "cpu": "Intel Core i7-13700HX",
+    "physical_cores": 16,
+    "logical_processors": 24,
+    "ram_gib_approx": 32,
+    "training_torch_threads": 1
+  },
+  "runtime": {
+    "python": "3.12.10",
+    "torch": "2.6.0+cpu"
+  },
+  "pytest": {
+    "passed": 416,
+    "skipped": 0,
+    "failed": 0,
+    "new_tests": 44,
+    "seconds": 170.0,
+    "warning": "Gymnasium checker cannot test alternative render modes without an environment spec.",
+    "xml_sha256": "e95ff3968b5f9edea904d168380b13975d2bd42bf98f4129dad495b86c9414e6",
+    "headless_sdl_video_audio": true,
+    "optional_local_models_and_art_copied_but_uncommitted": true
+  },
+  "smoke_runs": [
+    {
+      "run": "reference-17",
+      "config": {
+        "experiment": {
+          "memory": "full",
+          "distance": "euclidean",
+          "max_option_seconds": 24,
+          "learning_rate": 0.0003,
+          "rollout": 256,
+          "crewmate_sight_range": 4.5,
+          "impostor_sight_range": 6.75,
+          "schema": "phase6-options-v1"
+        },
+        "phase6_sources": {
+          "among_us_map.py": "67b40bdd03bba566b641be48e2c5f78fb81dab954113596adebc1387e40ed303",
+          "assets/skeld/among_us_map.json": "9e5e0cd925ab3ede95aae67e42dbb6ebd67717bf8e7365eb655628c669a2d58c",
+          "navigation_service.py": "3a1af1e6d7eb143144293e75704e60f29fcb2741bd3fdbeca33ad969d9af406d",
+          "phase3_bots.py": "dac423d42c94c9abdd12df9020a995ede9d32817cc1a26614f7ce693a1d5ca33",
+          "phase3_engine.py": "4e62637693ed4ec012799a8434a224ef5762a0fced55d1b24e6e161725d00972",
+          "phase3_runner.py": "74c4899dd3ea1d51151ba5b37ecb9db3b214c13c65a4a6222b1c7ad7059ab59a",
+          "phase4_scripts.py": "fecd39960d378dc236de42ca98e8ed572767314b310e18ad2f0b16a93e740f43",
+          "phase5_env.py": "502423fcb7a4d5187d35f532006b193061804f05f7f43c995767cb685530e963",
+          "phase5_features.py": "0c12db6a50470b56ab9420c0bee5c56e7d1d29f36b0ff3dfcba7e290b341f7bf",
+          "phase5_options.py": "97d0a5ee05183cf3880e7c9fd079e9f9bbdebb6e8ad0f26819c76b3b9642c059",
+          "phase5_options_training.py": "f4e0c9b95d975e4122450c549bec8b5c7added294188221c8a6cb611de738918",
+          "phase5_policy.py": "e98036186b54737a9de5b105a3aed5ae11f6bb560ec0c4b9e33b830b88176223",
+          "phase5_runner.py": "58d9cd1dada86e0f6d6aae9e22adeb2571d639717dbcd33572e6c7a6e06eb2d9",
+          "phase5_training.py": "7fb799793b0fc6f47b1b32eae98a7144cf951930ccbad89e1c690d2e42b48582",
+          "phase6/__init__.py": "0237d84ee241e2a18a31574c71d0e5ab4c60a9b98a900d2ac87eb2dfda2dc89a",
+          "phase6/audit.py": "5e3b6bdd299c856a26794d2b1ed50ee9cc2cdcbd8c981692b1ffdaff4f4b2834",
+          "phase6/config.py": "ea8983f37ef91d31367b242964d530f8b2b9c341e48e9ccad56be3e82dfcd739",
+          "phase6/env.py": "a42be0c068981ccd017e7c27c83a0cb57493c28eb17506afe1c9adb92af20fed",
+          "phase6/evaluate.py": "df3db88b214f81ec403682277bcc7e72fb5c12ce7296bf9cbb22d7b33e018df8",
+          "phase6/train.py": "b73d8609a072fc4cd0d52ff81e2c65926e5441a685c64de39368e111aab559d8",
+          "run_phase6.py": "35045451858a27c47fea9145b14e118135e4dfbc056b1a06614b2aa586339130",
+          "social_deduction/phase3_api.py": "778fa0fe24df9e24e6eada33dfc0afd1e12a714965eeaecc2e89d75752861b8c",
+          "social_deduction/phase3_observation.py": "9e1f3f81307b089d841cba324d4a66fe05e1ad260a535bdd0bc912c4ddb00682"
+        },
+        "baseline_sha": "6b78b08e41d0791e49ff486b996d7490666db970",
+        "initialization_seed": 17,
+        "steps": 256,
+        "seed_partition": "smoke_train",
+        "frozen_sha256": {
+          "artifacts/phase4/belief.pt": "e931b1fa8a421d9a329a29280d676bf52f793cc8f07c02b8da61f2b3e5e537d1",
+          "artifacts/phase5/release/policy.pt": "1038054357cf1c2e0372de7e6c4c226aaa73162d667372e1cf876de82aa867b1"
+        },
+        "smoke_only": true
+      },
+      "training": {
+        "status": "infrastructure_smoke_only",
+        "decisions": 256,
+        "episodes": [
+          {
+            "seed": 1260000,
+            "return": -15.791666666666668,
+            "crew_win": false,
+            "reason": "PARITY",
+            "time": 94.8,
+            "own_tasks": 0,
+            "survival": 94.8,
+            "illegal_actions": 0,
+            "navigation_failures": 0
+          },
+          {
+            "seed": 1260001,
+            "return": -15.841666666666667,
+            "crew_win": false,
+            "reason": "PARITY",
+            "time": 100.8,
+            "own_tasks": 0,
+            "survival": 100.8,
+            "illegal_actions": 0,
+            "navigation_failures": 0
+          },
+          {
+            "seed": 1260002,
+            "return": -14.906666666666668,
+            "crew_win": false,
+            "reason": "PARITY",
+            "time": 108.6,
+            "own_tasks": 1,
+            "survival": 108.6,
+            "illegal_actions": 0,
+            "navigation_failures": 0
+          },
+          {
+            "seed": 1260003,
+            "return": 4.344999999999979,
+            "crew_win": true,
+            "reason": "IMPOSTOR_EJECTED",
+            "time": 78.6,
+            "own_tasks": 0,
+            "survival": 63.2,
+            "illegal_actions": 0,
+            "navigation_failures": 0
+          }
+        ],
+        "simulated_seconds": 444.0000000000012,
+        "seconds": 79.98622909997357,
+        "checkpoint_sha256": "2d4935bb06a755c21cb9bd2bf566fa8ede1c29411ad278c692edb4db4c6dbf03",
+        "belief_frozen": true,
+        "policy_weights_changed": true,
+        "updates": [
+          {
+            "decisions": 256,
+            "simulated_seconds": 444.0000000000012,
+            "seconds": 79.96473010000773,
+            "loss": 2.2734676003456116,
+            "policy_loss": -9.792298078536987e-05,
+            "value_loss": 4.580365307629108,
+            "gradient_norm": 0.9434395395219326,
+            "entropy": 0.8308563232421875,
+            "approximate_kl": 2.300366759300232e-07,
+            "clip_fraction": 0.0,
+            "explained_variance": 0.002411067485809326,
+            "entropy_coefficient": 0.02,
+            "advantage_mean": -0.8335901498794556,
+            "advantage_std": 1.9956376552581787,
+            "return_std": 1.9962300980433085
+          }
+        ]
+      },
+      "source_matches_final": false
+    },
+    {
+      "run": "history-17",
+      "config": {
+        "experiment": {
+          "memory": "history_no_belief",
+          "distance": "euclidean",
+          "max_option_seconds": 24,
+          "learning_rate": 0.0003,
+          "rollout": 256,
+          "crewmate_sight_range": 4.5,
+          "impostor_sight_range": 6.75,
+          "schema": "phase6-options-v1"
+        },
+        "phase6_sources": {
+          "among_us_map.py": "67b40bdd03bba566b641be48e2c5f78fb81dab954113596adebc1387e40ed303",
+          "assets/skeld/among_us_map.json": "9e5e0cd925ab3ede95aae67e42dbb6ebd67717bf8e7365eb655628c669a2d58c",
+          "navigation_service.py": "3a1af1e6d7eb143144293e75704e60f29fcb2741bd3fdbeca33ad969d9af406d",
+          "phase3_bots.py": "dac423d42c94c9abdd12df9020a995ede9d32817cc1a26614f7ce693a1d5ca33",
+          "phase3_engine.py": "4e62637693ed4ec012799a8434a224ef5762a0fced55d1b24e6e161725d00972",
+          "phase3_runner.py": "74c4899dd3ea1d51151ba5b37ecb9db3b214c13c65a4a6222b1c7ad7059ab59a",
+          "phase4_scripts.py": "fecd39960d378dc236de42ca98e8ed572767314b310e18ad2f0b16a93e740f43",
+          "phase5_env.py": "502423fcb7a4d5187d35f532006b193061804f05f7f43c995767cb685530e963",
+          "phase5_features.py": "0c12db6a50470b56ab9420c0bee5c56e7d1d29f36b0ff3dfcba7e290b341f7bf",
+          "phase5_options.py": "97d0a5ee05183cf3880e7c9fd079e9f9bbdebb6e8ad0f26819c76b3b9642c059",
+          "phase5_options_training.py": "f4e0c9b95d975e4122450c549bec8b5c7added294188221c8a6cb611de738918",
+          "phase5_policy.py": "e98036186b54737a9de5b105a3aed5ae11f6bb560ec0c4b9e33b830b88176223",
+          "phase5_runner.py": "58d9cd1dada86e0f6d6aae9e22adeb2571d639717dbcd33572e6c7a6e06eb2d9",
+          "phase5_training.py": "7fb799793b0fc6f47b1b32eae98a7144cf951930ccbad89e1c690d2e42b48582",
+          "phase6/__init__.py": "0237d84ee241e2a18a31574c71d0e5ab4c60a9b98a900d2ac87eb2dfda2dc89a",
+          "phase6/audit.py": "5e3b6bdd299c856a26794d2b1ed50ee9cc2cdcbd8c981692b1ffdaff4f4b2834",
+          "phase6/config.py": "ea8983f37ef91d31367b242964d530f8b2b9c341e48e9ccad56be3e82dfcd739",
+          "phase6/env.py": "a42be0c068981ccd017e7c27c83a0cb57493c28eb17506afe1c9adb92af20fed",
+          "phase6/evaluate.py": "df3db88b214f81ec403682277bcc7e72fb5c12ce7296bf9cbb22d7b33e018df8",
+          "phase6/train.py": "b73d8609a072fc4cd0d52ff81e2c65926e5441a685c64de39368e111aab559d8",
+          "run_phase6.py": "35045451858a27c47fea9145b14e118135e4dfbc056b1a06614b2aa586339130",
+          "social_deduction/phase3_api.py": "778fa0fe24df9e24e6eada33dfc0afd1e12a714965eeaecc2e89d75752861b8c",
+          "social_deduction/phase3_observation.py": "9e1f3f81307b089d841cba324d4a66fe05e1ad260a535bdd0bc912c4ddb00682"
+        },
+        "baseline_sha": "6b78b08e41d0791e49ff486b996d7490666db970",
+        "initialization_seed": 17,
+        "steps": 256,
+        "seed_partition": "smoke_train",
+        "frozen_sha256": {
+          "artifacts/phase4/belief.pt": "e931b1fa8a421d9a329a29280d676bf52f793cc8f07c02b8da61f2b3e5e537d1",
+          "artifacts/phase5/release/policy.pt": "1038054357cf1c2e0372de7e6c4c226aaa73162d667372e1cf876de82aa867b1"
+        },
+        "smoke_only": true
+      },
+      "training": {
+        "status": "infrastructure_smoke_only",
+        "decisions": 256,
+        "episodes": [
+          {
+            "seed": 1260000,
+            "return": -15.791666666666668,
+            "crew_win": false,
+            "reason": "PARITY",
+            "time": 94.8,
+            "own_tasks": 0,
+            "survival": 94.8,
+            "illegal_actions": 0,
+            "navigation_failures": 0
+          },
+          {
+            "seed": 1260001,
+            "return": -15.841666666666667,
+            "crew_win": false,
+            "reason": "PARITY",
+            "time": 100.8,
+            "own_tasks": 0,
+            "survival": 100.8,
+            "illegal_actions": 0,
+            "navigation_failures": 0
+          },
+          {
+            "seed": 1260002,
+            "return": -14.906666666666668,
+            "crew_win": false,
+            "reason": "PARITY",
+            "time": 108.6,
+            "own_tasks": 1,
+            "survival": 108.6,
+            "illegal_actions": 0,
+            "navigation_failures": 0
+          },
+          {
+            "seed": 1260003,
+            "return": 4.344999999999979,
+            "crew_win": true,
+            "reason": "IMPOSTOR_EJECTED",
+            "time": 78.6,
+            "own_tasks": 0,
+            "survival": 63.2,
+            "illegal_actions": 0,
+            "navigation_failures": 0
+          }
+        ],
+        "simulated_seconds": 444.0000000000012,
+        "seconds": 68.13583450001897,
+        "checkpoint_sha256": "4c3b293bb4554af84e9712b1f703c69b550f468b502faa8dd83eb8d0c30ceee3",
+        "belief_frozen": true,
+        "policy_weights_changed": true,
+        "updates": [
+          {
+            "decisions": 256,
+            "simulated_seconds": 444.0000000000012,
+            "seconds": 68.11985470005311,
+            "loss": 2.27350259386003,
+            "policy_loss": -9.866768959909678e-05,
+            "value_loss": 4.5804368034005165,
+            "gradient_norm": 0.9437740258872509,
+            "entropy": 0.8308562636375427,
+            "approximate_kl": 2.3492611944675446e-07,
+            "clip_fraction": 0.0,
+            "explained_variance": 0.002420783042907715,
+            "entropy_coefficient": 0.02,
+            "advantage_mean": -0.833582878112793,
+            "advantage_std": 1.9956505298614502,
+            "return_std": 1.9962268760464315
+          }
+        ]
+      },
+      "source_matches_final": false
+    },
+    {
+      "run": "current-route-short-17-boundary",
+      "config": {
+        "experiment": {
+          "memory": "current_only",
+          "distance": "route",
+          "max_option_seconds": 12,
+          "learning_rate": 0.0003,
+          "rollout": 512,
+          "crewmate_sight_range": 4.5,
+          "impostor_sight_range": 6.75,
+          "schema": "phase6-options-v1"
+        },
+        "phase6_sources": {
+          "among_us_map.py": "67b40bdd03bba566b641be48e2c5f78fb81dab954113596adebc1387e40ed303",
+          "assets/skeld/among_us_map.json": "9e5e0cd925ab3ede95aae67e42dbb6ebd67717bf8e7365eb655628c669a2d58c",
+          "navigation_service.py": "3a1af1e6d7eb143144293e75704e60f29fcb2741bd3fdbeca33ad969d9af406d",
+          "phase3_bots.py": "dac423d42c94c9abdd12df9020a995ede9d32817cc1a26614f7ce693a1d5ca33",
+          "phase3_engine.py": "4e62637693ed4ec012799a8434a224ef5762a0fced55d1b24e6e161725d00972",
+          "phase3_runner.py": "74c4899dd3ea1d51151ba5b37ecb9db3b214c13c65a4a6222b1c7ad7059ab59a",
+          "phase4_scripts.py": "fecd39960d378dc236de42ca98e8ed572767314b310e18ad2f0b16a93e740f43",
+          "phase5_env.py": "502423fcb7a4d5187d35f532006b193061804f05f7f43c995767cb685530e963",
+          "phase5_features.py": "0c12db6a50470b56ab9420c0bee5c56e7d1d29f36b0ff3dfcba7e290b341f7bf",
+          "phase5_options.py": "97d0a5ee05183cf3880e7c9fd079e9f9bbdebb6e8ad0f26819c76b3b9642c059",
+          "phase5_options_training.py": "f4e0c9b95d975e4122450c549bec8b5c7added294188221c8a6cb611de738918",
+          "phase5_policy.py": "e98036186b54737a9de5b105a3aed5ae11f6bb560ec0c4b9e33b830b88176223",
+          "phase5_runner.py": "58d9cd1dada86e0f6d6aae9e22adeb2571d639717dbcd33572e6c7a6e06eb2d9",
+          "phase5_training.py": "7fb799793b0fc6f47b1b32eae98a7144cf951930ccbad89e1c690d2e42b48582",
+          "phase6/__init__.py": "0237d84ee241e2a18a31574c71d0e5ab4c60a9b98a900d2ac87eb2dfda2dc89a",
+          "phase6/audit.py": "5e3b6bdd299c856a26794d2b1ed50ee9cc2cdcbd8c981692b1ffdaff4f4b2834",
+          "phase6/config.py": "ea8983f37ef91d31367b242964d530f8b2b9c341e48e9ccad56be3e82dfcd739",
+          "phase6/env.py": "e6b2c6df711275c9acd0844cbc49a885f18699417cd9adff4da0b61e76887888",
+          "phase6/evaluate.py": "df3db88b214f81ec403682277bcc7e72fb5c12ce7296bf9cbb22d7b33e018df8",
+          "phase6/train.py": "b73d8609a072fc4cd0d52ff81e2c65926e5441a685c64de39368e111aab559d8",
+          "run_phase6.py": "35045451858a27c47fea9145b14e118135e4dfbc056b1a06614b2aa586339130",
+          "social_deduction/phase3_api.py": "778fa0fe24df9e24e6eada33dfc0afd1e12a714965eeaecc2e89d75752861b8c",
+          "social_deduction/phase3_observation.py": "9e1f3f81307b089d841cba324d4a66fe05e1ad260a535bdd0bc912c4ddb00682"
+        },
+        "baseline_sha": "6b78b08e41d0791e49ff486b996d7490666db970",
+        "initialization_seed": 17,
+        "steps": 256,
+        "seed_partition": "smoke_train",
+        "frozen_sha256": {
+          "artifacts/phase4/belief.pt": "e931b1fa8a421d9a329a29280d676bf52f793cc8f07c02b8da61f2b3e5e537d1",
+          "artifacts/phase5/release/policy.pt": "1038054357cf1c2e0372de7e6c4c226aaa73162d667372e1cf876de82aa867b1"
+        },
+        "smoke_only": true
+      },
+      "training": {
+        "status": "infrastructure_smoke_only",
+        "decisions": 256,
+        "episodes": [
+          {
+            "seed": 1260000,
+            "return": -15.57,
+            "crew_win": false,
+            "reason": "PARITY",
+            "time": 68.4,
+            "own_tasks": 0,
+            "survival": 68.4,
+            "illegal_actions": 0,
+            "navigation_failures": 0
+          },
+          {
+            "seed": 1260001,
+            "return": -15.636666666666741,
+            "crew_win": false,
+            "reason": "PARITY",
+            "time": 76.2,
+            "own_tasks": 0,
+            "survival": 18.8,
+            "illegal_actions": 0,
+            "navigation_failures": 0
+          },
+          {
+            "seed": 1260002,
+            "return": -10.616666666666667,
+            "crew_win": false,
+            "reason": "PARITY",
+            "time": 73.8,
+            "own_tasks": 0,
+            "survival": 73.8,
+            "illegal_actions": 0,
+            "navigation_failures": 0
+          },
+          {
+            "seed": 1260003,
+            "return": -15.546666666666688,
+            "crew_win": false,
+            "reason": "PARITY",
+            "time": 65.4,
+            "own_tasks": 0,
+            "survival": 48.0,
+            "illegal_actions": 0,
+            "navigation_failures": 0
+          },
+          {
+            "seed": 1260004,
+            "return": 4.356666666666623,
+            "crew_win": true,
+            "reason": "TASKS_COMPLETED",
+            "time": 77.2,
+            "own_tasks": 0,
+            "survival": 44.0,
+            "illegal_actions": 0,
+            "navigation_failures": 0
+          },
+          {
+            "seed": 1260005,
+            "return": 4.471666666666602,
+            "crew_win": true,
+            "reason": "TASKS_COMPLETED",
+            "time": 63.4,
+            "own_tasks": 0,
+            "survival": 14.0,
+            "illegal_actions": 0,
+            "navigation_failures": 0
+          },
+          {
+            "seed": 1260006,
+            "return": 4.406666666666596,
+            "crew_win": true,
+            "reason": "TASKS_COMPLETED",
+            "time": 71.2,
+            "own_tasks": 0,
+            "survival": 17.6,
+            "illegal_actions": 0,
+            "navigation_failures": 0
+          },
+          {
+            "seed": 1260007,
+            "return": 4.7099999999999795,
+            "crew_win": true,
+            "reason": "IMPOSTOR_EJECTED",
+            "time": 34.8,
+            "own_tasks": 0,
+            "survival": 19.4,
+            "illegal_actions": 0,
+            "navigation_failures": 0
+          },
+          {
+            "seed": 1260008,
+            "return": 6.211666666666638,
+            "crew_win": true,
+            "reason": "TASKS_COMPLETED",
+            "time": 94.6,
+            "own_tasks": 2,
+            "survival": 71.0,
+            "illegal_actions": 0,
+            "navigation_failures": 0
+          },
+          {
+            "seed": 1260009,
+            "return": 4.461666666666607,
+            "crew_win": true,
+            "reason": "TASKS_COMPLETED",
+            "time": 64.6,
+            "own_tasks": 0,
+            "survival": 19.4,
+            "illegal_actions": 0,
+            "navigation_failures": 0
+          }
+        ],
+        "simulated_seconds": 767.0000000000014,
+        "seconds": 105.19695579999825,
+        "checkpoint_sha256": "46fa7634db8aff23815593181ce6f38f23d9dd8753cdce69a60e2ce32527b7ca",
+        "belief_frozen": true,
+        "policy_weights_changed": true,
+        "updates": [
+          {
+            "decisions": 256,
+            "simulated_seconds": 767.0000000000014,
+            "seconds": 105.18777239997871,
+            "loss": 7.585704877972603,
+            "policy_loss": -4.251301288604736e-05,
+            "value_loss": 15.20748284459114,
+            "gradient_norm": 2.3231447115540504,
+            "entropy": 0.8997067213058472,
+            "approximate_kl": 4.0209852159023285e-07,
+            "clip_fraction": 0.0,
+            "explained_variance": 0.002805769443511963,
+            "entropy_coefficient": 0.02,
+            "advantage_mean": -1.964919090270996,
+            "advantage_std": 3.4034082889556885,
+            "return_std": 3.4036179336582726
+          }
+        ]
+      },
+      "source_matches_final": true
+    }
+  ],
+  "aborted_smoke": {
+    "run": "current-route-short-17",
+    "reason": "Repeated route calculation in unused intermediate packets; stopped before PPO update, then optimized and rerun in a fresh directory.",
+    "checkpoint_created": false
+  },
+  "development": {
+    "executed_matches": 28,
+    "counts": {
+      "development-a": 10,
+      "development-b": 10,
+      "development-current": 8
+    },
+    "sha256": {
+      "development-a": "055fca6034b9e7be4f2dcd327ce54df94969ee1601674de2236d021447765b2c",
+      "development-b": "055fca6034b9e7be4f2dcd327ce54df94969ee1601674de2236d021447765b2c",
+      "development-current": "9b6250d675dd78caac018fe431ae1fe9b85f94da66eea9656569d522b20d1758"
+    },
+    "repeat_byte_identical": true,
+    "final_controls_match_original": true,
+    "illegal_actions": 0,
+    "navigation_failures": 0,
+    "validation_or_final_partitions_opened": false,
+    "notice": "Development diagnostics only; repeated cases do not constitute independent evidence."
+  },
+  "viewers": {
+    "phase4": "headless two-frame launch passed",
+    "phase5": "headless two-frame launch passed",
+    "phase6": "headless two-frame launch passed; frozen Phase 5 transfer, scripted impostor; captured header inspected after label-width repair"
+  },
+  "site": {
+    "local_assets": 94,
+    "base_path": "/social-deduction-ai/",
+    "source_and_build_validators": "passed",
+    "browser": [
+      {
+        "width": 1440,
+        "mission12": "passed",
+        "phase5_preserved": true,
+        "collaborators": "red/black",
+        "base_path": "passed",
+        "errors": [],
+        "failed_assets": []
+      },
+      {
+        "width": 390,
+        "mission12": "passed",
+        "phase5_preserved": true,
+        "collaborators": "red/black",
+        "base_path": "passed",
+        "errors": [],
+        "failed_assets": []
+      }
+    ],
+    "production_deployed": false
+  },
+  "legacy_seed7": {
+    "actor": "42b5d65e484869fe42e7ac19fce9b9e18d50eb09c64d5db53ba762f52ed180b1",
+    "truth": "dc6fe1cc6002983acf19a187d86625b8bc5bebfff15a0225e3148b28d36ff6e0",
+    "trajectory": "e737fc8956990b6f9fed8bb3cabb334957e44b28adba5c42ad89a5efcc31a401"
+  },
+  "notice": "Phase 6 is not complete. No trained-impostor result, strategic-gain claim or reserved evaluation. Larger work awaits compute approval.",
+  "verified_research_commit": "9c4e8cdc7167910ba9a774dbb18c380cdab5e348"
+}

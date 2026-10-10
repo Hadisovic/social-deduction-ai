@@ -93,6 +93,11 @@ class Intent:
 
 @dataclass(frozen=True, slots=True)
 class ObservationSettings:
+    """Actor's effective sight distance, resolved by trusted versioned rules.
+
+    The value shape stays identical to legacy packets. Larger sight grants no
+    extra private fields; kill/report distances remain separate mechanics.
+    """
     sight_range: float = 4.5
     report_range: float = 1.3
     kill_range: float = 1.1

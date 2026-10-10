@@ -1,0 +1,72 @@
+{
+  "status": "experimental_validation_only",
+  "models": {
+    "full": [
+      {
+        "path": "artifacts/phase6/seed17-stage/full/checkpoint-2048.pt",
+        "sha256": "6b998e64853ecb6fa8c2dd3739c97db253d4a88ee398071f76d3f5570e695c72"
+      },
+      {
+        "path": "artifacts/phase6/seed17-stage/full/checkpoint-4096.pt",
+        "sha256": "902d3bf2691b4b64496b226356df6089ddca022d17fb34d805ff364a952ce58e"
+      },
+      {
+        "path": "artifacts/phase6/seed17-stage/full/checkpoint-6144.pt",
+        "sha256": "c77a11973241f9c7d3d752385bde58d9fba476a6745e6d6ed956e8122ba2b2b9"
+      },
+      {
+        "path": "artifacts/phase6/seed17-stage/full/checkpoint-8192.pt",
+        "sha256": "579debbb9c4486b8ad56c2c9c92a8ee7c29e5458177887a1902d4f21d3a52ed0"
+      },
+      {
+        "path": "artifacts/phase6/seed17-stage/full/policy.pt",
+        "sha256": "6626b7517b1a0ae3a49dedb454c0b0afdde1420692dd8753976b561c02b14429"
+      }
+    ],
+    "history_no_belief": [
+      {
+        "path": "artifacts/phase6/seed17-stage/history_no_belief/checkpoint-2048.pt",
+        "sha256": "c5ef118fc263fd46901e80b841be088770a609cdc223fbf26d676d2f9483d2b7"
+      },
+      {
+        "path": "artifacts/phase6/seed17-stage/history_no_belief/checkpoint-4096.pt",
+        "sha256": "609e7c87efbb64db24a8a4ea30956ba93b537a9028e386079af0b84434716750"
+      },
+      {
+        "path": "artifacts/phase6/seed17-stage/history_no_belief/checkpoint-6144.pt",
+        "sha256": "c45e65fea62b902fff0c35dbbb1b2b79af44013c0ea5b264d54d08953a7fac98"
+      },
+      {
+        "path": "artifacts/phase6/seed17-stage/history_no_belief/checkpoint-8192.pt",
+        "sha256": "422764c0d932e2a30567fa0ad69f66452d976c0b9a523f58f3b28fabd3ac57d4"
+      },
+      {
+        "path": "artifacts/phase6/seed17-stage/history_no_belief/policy.pt",
+        "sha256": "dd935a4121ce24c84dc59cfb411026f5a1c139a6f57a5c12963ea7f54b0bef2d"
+      }
+    ],
+    "current_only": [
+      {
+        "path": "artifacts/phase6/seed17-stage/current_only/checkpoint-2048.pt",
+        "sha256": "c77781da066a978cee16030445bd588658b236ae24c60891319d036f8ec65ba7"
+      },
+      {
+        "path": "artifacts/phase6/seed17-stage/current_only/checkpoint-4096.pt",
+        "sha256": "6c258c003a997e831574b6da26c3192e19153bd73398d3e57ac258763bac68eb"
+      },
+      {
+        "path": "artifacts/phase6/seed17-stage/current_only/checkpoint-6144.pt",
+        "sha256": "049ca816d033fb9a80fd6e5680cc114d31987d087a28cdbc395a5aad945d3d82"
+      },
+      {
+        "path": "artifacts/phase6/seed17-stage/current_only/checkpoint-8192.pt",
+        "sha256": "0de8e84196a8d150b9a5f7b67d468baf427163edac5ab02a12bcc2f21c3f6216"
+      },
+      {
+        "path": "artifacts/phase6/seed17-stage/current_only/policy.pt",
+        "sha256": "0c26614db9b7781f6d810535ed46316a5b8274b9fc8e9ccf427dd098a307f96d"
+      }
+    ]
+  },
+  "final_test_opened": false
+}

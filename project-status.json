@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
   "project": "Hadisovic/social-deduction-ai",
-  "lastVerifiedCommit": "9696818871f58246333fdf372051626c62b120dd",
-  "lastUpdated": "2026-10-04",
-  "currentPhase": 5,
+  "lastVerifiedCommit": "e20879551aad8cec30284c9a52e52f482dc787ad",
+  "lastUpdated": "2026-10-10",
+  "currentPhase": 6,
   "nextPhase": 6,
-  "currentPhaseName": "Learned Crewmate Strategic Policy",
+  "currentPhaseName": "Multi-Agent Expansion",
   "nextPhaseName": "Multi-Agent Expansion",
   "roadmap": [
     {
@@ -48,7 +48,7 @@
       "id": "phase-6",
       "label": "Phase 6",
       "name": "Multi-Agent Expansion",
-      "status": "future"
+      "status": "in-progress"
     }
   ],
   "headlineResults": {
@@ -144,6 +144,42 @@
         "path": "assets/phase5/training_seed_comparison.png",
         "title": "Independent training seeds",
         "caption": "Three full-memory training seeds; the current-only comparison has one seed and is exploratory."
+      }
+    ]
+  },
+  "nextStep": "Next research: approve Phase 6.1 replications after the seed-17 review",
+  "phase6Study": {
+    "stage": "seed17-validation-complete",
+    "vision": {
+      "crewmate": 4.5,
+      "impostor": 6.75,
+      "rulesVersion": 6
+    },
+    "checkpoints": [
+      {
+        "label": "6.0 \u2014 baseline and vision",
+        "status": "complete",
+        "detail": "Historical releases preserved; shorter crew vision, longer impostor vision and wall blocking verified."
+      },
+      {
+        "label": "6.1 \u2014 stronger crewmate",
+        "status": "in-progress",
+        "detail": "Three seed-17 models trained and checked on 200 shared validation matches each. They finish useful tasks; voting differs sharply. Replications await approval and final tests remain closed. This milestone is not accepted."
+      },
+      {
+        "label": "6.2 \u2014 learned impostor",
+        "status": "planned",
+        "detail": "Train one new opponent only after the crewmate passes its evaluation gate."
+      },
+      {
+        "label": "6.3 \u2014 competitive adaptation",
+        "status": "planned",
+        "detail": "Alternate training against frozen policies and check older opponents."
+      },
+      {
+        "label": "6.4 \u2014 multi-agent learning",
+        "status": "planned",
+        "detail": "Expand gradually and measure cooperation and cross-play. Self-play is not operational."
       }
     ]
   }

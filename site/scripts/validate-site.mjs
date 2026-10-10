@@ -34,11 +34,11 @@ assert(status.schemaVersion === 1, 'Unsupported project-status.json schemaVersio
 assert(status.project === 'Hadisovic/social-deduction-ai', 'Project status points to the wrong repository.');
 assert(/^\d{4}-\d{2}-\d{2}$/.test(status.lastUpdated), 'lastUpdated must be an ISO date.');
 assert(/^[0-9a-f]{40}$/i.test(status.lastVerifiedCommit), 'lastVerifiedCommit must be a full Git SHA.');
-assert(status.currentPhase === 5 && status.nextPhase === 6, 'The current study is Phase 5; Phase 6 follows its evidence gate.');
+assert(status.currentPhase === 6 && status.nextPhase === 6, 'Phase 6 is the current major phase; its next step is Phase 6.1.');
 
 const expectedRoadmap = [
   ['phase-1', 'complete'], ['phase-1.5', 'complete'], ['phase-2', 'complete'],
-  ['phase-3', 'complete'], ['phase-4', 'complete'], ['phase-5', 'complete'], ['phase-6', 'future']
+  ['phase-3', 'complete'], ['phase-4', 'complete'], ['phase-5', 'complete'], ['phase-6', 'in-progress']
 ];
 assert(Array.isArray(status.roadmap) && status.roadmap.length === expectedRoadmap.length, 'Roadmap must contain exactly the seven tracked phases.');
 const phaseIds = new Set();
@@ -49,9 +49,10 @@ for (const [index, [id, expectedStatus]] of expectedRoadmap.entries()) {
   assert(!phaseIds.has(phase.id), `Duplicate roadmap phase id: ${phase.id}.`);
   phaseIds.add(phase.id);
 }
-assert(status.roadmap.filter(phase => phase.status === 'in-progress').length === 0, 'This evaluated study is complete; future work has not started.');
-assert(status.roadmap.find(phase => phase.id === `phase-${status.currentPhase}`)?.status === 'complete' && status.phase5Study?.stage === 'evaluated', 'A completed Phase 5 requires evaluated study evidence.');
-assert(status.roadmap.find(phase => phase.id === `phase-${status.nextPhase}`)?.status === 'future', 'Multi-agent work remains gated future work.');
+assert(status.roadmap.filter(phase => phase.status === 'in-progress').length === 1 && status.phase5Study?.stage === 'evaluated', 'Phase 5 stays evaluated; Phase 6 alone is in progress.');
+assert(status.phase6Study?.stage === 'seed17-validation-complete' && status.phase6Study.vision.crewmate === 4.5 && status.phase6Study.vision.impostor === 6.75, 'Phase 6 public vision must match verified reference rules.');
+assert(status.phase6Study.checkpoints.length === 5 && status.phase6Study.checkpoints[0].status === 'complete' && status.phase6Study.checkpoints[1].status === 'in-progress' && status.phase6Study.checkpoints.slice(2).every(item => item.status === 'planned'), 'Foundation is verified; the seed-17 pilot does not complete Phase 6.1 or later milestones.');
+assert(app.includes('mission.researchCheckpoints') && app.includes('projectStatus.phase6Study.checkpoints') && app.includes('walls block both'), 'The existing Phase 6 mission must represent internal checkpoints and actual vision.');
 assert(status.currentPhaseName === status.roadmap.find(phase => phase.id === `phase-${status.currentPhase}`).name, 'currentPhaseName must match the roadmap.');
 assert(status.nextPhaseName === status.roadmap.find(phase => phase.id === `phase-${status.nextPhase}`).name, 'nextPhaseName must match the roadmap.');
 

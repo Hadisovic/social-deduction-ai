@@ -1,0 +1,498 @@
+{
+  "status": "development_diagnostic_only",
+  "baseline_sha": "6b78b08e41d0791e49ff486b996d7490666db970",
+  "experiment": {
+    "memory": "full",
+    "distance": "euclidean",
+    "max_option_seconds": 24,
+    "learning_rate": 0.0003,
+    "rollout": 256,
+    "crewmate_sight_range": 4.5,
+    "impostor_sight_range": 6.75,
+    "schema": "phase6-options-v1"
+  },
+  "seed_partition": "development",
+  "match_seeds": [
+    1250000
+  ],
+  "phase6_sources": {
+    "among_us_map.py": "67b40bdd03bba566b641be48e2c5f78fb81dab954113596adebc1387e40ed303",
+    "assets/skeld/among_us_map.json": "9e5e0cd925ab3ede95aae67e42dbb6ebd67717bf8e7365eb655628c669a2d58c",
+    "navigation_service.py": "3a1af1e6d7eb143144293e75704e60f29fcb2741bd3fdbeca33ad969d9af406d",
+    "phase3_bots.py": "dac423d42c94c9abdd12df9020a995ede9d32817cc1a26614f7ce693a1d5ca33",
+    "phase3_engine.py": "4e62637693ed4ec012799a8434a224ef5762a0fced55d1b24e6e161725d00972",
+    "phase3_runner.py": "74c4899dd3ea1d51151ba5b37ecb9db3b214c13c65a4a6222b1c7ad7059ab59a",
+    "phase4_scripts.py": "fecd39960d378dc236de42ca98e8ed572767314b310e18ad2f0b16a93e740f43",
+    "phase5_env.py": "502423fcb7a4d5187d35f532006b193061804f05f7f43c995767cb685530e963",
+    "phase5_features.py": "0c12db6a50470b56ab9420c0bee5c56e7d1d29f36b0ff3dfcba7e290b341f7bf",
+    "phase5_options.py": "97d0a5ee05183cf3880e7c9fd079e9f9bbdebb6e8ad0f26819c76b3b9642c059",
+    "phase5_options_training.py": "f4e0c9b95d975e4122450c549bec8b5c7added294188221c8a6cb611de738918",
+    "phase5_policy.py": "e98036186b54737a9de5b105a3aed5ae11f6bb560ec0c4b9e33b830b88176223",
+    "phase5_runner.py": "58d9cd1dada86e0f6d6aae9e22adeb2571d639717dbcd33572e6c7a6e06eb2d9",
+    "phase5_training.py": "7fb799793b0fc6f47b1b32eae98a7144cf951930ccbad89e1c690d2e42b48582",
+    "phase6/__init__.py": "0237d84ee241e2a18a31574c71d0e5ab4c60a9b98a900d2ac87eb2dfda2dc89a",
+    "phase6/audit.py": "5e3b6bdd299c856a26794d2b1ed50ee9cc2cdcbd8c981692b1ffdaff4f4b2834",
+    "phase6/config.py": "ea8983f37ef91d31367b242964d530f8b2b9c341e48e9ccad56be3e82dfcd739",
+    "phase6/env.py": "a42be0c068981ccd017e7c27c83a0cb57493c28eb17506afe1c9adb92af20fed",
+    "phase6/evaluate.py": "df3db88b214f81ec403682277bcc7e72fb5c12ce7296bf9cbb22d7b33e018df8",
+    "phase6/train.py": "b73d8609a072fc4cd0d52ff81e2c65926e5441a685c64de39368e111aab559d8",
+    "run_phase6.py": "35045451858a27c47fea9145b14e118135e4dfbc056b1a06614b2aa586339130",
+    "social_deduction/phase3_api.py": "778fa0fe24df9e24e6eada33dfc0afd1e12a714965eeaecc2e89d75752861b8c",
+    "social_deduction/phase3_observation.py": "9e1f3f81307b089d841cba324d4a66fe05e1ad260a535bdd0bc912c4ddb00682"
+  },
+  "seconds": 84.92000019998522,
+  "checkpoint_sha256": {
+    "artifacts\\phase6\\smoke\\reference-17\\policy.pt": "2d4935bb06a755c21cb9bd2bf566fa8ede1c29411ad278c692edb4db4c6dbf03"
+  },
+  "release_sha256": "1038054357cf1c2e0372de7e6c4c226aaa73162d667372e1cf876de82aa867b1",
+  "metrics": {
+    "artifacts\\phase6\\smoke\\reference-17\\policy.pt": {
+      "ID": {
+        "matches": 1,
+        "crew_win_rate": 1.0,
+        "win_rate_wilson95": [
+          0.20654329147389294,
+          1.0
+        ],
+        "mean_own_tasks": 2.0,
+        "mean_survival": 55.6,
+        "voting_accuracy": null,
+        "voting_match_bootstrap95": null,
+        "votes_cast": 0,
+        "votes_correct": 0,
+        "skips": 1,
+        "illegal_actions": 0,
+        "navigation_failures": 0,
+        "timeouts": 0,
+        "correct_ejections": 0,
+        "innocent_ejections": 0
+      },
+      "patient": {
+        "matches": 1,
+        "crew_win_rate": 1.0,
+        "win_rate_wilson95": [
+          0.20654329147389294,
+          1.0
+        ],
+        "mean_own_tasks": 2.0,
+        "mean_survival": 55.6,
+        "voting_accuracy": null,
+        "voting_match_bootstrap95": null,
+        "votes_cast": 0,
+        "votes_correct": 0,
+        "skips": 1,
+        "illegal_actions": 0,
+        "navigation_failures": 0,
+        "timeouts": 0,
+        "correct_ejections": 0,
+        "innocent_ejections": 0
+      }
+    },
+    "idle": {
+      "ID": {
+        "matches": 1,
+        "crew_win_rate": 1.0,
+        "win_rate_wilson95": [
+          0.20654329147389294,
+          1.0
+        ],
+        "mean_own_tasks": 0.0,
+        "mean_survival": 20.0,
+        "voting_accuracy": null,
+        "voting_match_bootstrap95": null,
+        "votes_cast": 0,
+        "votes_correct": 0,
+        "skips": 0,
+        "illegal_actions": 0,
+        "navigation_failures": 0,
+        "timeouts": 0,
+        "correct_ejections": 0,
+        "innocent_ejections": 0
+      },
+      "patient": {
+        "matches": 1,
+        "crew_win_rate": 1.0,
+        "win_rate_wilson95": [
+          0.20654329147389294,
+          1.0
+        ],
+        "mean_own_tasks": 0.0,
+        "mean_survival": 20.0,
+        "voting_accuracy": null,
+        "voting_match_bootstrap95": null,
+        "votes_cast": 0,
+        "votes_correct": 0,
+        "skips": 0,
+        "illegal_actions": 0,
+        "navigation_failures": 0,
+        "timeouts": 0,
+        "correct_ejections": 0,
+        "innocent_ejections": 0
+      }
+    },
+    "phase5_release_transfer": {
+      "ID": {
+        "matches": 1,
+        "crew_win_rate": 1.0,
+        "win_rate_wilson95": [
+          0.20654329147389294,
+          1.0
+        ],
+        "mean_own_tasks": 2.0,
+        "mean_survival": 55.6,
+        "voting_accuracy": 1.0,
+        "voting_match_bootstrap95": [
+          1.0,
+          1.0
+        ],
+        "votes_cast": 1,
+        "votes_correct": 1,
+        "skips": 0,
+        "illegal_actions": 0,
+        "navigation_failures": 0,
+        "timeouts": 0,
+        "correct_ejections": 0,
+        "innocent_ejections": 0
+      },
+      "patient": {
+        "matches": 1,
+        "crew_win_rate": 1.0,
+        "win_rate_wilson95": [
+          0.20654329147389294,
+          1.0
+        ],
+        "mean_own_tasks": 2.0,
+        "mean_survival": 55.6,
+        "voting_accuracy": 1.0,
+        "voting_match_bootstrap95": [
+          1.0,
+          1.0
+        ],
+        "votes_cast": 1,
+        "votes_correct": 1,
+        "skips": 0,
+        "illegal_actions": 0,
+        "navigation_failures": 0,
+        "timeouts": 0,
+        "correct_ejections": 0,
+        "innocent_ejections": 0
+      }
+    },
+    "random": {
+      "ID": {
+        "matches": 1,
+        "crew_win_rate": 0.0,
+        "win_rate_wilson95": [
+          0.0,
+          0.7934567085261071
+        ],
+        "mean_own_tasks": 0.0,
+        "mean_survival": 102.0,
+        "voting_accuracy": 0.5,
+        "voting_match_bootstrap95": [
+          0.5,
+          0.5
+        ],
+        "votes_cast": 2,
+        "votes_correct": 1,
+        "skips": 0,
+        "illegal_actions": 0,
+        "navigation_failures": 0,
+        "timeouts": 0,
+        "correct_ejections": 0,
+        "innocent_ejections": 0
+      },
+      "patient": {
+        "matches": 1,
+        "crew_win_rate": 0.0,
+        "win_rate_wilson95": [
+          0.0,
+          0.7934567085261071
+        ],
+        "mean_own_tasks": 0.0,
+        "mean_survival": 102.0,
+        "voting_accuracy": 0.5,
+        "voting_match_bootstrap95": [
+          0.5,
+          0.5
+        ],
+        "votes_cast": 2,
+        "votes_correct": 1,
+        "skips": 0,
+        "illegal_actions": 0,
+        "navigation_failures": 0,
+        "timeouts": 0,
+        "correct_ejections": 0,
+        "innocent_ejections": 0
+      }
+    },
+    "scripted": {
+      "ID": {
+        "matches": 1,
+        "crew_win_rate": 1.0,
+        "win_rate_wilson95": [
+          0.20654329147389294,
+          1.0
+        ],
+        "mean_own_tasks": 3.0,
+        "mean_survival": 58.0,
+        "voting_accuracy": null,
+        "voting_match_bootstrap95": null,
+        "votes_cast": 0,
+        "votes_correct": 0,
+        "skips": 1,
+        "illegal_actions": 0,
+        "navigation_failures": 0,
+        "timeouts": 0,
+        "correct_ejections": 0,
+        "innocent_ejections": 0
+      },
+      "patient": {
+        "matches": 1,
+        "crew_win_rate": 1.0,
+        "win_rate_wilson95": [
+          0.20654329147389294,
+          1.0
+        ],
+        "mean_own_tasks": 3.0,
+        "mean_survival": 58.0,
+        "voting_accuracy": null,
+        "voting_match_bootstrap95": null,
+        "votes_cast": 0,
+        "votes_correct": 0,
+        "skips": 1,
+        "illegal_actions": 0,
+        "navigation_failures": 0,
+        "timeouts": 0,
+        "correct_ejections": 0,
+        "innocent_ejections": 0
+      }
+    }
+  },
+  "paired": {
+    "artifacts\\phase6\\smoke\\reference-17\\policy.pt": {
+      "ID": {
+        "scripted": {
+          "matches": 1,
+          "win_rate_difference": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ]
+        },
+        "idle": {
+          "matches": 1,
+          "win_rate_difference": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ]
+        },
+        "random": {
+          "matches": 1,
+          "win_rate_difference": 1.0,
+          "bootstrap95": [
+            1.0,
+            1.0
+          ]
+        }
+      },
+      "patient": {
+        "scripted": {
+          "matches": 1,
+          "win_rate_difference": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ]
+        },
+        "idle": {
+          "matches": 1,
+          "win_rate_difference": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ]
+        },
+        "random": {
+          "matches": 1,
+          "win_rate_difference": 1.0,
+          "bootstrap95": [
+            1.0,
+            1.0
+          ]
+        }
+      }
+    },
+    "idle": {
+      "ID": {
+        "scripted": {
+          "matches": 1,
+          "win_rate_difference": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ]
+        },
+        "random": {
+          "matches": 1,
+          "win_rate_difference": 1.0,
+          "bootstrap95": [
+            1.0,
+            1.0
+          ]
+        }
+      },
+      "patient": {
+        "scripted": {
+          "matches": 1,
+          "win_rate_difference": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ]
+        },
+        "random": {
+          "matches": 1,
+          "win_rate_difference": 1.0,
+          "bootstrap95": [
+            1.0,
+            1.0
+          ]
+        }
+      }
+    },
+    "phase5_release_transfer": {
+      "ID": {
+        "scripted": {
+          "matches": 1,
+          "win_rate_difference": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ]
+        },
+        "idle": {
+          "matches": 1,
+          "win_rate_difference": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ]
+        },
+        "random": {
+          "matches": 1,
+          "win_rate_difference": 1.0,
+          "bootstrap95": [
+            1.0,
+            1.0
+          ]
+        }
+      },
+      "patient": {
+        "scripted": {
+          "matches": 1,
+          "win_rate_difference": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ]
+        },
+        "idle": {
+          "matches": 1,
+          "win_rate_difference": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ]
+        },
+        "random": {
+          "matches": 1,
+          "win_rate_difference": 1.0,
+          "bootstrap95": [
+            1.0,
+            1.0
+          ]
+        }
+      }
+    },
+    "random": {
+      "ID": {
+        "scripted": {
+          "matches": 1,
+          "win_rate_difference": -1.0,
+          "bootstrap95": [
+            -1.0,
+            -1.0
+          ]
+        },
+        "idle": {
+          "matches": 1,
+          "win_rate_difference": -1.0,
+          "bootstrap95": [
+            -1.0,
+            -1.0
+          ]
+        }
+      },
+      "patient": {
+        "scripted": {
+          "matches": 1,
+          "win_rate_difference": -1.0,
+          "bootstrap95": [
+            -1.0,
+            -1.0
+          ]
+        },
+        "idle": {
+          "matches": 1,
+          "win_rate_difference": -1.0,
+          "bootstrap95": [
+            -1.0,
+            -1.0
+          ]
+        }
+      }
+    },
+    "scripted": {
+      "ID": {
+        "idle": {
+          "matches": 1,
+          "win_rate_difference": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ]
+        },
+        "random": {
+          "matches": 1,
+          "win_rate_difference": 1.0,
+          "bootstrap95": [
+            1.0,
+            1.0
+          ]
+        }
+      },
+      "patient": {
+        "idle": {
+          "matches": 1,
+          "win_rate_difference": 0.0,
+          "bootstrap95": [
+            0.0,
+            0.0
+          ]
+        },
+        "random": {
+          "matches": 1,
+          "win_rate_difference": 1.0,
+          "bootstrap95": [
+            1.0,
+            1.0
+          ]
+        }
+      }
+    }
+  },
+  "uncertainty": "95% Wilson match intervals and paired whole-match bootstrap; not training-seed confidence intervals.",
+  "notice": "No strategic-gain claim from small dev checks. Release transfer is reevaluated under new rules; no learned impostor exists."
+}
