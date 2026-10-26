@@ -1,0 +1,22 @@
+{
+  "schema": "crewmate-environment-v2.1",
+  "player_speed": 1.0,
+  "confirm_ejects": true,
+  "anonymous_votes": false,
+  "task_bar_updates": "always",
+  "emergency_meetings": 1,
+  "emergency_cooldown": 0.0,
+  "discussion_seconds": 15.0,
+  "voting_seconds": 120.0,
+  "crewmate_vision": 1.0,
+  "impostor_vision": 1.5,
+  "common_tasks": 1,
+  "long_tasks": 1,
+  "short_tasks": 2,
+  "visual_tasks": true,
+  "kill_cooldown": 45.0,
+  "kill_distance_character_widths": 2.0,
+  "dt": 0.2,
+  "decision_interval": 0.6,
+  "timeout": 900.0
+}

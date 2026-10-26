@@ -38,7 +38,8 @@ a future V2 policy; an old policy must not silently receive a changed input cont
 - Canonical settings: speed 2.5 (1× approximate), crew sight 4.5, impostor sight 6.75,
   kill distance 4 × collision radius (two diameters, 0.88 at default geometry), initial
   and subsequent kill cooldown 45 seconds, discussion 15, voting 120, one emergency,
-  emergency cooldown zero, visible vote identities, confirmed ejections, always-updating
+  emergency cooldown zero, vote identities/targets revealed at results (only has-voted
+  markers during voting), confirmed ejections, always-updating
   aggregate completed-task bar and local visual-task completion evidence. Timeout is a
   separate explicit 900-second engineering cap, configurable; not a retail lobby setting.
 - Task types/categories come from native metadata. Timed interactions are authored
