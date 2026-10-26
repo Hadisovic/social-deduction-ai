@@ -292,4 +292,3 @@ def test_candidate_network_is_equivariant_to_player_row_order(models,planner):
         a,av=policy({k:torch.as_tensor(v).unsqueeze(0) for k,v in packet.items()})
         b,bv=policy({k:torch.as_tensor(v).unsqueeze(0) for k,v in other.items()})
     torch.testing.assert_close(a.probs,b.probs);torch.testing.assert_close(av,bv)
-
