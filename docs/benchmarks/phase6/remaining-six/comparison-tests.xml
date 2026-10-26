@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="6.040" timestamp="2026-10-26T14:56:27.108052+03:00" hostname="Neo"><testcase classname="tests.test_phase6_comparison" name="test_nine_model_report_uses_paired_scenarios_not_fake_extra_seeds" time="2.733" /></testsuite></testsuites>

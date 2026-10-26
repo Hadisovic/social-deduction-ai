@@ -68,7 +68,7 @@ def test_existing_output_and_selection_are_preserved(tmp_path):
     lock=tmp_path/'selection.json';write_json(lock,dict(selected='old'),exclusive=True)
     with pytest.raises(FileExistsError):write_json(lock,dict(selected='new'),exclusive=True)
     assert json.loads(lock.read_text())['selected']=='old'
-    with pytest.raises(FileExistsError):train_run(tmp_path,'full',source_hashes(),'test',time()+60,verification=True)
+    with pytest.raises(FileExistsError):train_run(tmp_path,'full',source_hashes(),'test',time()+60,verification=True, initialization_seed=29)
 
 
 def test_failed_training_preserves_failure_record_and_no_bad_checkpoint(tmp_path,monkeypatch):
@@ -82,13 +82,13 @@ def test_failed_training_preserves_failure_record_and_no_bad_checkpoint(tmp_path
     monkeypatch.setattr(module,'Phase6Env',Broken)
     out=tmp_path/'bad'
     with pytest.raises(ValueError,match='navigation'):
-        train_run(out,'full',source_hashes(),'test',time()+120,verification=True)
+        train_run(out,'full',source_hashes(),'test',time()+120,verification=True, initialization_seed=29)
     assert (out/'failure.json').is_file() and not list(out.glob('*.pt'))
 
 
 def test_training_reproducibility_includes_ppo_and_saved_inference(tmp_path):
     from phase6.study import preflight
-    result=preflight(tmp_path,source_hashes(),'test',time()+180)
+    result=preflight(tmp_path,source_hashes(),'test',time()+180,initialization_seed=29)
     assert result['training_state_and_transition_equal'] and not result['final_test_opened']
     assert result['development_rows'][0]==result['development_rows'][1]
     assert {r['method'] for r in result['validation_worker_probe_rows']}=={'idle','random'}

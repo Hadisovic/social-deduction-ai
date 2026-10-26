@@ -18,11 +18,13 @@ def current_revision():
     return subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
 
 
-def preflight(output, sources, revision, deadline):
+def preflight(output, sources, revision, deadline, *, initialization_seed=17):
     from .env import Phase6Env
     from .train import load_policy
-    a = train_run(Path(output)/'repro-a', 'full', sources, revision, deadline, verification=True)
-    b = train_run(Path(output)/'repro-b', 'full', sources, revision, deadline, verification=True)
+    a = train_run(Path(output)/'repro-a', 'full', sources, revision, deadline,
+                  verification=True, initialization_seed=initialization_seed)
+    b = train_run(Path(output)/'repro-b', 'full', sources, revision, deadline,
+                  verification=True, initialization_seed=initialization_seed)
     keys = ('initial_state_sha256','final_state_sha256','transition_trace_sha256','used_match_seeds','simulated_seconds')
     if any(a[key] != b[key] for key in keys): raise ValueError('Training reproducibility failed')
     policy, experiment, _ = load_policy(Path(output)/'repro-a/policy.pt')
