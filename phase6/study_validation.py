@@ -72,8 +72,11 @@ def evaluate_job(job):
                 policy, _ = StrategicPolicy.load(ROOT/'artifacts/phase5/release/policy.pt')
         else:
             policy, experiment, metadata = load_policy(job['checkpoint'])
-            if metadata.get('smoke_only') or metadata.get('initialization_seed') != 17:
-                raise ValueError('Study only accepts authorized seed-17 research checkpoints')
+            initialization_seed = job.get('initialization_seed', 17)
+            if (type(initialization_seed) is not int or initialization_seed not in (17, 29, 43)
+                    or metadata.get('smoke_only')
+                    or metadata.get('initialization_seed') != initialization_seed):
+                raise ValueError('Study only accepts matching authorized initialization seeds')
             if metadata.get('runtime_versions') != runtime_versions():
                 raise ValueError('Checkpoint runtime dependency versions changed')
             if experiment != Experiment(memory=job['condition']):

@@ -17,9 +17,12 @@ CONDITIONS = ('full', 'history_no_belief', 'current_only')
 CHECKPOINTS = (2048, 4096, 6144, 8192)
 
 
-def train_run(output, condition, expected_sources, revision, deadline, *, verification=False):
+def train_run(output, condition, expected_sources, revision, deadline, *, verification=False,
+              initialization_seed=17):
     if condition not in CONDITIONS or type(verification) is not bool:
         raise ValueError('Unregistered staged training condition')
+    if type(initialization_seed) is not int or initialization_seed not in (17, 29, 43):
+        raise ValueError('Unregistered initialization seed')
     steps = 32 if verification else 8192
     partition_name = 'smoke_train' if verification else 'train'
     partition = seeds(partition_name, 100 if verification else 20000)
@@ -29,11 +32,11 @@ def train_run(output, condition, expected_sources, revision, deadline, *, verifi
     began = perf_counter()
     completed = simulated = episode = 0
     episodes, updates, checkpoints = [], [], []
-    torch.set_num_threads(1); torch.manual_seed(17)
+    torch.set_num_threads(1); torch.manual_seed(initialization_seed)
     torch.use_deterministic_algorithms(True)
-    rng = np.random.default_rng(17)
+    rng = np.random.default_rng(initialization_seed)
     metadata = dict(experiment=experiment.to_dict(), phase6_sources=expected_sources,
-                    baseline_sha=BASELINE_SHA, research_revision=revision, initialization_seed=17,
+                    baseline_sha=BASELINE_SHA, research_revision=revision, initialization_seed=initialization_seed,
                     steps=steps, seed_partition=partition_name, frozen_sha256=FROZEN,
                     smoke_only=verification, entropy_coefficient=.02, gamma=.99,
                     runtime_versions=runtime_versions(),

@@ -1,0 +1,150 @@
+{
+  "status": "passed",
+  "new_validation_executions": 1680,
+  "reproduced_selected_rows": 120,
+  "preserved_original_files": 419,
+  "checkpoints_loaded_and_verified": 30,
+  "source_hashes_equal": true,
+  "science_sources_unchanged": true,
+  "initial_state_by_seed": {
+    "29": "881ac44a0f8cdfeaf729837d9fca5983f53274fa1d3022995713f2c880a171e7",
+    "43": "79d015eb32a8d290cb7356840695c85ce05f8c3687d111894b2824ffffeacc28"
+  },
+  "final_test_opened": false,
+  "illegal_actions": 0,
+  "navigation_failures": 0,
+  "checkpoints": {
+    "full-29": [
+      {
+        "path": "artifacts/phase6/remaining-six/full-29/checkpoint-2048.pt",
+        "sha256": "577e9adccfb14cb5071fbfca5d0d85aa08ae1c2ce88d07ea33247a209b347347"
+      },
+      {
+        "path": "artifacts/phase6/remaining-six/full-29/checkpoint-4096.pt",
+        "sha256": "455d0bccef3bcbafee69bc370e963c8e925e053161ab9da49693f4f6afd5379e"
+      },
+      {
+        "path": "artifacts/phase6/remaining-six/full-29/checkpoint-6144.pt",
+        "sha256": "9057222db63addf2693cc20058960d8ad7536e934377803f30f5111233109f5a"
+      },
+      {
+        "path": "artifacts/phase6/remaining-six/full-29/checkpoint-8192.pt",
+        "sha256": "238904b7fe303b77e885c4cd6fdf4d9d447a62eb5b463436a391c0b4d6e1cb43"
+      },
+      {
+        "path": "artifacts/phase6/remaining-six/full-29/policy.pt",
+        "sha256": "6688c52cf4fda2d991d1d41a3071773b0dace3512b5e3d5200819695d32f29eb"
+      }
+    ],
+    "history_no_belief-29": [
+      {
+        "path": "artifacts/phase6/remaining-six/history_no_belief-29/checkpoint-2048.pt",
+        "sha256": "913425160a0e93fb80392770e5e72804856f36951b1e9a10f58e9ed7a50637d3"
+      },
+      {
+        "path": "artifacts/phase6/remaining-six/history_no_belief-29/checkpoint-4096.pt",
+        "sha256": "60265997d01a817a2eabdb7a3d9100defdc307b9ca14d3a5a7eba022d145af82"
+      },
+      {
+        "path": "artifacts/phase6/remaining-six/history_no_belief-29/checkpoint-6144.pt",
+        "sha256": "f9f0eab1915fb86513291a8f728439381d3ba672aa3808b2df1b0ce27ca42c67"
+      },
+      {
+        "path": "artifacts/phase6/remaining-six/history_no_belief-29/checkpoint-8192.pt",
+        "sha256": "41735a0e99bbea27fca00acd06485a5cbb3e42cce986086fee568ca8b2b07fdc"
+      },
+      {
+        "path": "artifacts/phase6/remaining-six/history_no_belief-29/policy.pt",
+        "sha256": "bb4f56e22346043752cc5985f0eb5a31bf5565d8500db1470dbe7023234a8016"
+      }
+    ],
+    "current_only-29": [
+      {
+        "path": "artifacts/phase6/remaining-six/current_only-29/checkpoint-2048.pt",
+        "sha256": "de248064aaa657dc178f3dcdb118cb2ebfacb5fb0570a96ffa7b2c2016e0f6eb"
+      },
+      {
+        "path": "artifacts/phase6/remaining-six/current_only-29/checkpoint-4096.pt",
+        "sha256": "94d7a8ab4a69ff1b6bdad31d1d9c1e83dfce2885f602d58b6fff6c2f4f9e7d23"
+      },
+      {
+        "path": "artifacts/phase6/remaining-six/current_only-29/checkpoint-6144.pt",
+        "sha256": "8f2ba7053f1da168b00d48cd6a8f3e43f0a5605de8850ca409214515d5154a83"
+      },
+      {
+        "path": "artifacts/phase6/remaining-six/current_only-29/checkpoint-8192.pt",
+        "sha256": "3975b3aaee9e1e586cbebc34d6bdba137fd05119b293f12bb8caa6196e26de70"
+      },
+      {
+        "path": "artifacts/phase6/remaining-six/current_only-29/policy.pt",
+        "sha256": "af19c06621b09a5a62eedc00bc5f800a4e269459ba559c15f41e0b513682e68d"
+      }
+    ],
+    "full-43": [
+      {
+        "path": "artifacts/phase6/remaining-six/full-43/checkpoint-2048.pt",
+        "sha256": "9432e299734dba86230dde76cdbd3b28ebc7e9f99f5d9c16b2588547e462486f"
+      },
+      {
+        "path": "artifacts/phase6/remaining-six/full-43/checkpoint-4096.pt",
+        "sha256": "d3abbdff88743f8b105f630e11c0e50963f38f7b1e992634dd55999087e9c0e3"
+      },
+      {
+        "path": "artifacts/phase6/remaining-six/full-43/checkpoint-6144.pt",
+        "sha256": "631b86c5bd455eb5f7481e64382a432a45cf73a04d8b60ca8ab511ab733fdd43"
+      },
+      {
+        "path": "artifacts/phase6/remaining-six/full-43/checkpoint-8192.pt",
+        "sha256": "0f166fda622760116b96bf36d6e8c89db875d70e0676d0963390a8db59837078"
+      },
+      {
+        "path": "artifacts/phase6/remaining-six/full-43/policy.pt",
+        "sha256": "38a083736a04f450da3afe23a8d18c9ef8f39487eedaefc84779a39bfaea3b95"
+      }
+    ],
+    "history_no_belief-43": [
+      {
+        "path": "artifacts/phase6/remaining-six/history_no_belief-43/checkpoint-2048.pt",
+        "sha256": "da08f19cc0041cfd9aaac1fa8e5b6921fbd5b5efc98c5eb642d7fee9b170bf1d"
+      },
+      {
+        "path": "artifacts/phase6/remaining-six/history_no_belief-43/checkpoint-4096.pt",
+        "sha256": "758b04bc779a3392cbb4810a13bf2aa56aaf780a0b8b3ee912ef983d3316e33c"
+      },
+      {
+        "path": "artifacts/phase6/remaining-six/history_no_belief-43/checkpoint-6144.pt",
+        "sha256": "e14f1834cba476b3a9a3fe1c86b86288a94763eaa6bef7646c60eefa59142ef9"
+      },
+      {
+        "path": "artifacts/phase6/remaining-six/history_no_belief-43/checkpoint-8192.pt",
+        "sha256": "a7290b46f2950b565d6720e66e3dd23ed232745cf5fb527733ab2409df4db20e"
+      },
+      {
+        "path": "artifacts/phase6/remaining-six/history_no_belief-43/policy.pt",
+        "sha256": "92bc9914f9536970e39493c86fce56a3a3ed849626c6ee7ff7e12ab27399c79e"
+      }
+    ],
+    "current_only-43": [
+      {
+        "path": "artifacts/phase6/remaining-six/current_only-43/checkpoint-2048.pt",
+        "sha256": "504d2a50c1a86faed2e0bc3450768877ce478069b97dec6dabd3f9015960b0c4"
+      },
+      {
+        "path": "artifacts/phase6/remaining-six/current_only-43/checkpoint-4096.pt",
+        "sha256": "40dc85f2a02cbde1ce1e1ad88863eeec3995dc952c9f45e617f3b6f538331ed6"
+      },
+      {
+        "path": "artifacts/phase6/remaining-six/current_only-43/checkpoint-6144.pt",
+        "sha256": "d6c2171be19e56577d0894512ae04f0cc6906d1a8f14d888b8869f98399cec07"
+      },
+      {
+        "path": "artifacts/phase6/remaining-six/current_only-43/checkpoint-8192.pt",
+        "sha256": "074bf93e1803155a046b991b2d382b1c8f8158226590c410121537bb859bef1d"
+      },
+      {
+        "path": "artifacts/phase6/remaining-six/current_only-43/policy.pt",
+        "sha256": "d7e9c23b7ada277cb8cf5cda3ac0f9184be3afd2d67cb8f24da8cad233d02ee7"
+      }
+    ]
+  }
+}
