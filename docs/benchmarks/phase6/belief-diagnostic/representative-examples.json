@@ -1,0 +1,107 @@
+{
+  "status": "development_only_exploratory_sanitized_illustrations",
+  "selection": "Post-hoc illustrative selections; not additional executions or a representative sample.",
+  "sanitization": "Only sparse landmarks. Scenario seeds, player IDs, exact timestamps, full candidate distributions and raw event payloads omitted. Probabilities rounded to one decimal percent.",
+  "limitations": [
+    "Offline outcomes describe illustrations only; no role roster or per-game label dataset is published.",
+    "Straight lines between landmarks do not reconstruct an observation trace.",
+    "All 173 observed public body reports came from impostors; general deduction is not established.",
+    "One shared frozen Phase 4 predictor; nine separately trained acting policies.",
+    "Phase 6.1 acceptance remains pending."
+  ],
+  "examples": [
+    {
+      "example": "A",
+      "title": "Same suspicion, different action",
+      "policies": [
+        "full-17",
+        "full-43"
+      ],
+      "landmarks": [
+        {
+          "stage": "Before report",
+          "native_impostor_probability_percent": 26.0
+        },
+        {
+          "stage": "Report received",
+          "native_impostor_probability_percent": 97.4
+        },
+        {
+          "stage": "Before ballot",
+          "native_impostor_probability_percent": 99.9
+        }
+      ],
+      "outcome": "Full-17 votes for the impostor; full-43 explicitly skips. Reporter-pattern confound applies."
+    },
+    {
+      "example": "B",
+      "title": "Identification succeeds, action fails",
+      "policies": [
+        "full-29"
+      ],
+      "landmarks": [
+        {
+          "stage": "Before witness",
+          "native_impostor_probability_percent": 26.5
+        },
+        {
+          "stage": "Kill witnessed",
+          "native_impostor_probability_percent": 100.0
+        },
+        {
+          "stage": "Later wrong vote",
+          "native_impostor_probability_percent": 100.0
+        }
+      ],
+      "outcome": "Correct first vote, then an innocent target despite a near-certain correct belief and a legal impostor target."
+    },
+    {
+      "example": "C",
+      "title": "Current memory loses evidence",
+      "policies": [
+        "current_only-29"
+      ],
+      "landmarks": [
+        {
+          "stage": "Kill witnessed",
+          "native_impostor_probability_percent": 96.6,
+          "observer_impostor_probability_percent": 100.0
+        },
+        {
+          "stage": "Meeting begins",
+          "native_impostor_probability_percent": 32.1,
+          "observer_impostor_probability_percent": 100.0
+        },
+        {
+          "stage": "Wrong ballot",
+          "native_impostor_probability_percent": 32.1,
+          "observer_impostor_probability_percent": 100.0
+        }
+      ],
+      "outcome": "Native suspicion ties three candidates; an innocent one receives the vote. Observer never affects actions."
+    },
+    {
+      "example": "D",
+      "title": "Brief overconfident error",
+      "policies": [
+        "full-29"
+      ],
+      "landmarks": [
+        {
+          "stage": "Earlier correct ballot",
+          "native_impostor_probability_percent": 97.5
+        },
+        {
+          "stage": "Roaming error",
+          "native_impostor_probability_percent": 13.9,
+          "top_innocent_probability_percent": 81.1
+        },
+        {
+          "stage": "Later recovery",
+          "native_impostor_probability_percent": 67.9
+        }
+      ],
+      "outcome": "No vote in the error window. This illustrative selection is not an error-rate estimate."
+    }
+  ]
+}
