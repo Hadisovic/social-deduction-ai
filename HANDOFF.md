@@ -26,7 +26,11 @@ Proposed first pilot: two 4096-decision runs plus 40 paired validation matches,
 1–2.5 hours estimated, 3-hour hard ceiling. **Not approved. Do not run any RL training,
 reserved final evaluation, merge or deployment.** A trainer/optimizer harness needs
 reviewed implementation after design/budget approval. Only a draft PR is requested.
-Shared ChatGPT planning link is recorded but unreadable (web/browser access failed).
+Shared ChatGPT planning link was read through its existing Edge tab on 27 October,
+after earlier access failures. Its Among Us section confirms the same work split
+and approval gates, with no additional training settings. See
+`docs/impostor-v2/TRAINING_NEXT_STEPS.md`: 45–90 minutes of trainer preparation,
+then the proposed pilots/validation; about 2–4 hours to first results including setup.
 The completed benchmark has no running worker to resume. Earlier handoffs below are
 preserved history and do not authorize training or production changes.
 

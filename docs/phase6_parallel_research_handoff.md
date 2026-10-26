@@ -16,9 +16,11 @@ impostor policy may learn in this branch. Crew and belief weights stay frozen.
   read from that branch. Its old instructions to use pre-V2 mechanics and eyewitness-only
   reporting are superseded by the owner's newer V2/body-discovery requirements.
 - [Shared planning chat](https://chatgpt.com/share/6adfb9c6-ffe8-83eb-973b-b12e0e27816f),
-  supplied by the owner as context. **Not read successfully:** web fetch returned a cache
-  miss; browser redirected to an account-loading/browser-check error. Do not attribute
-  decisions to its unseen contents. Paste/export can be reconciled later.
+  supplied by the owner as context. **Read on 27 October 2026 through the existing Edge
+  tab**, after earlier web/in-app attempts failed. Its final Among Us section confirms
+  the separate crewmate/impostor workstreams and repeats the V2 implementation and
+  approval requirements. It adds no training settings or budget. Unrelated CarPlay
+  troubleshooting in the conversation is outside this project.
 - [V2 mechanics and limits](crewmate-v2/README.md) and [implementation design](crewmate-v2/DESIGN.md).
 
 Branch: `codex/impostor-environment-v2`, created directly from the exact V2 commit,
@@ -171,6 +173,9 @@ Final engineering result: **239 tests passed; 10 bounded matches completed; exac
 reference/optimized/repeat traces; frozen models unchanged.** Proposed first pilot:
 two 4,096-decision runs plus 40 paired validation matches, **1–2.5 hours estimated,
 3-hour hard ceiling**, requiring explicit approval. No training has begun.
+The [remaining trainer work and timing](impostor-v2/TRAINING_NEXT_STEPS.md) adds an
+estimated 45–90 minutes of preparation: about **2–4 hours to first pilot results and
+graphs**, including preparation. Total training to a strong model remains outcome-dependent.
 
 Next collaboration milestone: frozen-versus-frozen cross-play under a deliberately
 shared ruleset. Only after independently useful agents exist should the team consider

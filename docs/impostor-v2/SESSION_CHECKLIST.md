@@ -1,10 +1,10 @@
 # Impostor development — live session checklist
 
-**Current step: authorized implementation and verification complete; awaiting training approval.**
+**Current step: shared chat read; remaining trainer work and pilot budget documented.**
 
 Draft PR: [#10 — impostor V2 environment](https://github.com/Hadisovic/social-deduction-ai/pull/10).
-All 10 benchmark matches and all 239 regression tests passed. The shared-chat contents
-remain the only unread external reference; they did not block the attached specification.
+All 10 benchmark matches and all 239 regression tests passed. The shared chat is now
+read and reconciled; the existing Edge tab worked after the earlier access failures.
 
 Updated: 27 October 2026 (Amman). Based on your `message (5).txt` and subsequent
 instructions. This file will be updated in place throughout this session.
@@ -19,7 +19,7 @@ instructions. This file will be updated in place throughout this session.
 - [x] Create `codex/impostor-environment-v2` directly from V2, not main.
 - [x] Read the complete attached task, V2 design and original collaborator handoff.
 - [x] Record the shared planning-chat link in the resources.
-- [ ] Read shared-chat contents — **blocked:** web fetch failed; browser showed an account-loading error. No unseen contents have been assumed.
+- [x] Read shared-chat contents through Edge; the Among Us section confirms the existing work split and approval gates, with no extra training settings.
 
 ## 2. Integrate the frozen crewmate safely
 
@@ -98,6 +98,11 @@ matches reached parity. These are engineering scenarios, **not learned-policy re
 - [x] Report completion and proposed first training budget in the linked report and session update.
 
 ## Approval gates — deliberately NOT started
+
+Remaining work is listed in [TRAINING_NEXT_STEPS.md](TRAINING_NEXT_STEPS.md): trainer,
+checkpoint/resume, optimizer isolation and seconds-aware GAE verification, followed
+by two pilot runs and paired validation. Allow **about 2–4 hours to first results and
+graphs including preparation**. Longer training will depend on those results.
 
 - [ ] Owner approval for any RL training run.
 - [ ] Owner approval for reserved final-test evaluation.

@@ -138,6 +138,14 @@ and no learned impostor quality has been established. A training runner and its 
 checks are the next implementation step after the design/budget is approved; large-scale
 training is not justified yet. The friend's crewmate work remains independent.
 
+## Remaining preparation
+
+The shared chat has now been read through Edge. See
+[TRAINING_NEXT_STEPS.md](TRAINING_NEXT_STEPS.md) for its project conclusions and the
+remaining trainer/evaluator/resume checks. Allow 45–90 minutes for preparation and
+about **2–4 hours to the first pilot results and graphs**, including the proposed
+1–2.5-hour learning/validation stage. Training has not started.
+
 ## Reproduce engineering checks
 
 From the repository root with its existing dependencies:
