@@ -1,6 +1,10 @@
 # Impostor development — live session checklist
 
-**Current step: final review passed; committing evidence and preparing the draft PR.**
+**Current step: authorized implementation and verification complete; awaiting training approval.**
+
+Draft PR: [#10 — impostor V2 environment](https://github.com/Hadisovic/social-deduction-ai/pull/10).
+All 10 benchmark matches and all 239 regression tests passed. The shared-chat contents
+remain the only unread external reference; they did not block the attached specification.
 
 Updated: 27 October 2026 (Amman). Based on your `message (5).txt` and subsequent
 instructions. This file will be updated in place throughout this session.
@@ -88,10 +92,10 @@ matches reached parity. These are engineering scenarios, **not learned-policy re
 - [x] Update collaborator handoff and record source references.
 - [x] Finish engineering report with test results and benchmark details.
 - [x] Final diff/integrity review; historical runtime and checkpoints unchanged; benchmark source hashes match.
-- [ ] Commit final documentation and evidence.
-- [ ] Push only the independent development branch.
-- [ ] Create and attach a **draft PR**, based on the V2 branch.
-- [ ] Report completion and proposed first training budget.
+- [x] Commit final documentation and evidence.
+- [x] Push only the independent development branch.
+- [x] Create and attach **draft PR #10**, based on the V2 branch.
+- [x] Report completion and proposed first training budget in the linked report and session update.
 
 ## Approval gates — deliberately NOT started
 
