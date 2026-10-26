@@ -1,5 +1,35 @@
 # Continuation handoff
 
+## CURRENT — independent impostor V2 engineering complete; training unapproved (2026-10-27)
+
+Owner authorized implementation on `codex/impostor-environment-v2` from exact V2
+baseline `e62ba0b6c33ffd0317f78e18b4289d778cd5af2b`, not main. Implementation revision
+`cb9b5f4fc3a606383f3b04815151602cb54f45ec` adds only independent impostor modules,
+tests, benchmark and documentation; historical/V2 runtime and all checkpoints remain
+unchanged. Owner's friend independently improves crew; do not train that track here.
+
+Read `docs/impostor-v2/SESSION_CHECKLIST.md`, `docs/impostor-v2/README.md` and the
+updated `docs/phase6_parallel_research_handoff.md`. Full-29 loads through its original
+strict loader and a lossy V2-to-legacy adapter; crew/belief weights remain frozen.
+Opponent-only body-discovery and direct-eyewitness safeguards are implemented and
+toggleable. The impostor has its own actor memory, masked interface and untrained
+48,738-parameter network. No optimizer/training driver is invoked by the new benchmark.
+
+239 tests passed; 10 canonical bounded development matches completed in 374.30 seconds.
+Impostor packet/action/event replay hashes match reference and repeat; zero illegal
+actions/navigation failures. Ordinary scripted controls lost by tasks, paired deduction
+controls reached parity. Natural crew reports occurred with non-reporting impostors.
+No natural witnessed kills in these scenarios; controlled tests establish the witness
+sequence. All nine checkpoint hashes/selection locks preserved; six strict loads pass.
+
+Proposed first pilot: two 4096-decision runs plus 40 paired validation matches,
+1–2.5 hours estimated, 3-hour hard ceiling. **Not approved. Do not run any RL training,
+reserved final evaluation, merge or deployment.** A trainer/optimizer harness needs
+reviewed implementation after design/budget approval. Only a draft PR is requested.
+Shared ChatGPT planning link is recorded but unreadable (web/browser access failed).
+The completed benchmark has no running worker to resume. Earlier handoffs below are
+preserved history and do not authorize training or production changes.
+
 ## CURRENT — nine-model validation complete; final evaluation unapproved (2026-10-26)
 
 The owner approved the six seed-29/43 models. They completed on isolated research

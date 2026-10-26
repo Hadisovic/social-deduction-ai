@@ -72,6 +72,8 @@ executor remains unchanged. Proposals, executed actions, reasons and whether the
 are separately recorded in private audit data. These assists are **scripted opponent
 behavior**, never claimed as learned reporting or voting. Existing scripts already have
 some reporting/witness behavior; disabling wrappers does not disable those baseline scripts.
+An original proposal may be a held option's mechanical continuation rather than a fresh
+network call; the benchmark reports neural inference calls separately.
 
 ## Independent impostor interface
 
@@ -164,6 +166,11 @@ claims that those papers establish optimal settings for this game.
 See [engineering report](impostor-v2/README.md) for measured results, reproducibility,
 timing limits, test counts and the approval budget. Passing these checks demonstrates
 engineering behavior only; no learned impostor performance exists yet.
+
+Final engineering result: **239 tests passed; 10 bounded matches completed; exact
+reference/optimized/repeat traces; frozen models unchanged.** Proposed first pilot:
+two 4,096-decision runs plus 40 paired validation matches, **1–2.5 hours estimated,
+3-hour hard ceiling**, requiring explicit approval. No training has begun.
 
 Next collaboration milestone: frozen-versus-frozen cross-play under a deliberately
 shared ruleset. Only after independently useful agents exist should the team consider
