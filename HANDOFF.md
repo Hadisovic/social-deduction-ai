@@ -1,6 +1,33 @@
 # Continuation handoff
 
-## CURRENT — impostor pilot approved; trainer preflight in progress (2026-10-27)
+## CURRENT — improved impostor stage approved; preflight complete (2026-10-27)
+
+Latest owner explicitly requests fixes to policies, reasonable rewards/NN settings,
+training a strong impostor, pushing results, and a file to run to watch it. The first
+pilot COMPLETED (session66647 exited0): both 4096-step policies lost all 20 validation
+matches with no validation kills. Study took1522.17sec; 36 training games had zero wins,
+one sampled kill total. Six graphs and eight strictly loaded checkpoints are preserved
+under docs/impostor-v2/pilot-20261027 and artifacts/impostor-pilot-20261027. No raw or
+historical evidence was deleted/rewritten. See its README for the failed-learning assessment.
+
+New additive modules strategic_v2.py, learning_v2.py, study_v2.py and root
+run_impostor.py implement a family/target neural policy, independent critic/gradient
+clipping, +2 successful-kill shaping, -2 ejection, -12 timeout, -.002/sec, original
+terminal +/-10 and gamma1; interrupted3sec travel options; legitimate visible geometry.
+Canonical ordinary lobby/ghosts and frozen full29/belief unchanged. 78 tests passed,
+including six new policy/reward/privacy/resume/viewer checks. No improved study launched
+yet; commit/lock runtime and launch tools/run_impostor_v2.py next. Do not edit old pilot
+runtime files: old checkpoints must retain strict compatibility.
+
+Read docs/impostor-v2/strategic-v2-protocol.md. Approved bounded follow-up: seeds71/83
+x8192 decisions, then80 selection matches on3200020..39 (four checkpoints), immutable
+lock, then80 confirmation/control matches on3200040..59. Three-hour learning/evaluation
+ceiling. No merge, deployment or reserved-final tests. Use fresh ignored output directory
+artifacts/impostor_research/strategic-v2-20261027 and update this top status with its
+actual source commit/process session after launch. Finish graphs/report, curate selected
+model to artifacts/impostor-v2/release/policy.pt, verify viewer and push PR#10 updates.
+
+## CURRENT — approved impostor pilot RUNNING, session 66647 (2026-10-27)
 
 The owner said “go on” after the 2–4-hour preparation/pilot estimate. This authorizes
 two ordinary-V2 impostor initializations (71/83), 4096 decisions each, followed by
@@ -9,11 +36,24 @@ crew safeguards, pinned frozen full-29 and original belief model, canonical lobb
 gamma=1 sparse reward. Hard learning/validation ceiling: 3 hours. No additional
 training, reserved final tests, merges or deployment. Friend's crew work is separate.
 
-New trainer code is being verified before source lock and launch. Initial seven
-trainer tests passed (actual PPO, frozen isolation and exact replay/resume), combined
-environment/V2 regression is running. No substantive pilot has launched yet. Follow
-`docs/impostor-v2/SESSION_CHECKLIST.md`; update this entry with the actual run directory
-and process session when launch is verified. Preserve previous engineering evidence.
+Trainer preflight passed: 79 combined tests and 9 final trainer/report tests (7 overlap;
+81 distinct checks). Committed runtime `2c31f060212bd42a28d92b98e132f5f97d0d2832`.
+`python -u tools/run_impostor_pilot.py --output artifacts/impostor_research/pilot-20261027`
+is healthy as **session 66647**, seed 71 started. Study manifest confirms a clean
+checkout and exact source/config/frozen hashes. Preserve this job and do not edit
+runtime modules while it runs. Budget uses the original `study.json.deadline_epoch`.
+
+Live state: `artifacts/impostor_research/pilot-20261027/progress.json` and
+`LIVE_PROGRESS.md`; immutable rollout resume checkpoints and sampled training journals
+are in seed-71/seed-83 directories. It will run both 4096-decision seeds before opening
+exactly 40 greedy paired validation matches. Do not select earlier checkpoints or tune
+from validation during this pilot. No scientific retry/extension; stop/report on errors.
+
+After `results.json` completes, run the frozen offline report generator into a NEW
+curated report directory, inspect six graphs, assess sufficiency honestly and copy
+final policy-only checkpoints plus compact config/hashes/results for review. Raw actor
+journals/resume binaries remain ignored locally. Update checklist/handoff/PR #10 with
+actual timings, processor/runtime, outcomes and limitations. No merge/deploy/final tests.
 
 ## CURRENT — independent impostor V2 engineering complete; training unapproved (2026-10-27)
 

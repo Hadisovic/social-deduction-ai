@@ -1,6 +1,6 @@
 # Impostor development — live session checklist
 
-**Current step: 81 distinct targeted tests passed; source locking and pilot launch next.**
+**Current step: first pilot archived; improved policy/rewards/viewer verified; follow-up source locking next.**
 
 Draft PR: [#10 — impostor V2 environment](https://github.com/Hadisovic/social-deduction-ai/pull/10).
 All 10 benchmark matches and all 239 regression tests passed. The shared chat is now
@@ -106,14 +106,29 @@ matches reached parity. These are engineering scenarios, **not learned-policy re
 - [x] Implement seconds-aware GAE, optimizer isolation, immutable checkpoints and replay-based resume.
 - [x] Initial seven trainer preflight tests passed, including exact resumed action/update equality.
 - [x] Complete combined regression: 79 passed; final trainer/report suite 9 passed (7 repeated; 81 distinct tests).
-- [ ] Commit and lock source/configuration before learning.
-- [ ] Train initialization 71: 0/4,096 decisions.
-- [ ] Train initialization 83: 0/4,096 decisions.
-- [ ] Evaluate exactly 40 paired validation matches using the final checkpoints.
-- [ ] Generate NN learning/diagnostic/outcome graphs and assess learning sufficiency.
+- [x] Commit and lock source/configuration before learning: `2c31f060212bd42a28d92b98e132f5f97d0d2832`; clean study manifest.
+- [x] Train initialization 71: 4,096 decisions, 18 completed games, no wins/kills; 463.98 seconds wall time; frozen models unchanged.
+- [x] Train initialization 83: 4,096 decisions, 18 completed games, no wins and one kill; frozen models unchanged.
+- [x] Evaluate exactly 40 paired validation matches: both models 0/20 wins, zero kills, all games lost by tasks; no illegal/navigation failures.
+- [x] Generate six pilot graphs and assess learning sufficiency: pilot did not learn a useful winning strategy.
 - [ ] Update report, checklist and existing draft PR with pilot outcomes.
 
 ## Approval gates
+
+## Improved policy stage — newly approved
+
+- [x] Owner approved policy/reward/NN improvements and a runnable impostor viewer.
+- [x] Implement learned family/target selection, balanced entropy, separate critic, kill shaping and interrupted travel options.
+- [x] Verify 78 tests, including exact resume, privacy, rewards and headless `run_impostor.py`.
+- [ ] Commit and lock upgraded runtime/configuration.
+- [ ] Train two fresh 8,192-decision initializations.
+- [ ] Run 80 candidate-selection matches, lock selection, then 80 fresh confirmation/control matches.
+- [ ] Generate upgraded graphs, assess results and preserve all checkpoints.
+- [ ] Create the selected checkpoint bundle and verify the playable viewer.
+- [ ] Update/push the existing draft PR and provide the exact run command.
+
+Protocol: [strategic-v2-protocol.md](strategic-v2-protocol.md). This follow-up has a
+3-hour learning/evaluation ceiling. Existing reserved final-test partitions stay closed.
 
 Remaining work is listed in [TRAINING_NEXT_STEPS.md](TRAINING_NEXT_STEPS.md): trainer,
 checkpoint/resume, optimizer isolation and seconds-aware GAE verification, followed

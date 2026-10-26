@@ -1,0 +1,15 @@
+{
+  "seed": 71,
+  "decisions": 4096,
+  "completed_episodes": 18,
+  "simulated_seconds": 2454.599999999811,
+  "collection_and_update_seconds": 444.3581758000073,
+  "policy_changed": true,
+  "training_wall_seconds": 463.9843485355377,
+  "initial_policy_hash": "85c757f469f0e0c9a20e2174569d2e7d569a1df15c61bbf87ac2b5fcdaed9e87",
+  "final_policy_hash": "d0c27541e0172f1bfa2311fcf23a56555e90395bcdac7daa2f09efed19e83a24",
+  "checkpoint_sha256": "597af780d947416bcbece5231c80a0e27e4188ea8247f8d1dcc1137cff448b3d",
+  "frozen_weights_unchanged": true,
+  "partial_episode_seed": 3100018,
+  "partial_episode_actions": 165
+}

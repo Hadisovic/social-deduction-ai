@@ -1,0 +1,58 @@
+[
+  {
+    "path": "artifacts/impostor-pilot-20261027/seed-71/checkpoint-0000.pt",
+    "seed": 71,
+    "decisions": 0,
+    "sha256": "d2d5b8655c4035f5be4ce8f30833325d34bc6a84c2d43ae9b009dc854d651cea",
+    "policy_tensor_hash": "85c757f469f0e0c9a20e2174569d2e7d569a1df15c61bbf87ac2b5fcdaed9e87"
+  },
+  {
+    "path": "artifacts/impostor-pilot-20261027/seed-71/checkpoint-1024.pt",
+    "seed": 71,
+    "decisions": 1024,
+    "sha256": "3da401b54fe728bd4d7f3c7d00eef5dfff9daaf76ef2e05f673d6dc4a143b4d0",
+    "policy_tensor_hash": "852f594ed13684c917ef3e4bcfd1b6bb4cef452a2851a613589c2802f61ecd53"
+  },
+  {
+    "path": "artifacts/impostor-pilot-20261027/seed-71/checkpoint-2048.pt",
+    "seed": 71,
+    "decisions": 2048,
+    "sha256": "2165cd649bd33dd28d6003cd59262a0a666301821ee25d6467e99575a96ef7d9",
+    "policy_tensor_hash": "7236d95bb896866787c17222118132d919f33a24f215e02ae538605d35c3bbf0"
+  },
+  {
+    "path": "artifacts/impostor-pilot-20261027/seed-71/checkpoint-4096.pt",
+    "seed": 71,
+    "decisions": 4096,
+    "sha256": "597af780d947416bcbece5231c80a0e27e4188ea8247f8d1dcc1137cff448b3d",
+    "policy_tensor_hash": "d0c27541e0172f1bfa2311fcf23a56555e90395bcdac7daa2f09efed19e83a24"
+  },
+  {
+    "path": "artifacts/impostor-pilot-20261027/seed-83/checkpoint-0000.pt",
+    "seed": 83,
+    "decisions": 0,
+    "sha256": "5276b97acea4fe2d331b77f14108b8be2a61f16bcbe17b61534ce4c4b272d4aa",
+    "policy_tensor_hash": "ebf20932c39ba0c8d5e9d3f64a441b38a221dc39065ece4beb1b8f6b41b21d84"
+  },
+  {
+    "path": "artifacts/impostor-pilot-20261027/seed-83/checkpoint-1024.pt",
+    "seed": 83,
+    "decisions": 1024,
+    "sha256": "0281a6480f40ddb47232f846bec22e8f3187745114f7db7d07fb11afdf4cc2e5",
+    "policy_tensor_hash": "30139c00d8fb690cb7788d509adbbd6eba6527e9847d94dc41d1a2a414f7a30f"
+  },
+  {
+    "path": "artifacts/impostor-pilot-20261027/seed-83/checkpoint-2048.pt",
+    "seed": 83,
+    "decisions": 2048,
+    "sha256": "855814bb923174e143a11c7cabc4df372b7de9eaa1e964e3ff5be018f88848a6",
+    "policy_tensor_hash": "f772dba6d74871ceaf3a9b32160e22f4a3f8c7e0f9b99a072c171a0eee13aa66"
+  },
+  {
+    "path": "artifacts/impostor-pilot-20261027/seed-83/checkpoint-4096.pt",
+    "seed": 83,
+    "decisions": 4096,
+    "sha256": "eff6c5bd8b76525aedd5060cc944aa1303ebb0c76956c90b2569f87981c2e9fb",
+    "policy_tensor_hash": "91e9a23ed9b3e94f561fa8fc0b4e67745fa84420ff2fafc7142f7cf04c002df1"
+  }
+]
