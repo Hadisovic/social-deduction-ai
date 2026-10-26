@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "tests": 51,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "seconds": 49.9,
+  "diagnostic_tests": 11,
+  "existing_v2_mechanics_privacy_tests": 40,
+  "notes": [
+    "Initial crew-report fixtures placed the observer outside reporting range; fixture geometry was corrected without changing engine rules.",
+    "Initial A/B test incorrectly expected private mode provenance hashes to match; only actor-visible input/action hashes must match across modes. Exact same-mode replay truth hashes still match.",
+    "51 tests passed after corrections. Raw test logs and paths remain local."
+  ]
+}

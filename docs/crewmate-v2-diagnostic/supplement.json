@@ -1,0 +1,54 @@
+{
+  "development_only": true,
+  "analysis": "post-hoc descriptive; no new execution or selection",
+  "groups": {
+    "baseline_A": {
+      "matches": 8,
+      "reported_bodies": 11,
+      "kill_to_report_seconds": {
+        "median": 0.6000000000000014,
+        "min": 0.5999999999999659,
+        "max": 1.2000000000000028
+      },
+      "physical_crew_witness_pairs_at_terminal_parity_kill": 0,
+      "median_first_physical_opportunity_to_kill": 6.299999999999997,
+      "actual_nonwait_decisions": 1028
+    },
+    "baseline_B": {
+      "matches": 8,
+      "reported_bodies": 16,
+      "kill_to_report_seconds": {
+        "median": 0.600000000000005,
+        "min": 0.5999999999999659,
+        "max": 1.2000000000000028
+      },
+      "physical_crew_witness_pairs_at_terminal_parity_kill": 2,
+      "median_first_physical_opportunity_to_kill": 6.299999999999997,
+      "actual_nonwait_decisions": 1387
+    },
+    "staggered_A": {
+      "matches": 2,
+      "reported_bodies": 1,
+      "kill_to_report_seconds": {
+        "median": 0.6000000000000085,
+        "min": 0.6000000000000085,
+        "max": 0.6000000000000085
+      },
+      "physical_crew_witness_pairs_at_terminal_parity_kill": 0,
+      "median_first_physical_opportunity_to_kill": 25.599999999999994,
+      "actual_nonwait_decisions": 308
+    },
+    "staggered_B": {
+      "matches": 2,
+      "reported_bodies": 3,
+      "kill_to_report_seconds": {
+        "median": 0.6000000000000085,
+        "min": 0.5999999999999943,
+        "max": 43.80000000000001
+      },
+      "physical_crew_witness_pairs_at_terminal_parity_kill": 0,
+      "median_first_physical_opportunity_to_kill": 25.599999999999994,
+      "actual_nonwait_decisions": 394
+    }
+  }
+}

@@ -1,0 +1,992 @@
+{
+  "base_commit": "e62ba0b6c33ffd0317f78e18b4289d778cd5af2b",
+  "budget_seconds": 900.0,
+  "canonical_sources_sha256": "78312533e6e29be6a8346496e581fde2ec92869f946fee2caaae73bf31531f82",
+  "completed_executions": 20,
+  "deterministic_replay_verified": true,
+  "development_only": true,
+  "diagnostic_source_commit": "ef09a1e6eb3f2588b1818c59132e48f5dd95107d",
+  "distinct_primary_scenarios": 8,
+  "driver_sha256": "2f52c53ccb7a408e2d2a5dd11b7f3a2cbe3edee29501e0c9d2cb8c13b518dc3a",
+  "final_test_opened": false,
+  "groups": {
+    "baseline_A": {
+      "all_balloted_voting_seconds": 1199.1999999999969,
+      "counts": {
+        "actionable_windows": 7418,
+        "bodies_seen_by_crew": 2,
+        "crew_informed_report_meetings": 2,
+        "crewmate_body_observer_pairs": 2,
+        "crewmate_claims": 30,
+        "crewmate_correct_votes": 3,
+        "crewmate_correct_votes_with_direct_witness": 3,
+        "crewmate_explicit_skips": 27,
+        "crewmate_report_legal_windows": 2,
+        "crewmate_report_submissions": 2,
+        "crewmate_report_submissions_not_accepted": 1,
+        "crewmate_report_unique_pairs": 2,
+        "crewmate_reports": 1,
+        "crewmate_vote_legal_windows": 30,
+        "crewmate_vote_unique_opportunities": 30,
+        "deduction_sequence_meetings": 2,
+        "delivered_surviving_crew_witness_pairs": 2,
+        "forced_no_actions": 8511,
+        "impostor_claims": 11,
+        "impostor_explicit_skips": 8,
+        "impostor_non_skip_votes": 3,
+        "impostor_report_legal_windows": 10,
+        "impostor_report_submissions": 10,
+        "impostor_report_unique_pairs": 10,
+        "impostor_reports": 10,
+        "impostor_vote_legal_windows": 11,
+        "impostor_vote_unique_opportunities": 11,
+        "kills": 11,
+        "living_windows": 15929,
+        "meetings": 11,
+        "meetings_reaching_voting": 11,
+        "meetings_resolved": 10,
+        "multiple_nonwait_choices": 7377,
+        "physical_surviving_crew_witness_pairs": 2,
+        "report_submissions": 12,
+        "report_submissions_not_accepted": 1,
+        "selected_claim": 41,
+        "selected_fake_task": 134,
+        "selected_go_to_body": 3,
+        "selected_go_to_location": 61,
+        "selected_go_to_room": 56,
+        "selected_go_to_task": 475,
+        "selected_interact": 194,
+        "selected_kill": 11,
+        "selected_report": 12,
+        "selected_skip": 35,
+        "selected_vote": 6,
+        "selected_wait": 6390,
+        "selected_wait_with_actions": 6390,
+        "task_end_before_meeting_result": 1,
+        "task_end_during_discussion": 0,
+        "tasks_ghost": 17,
+        "tasks_living": 111
+      },
+      "first_event_times": {
+        "first_kill": {
+          "censored": 0,
+          "max": 99.0,
+          "median": 66.9,
+          "min": 52.8,
+          "observed": 8
+        },
+        "first_kill_legal": {
+          "censored": 0,
+          "max": 67.6,
+          "median": 54.0,
+          "min": 50.0,
+          "observed": 8
+        },
+        "first_kill_scheduled": {
+          "censored": 0,
+          "max": 99.0,
+          "median": 66.9,
+          "min": 52.800000000000004,
+          "observed": 8
+        }
+      },
+      "ghost_required_task_wins": 7,
+      "match_exposures": {
+        "crewmate_body_observer_pairs": 2,
+        "crewmate_report_unique_pairs": 2,
+        "crewmate_reports": 1,
+        "deduction_sequence_meetings": 2,
+        "kills": 8,
+        "meetings": 8,
+        "meetings_reaching_voting": 8,
+        "meetings_resolved": 8,
+        "physical_surviving_crew_witness_pairs": 2,
+        "task_end_before_meeting_result": 1
+      },
+      "matches": 8,
+      "median_duration": 260.4,
+      "phase_simulated_seconds": {
+        "discussion": 162.7999999999997,
+        "roaming": 965.8000000000086,
+        "voting": 1201.399999999997
+      },
+      "phase_wall_seconds": {
+        "discussion": 9.111767800350208,
+        "roaming": 156.09037339847418,
+        "voting": 66.99475629985682
+      },
+      "ratios": {
+        "balloted_wait_share_of_voting": 0.998168803063093,
+        "crew_cast_accuracy": 1.0,
+        "crew_non_skip_participation": 0.1,
+        "crew_reports_per_legal_actor_body_pair": 0.5,
+        "crew_share_of_accepted_reports": 0.09090909090909091,
+        "forced_no_action_share": 0.5343084939418671,
+        "ghost_completion_share": 0.1328125,
+        "impostor_reports_per_legal_actor_body_pair": 1.0
+      },
+      "simulated_seconds": 2330.0,
+      "task_curve": [
+        {
+          "matches_still_observed": 8,
+          "mean_completed": 3.25,
+          "mean_ghost_completed": 0,
+          "mean_work_fraction": 0.32322265625,
+          "time": 30.0
+        },
+        {
+          "matches_still_observed": 8,
+          "mean_completed": 7.625,
+          "mean_ghost_completed": 0,
+          "mean_work_fraction": 0.59029296875,
+          "time": 60.0
+        },
+        {
+          "matches_still_observed": 8,
+          "mean_completed": 9.625,
+          "mean_ghost_completed": 1,
+          "mean_work_fraction": 0.7082539978881793,
+          "time": 90.0
+        },
+        {
+          "matches_still_observed": 8,
+          "mean_completed": 10.125,
+          "mean_ghost_completed": 1.5,
+          "mean_work_fraction": 0.727265625,
+          "time": 120.0
+        },
+        {
+          "matches_still_observed": 8,
+          "mean_completed": 10.25,
+          "mean_ghost_completed": 1.625,
+          "mean_work_fraction": 0.731171875,
+          "time": 150.0
+        },
+        {
+          "matches_still_observed": 8,
+          "mean_completed": 10.25,
+          "mean_ghost_completed": 1.625,
+          "mean_work_fraction": 0.731171875,
+          "time": 180.0
+        },
+        {
+          "matches_still_observed": 8,
+          "mean_completed": 11.25,
+          "mean_ghost_completed": 1.625,
+          "mean_work_fraction": 0.79599609375,
+          "time": 210.0
+        },
+        {
+          "matches_still_observed": 7,
+          "mean_completed": 14,
+          "mean_ghost_completed": 1.7142857142857142,
+          "mean_work_fraction": 0.9218005952380952,
+          "time": 240.0
+        },
+        {
+          "matches_still_observed": 3,
+          "mean_completed": 14.666666666666666,
+          "mean_ghost_completed": 3.3333333333333335,
+          "mean_work_fraction": 0.9492917593622551,
+          "time": 270.0
+        },
+        {
+          "matches_still_observed": 2,
+          "mean_completed": 14.5,
+          "mean_ghost_completed": 3.5,
+          "mean_work_fraction": 0.9427083333333333,
+          "time": 300.0
+        },
+        {
+          "matches_still_observed": 2,
+          "mean_completed": 14.5,
+          "mean_ghost_completed": 3.5,
+          "mean_work_fraction": 0.9427083333333333,
+          "time": 330.0
+        },
+        {
+          "matches_still_observed": 2,
+          "mean_completed": 14.5,
+          "mean_ghost_completed": 3.5,
+          "mean_work_fraction": 0.9427083333333333,
+          "time": 360.0
+        },
+        {
+          "matches_still_observed": 2,
+          "mean_completed": 14.5,
+          "mean_ghost_completed": 3.5,
+          "mean_work_fraction": 0.9539583333333334,
+          "time": 390.0
+        }
+      ],
+      "wall_seconds": 239.37411449995125,
+      "win_reasons": {
+        "TASKS_COMPLETED": 8
+      },
+      "winners": {
+        "crewmate": 8
+      }
+    },
+    "baseline_B": {
+      "all_balloted_voting_seconds": 1916.7999999999595,
+      "counts": {
+        "actionable_windows": 10555,
+        "bodies_seen_by_crew": 3,
+        "crew_informed_report_meetings": 3,
+        "crewmate_body_observer_pairs": 3,
+        "crewmate_claims": 40,
+        "crewmate_correct_votes": 5,
+        "crewmate_correct_votes_with_direct_witness": 4,
+        "crewmate_explicit_skips": 35,
+        "crewmate_report_legal_windows": 2,
+        "crewmate_report_submissions": 2,
+        "crewmate_report_submissions_not_accepted": 1,
+        "crewmate_report_unique_pairs": 2,
+        "crewmate_reports": 1,
+        "crewmate_vote_legal_windows": 40,
+        "crewmate_vote_unique_opportunities": 40,
+        "deduction_sequence_meetings": 3,
+        "delivered_surviving_crew_witness_pairs": 3,
+        "forced_no_actions": 12432,
+        "impostor_claims": 16,
+        "impostor_explicit_skips": 12,
+        "impostor_non_skip_votes": 4,
+        "impostor_report_legal_windows": 15,
+        "impostor_report_submissions": 15,
+        "impostor_report_unique_pairs": 15,
+        "impostor_reports": 15,
+        "impostor_vote_legal_windows": 16,
+        "impostor_vote_unique_opportunities": 16,
+        "kills": 23,
+        "living_windows": 22987,
+        "meetings": 16,
+        "meetings_reaching_voting": 16,
+        "meetings_resolved": 16,
+        "multiple_nonwait_choices": 10499,
+        "physical_surviving_crew_witness_pairs": 5,
+        "report_submissions": 17,
+        "report_submissions_not_accepted": 1,
+        "selected_claim": 56,
+        "selected_fake_task": 193,
+        "selected_go_to_body": 4,
+        "selected_go_to_location": 115,
+        "selected_go_to_room": 212,
+        "selected_go_to_task": 517,
+        "selected_interact": 194,
+        "selected_kill": 23,
+        "selected_report": 17,
+        "selected_skip": 47,
+        "selected_vote": 9,
+        "selected_wait": 9168,
+        "selected_wait_with_actions": 9168,
+        "task_end_before_meeting_result": 0,
+        "task_end_during_discussion": 0,
+        "tasks_ghost": 17,
+        "tasks_living": 111
+      },
+      "first_event_times": {
+        "first_kill": {
+          "censored": 0,
+          "max": 99.0,
+          "median": 66.9,
+          "min": 52.8,
+          "observed": 8
+        },
+        "first_kill_legal": {
+          "censored": 0,
+          "max": 67.6,
+          "median": 54.0,
+          "min": 50.0,
+          "observed": 8
+        },
+        "first_kill_scheduled": {
+          "censored": 0,
+          "max": 99.0,
+          "median": 66.9,
+          "min": 52.800000000000004,
+          "observed": 8
+        }
+      },
+      "ghost_required_task_wins": 0,
+      "match_exposures": {
+        "crewmate_body_observer_pairs": 2,
+        "crewmate_report_unique_pairs": 2,
+        "crewmate_reports": 1,
+        "deduction_sequence_meetings": 2,
+        "kills": 8,
+        "meetings": 8,
+        "meetings_reaching_voting": 8,
+        "meetings_resolved": 8,
+        "physical_surviving_crew_witness_pairs": 4,
+        "task_end_before_meeting_result": 0
+      },
+      "matches": 8,
+      "median_duration": 459.6,
+      "phase_simulated_seconds": {
+        "discussion": 236.79999999999944,
+        "roaming": 1545.7999999999804,
+        "voting": 1919.9999999999595
+      },
+      "phase_wall_seconds": {
+        "discussion": 13.503475999867078,
+        "roaming": 250.81079779815627,
+        "voting": 114.88724969967734
+      },
+      "ratios": {
+        "balloted_wait_share_of_voting": 0.9983333333333333,
+        "crew_cast_accuracy": 1.0,
+        "crew_non_skip_participation": 0.125,
+        "crew_reports_per_legal_actor_body_pair": 0.5,
+        "crew_share_of_accepted_reports": 0.0625,
+        "forced_no_action_share": 0.5408274241962848,
+        "ghost_completion_share": 0.1328125,
+        "impostor_reports_per_legal_actor_body_pair": 1.0
+      },
+      "simulated_seconds": 3702.6,
+      "task_curve": [
+        {
+          "matches_still_observed": 8,
+          "mean_completed": 3.25,
+          "mean_ghost_completed": 0,
+          "mean_work_fraction": 0.32322265625,
+          "time": 30.0
+        },
+        {
+          "matches_still_observed": 8,
+          "mean_completed": 7.625,
+          "mean_ghost_completed": 0,
+          "mean_work_fraction": 0.59029296875,
+          "time": 60.0
+        },
+        {
+          "matches_still_observed": 8,
+          "mean_completed": 9.625,
+          "mean_ghost_completed": 1,
+          "mean_work_fraction": 0.7082539978881793,
+          "time": 90.0
+        },
+        {
+          "matches_still_observed": 8,
+          "mean_completed": 10.125,
+          "mean_ghost_completed": 1.5,
+          "mean_work_fraction": 0.727265625,
+          "time": 120.0
+        },
+        {
+          "matches_still_observed": 8,
+          "mean_completed": 10.25,
+          "mean_ghost_completed": 1.625,
+          "mean_work_fraction": 0.731171875,
+          "time": 150.0
+        },
+        {
+          "matches_still_observed": 8,
+          "mean_completed": 10.25,
+          "mean_ghost_completed": 1.625,
+          "mean_work_fraction": 0.731171875,
+          "time": 180.0
+        },
+        {
+          "matches_still_observed": 8,
+          "mean_completed": 11.25,
+          "mean_ghost_completed": 1.625,
+          "mean_work_fraction": 0.79599609375,
+          "time": 210.0
+        },
+        {
+          "matches_still_observed": 8,
+          "mean_completed": 14.25,
+          "mean_ghost_completed": 1.625,
+          "mean_work_fraction": 0.9315755208333334,
+          "time": 240.0
+        },
+        {
+          "matches_still_observed": 8,
+          "mean_completed": 15.5,
+          "mean_ghost_completed": 2,
+          "mean_work_fraction": 0.9809844097608457,
+          "time": 270.0
+        },
+        {
+          "matches_still_observed": 8,
+          "mean_completed": 15.625,
+          "mean_ghost_completed": 2.125,
+          "mean_work_fraction": 0.9856770833333334,
+          "time": 300.0
+        },
+        {
+          "matches_still_observed": 8,
+          "mean_completed": 15.625,
+          "mean_ghost_completed": 2.125,
+          "mean_work_fraction": 0.9856770833333334,
+          "time": 330.0
+        },
+        {
+          "matches_still_observed": 8,
+          "mean_completed": 15.625,
+          "mean_ghost_completed": 2.125,
+          "mean_work_fraction": 0.9856770833333334,
+          "time": 360.0
+        },
+        {
+          "matches_still_observed": 8,
+          "mean_completed": 15.625,
+          "mean_ghost_completed": 2.125,
+          "mean_work_fraction": 0.9884895833333334,
+          "time": 390.0
+        },
+        {
+          "matches_still_observed": 7,
+          "mean_completed": 16,
+          "mean_ghost_completed": 2.2857142857142856,
+          "mean_work_fraction": 1.0,
+          "time": 420.0
+        },
+        {
+          "matches_still_observed": 4,
+          "mean_completed": 16,
+          "mean_ghost_completed": 1.75,
+          "mean_work_fraction": 1.0,
+          "time": 450.0
+        },
+        {
+          "matches_still_observed": 2,
+          "mean_completed": 16,
+          "mean_ghost_completed": 0.5,
+          "mean_work_fraction": 1.0,
+          "time": 480.0
+        }
+      ],
+      "wall_seconds": 381.0968575999723,
+      "win_reasons": {
+        "IMPOSTOR_EJECTED": 1,
+        "PARITY": 7
+      },
+      "winners": {
+        "crewmate": 1,
+        "impostor": 7
+      }
+    },
+    "staggered_A": {
+      "all_balloted_voting_seconds": 119.80000000000116,
+      "counts": {
+        "actionable_windows": 1921,
+        "bodies_seen_by_crew": 1,
+        "crewmate_body_observer_pairs": 1,
+        "crewmate_claims": 3,
+        "crewmate_explicit_skips": 3,
+        "crewmate_report_unique_pairs": 0,
+        "crewmate_vote_legal_windows": 3,
+        "crewmate_vote_unique_opportunities": 3,
+        "delivered_surviving_crew_witness_pairs": 0,
+        "forced_no_actions": 888,
+        "impostor_claims": 1,
+        "impostor_non_skip_votes": 1,
+        "impostor_report_legal_windows": 2,
+        "impostor_report_submissions": 1,
+        "impostor_report_unique_pairs": 2,
+        "impostor_reports": 1,
+        "impostor_vote_legal_windows": 1,
+        "impostor_vote_unique_opportunities": 1,
+        "kills": 2,
+        "living_windows": 2809,
+        "meetings": 1,
+        "meetings_reaching_voting": 1,
+        "meetings_resolved": 1,
+        "multiple_nonwait_choices": 1917,
+        "physical_surviving_crew_witness_pairs": 0,
+        "report_submissions": 1,
+        "report_submissions_not_accepted": 0,
+        "selected_claim": 4,
+        "selected_fake_task": 31,
+        "selected_go_to_location": 40,
+        "selected_go_to_room": 22,
+        "selected_go_to_task": 159,
+        "selected_interact": 45,
+        "selected_kill": 2,
+        "selected_report": 1,
+        "selected_skip": 3,
+        "selected_vote": 1,
+        "selected_wait": 1613,
+        "selected_wait_with_actions": 1613,
+        "task_end_before_meeting_result": 0,
+        "task_end_during_discussion": 0,
+        "tasks_ghost": 2,
+        "tasks_living": 30
+      },
+      "first_event_times": {
+        "first_kill": {
+          "censored": 0,
+          "max": 99.0,
+          "median": 84.9,
+          "min": 70.8,
+          "observed": 2
+        },
+        "first_kill_legal": {
+          "censored": 0,
+          "max": 64.4,
+          "median": 59.300000000000004,
+          "min": 54.2,
+          "observed": 2
+        },
+        "first_kill_scheduled": {
+          "censored": 0,
+          "max": 99.0,
+          "median": 84.9,
+          "min": 70.8,
+          "observed": 2
+        }
+      },
+      "ghost_required_task_wins": 1,
+      "match_exposures": {
+        "crewmate_body_observer_pairs": 1,
+        "crewmate_report_unique_pairs": 0,
+        "crewmate_reports": 0,
+        "deduction_sequence_meetings": 0,
+        "kills": 2,
+        "meetings": 1,
+        "meetings_reaching_voting": 1,
+        "meetings_resolved": 1,
+        "physical_surviving_crew_witness_pairs": 0,
+        "task_end_before_meeting_result": 0
+      },
+      "matches": 2,
+      "median_duration": 189.2,
+      "phase_simulated_seconds": {
+        "discussion": 14.79999999999998,
+        "roaming": 243.6000000000021,
+        "voting": 120.00000000000117
+      },
+      "phase_wall_seconds": {
+        "discussion": 0.6814166999247391,
+        "roaming": 34.545600800192915,
+        "voting": 6.445914800162427
+      },
+      "ratios": {
+        "balloted_wait_share_of_voting": 0.9983333333333333,
+        "crew_cast_accuracy": null,
+        "crew_non_skip_participation": 0.0,
+        "crew_reports_per_legal_actor_body_pair": null,
+        "crew_share_of_accepted_reports": 0.0,
+        "forced_no_action_share": 0.31612673549305803,
+        "ghost_completion_share": 0.0625,
+        "impostor_reports_per_legal_actor_body_pair": 0.5
+      },
+      "simulated_seconds": 378.4,
+      "task_curve": [
+        {
+          "matches_still_observed": 2,
+          "mean_completed": 4.5,
+          "mean_ghost_completed": 0,
+          "mean_work_fraction": 0.35531250000000003,
+          "time": 30.0
+        },
+        {
+          "matches_still_observed": 2,
+          "mean_completed": 9,
+          "mean_ghost_completed": 0,
+          "mean_work_fraction": 0.68203125,
+          "time": 60.0
+        },
+        {
+          "matches_still_observed": 2,
+          "mean_completed": 12,
+          "mean_ghost_completed": 0.5,
+          "mean_work_fraction": 0.81379909021405,
+          "time": 90.0
+        },
+        {
+          "matches_still_observed": 2,
+          "mean_completed": 13,
+          "mean_ghost_completed": 1,
+          "mean_work_fraction": 0.8640625,
+          "time": 120.0
+        },
+        {
+          "matches_still_observed": 1,
+          "mean_completed": 11,
+          "mean_ghost_completed": 2,
+          "mean_work_fraction": 0.790625,
+          "time": 150.0
+        },
+        {
+          "matches_still_observed": 1,
+          "mean_completed": 11,
+          "mean_ghost_completed": 2,
+          "mean_work_fraction": 0.790625,
+          "time": 180.0
+        },
+        {
+          "matches_still_observed": 1,
+          "mean_completed": 11,
+          "mean_ghost_completed": 2,
+          "mean_work_fraction": 0.8083333333333333,
+          "time": 210.0
+        },
+        {
+          "matches_still_observed": 1,
+          "mean_completed": 15,
+          "mean_ghost_completed": 2,
+          "mean_work_fraction": 0.9791666666666666,
+          "time": 240.0
+        }
+      ],
+      "wall_seconds": 42.07053460000316,
+      "win_reasons": {
+        "TASKS_COMPLETED": 2
+      },
+      "winners": {
+        "crewmate": 2
+      }
+    },
+    "staggered_B": {
+      "all_balloted_voting_seconds": 359.3999999999961,
+      "counts": {
+        "actionable_windows": 2678,
+        "bodies_seen_by_crew": 1,
+        "crew_informed_report_meetings": 1,
+        "crewmate_body_observer_pairs": 2,
+        "crewmate_claims": 8,
+        "crewmate_explicit_skips": 8,
+        "crewmate_report_legal_windows": 1,
+        "crewmate_report_submissions": 1,
+        "crewmate_report_unique_pairs": 1,
+        "crewmate_reports": 1,
+        "crewmate_vote_legal_windows": 8,
+        "crewmate_vote_unique_opportunities": 8,
+        "deduction_sequence_meetings": 1,
+        "delivered_surviving_crew_witness_pairs": 0,
+        "forced_no_actions": 2442,
+        "impostor_claims": 3,
+        "impostor_explicit_skips": 2,
+        "impostor_non_skip_votes": 1,
+        "impostor_report_legal_windows": 4,
+        "impostor_report_submissions": 2,
+        "impostor_report_unique_pairs": 4,
+        "impostor_reports": 2,
+        "impostor_vote_legal_windows": 3,
+        "impostor_vote_unique_opportunities": 3,
+        "kills": 6,
+        "living_windows": 5120,
+        "meetings": 3,
+        "meetings_reaching_voting": 3,
+        "meetings_resolved": 3,
+        "multiple_nonwait_choices": 2667,
+        "physical_surviving_crew_witness_pairs": 0,
+        "report_submissions": 3,
+        "report_submissions_not_accepted": 0,
+        "selected_claim": 11,
+        "selected_fake_task": 50,
+        "selected_go_to_body": 1,
+        "selected_go_to_location": 46,
+        "selected_go_to_room": 54,
+        "selected_go_to_task": 167,
+        "selected_interact": 45,
+        "selected_kill": 6,
+        "selected_report": 3,
+        "selected_skip": 10,
+        "selected_vote": 1,
+        "selected_wait": 2284,
+        "selected_wait_with_actions": 2284,
+        "task_end_before_meeting_result": 0,
+        "task_end_during_discussion": 0,
+        "tasks_ghost": 2,
+        "tasks_living": 30
+      },
+      "first_event_times": {
+        "first_kill": {
+          "censored": 0,
+          "max": 99.0,
+          "median": 84.9,
+          "min": 70.8,
+          "observed": 2
+        },
+        "first_kill_legal": {
+          "censored": 0,
+          "max": 64.4,
+          "median": 59.300000000000004,
+          "min": 54.2,
+          "observed": 2
+        },
+        "first_kill_scheduled": {
+          "censored": 0,
+          "max": 99.0,
+          "median": 84.9,
+          "min": 70.8,
+          "observed": 2
+        }
+      },
+      "ghost_required_task_wins": 0,
+      "match_exposures": {
+        "crewmate_body_observer_pairs": 1,
+        "crewmate_report_unique_pairs": 1,
+        "crewmate_reports": 1,
+        "deduction_sequence_meetings": 1,
+        "kills": 2,
+        "meetings": 2,
+        "meetings_reaching_voting": 2,
+        "meetings_resolved": 2,
+        "physical_surviving_crew_witness_pairs": 0,
+        "task_end_before_meeting_result": 0
+      },
+      "matches": 2,
+      "median_duration": 393.6,
+      "phase_simulated_seconds": {
+        "discussion": 44.399999999999906,
+        "roaming": 382.79999999999535,
+        "voting": 359.9999999999961
+      },
+      "phase_wall_seconds": {
+        "discussion": 1.8710973000852391,
+        "roaming": 45.82981330045732,
+        "voting": 15.24051740008872
+      },
+      "ratios": {
+        "balloted_wait_share_of_voting": 0.9983333333333334,
+        "crew_cast_accuracy": null,
+        "crew_non_skip_participation": 0.0,
+        "crew_reports_per_legal_actor_body_pair": 1.0,
+        "crew_share_of_accepted_reports": 0.3333333333333333,
+        "forced_no_action_share": 0.476953125,
+        "ghost_completion_share": 0.0625,
+        "impostor_reports_per_legal_actor_body_pair": 0.5
+      },
+      "simulated_seconds": 787.2,
+      "task_curve": [
+        {
+          "matches_still_observed": 2,
+          "mean_completed": 4.5,
+          "mean_ghost_completed": 0,
+          "mean_work_fraction": 0.35531250000000003,
+          "time": 30.0
+        },
+        {
+          "matches_still_observed": 2,
+          "mean_completed": 9,
+          "mean_ghost_completed": 0,
+          "mean_work_fraction": 0.68203125,
+          "time": 60.0
+        },
+        {
+          "matches_still_observed": 2,
+          "mean_completed": 12,
+          "mean_ghost_completed": 0.5,
+          "mean_work_fraction": 0.81379909021405,
+          "time": 90.0
+        },
+        {
+          "matches_still_observed": 2,
+          "mean_completed": 13,
+          "mean_ghost_completed": 1,
+          "mean_work_fraction": 0.8640625,
+          "time": 120.0
+        },
+        {
+          "matches_still_observed": 2,
+          "mean_completed": 13.5,
+          "mean_ghost_completed": 1,
+          "mean_work_fraction": 0.8953125,
+          "time": 150.0
+        },
+        {
+          "matches_still_observed": 2,
+          "mean_completed": 13.5,
+          "mean_ghost_completed": 1,
+          "mean_work_fraction": 0.8953125,
+          "time": 180.0
+        },
+        {
+          "matches_still_observed": 2,
+          "mean_completed": 13.5,
+          "mean_ghost_completed": 1,
+          "mean_work_fraction": 0.9041666666666667,
+          "time": 210.0
+        },
+        {
+          "matches_still_observed": 2,
+          "mean_completed": 15.5,
+          "mean_ghost_completed": 1,
+          "mean_work_fraction": 0.9895833333333333,
+          "time": 240.0
+        },
+        {
+          "matches_still_observed": 2,
+          "mean_completed": 16,
+          "mean_ghost_completed": 1,
+          "mean_work_fraction": 1.0,
+          "time": 270.0
+        },
+        {
+          "matches_still_observed": 2,
+          "mean_completed": 16,
+          "mean_ghost_completed": 1,
+          "mean_work_fraction": 1.0,
+          "time": 300.0
+        },
+        {
+          "matches_still_observed": 2,
+          "mean_completed": 16,
+          "mean_ghost_completed": 1,
+          "mean_work_fraction": 1.0,
+          "time": 330.0
+        },
+        {
+          "matches_still_observed": 1,
+          "mean_completed": 16,
+          "mean_ghost_completed": 2,
+          "mean_work_fraction": 1.0,
+          "time": 360.0
+        },
+        {
+          "matches_still_observed": 1,
+          "mean_completed": 16,
+          "mean_ghost_completed": 2,
+          "mean_work_fraction": 1.0,
+          "time": 390.0
+        },
+        {
+          "matches_still_observed": 1,
+          "mean_completed": 16,
+          "mean_ghost_completed": 2,
+          "mean_work_fraction": 1.0,
+          "time": 420.0
+        }
+      ],
+      "wall_seconds": 63.316626600018935,
+      "win_reasons": {
+        "PARITY": 2
+      },
+      "winners": {
+        "impostor": 2
+      }
+    }
+  },
+  "limits": [
+    "Scripted policies, not learned agents or eight independent populations.",
+    "Eight paired primary scenarios; conditional reporter probe only two repeated scenarios.",
+    "Report propensities compete within matches; actor-windows are not independent trials.",
+    "Ghost task attribution is descriptive, not a causal no-ghost ablation.",
+    "Existing scripts consume legacy actor packets, not new V2 visual/confirmed-role channels."
+  ],
+  "lobby": {
+    "anonymous_votes": false,
+    "common_tasks": 1,
+    "confirm_ejects": true,
+    "crewmate_vision": 1.0,
+    "decision_interval": 0.6,
+    "discussion_seconds": 15.0,
+    "dt": 0.2,
+    "emergency_cooldown": 0.0,
+    "emergency_meetings": 1,
+    "impostor_vision": 1.5,
+    "kill_cooldown": 45.0,
+    "kill_distance_character_widths": 2.0,
+    "long_tasks": 1,
+    "player_speed": 1.0,
+    "schema": "crewmate-environment-v2.1",
+    "short_tasks": 2,
+    "task_bar_updates": "always",
+    "timeout": 900.0,
+    "visual_tasks": true,
+    "voting_seconds": 120.0
+  },
+  "models_loaded": false,
+  "paired_prefixes": [
+    {
+      "a_reason": "TASKS_COMPLETED",
+      "b_reason": "PARITY",
+      "extra_seconds": 201.79999999999998,
+      "prefix_equal": true,
+      "profile": "baseline",
+      "seed": 2630000
+    },
+    {
+      "a_reason": "TASKS_COMPLETED",
+      "b_reason": "PARITY",
+      "extra_seconds": 242.39999999999998,
+      "prefix_equal": true,
+      "profile": "baseline",
+      "seed": 2630001
+    },
+    {
+      "a_reason": "TASKS_COMPLETED",
+      "b_reason": "PARITY",
+      "extra_seconds": 79.80000000000001,
+      "prefix_equal": true,
+      "profile": "baseline",
+      "seed": 2630002
+    },
+    {
+      "a_reason": "TASKS_COMPLETED",
+      "b_reason": "PARITY",
+      "extra_seconds": 197.8,
+      "prefix_equal": true,
+      "profile": "baseline",
+      "seed": 2630003
+    },
+    {
+      "a_reason": "TASKS_COMPLETED",
+      "b_reason": "IMPOSTOR_EJECTED",
+      "extra_seconds": 155.39999999999998,
+      "prefix_equal": true,
+      "profile": "baseline",
+      "seed": 2630004
+    },
+    {
+      "a_reason": "TASKS_COMPLETED",
+      "b_reason": "PARITY",
+      "extra_seconds": 40.60000000000002,
+      "prefix_equal": true,
+      "profile": "baseline",
+      "seed": 2630005
+    },
+    {
+      "a_reason": "TASKS_COMPLETED",
+      "b_reason": "PARITY",
+      "extra_seconds": 199.0,
+      "prefix_equal": true,
+      "profile": "baseline",
+      "seed": 2630006
+    },
+    {
+      "a_reason": "TASKS_COMPLETED",
+      "b_reason": "PARITY",
+      "extra_seconds": 255.8,
+      "prefix_equal": true,
+      "profile": "baseline",
+      "seed": 2630007
+    },
+    {
+      "a_reason": "TASKS_COMPLETED",
+      "b_reason": "PARITY",
+      "extra_seconds": 201.79999999999998,
+      "prefix_equal": true,
+      "profile": "staggered",
+      "seed": 2630000
+    },
+    {
+      "a_reason": "TASKS_COMPLETED",
+      "b_reason": "PARITY",
+      "extra_seconds": 207.0,
+      "prefix_equal": true,
+      "profile": "staggered",
+      "seed": 2630001
+    }
+  ],
+  "phase6_1_acceptance": "pending",
+  "registered_primary_scenarios": 8,
+  "replay_executions": 1,
+  "seeds": [
+    2630000,
+    2630001,
+    2630002,
+    2630003,
+    2630004,
+    2630005,
+    2630006,
+    2630007
+  ],
+  "status": "complete",
+  "training": false,
+  "wall_seconds": 750.3647987000004
+}
