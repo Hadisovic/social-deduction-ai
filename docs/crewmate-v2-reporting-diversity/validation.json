@@ -1,0 +1,46 @@
+{
+  "status": "passed",
+  "combined_run": {
+    "tests": 66.0,
+    "errors": 0.0,
+    "failures": 0.0,
+    "skipped": 0.0,
+    "time": 23.398
+  },
+  "expanded_new_reporting_run": {
+    "tests": 16.0,
+    "errors": 0.0,
+    "failures": 0.0,
+    "skipped": 0.0,
+    "time": 6.823
+  },
+  "distinct_tests_passed": 67,
+  "existing_diagnostic_v2_tests": 51,
+  "new_reporting_tests": 16,
+  "notes": [
+    "The combined run covered 15 new reporting tests and 51 existing regression tests; the expanded run passed all 16 new tests, including an additional earliest-censoring check.",
+    "Initial inspector tests exposed repeated legal cancellation while idle; behavior was refined before freezing code and before diagnostic execution.",
+    "No validation changes were made in response to experimental outcomes. Raw test logs remain local."
+  ],
+  "diagnostic_verification": {
+    "status": "complete",
+    "fresh_primary_executions": 16,
+    "baseline_verification_executions": 1,
+    "same_mode_replay_executions": 1,
+    "matched_mode_prefix_pairs": 8,
+    "illegal_actions": 0,
+    "navigation_failures": 0,
+    "wall_seconds": 277.4474079000065,
+    "wall_ceiling_seconds": 900
+  },
+  "preservation": {
+    "previous_archive_files_unchanged": 25,
+    "new_private_files_hash_verified": 19,
+    "selected_checkpoint_hashes_unchanged": 9,
+    "canonical_source_digest_unchanged": true,
+    "original_v2_branch_clean": true,
+    "aggregate_json_exact_copy": true,
+    "supplement_and_figure_reproduce_byte_for_byte": true,
+    "publication_scan_passed": true
+  }
+}

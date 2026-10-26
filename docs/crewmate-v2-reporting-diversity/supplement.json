@@ -1,0 +1,88 @@
+{
+  "analysis": "Post-hoc descriptive; no new games or policy selection.",
+  "unique_scenarios": 8,
+  "styles_by_role_once_per_scenario": {
+    "crewmate": {
+      "prompt": 11,
+      "inspect": 15,
+      "bypass": 6
+    },
+    "impostor": {
+      "inspect": 2,
+      "bypass": 2,
+      "prompt": 4
+    }
+  },
+  "opportunities_by_role_style_pooled_AB": {
+    "impostor_inspect": {
+      "visible_pairs": 7,
+      "visible_windows": 77,
+      "legal_pairs": 7,
+      "legal_windows": 77,
+      "submitting_pairs": 7,
+      "accepted": 7,
+      "censored_accepted": 0
+    },
+    "crewmate_inspect": {
+      "visible_pairs": 5,
+      "visible_windows": 48,
+      "legal_pairs": 5,
+      "legal_windows": 42,
+      "submitting_pairs": 4,
+      "accepted": 4,
+      "censored_other_report": 1,
+      "censored_accepted": 0
+    },
+    "impostor_bypass": {
+      "visible_pairs": 5,
+      "visible_windows": 20,
+      "legal_pairs": 5,
+      "legal_windows": 5,
+      "submitting_pairs": 0,
+      "accepted": 0,
+      "censored_other_report": 5
+    },
+    "crewmate_prompt": {
+      "visible_pairs": 2,
+      "visible_windows": 4,
+      "legal_pairs": 1,
+      "legal_windows": 1,
+      "submitting_pairs": 1,
+      "accepted": 1,
+      "censored_accepted": 0,
+      "censored_other_report": 1
+    },
+    "impostor_prompt": {
+      "visible_pairs": 13,
+      "visible_windows": 19,
+      "legal_pairs": 13,
+      "legal_windows": 13,
+      "submitting_pairs": 13,
+      "accepted": 13,
+      "censored_accepted": 0
+    },
+    "crewmate_bypass": {
+      "visible_pairs": 2,
+      "visible_windows": 4,
+      "legal_pairs": 2,
+      "legal_windows": 2,
+      "submitting_pairs": 0,
+      "accepted": 0,
+      "censored_other_report": 2
+    }
+  },
+  "crew_ballots_by_condition": {
+    "A": {
+      "ballots": 28,
+      "before_full_bar": 28,
+      "direct_crime_exposure": 3,
+      "crime_exposure_before_full_bar": 3
+    },
+    "B": {
+      "ballots": 38,
+      "before_full_bar": 28,
+      "direct_crime_exposure": 6,
+      "crime_exposure_before_full_bar": 3
+    }
+  }
+}
