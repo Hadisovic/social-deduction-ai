@@ -1,0 +1,94 @@
+{
+  "status": "bounded_engineering_only_no_training",
+  "lobby": {
+    "schema": "crewmate-environment-v2.1",
+    "player_speed": 1.0,
+    "confirm_ejects": true,
+    "anonymous_votes": false,
+    "task_bar_updates": "always",
+    "emergency_meetings": 1,
+    "emergency_cooldown": 0.0,
+    "discussion_seconds": 15.0,
+    "voting_seconds": 120.0,
+    "crewmate_vision": 1.0,
+    "impostor_vision": 1.5,
+    "common_tasks": 1,
+    "long_tasks": 1,
+    "short_tasks": 2,
+    "visual_tasks": true,
+    "kill_cooldown": 45.0,
+    "kill_distance_character_widths": 2.0,
+    "dt": 0.2,
+    "decision_interval": 0.6,
+    "timeout": 900.0
+  },
+  "source_commit": "1fdb92909596b1fed3943ff9dc4835de8c513d2a",
+  "scientific_sources_sha256": "78312533e6e29be6a8346496e581fde2ec92869f946fee2caaae73bf31531f82",
+  "benchmark_driver_sha256": "294272204d7786172fd70ff55841ed2fe202e548ce3d0f0a7f4a1c8132f9b28e",
+  "engineering_seeds": [
+    2612000,
+    2612001,
+    2612002
+  ],
+  "distinct_scenarios": 3,
+  "repeats": 2,
+  "executions": 12,
+  "physics_ticks_per_second": 5.0,
+  "operational_ceiling_seconds": 480,
+  "primary_timing": {
+    "policy": "second repetition, excluding first-repetition warmup",
+    "full_projection_median": 26.58346620001248,
+    "lazy_projection_median": 16.23621760000242,
+    "median_paired_speedup": 1.6169176933089355,
+    "total_speedup": 1.5946498078846416,
+    "paired_scenarios": 3
+  },
+  "full_projection_seconds": [
+    40.58837520002271,
+    24.583365900005447,
+    25.665957699995488,
+    37.88582530000713,
+    24.639514599984977,
+    26.58346620001248
+  ],
+  "lazy_projection_seconds": [
+    22.600146399985533,
+    15.774330999993253,
+    17.662564600002952,
+    23.4308928999817,
+    16.21274829999311,
+    16.23621760000242
+  ],
+  "full_projection_median": 26.124711950003984,
+  "lazy_projection_median": 16.949391100002686,
+  "median_paired_speedup": 1.5876794012382394,
+  "total_speedup": 1.6078581841867283,
+  "exact_actor_action_event_result_equivalence": true,
+  "exact_v2_public_packet_equivalence": true,
+  "deterministic_repeat_equivalence": true,
+  "ticks_per_method": 9024,
+  "simulated_seconds_per_method": 1804.8,
+  "aggregate_per_method": {
+    "illegal_actions": 0,
+    "navigation_failures": 0,
+    "ghost_crewmates": 8,
+    "task_completions": 96,
+    "reports": 8,
+    "votes": 30,
+    "body_observers": 8,
+    "witnesses": 8,
+    "no_action_actor_windows": 6660
+  },
+  "outcomes_per_method": {
+    "TASKS_COMPLETED": 6
+  },
+  "python": "3.12.10",
+  "notes": [
+    "No rendering or sleeping in either execution path.",
+    "Same physics dt, timers, observation and decision intervals.",
+    "All scheduled actor inputs and submitted actions were hashed. No private replay or individual role dataset is published.",
+    "Candidate event jumps/coarse ticks/time compression not adopted; see design limitations."
+  ],
+  "final_test_opened": false,
+  "phase6_1_acceptance": "pending"
+}
