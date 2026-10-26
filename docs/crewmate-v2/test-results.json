@@ -1,0 +1,39 @@
+{
+  "status": "engineering_validation_passed_no_training",
+  "v2": {
+    "tests": 45,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "seconds": 33.272
+  },
+  "historical": {
+    "tests": 177,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "seconds": 31.281
+  },
+  "total_tests": 222,
+  "selected_checkpoint_hashes_preserved": 9,
+  "original_strict_loads": {
+    "seed17_compatible_pilot_runtime": 3,
+    "seeds29_43_unchanged_continuation_runtime": 6
+  },
+  "historical_scientific_sources_unchanged": true,
+  "phase4_phase5_frozen_releases_unchanged": true,
+  "local_diagnostic_archive_files_unchanged": 433,
+  "existing_reference_artifacts_unchanged": 583,
+  "matching_artifacts_in_new_worktree": 57,
+  "final_test_opened": false,
+  "expensive_training_started": false,
+  "phase6_1_acceptance": "pending",
+  "notes": [
+    "Raw pytest logs stay local; this file contains only aggregate test outcomes.",
+    "Initial historical test setup could not create a sandbox temporary directory; rerunning with an explicit workspace-local temporary directory passed all 177 tests.",
+    "Initial Git-vs-checkout JSON line-ending assertion was corrected without rewriting the map or relaxing checkpoint guards.",
+    "Initial benchmark attempt stopped at its four-minute bound after 11 of 12 executions; excluded from final performance evidence.",
+    "Another benchmark attempt was intentionally interrupted after six executions to correct premature vote-target disclosure; excluded.",
+    "The final frozen-source throughput run completed 12 executions without concurrent tests; first repetition excluded from primary timing."
+  ]
+}

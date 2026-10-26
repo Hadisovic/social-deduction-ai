@@ -152,3 +152,17 @@ def test_environment_new_schema_no_mode_marker_original_death_reward_and_no_over
     # One -5 death + -5 draw + original per-simulated-second cost, no new shaping.
     assert info['undiscounted_reward']==pytest.approx(-10.-.005*1./.6)
     with pytest.raises(RuntimeError):a.step(0)
+
+
+def test_strong_witness_suspicion_does_not_override_selected_skip(planner):
+    env=CrewmateV2Env(planner=planner);env.reset(seed=2610000)
+    g=env.match.game;killer=impostor(g)
+    victim=next(p for p in crew(g) if p.player_id!=env.focal)
+    g._eliminate(killer,victim)
+    g.tick=1;g.phase=Phase.VOTING;g.phase_started_tick=1;g.meeting_id='choice-fixture'
+    g.participants=tuple(pid for pid,p in g.players.items() if p.active);g._invalidate()
+    env._observe();env._packet()
+    assert env.belief.by_player[killer.player_id]>.9
+    selected=next(i for i,c in enumerate(env.options) if c.kind=='skip')
+    env.step(selected)
+    assert env.focal in g.votes and g.votes[env.focal] is None

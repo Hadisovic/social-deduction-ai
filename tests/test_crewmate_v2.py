@@ -147,7 +147,8 @@ def test_sample_incubation_is_own_visible_time_and_legal_actions(game):
     p=crew(game)[0];task=install(game,p,'InspectSample')
     complete_stage(game,p,task)
     assert task.stage==1 and task.progress==.5
-    assert game.observe_v2(p.player_id).own_tasks[1].ready_in_seconds>=0
+    detail=next(d for d in game.observe_v2(p.player_id).own_tasks if d.task_id==task.task_id)
+    assert detail.ready_in_seconds==pytest.approx(60.)
     assert task.task_id not in game.observe(p.player_id).interactable_tasks
     start=game.time
     for _ in range(299):game.step()
@@ -201,6 +202,20 @@ def test_ghost_incubation_never_backdates_work():
     assert task.work==0
     state,_=advance_ghost(state,(task,),{'console':(0.,0.)},.2,10.2)
     assert task.work==pytest.approx(.2)
+
+
+def test_common_wiring_route_shared_but_progress_objects_never_shared(planner):
+    for seed in range(2610000,2610010):
+        g=CrewmateV2Game(seed,planner=planner)
+        common=[p.tasks[0] for p in crew(g)]
+        assert all(t.plan.stages==common[0].plan.stages for t in common)
+        assert len({id(t) for t in common})==4
+        if common[0].plan.task_type=='FixWiring':
+            assert len(common[0].plan.stages)==3
+            common[0].advance(1.,1.)
+            assert common[0].progress>0 and all(t.progress==0 for t in common[1:])
+            return
+    pytest.fail('Engineering fixtures did not include wiring')
 
 
 def test_ghosts_complete_owned_tasks_without_visibility_or_visual_proofs(game):
