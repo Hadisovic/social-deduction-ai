@@ -1,0 +1,96 @@
+{
+  "status": "proposal_only_not_authorized",
+  "candidates": [
+    {
+      "condition": "full",
+      "initialization_seed": 17,
+      "decisions": 6144,
+      "path": "artifacts/phase6/seed17-stage/full/checkpoint-6144.pt",
+      "sha256": "c77a11973241f9c7d3d752385bde58d9fba476a6745e6d6ed956e8122ba2b2b9",
+      "compatible_source_revision": "cd48b65a8de9de0cab33894ddb2558057487847d"
+    },
+    {
+      "condition": "history_no_belief",
+      "initialization_seed": 17,
+      "decisions": 4096,
+      "path": "artifacts/phase6/seed17-stage/history_no_belief/checkpoint-4096.pt",
+      "sha256": "609e7c87efbb64db24a8a4ea30956ba93b537a9028e386079af0b84434716750",
+      "compatible_source_revision": "cd48b65a8de9de0cab33894ddb2558057487847d"
+    },
+    {
+      "condition": "current_only",
+      "initialization_seed": 17,
+      "decisions": 2048,
+      "path": "artifacts/phase6/seed17-stage/current_only/checkpoint-2048.pt",
+      "sha256": "c77781da066a978cee16030445bd588658b236ae24c60891319d036f8ec65ba7",
+      "compatible_source_revision": "cd48b65a8de9de0cab33894ddb2558057487847d"
+    },
+    {
+      "condition": "full",
+      "initialization_seed": 29,
+      "decisions": 8192,
+      "path": "artifacts/phase6/remaining-six/full-29/checkpoint-8192.pt",
+      "sha256": "238904b7fe303b77e885c4cd6fdf4d9d447a62eb5b463436a391c0b4d6e1cb43",
+      "compatible_source_revision": "874e0390a7a34cd96e62ecf0c795f51e20ccd52c"
+    },
+    {
+      "condition": "history_no_belief",
+      "initialization_seed": 29,
+      "decisions": 6144,
+      "path": "artifacts/phase6/remaining-six/history_no_belief-29/checkpoint-6144.pt",
+      "sha256": "f9f0eab1915fb86513291a8f728439381d3ba672aa3808b2df1b0ce27ca42c67",
+      "compatible_source_revision": "874e0390a7a34cd96e62ecf0c795f51e20ccd52c"
+    },
+    {
+      "condition": "current_only",
+      "initialization_seed": 29,
+      "decisions": 4096,
+      "path": "artifacts/phase6/remaining-six/current_only-29/checkpoint-4096.pt",
+      "sha256": "94d7a8ab4a69ff1b6bdad31d1d9c1e83dfce2885f602d58b6fff6c2f4f9e7d23",
+      "compatible_source_revision": "874e0390a7a34cd96e62ecf0c795f51e20ccd52c"
+    },
+    {
+      "condition": "full",
+      "initialization_seed": 43,
+      "decisions": 4096,
+      "path": "artifacts/phase6/remaining-six/full-43/checkpoint-4096.pt",
+      "sha256": "d3abbdff88743f8b105f630e11c0e50963f38f7b1e992634dd55999087e9c0e3",
+      "compatible_source_revision": "874e0390a7a34cd96e62ecf0c795f51e20ccd52c"
+    },
+    {
+      "condition": "history_no_belief",
+      "initialization_seed": 43,
+      "decisions": 4096,
+      "path": "artifacts/phase6/remaining-six/history_no_belief-43/checkpoint-4096.pt",
+      "sha256": "758b04bc779a3392cbb4810a13bf2aa56aaf780a0b8b3ee912ef983d3316e33c",
+      "compatible_source_revision": "874e0390a7a34cd96e62ecf0c795f51e20ccd52c"
+    },
+    {
+      "condition": "current_only",
+      "initialization_seed": 43,
+      "decisions": 8192,
+      "path": "artifacts/phase6/remaining-six/current_only-43/checkpoint-8192.pt",
+      "sha256": "074bf93e1803155a046b991b2d382b1c8f8158226590c410121537bb859bef1d",
+      "compatible_source_revision": "874e0390a7a34cd96e62ecf0c795f51e20ccd52c"
+    }
+  ],
+  "controls": [
+    "idle",
+    "random",
+    "scripted",
+    "phase5_release_transfer"
+  ],
+  "matches_per_method": {
+    "final_familiar": 500,
+    "final_patient": 500
+  },
+  "methods": 13,
+  "total_executions": 13000,
+  "estimated_seconds": 33935.67770341673,
+  "provisional_range_seconds": [
+    27148.542162733385,
+    50903.5165551251
+  ],
+  "workers": 2,
+  "final_test_opened": false
+}

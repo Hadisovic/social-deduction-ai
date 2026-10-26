@@ -1,5 +1,52 @@
 # Continuation handoff
 
+## CURRENT — nine-model validation complete; final evaluation unapproved (2026-10-26)
+
+The owner approved the six seed-29/43 models. They completed on isolated research
+branch `codex/phase6-1-seeds29-43`, based on PR #4 head `8187d51`, with runtime
+source commit `874e0390a7a34cd96e62ecf0c795f51e20ccd52c`. Only initialization
+wiring/metadata and bounded continuation/report drivers were extended. The
+environment, PPO, reward, architecture, evaluation seeds and checkpoint ranking
+remain frozen. Strict source loading was not relaxed; old checkpoints retain
+their original source snapshots and metadata. Seed-17 research training was not repeated.
+
+Read `docs/benchmarks/phase6/remaining-six/README.md`, results/CSV, locked selection,
+integrity audit and `docs/phase6_seed29_43_continuation.md`. All nine runs trained
+8192 decisions; selected steps full/history/current are 6144/4096/2048 for seed 17,
+8192/6144/4096 for seed 29, and 4096/4096/8192 for seed 43. Validation only, 200
+paired familiar scenarios per model; 3320 total executions including screens and
+reused controls. The first 20 scenarios are reused, not independent extra evidence.
+
+Wins by seed 17/29/43: full 90.0/90.0/88.5%, history_no_belief 87.5/91.0/89.5%,
+current_only 90.0/86.0/83.0%. Mean tasks 1.922/1.952/1.797. All exceed idle/random;
+superiority over scripted (91.0%) is not established. Full versus history shows
+no clear win/task benefit. Voting is seed-sensitive: full seed 43 never votes;
+current-only seed 29 makes 105 incorrect votes of 171. All learned own reports
+are zero. Report incorrect crew-targeting votes separately from innocent team
+ejections and from structured-claim accuracy, which was not separately scored.
+
+Additional stage: 3.644 hours against 4.28 estimate / 6.42 ceiling; training 2.307h,
+screening 25.76min, extended validation 52.21min. Six new runs add 49152 decisions
+and 32.740 simulated hours; all nine total 73728 decisions / 49.122 simulated hours.
+50 targeted tests passed; both new seeds reproduce smoke/PPO/inference, all 120
+new selected screening rows replay exactly, all 30 new checkpoint copies load
+and hash correctly, and 419 original research files remain byte-identical.
+No recorded illegal/nav failures or validation timeouts; no scientific retry or
+budget fail-safe fired. All raw runs and checkpoints remain preserved.
+
+**Stop here. Phase 6.1 is not accepted; final familiar/patient partitions remain
+unopened and need separate approval.** The report includes an unapproved proposal
+for all nine finalists plus four controls: 13000 final matches, about 9.43h at
+observed throughput (provisional 7.54–14.14h). It is not a final lock, a runnable
+driver or permission to execute. Review voting weaknesses before spending this
+budget. No learned impostor, expanded population, dashboard, parallel-training
+benchmark or self-play is authorized. Do not merge PRs #3/#4/#5 or update production.
+
+Published main remains the documentation-only PR #6 merge `a463a42`; its roadmap
+is authoritative and was not copied/overwritten. Integration conflicts with main
+remain separate work after experimental review. Original pilot entries below
+are history where superseded by this completed, approved continuation.
+
 ## CURRENT — Phase 6.1 seed-17 pilot complete; stopped at approval gate
 
 The approved three 8,192-decision seed-17 models and all 1,640 registered validation

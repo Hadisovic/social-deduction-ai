@@ -6,6 +6,10 @@ history_no_belief and current_only at initializations 29 and 43. The estimate is
 PR #4 head `8187d51b6bbeb506fd2a59f25504adb368ab5006`; do not integrate with main,
 merge PRs #3/#4/#5, edit production or duplicate the published roadmap here.
 
+The approved continuation is complete: see the [nine-model validation report](benchmarks/phase6/remaining-six/README.md).
+Actual stage time was 3.644 hours; final partitions remain unopened and require
+separate approval. The design/protocol below was fixed before training.
+
 ## Reviewed design and context map
 
 | File | Minimal responsibility / change |
