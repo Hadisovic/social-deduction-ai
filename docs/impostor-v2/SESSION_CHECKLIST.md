@@ -1,6 +1,6 @@
 # Impostor development — live session checklist
 
-**Current step: shared chat read; remaining trainer work and pilot budget documented.**
+**Current step: 81 distinct targeted tests passed; source locking and pilot launch next.**
 
 Draft PR: [#10 — impostor V2 environment](https://github.com/Hadisovic/social-deduction-ai/pull/10).
 All 10 benchmark matches and all 239 regression tests passed. The shared chat is now
@@ -9,7 +9,9 @@ read and reconciled; the existing Edge tab worked after the earlier access failu
 Updated: 27 October 2026 (Amman). Based on your `message (5).txt` and subsequent
 instructions. This file will be updated in place throughout this session.
 
-**No RL training run, merge, deployment or reserved final evaluation is authorized.**
+**Approved on 27 October: two 4,096-decision runs and 40 validation matches.**
+Learning plus validation has a 3-hour ceiling. Merges, deployment and reserved final
+evaluation remain unapproved.
 
 ## 1. Fetch and establish an independent baseline
 
@@ -97,14 +99,28 @@ matches reached parity. These are engineering scenarios, **not learned-policy re
 - [x] Create and attach **draft PR #10**, based on the V2 branch.
 - [x] Report completion and proposed first training budget in the linked report and session update.
 
-## Approval gates — deliberately NOT started
+## Approved pilot — current session
+
+- [x] Owner approved the proposed pilot with “go on”.
+- [x] Implement separate PPO trainer/evaluator and fixed pilot configuration.
+- [x] Implement seconds-aware GAE, optimizer isolation, immutable checkpoints and replay-based resume.
+- [x] Initial seven trainer preflight tests passed, including exact resumed action/update equality.
+- [x] Complete combined regression: 79 passed; final trainer/report suite 9 passed (7 repeated; 81 distinct tests).
+- [ ] Commit and lock source/configuration before learning.
+- [ ] Train initialization 71: 0/4,096 decisions.
+- [ ] Train initialization 83: 0/4,096 decisions.
+- [ ] Evaluate exactly 40 paired validation matches using the final checkpoints.
+- [ ] Generate NN learning/diagnostic/outcome graphs and assess learning sufficiency.
+- [ ] Update report, checklist and existing draft PR with pilot outcomes.
+
+## Approval gates
 
 Remaining work is listed in [TRAINING_NEXT_STEPS.md](TRAINING_NEXT_STEPS.md): trainer,
 checkpoint/resume, optimizer isolation and seconds-aware GAE verification, followed
 by two pilot runs and paired validation. Allow **about 2–4 hours to first results and
 graphs including preparation**. Longer training will depend on those results.
 
-- [ ] Owner approval for any RL training run.
+- [x] Owner approval for this bounded two-run pilot only.
 - [ ] Owner approval for reserved final-test evaluation.
 - [ ] Owner approval to merge PRs.
 - [ ] Owner approval to deploy.

@@ -1,5 +1,10 @@
 # Before the first impostor training run
 
+**Pilot approved:** the owner's “go on” on 27 October authorizes the two 4,096-decision
+runs and 40 validation matches below, with a 3-hour learning/validation ceiling.
+Trainer verification and source locking precede those runs. No further training,
+reserved final tests, merges or deployment are approved.
+
 Updated 27 October 2026 after reading the owner's
 [shared conversation](https://chatgpt.com/share/6adfb9c6-ffe8-83eb-973b-b12e0e27816f)
 through its existing Edge tab. Earlier web/in-app attempts failed; it is now read.

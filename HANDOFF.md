@@ -1,5 +1,20 @@
 # Continuation handoff
 
+## CURRENT — impostor pilot approved; trainer preflight in progress (2026-10-27)
+
+The owner said “go on” after the 2–4-hour preparation/pilot estimate. This authorizes
+two ordinary-V2 impostor initializations (71/83), 4096 decisions each, followed by
+20 paired greedy validation scenarios per model (3200000–3200019), 40 total. Both
+crew safeguards, pinned frozen full-29 and original belief model, canonical lobby,
+gamma=1 sparse reward. Hard learning/validation ceiling: 3 hours. No additional
+training, reserved final tests, merges or deployment. Friend's crew work is separate.
+
+New trainer code is being verified before source lock and launch. Initial seven
+trainer tests passed (actual PPO, frozen isolation and exact replay/resume), combined
+environment/V2 regression is running. No substantive pilot has launched yet. Follow
+`docs/impostor-v2/SESSION_CHECKLIST.md`; update this entry with the actual run directory
+and process session when launch is verified. Preserve previous engineering evidence.
+
 ## CURRENT — independent impostor V2 engineering complete; training unapproved (2026-10-27)
 
 Owner authorized implementation on `codex/impostor-environment-v2` from exact V2
