@@ -35,8 +35,18 @@ Crew and impostor development remain separate. Cross-play with a newer crewmate
 requires pinning and checking that model; it is not automatically substituted.
 The original `run_impostor.py` remains the preserved V2-only viewer. The separately
 versioned [pursuit correction](docs/impostor-v2/pursuit-conditional-protocol.md) passed
-development checks but had no registered training study. The owner requested a
-summary/push and an end to today's work. No training remains running.
+development checks but had no registered training study. That training session ended
+with a summary/push. No training remains running.
+
+The later [V4 reward/action correction](docs/impostor-v2/options-v4/README.md) fixes
+fake-task restarts and versions the new rewards without resizing the network or
+rewriting old results.59 new/core checks and two complete development matches passed;
+old weights still repeatedly choose new fake activities and are not a strong model.
+The owner subsequently approved a bounded4h V4 study; see its [protocol](docs/impostor-v2/options-v4/TRAINING_PROTOCOL.md)
+and the [full master checklist](docs/impostor-v2/IMPOSTOR_MASTER_CHECKLIST.md),
+[exact NN tables](docs/impostor-v2/NN_ARCHITECTURE.md) and [research log](docs/impostor-v2/RESEARCH_LOG.md).
+Use `python run_impostor_options.py` for the clearly labelled V4 transfer demo.
+The future10-crewmate/2-impostor lobby requires adapting both policies separately.
 
 ## Phase 6 foundations — in progress
 

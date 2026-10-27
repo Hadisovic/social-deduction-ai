@@ -1,5 +1,90 @@
 # Continuation handoff
 
+## CURRENT — owner approved bounded V4 training; preflight passed (2026-10-27)
+
+LATEST: owner said “go on” after the3–4h training proposal. This authorizes the
+registered V4 study, hard ceiling14400s, two scratch initializations71/83 ×8192
+decisions. Read docs/impostor-v2/options-v4/TRAINING_PROTOCOL.md.80 greedy selection
+matches3200100–119, immutable lock,5 sampled diagnostic reusing first5 selection
+cases, then40 fresh greedy confirmation executions3200120–139: locked V4 and
+unchanged V2. No architecture changes, reserved finals, merge/deployment or extension.
+
+New runner: tools/run_impostor_options_v4.py; runtime impostor_options_v4/study.py
+and diagnostics.py. One CPU worker/one Torch thread. Keep all source modules and
+the protocol document unchanged once healthy workers start. Telemetry is proven
+to leave V2/V4 physics, actor packets and traces unchanged.36 preflight tests passed
+55.79s, including genuine8-step PPO gradients, frozen checks and exact continuation.
+These tiny development updates are not extra research training runs. Prior59-test
+implementation record and zero-optimizer smoke evidence remain historical.
+
+Output reserved for this new study: artifacts/impostor_research/options-v4-20261027.
+Start only after a clean local commit. Runner command:
+python -u tools/run_impostor_options_v4.py --output artifacts/impostor_research/options-v4-20261027
+No study process launched as of this prelaunch note. Replace this line with actual
+source commit/session after launch. progress.json and LIVE_PROGRESS.md persist
+progress; retain healthy jobs and resume snapshots. Never restart without failure.
+
+Latest future-work request: client-selectable lobbies up to15 total players and
+1–3 impostors, with legal combinations verified for the targeted game version.
+10crew/2impostors becomes one preset. Both policies need variable-roster/team
+adaptation; normally share2 role action policies +existing crew belief NN across
+actors with private state, not15 independently trained networks. Documented in
+master checklist/research log; NOT part of this5-player training study.
+
+Owner expressly says no more computer-use; supply commands for games. Do not
+close/control their watched game. Previous V4 viewer session75280 may still be
+open; it uses OLD weights and is not learning. New study must earn improvement.
+Historical notes below are superseded where they say training lacks approval.
+
+## CURRENT — V4 correction implemented; full training awaits approval (2026-10-27)
+
+Owner reopened work to implement the pasted reward/action prompt, a detailed NN
+table, a live checklist and runnable visualization. This supersedes the previous
+end-of-day stop ONLY for this implementation. **Do not start a new full PPO study.**
+
+Branch remains codex/impostor-environment-v2, base e62ba0b6c33ffd0317f78e18b4289d778cd5af2b.
+Added impostor_options_v4/ and run_impostor_options.py; old guarded V1/V2/V3 engine,
+policy/trainer/viewer files and checkpoint bytes are unchanged. Same75075-parameter
+12-family architecture; V4 versions the reward/action/observation semantics.
+Rewards: kill+3, extra ejection-6, win/loss+10/-10, timeout-12, no unconditional
+time cost, -.02 per actual simulated ready/active/roaming second. Fake repeats
+continue the current4s activity; NN still chooses continue/cancel/move/kill/report.
+Pursuit uses actor-only bounded potential, <=.05 lifetime positive credit, terminal
+correction; no automatic chase or hidden positions. Record new feature meanings:
+global_[3]=own fake remaining fraction, extra[2]=proximity high-water,
+extra[3]=remaining credited potential normalized; all dimensions unchanged.
+
+Read docs/impostor-v2/NN_ARCHITECTURE.md (all exact V2 inputs/layers/actions),
+REWARD_ACTION_V4_CHECKLIST.md and options-v4/README.md. New suite32 passed56.59s,
+zero optimizer steps.27 original core tests also passed14.99s (59 across these
+two distinct files); all8 V1 +8 V2 historical snapshots strict-loaded unchanged.
+Two full development smoke games3500000/1 completed
+in123.60s: both task losses,0kills,31/30 fake completions,0illegal/nav failures.
+Report docs/impostor-v2/options-v4/smoke-results.json; these are integration smoke
+outcomes, not validation or evidence of better learned play. No V4 model trained.
+
+Antigravity IDE opened the repo and exact table/checklist/new viewer source. Native
+game window was visibly inspected running at89.4s. Active viewer command/session:
+python run_impostor_options.py --seed3600000 --speed1, session75280. Leave it for
+the owner to watch; R replays, N changes game. It explicitly labels old V2 weights
+under new rules as TRANSFER DEMO / NOT TRAINED IN V4. Original run_impostor_ai.py
+still reproduces the evaluated V2 release. An initial detached launch ended; the
+active session above is the verified viewer, not a training job.
+
+Current lobby remains1 learned impostor +1 frozen full29 NN crew +3 scripted crew.
+Owner confirmed eventual10crew/2impostors as a future goal for both models; it is
+documented, not implemented/authorized in this task. Needs separate design. Friend's newer
+crew is not loaded. Proposed future bounded study estimate3–4h, not approved.
+No merge/push/deploy or reserved final tests in this implementation session.
+LATEST owner: no more computer-use calls; send commands for owner to run games.
+Full progress plan: docs/impostor-v2/IMPOSTOR_MASTER_CHECKLIST.md (opened via Codex
+file tool; queued). Research paper ledger: RESEARCH_LOG.md includes every failed
+run, exploit/fix and12-player roadmap. Owner observes repeated faking in an empty
+room: V4 completes activities but OLD frozen V2 weights choose to start another.
+The NN does not learn while watched; fixing the interface/reward does not change
+weights. Learned improvement remains an unchecked acceptance gate. No training.
+Historical completed-study notes below are preserved and superseded for execution.
+
 ## CURRENT — PUSHED; owner finished for today (2026-10-27)
 
 Code/results/checkpoints/graphs/summary pushed in118715a907de6bdc345902682f2011ee3f89108a.

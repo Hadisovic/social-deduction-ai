@@ -1,5 +1,11 @@
 # Impostor development — live session checklist
 
+**Current session:** [full impostor master checklist](IMPOSTOR_MASTER_CHECKLIST.md).
+V4 reward/action changes are implemented and tested; no new full PPO study is
+approved. See [exact neural tables](NN_ARCHITECTURE.md),
+[V4 report](options-v4/README.md) and [research log](RESEARCH_LOG.md).
+The completed training checklist below describes the previous study.
+
 **Complete: training/evaluation, graphs, summary and default viewer verification; code/results pushed in118715a and draft PR10 updated. No more training today.**
 
 Primary report: [session summary](SESSION_SUMMARY.md). No further training today.
