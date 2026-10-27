@@ -1,6 +1,9 @@
 # Impostor AI — where we stopped
 
 **The training/evaluation pipeline works, but the impostor is not yet a good winning AI.**
+Yes, learned models won: one training game and three selection-match executions
+across two checkpoints (two with the chosen model, one with another). The chosen
+model then won zero of20 fresh games. Those are different stages, not one combined win rate.
 Training and evaluation are finished. No further training is running. The prepared
 pursuit version was not given a full training study, following the owner's request
 to summarize, push and stop for today.
@@ -140,6 +143,8 @@ engineering passed239 regression tests and10 matches; suites overlap. All160 imp
 selection/confirmation executions had zero illegal actions/navigation failures.
 All16 research policy snapshots, frozen weights, failures, logs and graphs remain.
 The actual default viewer loaded the released checkpoint successfully. No merge or deployment.
+Code, checkpoints, graphs and these reports are pushed to `codex/impostor-environment-v2`;
+[draft PR10](https://github.com/Hadisovic/social-deduction-ai/pull/10) remains unmerged.
 
 - [Full teammate guide](final-20261027/README.md)
 - [Improved study: eight graphs, controls, settings, hashes and timings](strategic-v2-20261027/README.md)

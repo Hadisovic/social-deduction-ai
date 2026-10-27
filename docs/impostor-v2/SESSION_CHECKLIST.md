@@ -1,6 +1,6 @@
 # Impostor development — live session checklist
 
-**Current step: training/evaluation, graphs, summary and default viewer verification complete; final commit/push pending.**
+**Complete: training/evaluation, graphs, summary and default viewer verification; code/results pushed in118715a and draft PR10 updated. No more training today.**
 
 Primary report: [session summary](SESSION_SUMMARY.md). No further training today.
 
@@ -115,7 +115,7 @@ matches reached parity. These are engineering scenarios, **not learned-policy re
 - [x] Train initialization 83: 4,096 decisions, 18 completed games, no wins and one kill; frozen models unchanged.
 - [x] Evaluate exactly 40 paired validation matches: both models 0/20 wins, zero kills, all games lost by tasks; no illegal/navigation failures.
 - [x] Generate six pilot graphs and assess learning sufficiency: pilot did not learn a useful winning strategy.
-- [ ] Update report, checklist and existing draft PR with pilot outcomes.
+- [x] Update report, checklist and existing draft PR with pilot outcomes.
 
 ## Improved policy stage — newly approved
 
@@ -133,7 +133,7 @@ matches reached parity. These are engineering scenarios, **not learned-policy re
   - Complete: selected0/20, older AI0/20, scripted attacker1/20, untrained NN0/20. Lock unchanged.
 - [x] Generate eight upgraded graphs, assess failure and preserve all eight new policy snapshots.
 - [x] Create selected checkpoint bundles; strict-load all copies; default `run_impostor_ai.py` passed eight headless frames.
-- [ ] Update/push the existing draft PR and provide the exact run command.
+- [x] Update/push existing draft PR10; run command: `python run_impostor_ai.py`.
 
 Protocol: [strategic-v2-protocol.md](strategic-v2-protocol.md). This follow-up has a
 3-hour learning/evaluation ceiling. Existing reserved final-test partitions stay closed.
@@ -150,7 +150,7 @@ first pilot. The current protocol above supersedes its old training-approval gat
 - [x] Preserve prepared code and three development checks; no registered pursuit training or performance study.
 - **Latest owner instruction supersedes this gate: summarize completed training and push; no pursuit study will run.** The three checks above were tiny development tests, not performance evidence.
 - [x] Assess and curate the explicit V2 selection; verify `python run_impostor_ai.py`; write complete session summary.
-- [ ] Push final code/checkpoints/graphs/summary and report completion.
+- [x] Push final code/checkpoints/graphs/summary; draft PR10 updated; no merge/deploy/new training.
 
 See [conditional protocol](pursuit-conditional-protocol.md). This is a versioned
 correction under the owner's evidence-driven instruction, not an extension of the

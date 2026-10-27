@@ -1,6 +1,12 @@
 # Continuation handoff
 
-## CURRENT — studies and delivery artifacts complete; push pending (2026-10-27)
+## CURRENT — PUSHED; owner finished for today (2026-10-27)
+
+Code/results/checkpoints/graphs/summary pushed in118715a907de6bdc345902682f2011ee3f89108a.
+Draft PR10 updated and attached: https://github.com/Hadisovic/social-deduction-ai/pull/10
+Connector confirmed OPEN,DRAFT,UNMERGED, base codex/crewmate-environment-v2 at exact
+e62ba0b6c33ffd0317f78e18b4289d778cd5af2b; head codex/impostor-environment-v2.
+This last documentation commit marks delivery complete. No more work/training today.
 
 Owner's latest instruction: summarize all results, PUSH ALL, then call it a day.
 DO NOT start further training, including the previously prepared pursuit study.
@@ -31,9 +37,8 @@ Universal release: artifacts/impostor-ai/release/policy.pt, SHA
 Watch command: python run_impostor_ai.py. V2-only original run_impostor.py retained.
 All strict loaders/frozen weights/historical source guards retained.
 
-Next: commit/push all intended artifacts and source on codex/impostor-environment-v2;
-update existing draft PR10(base codex/crewmate-environment-v2); mark checklist pushed
-after verification. No merge, deploy, new training or reserved final tests. Then stop.
+All intended artifacts/source pushed and draft PR10 updated; checklist marked after
+verification. No merge, deploy, new training or reserved final tests. Stop here.
 The historical execution notes below are superseded; do not act on old launch advice.
 
 ## Historical execution notes — improved study (superseded)
