@@ -2,6 +2,16 @@
 
 ## CURRENT — V4.1 study COMPLETE; no jobs or further training authorized
 
+OWNER PRIORITY UPDATE,28October: fix crewmates first, add/test sabotage mechanics
+and crew responses, freeze a tested compatible crew/environment baseline, then
+resume impostor development/training. Do not start another impostor run now.
+This is a sequencing decision, not an approved new training budget. Crew work is
+the friend's separate track; do not message that person/task without authorization.
+Existing raw frozen crew probe ignores legal REPORT, but studied living opponents
+have explicit approach/report safeguards. Do not claim unchecked task greed caused
+the measured losses from0crew reports/33selfreports alone. Update future telemetry
+to distinguish raw NN proposals, guard overrides and actual reporting opportunities.
+
 Finished27October2026 at23:48:55 Asia/Amman. Session50520 exited0. It recovered
 evaluation-only logging IO, not learning. All80 selection+5 sampled diagnostics+
 40 confirmation executions are saved. No reserved final partitions were opened.

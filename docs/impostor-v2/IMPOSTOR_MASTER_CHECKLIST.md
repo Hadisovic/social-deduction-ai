@@ -3,6 +3,9 @@
 Updated27 October2026, Asia/Amman. **V4.1 training/evaluation COMPLETE at23:48:55.
 Fresh0/20wins,34kills; no fake choices. Winning strategy remains insufficient.**
 Read the short [teammate summary](CURRENT_RESULTS.md) first.
+**Owner priority, 28 October:** crewmate fixes first, then functional sabotage and
+crew responses, then resume impostor development. Further impostor training waits
+for a tested, pinned crew/environment baseline. No new training was started.
 Started21:03:50; completed within the01:03:50 deadline. Checkboxes describe verified work,
 not a percentage of model quality.
 “Best” means the strongest validated checkpoint among our tested candidates under
@@ -22,6 +25,7 @@ declared opponents/settings. It does not mean globally optimal play.
 | Learning sufficiency | More kills and no fresh fake loop;15 task losses,5 ejections; no reliable winning policy |
 | Watch new game | `python run_impostor_v41.py`; actual locked weights, inference only |
 | Current roster | 1learned impostor,1frozen neural crew,3scripted crew |
+| Next development order | Crew reporting/strategy → sabotage + crew responses → freeze baseline → impostor |
 | Future roster | Configurable up to15 total players and1–3 impostors; validate legal combinations;10crew/2impostors is one preset |
 
 ## 1. Baseline, architecture and preservation
@@ -228,6 +232,15 @@ These are evaluation questions, not hardcoded strategic rules or proven abilitie
 ## 10. Crew cross-play and configurable future lobbies
 
 Detailed plan/model count: [FUTURE_LOBBIES.md](FUTURE_LOBBIES.md).
+
+- [x] Record owner's 28 October sequencing decision: crew fixes and sabotage
+  precede further impostor development/training. Preserve the current baseline.
+- [ ] Audit learned crew body detection, approach/report latency and witnessed-kill
+  voting. Separate raw NN proposals from safeguard overrides in the evidence.
+- [ ] Implement/test sabotage and legitimate observations/actions for both roles;
+  develop crew repair/response behavior before using it as an impostor opponent.
+- [ ] Pin the compatible tested crew checkpoint and sabotage contract, verify ghost
+  isolation/deterministic matches, then propose the next impostor study/budget.
 
 - [x] Record future custom settings: up to15 total players and1–3 impostors, with
   legal combinations validated against the targeted real-game version.10crew/2

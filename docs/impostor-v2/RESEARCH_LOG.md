@@ -260,3 +260,22 @@ before a separately approved comparison; retain no-sabotage baseline. Do not ban
 reports or assign an arbitrary report cost based solely on correlated outcomes.
 Future custom lobbies, compatible crew cross-play and eventual self-play remain
 in [FUTURE_LOBBIES.md](FUTURE_LOBBIES.md).
+
+## Owner sequencing decision —28 October2026
+
+Owner suspects task-focused crew reporting behavior contributes to the outcome and
+prioritizes **crewmate fixes, then sabotage, then impostor development**. Adopt that
+order; no additional impostor training starts before a tested crew/environment
+baseline is pinned. Functional sabotage needs both-role mechanics/interfaces and
+crew response/repair competence, not only a new impostor button.
+
+Checked existing source: `tests/test_impostor_research.py` contains a controlled
+raw frozen-policy probe that ignores a legal REPORT. However,
+`impostor_research/opponents.py` overrides all living crew opponents' choices to
+approach/report legitimately visible bodies, and `impostor_research/env.py` applies
+that guard in the studied matches. These are engineered safeguards, not learned
+reporting competence. Thus0crew reports versus33impostor reports in the fresh V4.1
+matches does not identify task greed as the cause. Early self-reporting may remove
+crew opportunities; measure visibility, legal opportunities, response latency and
+raw-versus-executed decisions before attributing causality. Historical sources,
+results and checkpoints remain unchanged.

@@ -9,6 +9,11 @@ final tests. Detailed [NN tables](NN_ARCHITECTURE.md),
 [checklist](IMPOSTOR_MASTER_CHECKLIST.md), [research log](RESEARCH_LOG.md) and
 [11 graphs with raw results](options-v41-study-20261027/README.md) are retained.
 
+**Owner update, 28 October:** next work is crewmate fixes → sabotage mechanics and
+crew responses → a frozen tested crew/environment baseline → impostor development.
+Further impostor training waits. This changes the priority of the future proposals
+below; it does not change the completed experiment or its results.
+
 ## Watch the new model
 
 From the repository root:
@@ -158,6 +163,14 @@ snapshot files are not thirty independently trained models. Historical controls,
 timings, failed graphs and all checkpoints remain linked from the research log.
 
 ## What to do next — approval required for another full study
+
+First follow the owner's crew/sabotage sequence above. The raw frozen crew NN can
+ignore a legal report in an existing controlled test, but the studied environment
+overrides such choices with approach/report safeguards. Its zero crew reports in
+the new confirmation therefore do not prove task greed caused the losses; the
+impostor also self-reported 33 times. Measure visible-body opportunities, approach/
+report delay and raw-versus-guarded decisions in the crew work. The following
+impostor recommendations wait until that improved baseline is ready.
 
 1. Integrate the tested zero-duration **terminal** GAE correction into a new
    versioned learner. Instant terminal kills can take 0 simulated seconds; inherited

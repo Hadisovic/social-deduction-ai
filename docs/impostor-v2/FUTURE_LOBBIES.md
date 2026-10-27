@@ -54,18 +54,28 @@ yet; benchmark it before proposing a compute budget.
 
 ## Learning and evaluation sequence
 
-1. Fix and validate useful single learned crew/impostor behavior in the current
-   task-enabled setting. Completed V4.1 improved killing/faking but scored0/20
-   fresh wins; it does not expand lobby size or satisfy the reliable-win gate.
-2. Freeze compatible checkpoints for explicit mixed and fully neural cross-play.
+Owner's revised priority on 28 October: **crew fixes and sabotage before the next
+impostor development/training stage**. No additional training starts from this note.
+
+1. Fix/validate crewmate reporting, body approach, witness voting and strategy.
+   Log raw learned proposals separately from scripted safeguard overrides; the
+   existing controlled raw-policy probe can ignore a legal report.
+2. Implement/test versioned sabotage mechanics and legitimate interfaces for both
+   roles. Develop/evaluate crew responses and repairs. Current frozen crew have
+   no trained functional sabotage response. Preserve no-sabotage results.
+3. Freeze a compatible tested crew checkpoint and environment contract. Resume
+   impostor engineering, then register its next training/evaluation budget. V4.1's
+   0/20 fresh wins do not satisfy the reliable-win gate. Do not reuse its
+   confirmation cases as untouched tests of the next tuned model.
+4. Freeze compatible checkpoints for explicit mixed and fully neural cross-play.
    Do not attribute a whole-team victory to one learned crew actor without evidence.
-3. Implement/test variable lobbies, then separately approve their training protocol
+5. Implement/test variable lobbies, then separately approve their training protocol
    and compute budget. A policy shared across seats should encounter declared varied
    roster sizes; hold out scenarios and opponent policies for generalization checks.
-4. Once individual agents work, explore coordination, adapting opponents and
+6. Once individual agents work, explore coordination, adapting opponents and
    self-play. Centralized training critics are optional future designs; execution
    actors must still receive only their legitimate information.
-5. Compare general policies with lobby-specific checkpoints if evidence warrants
+7. Compare general policies with lobby-specific checkpoints if evidence warrants
    them. Preserve failures and report wins, uncertainty and compute by lobby size,
    impostor count, opponent mix and seed, rather than pool incompatible games.
    Count independent matches, not every shared-policy seat as an independent trial;
