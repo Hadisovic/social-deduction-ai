@@ -1,7 +1,9 @@
 # Learned impostor — full development checklist
 
-Updated27 October2026, Asia/Amman. **Owner approved the bounded V4 training study;
-prelaunch checks are in progress.** Checkboxes describe verified work, not a percentage of model quality.
+Updated27 October2026, Asia/Amman. **V4 interrupted with owner approval; spawn-safe
+V4.1 repair passed preflight; preparing launch.**
+Started21:03:50; hard stop01:03:50 on28 October. Checkboxes describe verified work,
+not a percentage of model quality.
 “Best” means the strongest validated checkpoint among our tested candidates under
 declared opponents/settings. It does not mean globally optimal play.
 
@@ -14,7 +16,7 @@ declared opponents/settings. It does not mean globally optimal play.
 | Previous evidence | Selected2/20wins; fresh confirmation0/20wins,4kills |
 | First learned win | Yes: seed83 training game;2kills and innocent crew ejection |
 | New V4 code | Reward/action/observation changes implemented and tested |
-| New V4 trained model | Full study approved; prelaunch development gradient checks are separate from research training |
+| New V4 trained model |71 finished;83 interrupted at last durable1792; no validation/release. Corrected V4.1 pending preflight |
 | Visible current game | Old V2 weights in a labelled V4 transfer demo; inference only |
 | Current roster | 1learned impostor,1frozen neural crew,3scripted crew |
 | Future roster | Configurable up to15 total players and1–3 impostors; validate legal combinations;10crew/2impostors is one preset |
@@ -82,6 +84,18 @@ declared opponents/settings. It does not mean globally optimal play.
   hidden-position isolation; document conservative high-water limitations.
 - [ ] Check useful positive shaping actually occurs during exploration; current
   old-weight smoke matches earned none.
+- [x] Detect and disclose real-spawn flaw: all90 durable V4 training games earned
+  zero pursuit credit because initial close players saturated the lifetime frontier.
+- [x] Obtain owner decision to stop, fix and restart as a separate V4.1 study
+  **within the original01:03:50 deadline**, not four additional hours.
+- [x] Pass actual crowded-spawn/45s cooldown/visible-approach regression and exact
+  checkpoint replay for the corrected schema before replacement training.
+- [x] Final corrected preflight:5 tests passed130.82s, including2 isolated CPU
+  workers with only8 development decisions each. Same network/coefficients.
+- [x] Additional synthetic parallel evaluation scheduling check passed14.23s;
+  six corrected checks total. Two workers change scheduling, not datasets/counts.
+- [x] Preserve six interrupted V4 policy snapshots and all compact failure logs;
+  original raw resume journals remain ignored/local and intact.
 - [ ] Test whether shaping helps learning. Do not infer benefit from passing tests.
 
 ## 5. Implementation verification — completed
@@ -102,7 +116,7 @@ declared opponents/settings. It does not mean globally optimal play.
 ## 6. Approved bounded training study
 
 - [x] Owner approved with “go on” after the3–4h proposal; hard ceiling4h.
-- [ ] Freeze a clean source/config manifest, opponent hashes, initializations and
+- [x] Freeze a clean source/config manifest, opponent hashes, initializations and
   new scenario partitions before any new rollout optimization.
 - [x] Declare **from scratch**, initializations71/83; do not pool with warm-start studies.
 - [x] Keep the75,075-parameter architecture and original PPO settings initially.
@@ -126,6 +140,11 @@ tiny development PPO updates and exact continuation; these are not research runs
 Exact protocol: [TRAINING_PROTOCOL.md](options-v4/TRAINING_PROTOCOL.md).80 greedy
 selection +5 sampled diagnostic +40 fresh confirmation executions. No architecture
 change, automatic extension, lobby expansion, merge/deployment or reserved finals.
+
+Live progress: [LIVE_PROGRESS.md](../../artifacts/impostor_research/options-v4-20261027/LIVE_PROGRESS.md).
+Original runtime commit`b59ab8ac482fcbdd80f064d3805a27beed6cba52`; session57078 is
+stopped, not healthy. New corrected [protocol](options-v41/TRAINING_PROTOCOL.md)
+uses fresh cases and preserves all interrupted evidence. No replacement started yet.
 
 ## 7. Gameplay skills to learn and verify
 
@@ -189,6 +208,8 @@ These are evaluation questions, not hardcoded strategic rules or proven abilitie
 
 ## 10. Crew cross-play and configurable future lobbies
 
+Detailed plan/model count: [FUTURE_LOBBIES.md](FUTURE_LOBBIES.md).
+
 - [x] Record future custom settings: up to15 total players and1–3 impostors, with
   legal combinations validated against the targeted real-game version.10crew/2
   impostors is one preset. Both models need adaptation; current5-player work remains.
@@ -199,6 +220,8 @@ These are evaluation questions, not hardcoded strategic rules or proven abilitie
   crew/impostor checkpoints and assess paired cross-play.
 - [ ] Agree with the crew developer on a versioned variable-roster contract, up to
  14 other-player rows, encoders/masks/target indices, scaling and action capacity.
+- [ ] Audit the shared belief predictor's fixed-roster assumptions and calibration
+  along with both action policies; sharing weights does not guarantee compatibility.
 - [ ] Add client-selectable lobby presets/settings and reject unsupported/illegal
   player/impostor combinations. Version/store all settings in training/evaluation logs.
 - [ ] Implement/test1–3 impostor seats, legitimate teammate identity, friendly-kill

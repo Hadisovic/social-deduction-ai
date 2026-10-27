@@ -1,0 +1,24 @@
+{
+  "status": "interrupted_by_owner_before_validation",
+  "reason": "Crowded spawn saturates V4 lifetime proximity frontier before cooldown; pursuit shaping inactive in all75 seed71 games and15 durable seed83 games",
+  "owner_decision": "Fix and restart within original deadline (Recommended)",
+  "interrupted_epoch": 1793127389.904607,
+  "exit_code": 1,
+  "last_durable_progress": {
+    "updated_epoch": 1793127099.5605497,
+    "stage": "training",
+    "seed": 83,
+    "decisions": 1792,
+    "episodes": 15,
+    "wins": 0,
+    "kills": 16,
+    "seconds": 578.995862300013,
+    "entropy": 1.1400710344314575,
+    "kill_probability": 0.2451822559038798
+  },
+  "selection_opened": false,
+  "confirmation_opened": false,
+  "last_full_seed": 71,
+  "partial_seed": 83,
+  "partial_decisions": 1792
+}

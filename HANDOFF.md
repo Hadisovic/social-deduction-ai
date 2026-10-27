@@ -1,6 +1,55 @@
 # Continuation handoff
 
-## CURRENT — owner approved bounded V4 training; preflight passed (2026-10-27)
+## CURRENT — V4 stopped; spawn-safe V4.1 preflight passed; prepare clean launch
+
+Important discovery: all75 completed seed71 games and15 durable seed83 games had
+zero pursuit credit. Crowded spawn sets V4's lifetime proximity high-water to1
+during initial45s cooldown, disabling intended shaping. Owner explicitly answered
+“Fix and restart within original deadline (Recommended)”. Session57078 was stopped
+with Ctrl-C, exit1. Preserve it as interrupted, not healthy/running/complete.
+artifacts/impostor_research/options-v4-20261027/interruption.json records decision,
+reason and last durable progress. Seed71:8192/75games/68kills/0wins; partial83:
+1792/15games/16kills/0wins. No selection or confirmation was opened. No old source
+or checkpoint was edited. Original absolute deadline is STILL2026-10-28 01:03:50 +03.
+
+Repair is separate namespace impostor_options_v41/, root run_impostor_options_v41.py
+and tools/run_impostor_options_v41.py. It preserves75,075 params, fake persistence,
+all reward coefficients/physics. Only frontier arming changes: while own cooldown
+is positive clear geometry history, not credit/budget; once ready establish a
+non-paying baseline then pay own visible progress. Meetings do not reset frontier;
+kill cooldown can begin another approach period but NEVER refills lifetime0.05.
+New strict schema impostor-options-v41; original V4 loaders remain reproducible.
+
+Read docs/impostor-v2/options-v41/TRAINING_PROTOCOL.md. New fresh training starts
+3111000; selection3200140–159 (80 executions), lock,5 sampled diagnostics onfirst5
+selection cases, confirmation3200160–179 (40). Two scratch71/83 ×8192, one CPU
+worker, same PPO. New run must borrow original deadline from the old study SHA,
+not allocate another4h. Output intended artifacts/impostor_research/options-v41-20261027.
+No replacement study launched yet. Final preflight session62944 exited0:5 tests
+passed130.82s, including actual45s spawn/visible approach, bounded arming, real PPO/
+exact resume, old V4 compatibility and2 isolated8-decision development workers.
+The first real-world test initially failed because a room goal parked at a doorway
+with no visible crew; corrected fixture uses a public-console route then legitimate
+visible candidates. Only the cooldown-frontier production repair was needed.
+Two PARALLEL training CPU workers/one Torch thread each, two isolated evaluation
+method workers, sequential sampled diagnostics. Synthetic80-case scheduling test
+also passed14.23s (six total corrected preflight checks, not new performance data);
+this preserves2×8192 decisions and helps meet the original deadline. Sources and
+protocol record this before launch. Save clean local commit and launch; update this
+top section with actual source/session. Do NOT rerun original interrupted study.
+
+Six original V4 policy snapshots were preserved/strict-loaded in
+artifacts/impostor-options-v4-interrupted/study-20261027; compact logs and honest
+interruption summary in docs/impostor-v2/options-v4-interrupted-20261027/.
+
+No computer use; user runs own game commands. Future custom lobbies documented in
+FUTURE_LOBBIES.md, up to15 total/1–3impostors, normally2shared role policies +belief.
+Offline V4 report/curator tools exist but require V4.1 fresh-seed/schema adaptation
+before corrected results: tools/report_impostor_options_v4.py and release_impostor_options_v4.py.
+Keep both interrupted V4 and corrected V4.1 evidence; account for repair time in
+original budget. Historical running notes below are superseded.
+
+## CURRENT — V4 study RUNNING, session57078 (2026-10-27)
 
 LATEST: owner said “go on” after the3–4h training proposal. This authorizes the
 registered V4 study, hard ceiling14400s, two scratch initializations71/83 ×8192
@@ -20,9 +69,38 @@ implementation record and zero-optimizer smoke evidence remain historical.
 Output reserved for this new study: artifacts/impostor_research/options-v4-20261027.
 Start only after a clean local commit. Runner command:
 python -u tools/run_impostor_options_v4.py --output artifacts/impostor_research/options-v4-20261027
-No study process launched as of this prelaunch note. Replace this line with actual
-source commit/session after launch. progress.json and LIVE_PROGRESS.md persist
-progress; retain healthy jobs and resume snapshots. Never restart without failure.
+Study launched as session57078 from clean source commit
+b59ab8ac482fcbdd80f064d3805a27beed6cba52. Manifest confirms dirty=False.
+Started2026-10-27 21:03:50 +03; deadline2026-10-28 01:03:50 +03 (Asia/Amman).
+Seed71 training has completed8192 decisions; seed83 is now running. Read persisted
+seed-71/training.json and episodes.json for exact outcomes. Validation is unopened.
+progress.json and LIVE_PROGRESS.md persist progress; retain healthy jobs and resume
+snapshots. Never restart without failure. Do NOT edit impostor_options_v4/, the
+registered runner, root viewer or TRAINING_PROTOCOL.md while healthy workers run.
+New offline analysis tools outside those guarded paths and status documents are
+allowed. No automatic restart/extension or test-driven tuning.
+
+Offline completion tools are prepared outside guarded namespaces:
+tools/report_impostor_options_v4.py (11 plots, paired uncertainty, fake/ready/reward
+metrics;3 synthetic report tests passed12.30s) and
+tools/release_impostor_options_v4.py (strict8 snapshots +new separate release;
+synthetic no-overwrite/identity test passed8.24s). Their fixtures are not real model
+results. After results.json says complete, generate into NEW directory
+docs/impostor-v2/options-v4-study-20261027, inspect figures/results, then curate
+artifacts/impostor-options-v4/study-20261027 with its NEW sibling release/.
+Commands: python tools/report_impostor_options_v4.py SOURCE REPORT
+and python tools/release_impostor_options_v4.py SOURCE REPORT BUNDLE.
+Never overwrite artifacts/impostor-ai/release or any historical models. Selected
+V4 viewer command must be explicit: python run_impostor_options.py --checkpoint
+artifacts/impostor-options-v4/release/policy.pt. Do NOT edit root viewer defaults,
+which are source-guarded. Complete report/checklist/research log with real outcomes,
+including failure, and distinguish training/selection/fresh confirmation.
+If the4h ceiling stops it, preserve partial evidence and report incompleteness;
+do not launch another run or claim a complete evaluation/release.
+Protocol wording erratum (do NOT edit the hash-guarded protocol): “every256 updates”
+in its snapshot sentence means every256 policy decisions, i.e. after each rollout/
+PPO update. Runtime/checkpoint code has used256 decisions since the clean baseline;
+policy-only snapshots remain0/2048/4096/8192. Report actual scheduling accurately.
 
 Latest future-work request: client-selectable lobbies up to15 total players and
 1–3 impostors, with legal combinations verified for the targeted game version.

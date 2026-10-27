@@ -1,0 +1,413 @@
+{
+  "schema": "impostor-options-v4",
+  "record": {
+    "schema": "impostor-options-v4",
+    "core": {
+      "schema": "impostor-strategic-v2",
+      "baseline": "e62ba0b6c33ffd0317f78e18b4289d778cd5af2b",
+      "source_commit": "b59ab8ac482fcbdd80f064d3805a27beed6cba52",
+      "branch": "codex/impostor-environment-v2",
+      "dirty": false,
+      "sources": {
+        "configs/crewmate-v2-lobby.json": "fa4785e1fc124d1ceacbc6316e30c0a6d5b2fedd55f49afa9d67f069ce7c1ff9",
+        "crewmate_v2/__init__.py": "da922676bdabfcdd2fe8a64f71623b1e393c2d7ec18981ee741dc24156636000",
+        "crewmate_v2/api.py": "e1b7e7279fc39c5f43e1d80e751f78fa4aab063eb546df663e0f232508063c4b",
+        "crewmate_v2/config.py": "f1c7d39300e9754fdd0e95f97e4e77b2c639f13267a04fe9bbce2c2b653cb94d",
+        "crewmate_v2/engine.py": "4dc184bc58b4f3c979a88ad7daae565fedc0f5098bc0a834ac69a2c550f06026",
+        "crewmate_v2/ghosts.py": "f9a13d36498770f5b3ae50394c6185bb761bae54a7147add85aa984e1da25faa",
+        "crewmate_v2/provenance.py": "2afd9d5f1c1d5363e76c8211378438f2bc0411d1a0df37933489f92d5cce5e2b",
+        "crewmate_v2/runtime.py": "c5b3f45f96e90e9f700d00f74499d290f7689fd15fe5c520f8d82b750b0cce23",
+        "crewmate_v2/tasks.py": "ce6ea02620072438c0d9836a3551167f0a88b42933b30f50d8236884e2f10210",
+        "impostor_research/__init__.py": "aaad45e57757d6da9ef8cc46117b61535e14df8bac4c5839fc028e82ef97a749",
+        "impostor_research/env.py": "78ca1ca4b8a1a3689ccba0dba0f18d6c41e117200b5c4fb4dd60df0c6a6d24f0",
+        "impostor_research/features.py": "ba0057e52c962ff95707aa4aa9a934886baaa9a8077a90b9e0ccb5340d2a8700",
+        "impostor_research/frozen.py": "f750e5f8f2a04e45f8ca75f386b605e3f461258e9d282c9c7480e7272fef5587",
+        "impostor_research/learning.py": "2c2ce2aaa5e6586e4d32c73b9ccc01d87fef245f928096c225770b6801aeb708",
+        "impostor_research/learning_v2.py": "8954b1168505d758574f2549000447b75872d3c6b9f59a812a9ab2f40d725399",
+        "impostor_research/memory.py": "6a910cd1bb605b70c34353ace93e24ff027b1ccd3e3001022591a0adf16e405c",
+        "impostor_research/opponents.py": "7a93b3300155bcfdf3bc435b41401ad8f92f2aecba7e9a7f1cd7e34494585bfb",
+        "impostor_research/pilot.py": "9e0d9f671a28ec308a5b6deccc409ad46dc79f3e5764372340db946ef996225a",
+        "impostor_research/policy.py": "5b4ef9fc81316c562b93e97da507c67dd48fb14cac94ac235180ec5c0e412bff",
+        "impostor_research/protocol.py": "8fa1d5e8593126b6c956e403dd26128b5546a5c666d13bc58f8db2876869fc9f",
+        "impostor_research/report.py": "bdf38e1ca3a7e138a746ce19f11a16fe70ba88298423e865cc6b77a12f8cf7e2",
+        "impostor_research/strategic_v2.py": "f969dec678f39afa111ef6e527063c29ba32e27870f33ea3246bf701fdefa8a4",
+        "impostor_research/study_v2.py": "7f45477591136306b5629c65b2eff00d6ffc6f8c420cb9a7865640b138f62009",
+        "tools/benchmark_impostor_v2.py": "0e1fa59efd20b41dcacad46033ea2bb9715bec04a7b1078e3ede880f69d6c867",
+        "tools/run_impostor_v2.py": "11e326eeea9ab857b41642ab4ea0c5d609f41c65d21176d9d69c56811fa13429",
+        "run_impostor.py": "b73b498082d6b6fc3de8b6f4578e631bfebe22ad713dadbec76aaade6e786225"
+      },
+      "historical_sources": {
+        "among_us_map.py": "67b40bdd03bba566b641be48e2c5f78fb81dab954113596adebc1387e40ed303",
+        "assets/skeld/among_us_map.json": "9e5e0cd925ab3ede95aae67e42dbb6ebd67717bf8e7365eb655628c669a2d58c",
+        "belief/__init__.py": "162256a5fc8454dbb612591f11600ed5623e51699e7c1fbf200af0be462f7287",
+        "belief/features.py": "24b9aee88fd386a9bc8192feb945947d407187eee092938312d490496ce61e5b",
+        "belief/memory.py": "2cd348305f1450daa07f81c30a15ecedecb80c5221b9faa931ab67c0f72dac73",
+        "belief/metrics.py": "9095286fa66b29dc7f69c38c9a0c127022b3946b830d8b7e060e893e3bce1d65",
+        "belief/model.py": "43ad0ff8760738e26b869092ed1e4b0e43574419290f1151737c08bd1288c8ff",
+        "navigation_service.py": "3a1af1e6d7eb143144293e75704e60f29fcb2741bd3fdbeca33ad969d9af406d",
+        "phase3_bots.py": "dac423d42c94c9abdd12df9020a995ede9d32817cc1a26614f7ce693a1d5ca33",
+        "phase3_engine.py": "4e62637693ed4ec012799a8434a224ef5762a0fced55d1b24e6e161725d00972",
+        "phase3_runner.py": "74c4899dd3ea1d51151ba5b37ecb9db3b214c13c65a4a6222b1c7ad7059ab59a",
+        "phase4_scripts.py": "fecd39960d378dc236de42ca98e8ed572767314b310e18ad2f0b16a93e740f43",
+        "phase5_analysis.py": "7bd50426251a01daf6ce1d90ee33a7be6c465baee086c41c04e6d466c388475d",
+        "phase5_env.py": "502423fcb7a4d5187d35f532006b193061804f05f7f43c995767cb685530e963",
+        "phase5_features.py": "0c12db6a50470b56ab9420c0bee5c56e7d1d29f36b0ff3dfcba7e290b341f7bf",
+        "phase5_options.py": "97d0a5ee05183cf3880e7c9fd079e9f9bbdebb6e8ad0f26819c76b3b9642c059",
+        "phase5_options_training.py": "f4e0c9b95d975e4122450c549bec8b5c7added294188221c8a6cb611de738918",
+        "phase5_policy.py": "e98036186b54737a9de5b105a3aed5ae11f6bb560ec0c4b9e33b830b88176223",
+        "phase5_research_report.py": "5064b6ac5db66ddfc7c53bf30da89748ee1765e539a90017f9ebf22ec53397f3",
+        "phase5_runner.py": "58d9cd1dada86e0f6d6aae9e22adeb2571d639717dbcd33572e6c7a6e06eb2d9",
+        "phase5_runtime.py": "fb166e3a84047a4f431f66632f34ee8148eda65dfd55523bb13f6646836d7e8b",
+        "phase5_training.py": "7fb799793b0fc6f47b1b32eae98a7144cf951930ccbad89e1c690d2e42b48582",
+        "phase6/__init__.py": "0237d84ee241e2a18a31574c71d0e5ab4c60a9b98a900d2ac87eb2dfda2dc89a",
+        "phase6/audit.py": "5e3b6bdd299c856a26794d2b1ed50ee9cc2cdcbd8c981692b1ffdaff4f4b2834",
+        "phase6/config.py": "b3ac234cc5f5f76a34b477db3a1c3596f6154dd951b4c7397b5e3300cff10a3b",
+        "phase6/env.py": "e6b2c6df711275c9acd0844cbc49a885f18699417cd9adff4da0b61e76887888",
+        "phase6/evaluate.py": "df3db88b214f81ec403682277bcc7e72fb5c12ce7296bf9cbb22d7b33e018df8",
+        "phase6/study.py": "a6aa9203ca4e9c55b3f71462f067570a34a088b85bef54dedf009a76cfa03805",
+        "phase6/study_comparison.py": "fe10f64263ec6049eed4ff8a7d4a2a4cda3780fbe21202d83fa8c8af950e6eaa",
+        "phase6/study_continuation.py": "6d207658ee10e53d6e5a4b66c77607912382682327ee601b5575881c6b8e4640",
+        "phase6/study_report.py": "493a8b33a8a816476cad2d0eacf4de6df79968e44c6bfe11b959a0d704f79fbe",
+        "phase6/study_support.py": "6e28c60f5ea84a51f9dbb627b1119e73db8a518f9277c3182903626ae4268032",
+        "phase6/study_training.py": "378c6c783e7e93c69a3527fc5c40b4fd14be99978624e9fdd3cba88e36dc4a49",
+        "phase6/study_validation.py": "12bc0f605324185bb0cf462d496d576a3d85ff8e64157e277e6e34433df8b41f",
+        "phase6/train.py": "b73d8609a072fc4cd0d52ff81e2c65926e5441a685c64de39368e111aab559d8",
+        "run_phase6.py": "35045451858a27c47fea9145b14e118135e4dfbc056b1a06614b2aa586339130",
+        "social_deduction/__init__.py": "bfad591ad370ed16efdb17fbe28f4c47e9df5bf3388badeeeffff216c8a06548",
+        "social_deduction/actor.py": "5f12a781dcd45ba88ea1e75dbb7bebad7f494ae4046ad7f16cd548aee543c882",
+        "social_deduction/observation.py": "a7dad15d2949aa44ed9eeeb371fb6f76ecfdc5afc0e874f8b64000f3e99cf7ac",
+        "social_deduction/phase3_api.py": "778fa0fe24df9e24e6eada33dfc0afd1e12a714965eeaecc2e89d75752861b8c",
+        "social_deduction/phase3_observation.py": "9e1f3f81307b089d841cba324d4a66fe05e1ad260a535bdd0bc912c4ddb00682",
+        "social_deduction/training.py": "7728e2d20041625ce330ab01b49bac37db9d9cca36e4521608757f784c001a69",
+        "social_deduction/truth.py": "a98637897c8783b236f1ead92a0a33d2c7d145ac90c196f43676e96767c8de1d"
+      },
+      "lobby": {
+        "schema": "crewmate-environment-v2.1",
+        "player_speed": 1.0,
+        "confirm_ejects": true,
+        "anonymous_votes": false,
+        "task_bar_updates": "always",
+        "emergency_meetings": 1,
+        "emergency_cooldown": 0.0,
+        "discussion_seconds": 15.0,
+        "voting_seconds": 120.0,
+        "crewmate_vision": 1.0,
+        "impostor_vision": 1.5,
+        "common_tasks": 1,
+        "long_tasks": 1,
+        "short_tasks": 2,
+        "visual_tasks": true,
+        "kill_cooldown": 45.0,
+        "kill_distance_character_widths": 2.0,
+        "dt": 0.2,
+        "decision_interval": 0.6,
+        "timeout": 900.0
+      },
+      "mixture": {
+        "deduction_frequency": 0.0
+      },
+      "safeguards": {
+        "bodies": true,
+        "eyewitness": true
+      },
+      "reward": {
+        "win": 10.0,
+        "loss": -10.0,
+        "timeout": -12.0,
+        "per_second": -0.002,
+        "gamma_per_second": 1.0
+      },
+      "adapter": "v2-legacy-full29-projection-v1",
+      "checkpoint": "artifacts/phase6/remaining-six/full-29/checkpoint-8192.pt",
+      "checkpoint_sha256": "238904b7fe303b77e885c4cd6fdf4d9d447a62eb5b463436a391c0b4d6e1cb43",
+      "frozen_tensors": {
+        "policy": "4320a362babb6684897880eaa2964554fe046451bca56d3fd1a011ede012cf44",
+        "belief": "9e6ed606df225338d21686764e92ee724b0f40edea2b3c24d2fff71b863f45ae"
+      },
+      "execution": {
+        "fast": true,
+        "coalesce": true,
+        "dt": 0.2,
+        "decision_interval": 0.6
+      },
+      "partitions": {
+        "train": [
+          3100100,
+          3199999
+        ],
+        "development": [
+          3500010,
+          3500019
+        ],
+        "selection": [
+          3200020,
+          3200039
+        ],
+        "confirmation": [
+          3200040,
+          3200059
+        ],
+        "demo": [
+          3600000,
+          3600999
+        ]
+      },
+      "versions": {
+        "python": "3.12.3",
+        "torch": "2.9.1+cpu",
+        "numpy": "1.26.4"
+      },
+      "compute": {
+        "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+        "logical_cpus": 32,
+        "torch_threads": 1,
+        "device": "cpu",
+        "workers": 1,
+        "os": "Windows-11-10.0.26200-SP0"
+      },
+      "training_authorized": true,
+      "engineering_only": false,
+      "config": {
+        "decisions": 8192,
+        "rollout": 256,
+        "epochs": 4,
+        "minibatch": 64,
+        "learning_rate": 0.0003,
+        "lambda_per_second": 0.995,
+        "clip": 0.2,
+        "value_coefficient": 0.5,
+        "actor_grad_norm": 0.5,
+        "critic_grad_norm": 1.0,
+        "family_entropy_start": 0.02,
+        "family_entropy_end": 0.005,
+        "conditional_entropy": 0.001
+      },
+      "owner_approval": "2026-10-27: fix policies/rewards/NN, train stronger impostor and provide runnable viewer",
+      "network": {
+        "parameters": 75075,
+        "families": [
+          "continue",
+          "travel",
+          "cancel",
+          "fake_task",
+          "kill",
+          "approach_body",
+          "report",
+          "emergency",
+          "claim",
+          "vote",
+          "skip",
+          "interact"
+        ],
+        "global_count": 35,
+        "players": 21,
+        "extra": 8,
+        "actions": 51
+      },
+      "shaping": {
+        "successful_kill": 2.0,
+        "own_ejection": -2.0,
+        "no_witness_truth_reward": true,
+        "travel_option_seconds": 3.0
+      },
+      "candidate_checkpoints": [
+        4096,
+        8192
+      ],
+      "selection_rule": "wins, then kills, then fewer timeouts, then earlier step and initialization",
+      "confirmation_rule": "locked selected policy and old pilot-83, scripted hunter, untrained family policy; 20 paired fresh matches each",
+      "conditional_entropy_normalized": true,
+      "critic_encoder_independent": true,
+      "frozen_checkpoints": {
+        "artifacts/phase6/seed17-stage/full/checkpoint-6144.pt": "c77a11973241f9c7d3d752385bde58d9fba476a6745e6d6ed956e8122ba2b2b9",
+        "artifacts/phase6/seed17-stage/history_no_belief/checkpoint-4096.pt": "609e7c87efbb64db24a8a4ea30956ba93b537a9028e386079af0b84434716750",
+        "artifacts/phase6/seed17-stage/current_only/checkpoint-2048.pt": "c77781da066a978cee16030445bd588658b236ae24c60891319d036f8ec65ba7",
+        "artifacts/phase6/remaining-six/full-29/checkpoint-8192.pt": "238904b7fe303b77e885c4cd6fdf4d9d447a62eb5b463436a391c0b4d6e1cb43",
+        "artifacts/phase6/remaining-six/history_no_belief-29/checkpoint-6144.pt": "f9f0eab1915fb86513291a8f728439381d3ba672aa3808b2df1b0ce27ca42c67",
+        "artifacts/phase6/remaining-six/current_only-29/checkpoint-4096.pt": "94d7a8ab4a69ff1b6bdad31d1d9c1e83dfce2885f602d58b6fff6c2f4f9e7d23",
+        "artifacts/phase6/remaining-six/full-43/checkpoint-4096.pt": "d3abbdff88743f8b105f630e11c0e50963f38f7b1e992634dd55999087e9c0e3",
+        "artifacts/phase6/remaining-six/history_no_belief-43/checkpoint-4096.pt": "758b04bc779a3392cbb4810a13bf2aa56aaf780a0b8b3ee912ef983d3316e33c",
+        "artifacts/phase6/remaining-six/current_only-43/checkpoint-8192.pt": "074bf93e1803155a046b991b2d382b1c8f8158226590c410121537bb859bef1d"
+      }
+    },
+    "rewards": {
+      "version": "impostor-rewards-v4",
+      "win": 10.0,
+      "loss": -10.0,
+      "timeout": -12.0,
+      "successful_kill": 3.0,
+      "own_ejection": -6.0,
+      "cooldown_ready_per_second": -0.02,
+      "pursuit_scale": 0.05,
+      "pursuit_min_progress": 0.05
+    },
+    "options": {
+      "version": "impostor-actions-v4",
+      "observation_version": "impostor-observations-v4",
+      "travel_seconds": 3.0
+    },
+    "network": {
+      "parameters": 75075,
+      "families": [
+        "continue",
+        "travel",
+        "cancel",
+        "fake_task",
+        "kill",
+        "approach_body",
+        "report",
+        "emergency",
+        "claim",
+        "vote",
+        "skip",
+        "interact"
+      ]
+    },
+    "sources": {
+      "impostor_options_v4/__init__.py": "d8f0caeb60673f8defd0d57af9106993d0ef60276bb8bb1620bc7d3847494aa3",
+      "impostor_options_v4/config.py": "83a2b11480284686c18ac9b1b4a48d84a602850f220cf7d9ec469edba3498886",
+      "impostor_options_v4/diagnostics.py": "d226f638747d3521b2f46dadee7726533fea65a51a3c6298d70799b6eaa84281",
+      "impostor_options_v4/env.py": "0a7e357ec4e33d4d318b4725523e30afd8d8bca2ba48d747111304ad03753b72",
+      "impostor_options_v4/learning.py": "d8ae2dd89cfca9471f36efa57401feb9e215b14e7b8be5a140648dbcf487e3ee",
+      "impostor_options_v4/shaping.py": "32b239f7f2d61a23871c2fe366a658522486af2c23fad68dd7d7defcd03e2b5c",
+      "impostor_options_v4/study.py": "05de4ef12ff9555b72976bcbac86a23ce4c0a61f510fa35be6479db5e09af194",
+      "run_impostor_options.py": "38d37b312c0681db936d3db484d6221d6a6b9b79fe2921ccabc679c05377a40f",
+      "docs/impostor-v2/options-v4/TRAINING_PROTOCOL.md": "bf0330b60da426bc48eb45579a1fb16e5dd6d65e4157f9c7dce198bb2c0257f4",
+      "tools/run_impostor_options_v4.py": "a4b72fdb718baee835995991eccde7aa7a80e391c4f5eba8159baf0658d813bd"
+    },
+    "study_status": "Approved bounded V4 study; owner said go on after 3\u20134h proposal",
+    "final_tests_opened": false,
+    "approval": {
+      "date": "2026-10-27",
+      "timezone": "Asia/Amman",
+      "message": "go on",
+      "budget_seconds": 14400
+    },
+    "initialization": "scratch; no parent or crew weights",
+    "study_partitions": {
+      "train": [
+        3110000,
+        3199999
+      ],
+      "selection": [
+        3200100,
+        3200101,
+        3200102,
+        3200103,
+        3200104,
+        3200105,
+        3200106,
+        3200107,
+        3200108,
+        3200109,
+        3200110,
+        3200111,
+        3200112,
+        3200113,
+        3200114,
+        3200115,
+        3200116,
+        3200117,
+        3200118,
+        3200119
+      ],
+      "confirmation": [
+        3200120,
+        3200121,
+        3200122,
+        3200123,
+        3200124,
+        3200125,
+        3200126,
+        3200127,
+        3200128,
+        3200129,
+        3200130,
+        3200131,
+        3200132,
+        3200133,
+        3200134,
+        3200135,
+        3200136,
+        3200137,
+        3200138,
+        3200139
+      ],
+      "diagnostic": [
+        3200100,
+        3200101,
+        3200102,
+        3200103,
+        3200104
+      ]
+    },
+    "candidate_steps": [
+      4096,
+      8192
+    ],
+    "neural_decisions_per_run": 8192
+  },
+  "started_epoch": 1793124230.4302185,
+  "deadline_epoch": 1793138630.4302185,
+  "budget_seconds": 14400,
+  "initializations": [
+    71,
+    83
+  ],
+  "steps": 8192,
+  "screen": [
+    3200100,
+    3200101,
+    3200102,
+    3200103,
+    3200104,
+    3200105,
+    3200106,
+    3200107,
+    3200108,
+    3200109,
+    3200110,
+    3200111,
+    3200112,
+    3200113,
+    3200114,
+    3200115,
+    3200116,
+    3200117,
+    3200118,
+    3200119
+  ],
+  "confirmation": [
+    3200120,
+    3200121,
+    3200122,
+    3200123,
+    3200124,
+    3200125,
+    3200126,
+    3200127,
+    3200128,
+    3200129,
+    3200130,
+    3200131,
+    3200132,
+    3200133,
+    3200134,
+    3200135,
+    3200136,
+    3200137,
+    3200138,
+    3200139
+  ],
+  "diagnostic": [
+    3200100,
+    3200101,
+    3200102,
+    3200103,
+    3200104
+  ],
+  "old_checkpoint": "artifacts/impostor-ai/release/policy.pt",
+  "old_checkpoint_sha256": "8b861c9cb7477a2145d41af3961e03aa5d9bd6c1df1d1aaea8629c2c9597698c",
+  "final_tests_opened": false,
+  "selection_rule": "wins, kills, fewer timeouts, earlier checkpoint, lower initialization"
+}

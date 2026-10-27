@@ -122,3 +122,33 @@ initialization study is now approved with a4h ceiling. Read
 [the frozen protocol](options-v4/TRAINING_PROTOCOL.md). Prelaunch genuine-gradient
 checks are development tests, not extra research runs. Keep earlier zero-optimizer
 implementation results as historical evidence; do not rewrite them as new learning.
+
+## Interrupted V4: real-spawn integration flaw
+
+The training audit found pursuit positive credit was zero in all75 completed71
+games and15 durable83 games. Initial spawn distances of about0.7 map units were
+inside kill range; they saturated the lifetime high-water mark during the initial
+45s cooldown. Synthetic far-target tests had not covered this initial condition.
+This is an implementation limitation, not evidence that active pursuit shaping
+failed to improve learning. The kill/time/ejection/fake corrections were active.
+
+Owner explicitly chose to stop, fix and restart within the ORIGINAL deadline.
+V4 was interrupted before validation:71 finished8192/75games/68kills/0wins;83 is
+partial1792/15games/16kills/0wins. Preserve the last durable counts, not in-flight
+work. Six policy snapshots and compact logs are retained in
+[the interrupted report](options-v4-interrupted-20261027/README.md).
+
+V4.1 arms geometry only when cooldown is ready; clears geometry during cooldown
+without refilling credit, and retains the0.05 lifetime bound and terminal correction.
+Its actual45s clustered-spawn/visible-approach test proves nonzero legitimate credit
+without forced kills. Five corrected preflight tests passed130.82s, including exact
+PPO continuation and two isolated development workers. An earlier fixture stopped
+at a room doorway and never observed/approached crew; the fixture was corrected to
+use a public-console route. That was not a second production shaping defect.
+
+Read [V4.1's separate protocol](options-v41/TRAINING_PROTOCOL.md). It uses new
+scenarios and RNG streams, scratch weights and the unchanged75,075-parameter NN.
+Two one-thread CPU training workers run independent seeds in parallel; no extra
+runs/decisions. Absolute deadline stays01:03:50 Amman on28October; failed work and
+repair consume the same original budget. No test outcomes were used for this repair
+because original selection/confirmation had not opened.
