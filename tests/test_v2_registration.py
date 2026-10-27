@@ -23,7 +23,8 @@ def test_registration_disjoint_partitions_and_coverage_without_opening_study_see
     assert sum(c['context']=='meeting_crew' for c in contexts)==2
     assert sum(c['context']=='meeting_impostor' for c in contexts)==2
     assert sum(c['context']=='body' for c in contexts)==4
-    assert {training_context(i)['seed'] for i in range(32)}.isdisjoint(c['seed'] for c in contexts)
+    assert {training_context(i)['seed'] for i in range(64)}.isdisjoint(c['seed'] for c in contexts)
+    assert {training_context(i)['case_index']%4 for i in range(1,16,2)}=={0,1,2,3}
     assert p['arms']['shaped_v2']==Rewards().to_dict()
     with pytest.raises(PermissionError):authorize({'approved':False})
 
@@ -52,6 +53,7 @@ def test_fresh_paired_initialization_and_frozen_reference():
     models=[]
     for _ in range(3):torch.manual_seed(17);models.append(FourCrewPolicy())
     assert len({state_hash(p) for p in models})==1
+    assert state_hash(models[2])==plan()['initial_policy_sha256']
     models[2].requires_grad_(False)
     with torch.no_grad():next(models[0].parameters()).add_(.1)
     assert state_hash(models[1])==state_hash(models[2])!=state_hash(models[0])
@@ -62,7 +64,7 @@ def test_exact_common_stopping_and_overshoot_rules():
     assert stop_state({'A':2048,'B':2047},16)=='continue'
     assert stop_state({'A':2048,'B':2300},14)=='continue'
     assert stop_state({'A':3073,'B':2048},16)=='inadmissible_overshoot'
-    assert stop_state({'A':2000,'B':2000},32)=='inconclusive_schedule_exhausted'
+    assert stop_state({'A':2000,'B':2000},64)=='inconclusive_schedule_exhausted'
 
 
 def test_full_runner_cannot_create_output_or_models_without_final_authorization(tmp_path):
@@ -77,3 +79,48 @@ def test_complete_match_rollout_combination_keeps_actor_segments():
     x={k:[0,1] for k in FIELDS};x['segments']=[(0,1),(1,2)]
     merged=combine([(x,{}),(x,{})])
     assert merged['segments']==[(0,1),(1,2),(2,3),(3,4)]
+
+
+def test_registered_analysis_preserves_contexts_and_primary_paired_comparison():
+    from crewmate_v2.fourcrew.analysis import review
+    from crewmate_v2.learning.evaluate import probability_metrics
+    def row(c,report):
+        role='crewmate' if c['context']=='meeting_crew' else 'impostor'
+        meeting=c['context'].startswith('meeting')
+        return dict(seed=c['seed'],context=c['context'],crew_win=False,reason='PARITY',
+            actors={'anonymous':dict(reward_counts={},reporting={'accepted':report},
+                opportunities={'choice_legal':3 if c['context']=='body' else 0},actions={})},
+            audit=dict(frozen_belief=probability_metrics([]),policy_vote_ranking=probability_metrics([]),
+                selected_incorrect_suspect_claims=0,controlled_prefix_actor_meetings=3 if meeting else 0,
+                nonreporter_observer_policy={role:dict(n=2,top1=.5)} if meeting else {},
+                nonreporter_reporter_only={role:dict(accuse=float(role=='impostor'))} if meeting else {}))
+    evaluation={a:[row(c,int(a=='shaped_v2')) for c in validation_contexts()] for a in ('original','shaped_v2','zero')}
+    training={a:[row(training_context(i),1) for i in range(16)] for a in ('original','shaped_v2')}
+    result=review(evaluation,training)
+    assert result['paired_primary_reporting']['shaped_v2-minus-original']['mean']==1
+    assert result['paired_primary_reporting']['shaped_v2-minus-original']['scenario_clusters']==4
+    assert result['groups']['zero']['ordinary']['games']==8
+    assert result['groups']['zero']['controlled']['games']==8
+    assert not result['inconclusive_flags']
+
+
+def test_recording_legal_prefix_preserves_world_actor_history_and_packets(tmp_path):
+    import os
+    from pathlib import Path
+    import numpy as np
+    from crewmate_v2.live.protocol import spectator_import
+    source=Path(os.environ.get('SPECTATOR_SOURCE',Path.cwd().parent/'_spectator_fourcrew'))
+    module=spectator_import(source);records=[]
+    for recording in (False,True):
+        m=ScenarioMatch(2760060,context='meeting_crew',case_index=4,deadline=perf_counter()+90)
+        rec=module.MatchRecorder(m.match,tmp_path/'prefix.jsonl') if recording else None
+        try:m.prepare_prefix(rec)
+        finally:
+            if rec and not rec.recorder._closed:
+                rec.recorder._stream.flush();rec.recorder._stream.close();rec.recorder._closed=True
+        records.append((m.game.snapshot(),{pid:v.memory.to_json() for pid,v in m.views.items()},
+                        {pid:v._packet() for pid,v in m.views.items() if m.game.players[pid].active}))
+    assert records[0][:2]==records[1][:2]
+    for pid,packet in records[0][2].items():
+        assert all(np.array_equal(packet[k],records[1][2][pid][k]) for k in packet)
+    assert not (tmp_path/'prefix.jsonl').exists()  # incomplete prefix must not masquerade as a full game

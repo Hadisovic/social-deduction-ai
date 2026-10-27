@@ -57,8 +57,18 @@ def review(evaluation,training):
             samples=rng.choice(deltas,(5000,len(deltas)),replace=True).mean(1) if len(deltas) else []
             intervals[name]=dict(scenario_clusters=len(seeds),mean_shaped_minus_original=float(deltas.mean()) if len(deltas) else None,
                 descriptive_percentile_95=np.percentile(samples,[2.5,97.5]).tolist() if len(samples) else None)
+    reporting_effects={}
+    for upper,lower in (('shaped_v2','original'),('shaped_v2','zero'),('original','zero')):
+        if upper not in evaluation or lower not in evaluation:continue
+        arms={a:{g['seed']:float(any(v['reporting'].get('accepted',0) for v in g['actors'].values()))
+                 for g in evaluation[a] if g['context']=='body'} for a in (upper,lower)}
+        seeds=sorted(arms[upper].keys()&arms[lower].keys())
+        deltas=np.asarray([arms[upper][s]-arms[lower][s] for s in seeds])
+        samples=rng.choice(deltas,(5000,len(deltas)),replace=True).mean(1) if len(deltas) else []
+        reporting_effects[upper+'-minus-'+lower]=dict(scenario_clusters=len(seeds),
+            mean=float(deltas.mean()) if len(deltas) else None,descriptive_percentile_95=np.percentile(samples,[2.5,97.5]).tolist() if len(samples) else None)
     return dict(status='exploratory_development_only_acceptance_pending',groups=groups,training_coverage=train_coverage,
-        evaluation_coverage=coverage,inconclusive_flags=flags,paired_win_uncertainty=intervals,
+        evaluation_coverage=coverage,inconclusive_flags=flags,paired_win_uncertainty=intervals,paired_primary_reporting=reporting_effects,
         limits=['One initialization; eight scenario clusters, with only four body/four meeting controlled cases.',
                 'Actor/body pairs are not independent corpses or scenarios; compare per-game results as well.',
                 'Controlled prefixes can introduce choreography cues; ordinary performance stays separate.',

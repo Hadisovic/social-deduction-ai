@@ -20,7 +20,7 @@ class Rewards(RewardConfig):
     def original(cls):return cls(report=0.,correct_vote=0.,incorrect_vote=0.)
 
 
-PARTITIONS={'engineering':(2760000,2760099),'registered_train':(2780000,2780031),
+PARTITIONS={'engineering':(2760000,2760099),'registered_train':(2780000,2780063),
             'registered_validation':(2790000,2790007)}
 
 

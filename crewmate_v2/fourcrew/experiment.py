@@ -51,6 +51,7 @@ def run(output,spectator,replays,status,approval):
     for arm in ('original','shaped_v2','zero'):
         torch.manual_seed(17);models[arm]=FourCrewPolicy()
     initial=state_hash(models['zero']);assert all(state_hash(x)==initial for x in models.values())
+    if initial!=p['initial_policy_sha256']:raise RuntimeError('Registered fresh initialization mismatch')
     models['zero'].requires_grad_(False);models['zero'].eval()
     models['zero'].save(output/'reference-zero.pt',dict(experiment=EXPERIMENT,initialization=17,updates=0,initial_sha256=initial))
     optimizers={a:torch.optim.Adam(models[a].parameters(),lr=.0003) for a in ('original','shaped_v2')}
@@ -62,7 +63,9 @@ def run(output,spectator,replays,status,approval):
         verify_frozen()
     watchdog=Timer(max(0.,deadline-perf_counter()),interrupt_main);watchdog.daemon=True;watchdog.start()
     try:
-        for first in range(0,32,2):
+        for first in range(0,64,2):
+            if deadline-perf_counter()<p['minimum_eval_reserve_seconds']+p['estimated_next_training_batch_reserve_seconds']:
+                state='inconclusive_insufficient_time_for_registered_validation';break
             check();contexts=[training_context(i) for i in (first,first+1)];payloads=[]
             for arm in optimizers:
                 rewards=Rewards.original() if arm=='original' else Rewards()
@@ -70,7 +73,8 @@ def run(output,spectator,replays,status,approval):
                 recording=replays if first%4==0 else None
                 payloads+=jobs(models[arm],contexts,rewards=rewards,label=arm,deadline=deadline,
                     session=EXPERIMENT,version=first//2,replay_dir=recording,spectator_source=spectator)
-            rows=run_jobs(payloads,deadline,on_result=lambda i,r:append(output/'collected-training.jsonl',dict(job=i,**r[1])))
+            rows=run_jobs(payloads,deadline,on_result=lambda i,r:append(output/'collected-training.jsonl',
+                dict(arm=list(optimizers)[i//2],batch=first//2+1,job=i,**r[1])))
             check()
             paired={a:rows[j*2:j*2+2] for j,a in enumerate(optimizers)}
             projected={a:decisions[a]+sum(len(r[0]['actions']) for r in paired[a]) for a in optimizers}
@@ -85,7 +89,9 @@ def run(output,spectator,replays,status,approval):
                 selected[arm]=str(checkpoint.relative_to(output));append(output/'updates.jsonl',dict(arm=arm,decisions=decisions[arm],**diagnostics))
             accepted.extend(r[1] for r in rows)
             state=stop_state(decisions,first+2)
-            write(status,dict(status='training',experiment=EXPERIMENT,decisions=decisions,matched_games_per_arm=first+2,elapsed_seconds=perf_counter()-started),False)
+            write(status,dict(status='training',stage='paired training',condition=EXPERIMENT,experiment=EXPERIMENT,
+                decisions=decisions,decision_target=2048,validation_games=0,validation_target=48,
+                matched_games_per_arm=first+2,elapsed_seconds=perf_counter()-started),False)
             if state!='continue':break
         if state!='complete':
             write(output/'incomplete.json',dict(status=state,decisions=decisions,seconds=perf_counter()-started,validation_games=0));return
@@ -95,7 +101,12 @@ def run(output,spectator,replays,status,approval):
                 loaded,_=FourCrewPolicy.load(output/selected[label]);assert state_hash(loaded)==state_hash(model)
             payloads+=jobs(model,list(validation_contexts()),rewards=Rewards.original(),label=label,deadline=deadline,
                 session=EXPERIMENT,greedy=True,version=-1 if label=='zero' else len(accepted)//4,replay_dir=replays,spectator_source=spectator)
-        results=run_jobs(payloads,deadline,on_result=lambda i,r:append(output/'validation.jsonl',dict(policy=list(models)[i//16],**r[1])))
+        evaluated=[0]
+        def evaluated_result(i,result):
+            append(output/'validation.jsonl',dict(policy=list(models)[i//16],**result[1]));evaluated[0]+=1
+            write(status,dict(status='validation',stage='registered validation',condition=EXPERIMENT,decisions=decisions,
+                decision_target=2048,validation_games=evaluated[0],validation_target=48,elapsed_seconds=perf_counter()-started),False)
+        results=run_jobs(payloads,deadline,on_result=evaluated_result)
         check();evaluation={a:[x[1] for x in results[i*16:i*16+16]] for i,a in enumerate(models)}
         coverage={a:dict(train_legal_pairs=sum(sum(v['opportunities']['choice_legal'] for v in r['actors'].values()) for r in accepted[i*2::4]+accepted[i*2+1::4]),
                         train_reports=sum(sum(v['reporting'].get('accepted',0) for v in r['actors'].values()) for r in accepted[i*2::4]+accepted[i*2+1::4])) for i,a in enumerate(optimizers)}
@@ -104,7 +115,8 @@ def run(output,spectator,replays,status,approval):
         write(output/'study.json',dict(status='development_complete_experimental_review_pending',seconds=perf_counter()-started,
             decisions=decisions,selected_checkpoints=selected,training_coverage=coverage,evaluation=evaluation,inconclusive_flags=analysis['inconclusive_flags'],
             zero_reference_unchanged=state_hash(models['zero'])==initial,final_test_opened=False))
-        write(status,dict(status='development_complete_acceptance_pending',decisions=decisions,validation_games=48,elapsed_seconds=perf_counter()-started),False)
+        write(status,dict(status='development_complete_acceptance_pending',stage='complete; review pending',condition=EXPERIMENT,
+            decisions=decisions,decision_target=2048,validation_games=48,validation_target=48,elapsed_seconds=perf_counter()-started),False)
     except BaseException as error:
         write(output/'failure.json',dict(status='incomplete',error=type(error).__name__,message=str(error),seconds=perf_counter()-started,
             decisions=decisions,selected_checkpoints=selected));raise
