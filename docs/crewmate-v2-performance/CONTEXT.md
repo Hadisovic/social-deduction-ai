@@ -60,3 +60,8 @@ Cleanup and performance work receive separate commits. No database, gameplay, re
 public rendering/API migration. Risks are multiprocessing startup/RAM cost, shallow
 benchmarks and changed rollout trajectories; report limitations instead of claiming a
 training-quality gain. Approval remains required after all preparation is complete.
+
+Completed implementation and measurements: [report](REPORT.md),
+[curated metrics](benchmark-results.json), [verification](validation.json) and
+[spectator interface](SPECTATOR_INTERFACE.md). The original serial protocol is preserved;
+the four-worker/eight-stream proposal remains unapproved.

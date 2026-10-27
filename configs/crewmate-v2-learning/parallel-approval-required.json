@@ -1,0 +1,6 @@
+{
+  "approved": false,
+  "execution_sha256": "7fb0932df84b6888543d8ffc9416f1370f8f5c5596af8ce67a2736ee80782020",
+  "runtime_sha256": "ecd49a56cb51863d8feac271786b76dfbd6ce3d2980f5afa67925f7dd7f2cf4a",
+  "note": "Await separate owner approval of cleanup/performance results and the eight-stream execution revision. Not authorization."
+}
