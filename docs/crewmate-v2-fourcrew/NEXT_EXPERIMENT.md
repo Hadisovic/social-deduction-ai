@@ -1,5 +1,7 @@
 # Proposed next four-crew learning study — not authorized to run
 
+**Final registration is now saved in [registration/SPECIFICATION.md](registration/SPECIFICATION.md), with exact [plan.json](registration/plan.json) and measured [readiness.json](registration/readiness.json).** That registration supersedes the unresolved partitions, prefixes, budget rules and preliminary cost estimate below. This document remains the earlier approved design sketch. Final owner authorization to execute is still pending; no full training has started.
+
 Goal: determine whether shared-policy learning improves legitimate reporting and evidence-conditioned team decisions, beyond random initialization and reporter identity. Exactly four learned crewmates versus one scripted impostor. No final-test partition, learned impostor or population expansion.
 
 1. **Matched models:** independent fresh initialization 17 for the new four-crew original control and shaped-v2 (+1.5 report) arm. Same architecture, repaired mechanics, scenarios, scripted-impostor mixture, workers, PPO coefficients and checkpoint-selection rule. Both new controls have zero individual ghost-task reward. Keep a frozen zero-update initialization as a third evaluation reference. Do not reuse focal pilot checkpoints as if they were four-crew models.

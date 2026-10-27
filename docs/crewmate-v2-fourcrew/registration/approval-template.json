@@ -1,0 +1,7 @@
+{
+  "approved": false,
+  "experiment": "fourcrew-reporting-2048-seed17-v1",
+  "plan_sha256": "bc449451df3a83bdf5a38c83f7be0cb36e616895f34d9bdca2400c5d0d732fd1",
+  "runtime_sha256": "2875af6f30f25f588ec0cd52c8a14d5ac6313053c995fe3ef1ac117b2df51bca",
+  "instruction": "Do not change approved to true without explicit final human authorization."
+}

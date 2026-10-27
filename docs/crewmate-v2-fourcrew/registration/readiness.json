@@ -1,0 +1,172 @@
+{
+  "status": "registered_ready_pending_final_owner_authorization",
+  "plan_sha256": "bc449451df3a83bdf5a38c83f7be0cb36e616895f34d9bdca2400c5d0d732fd1",
+  "runtime_sha256": "2875af6f30f25f588ec0cd52c8a14d5ac6313053c995fe3ef1ac117b2df51bca",
+  "initial_policy_sha256": "1a572645635edf2bb6a802a5572892b6321747452176abd4755fe5e5cfedc3d2",
+  "current_source_reference_sha256": "52c039735bb2ef81ba3632a11fb2c32ee8e924c2a7982d937dfc02f6789a979f",
+  "zero_reference_frozen": true,
+  "benchmark": {
+    "source_commit": "04050765e1f32c49b830277740c4654325b52fa0",
+    "wall_seconds": 89.95875819999492,
+    "parallel_collection_seconds": 84.69431489997078,
+    "ppo_update_seconds": 0.13648749998537824,
+    "matches": [
+      {
+        "context": "ordinary",
+        "simulated_seconds": 84.8,
+        "decisions": 42,
+        "wall_seconds": 37.168159599998035,
+        "reason": "IMPOSTOR_EJECTED"
+      },
+      {
+        "context": "body",
+        "simulated_seconds": 230.4,
+        "decisions": 51,
+        "wall_seconds": 74.60815159999765,
+        "reason": "PARITY"
+      },
+      {
+        "context": "meeting_crew",
+        "simulated_seconds": 106.8,
+        "decisions": 10,
+        "wall_seconds": 37.69329359999392,
+        "reason": "PARITY"
+      },
+      {
+        "context": "meeting_impostor",
+        "simulated_seconds": 90.2,
+        "decisions": 6,
+        "wall_seconds": 32.72434900002554,
+        "reason": "IMPOSTOR_EJECTED"
+      }
+    ],
+    "neural_reports": 0,
+    "zero_reference_unchanged": true,
+    "resources": "Runtime only; CPU/RAM not instrumented in this benchmark"
+  },
+  "cost_model": {
+    "measured_batch_factor": 1.8594319544310527,
+    "safety_multiplier": 1.5,
+    "estimated_total_minutes_by_matched_training_games_per_arm": {
+      "42": 98.78819428018612,
+      "64": 136.93860909535587
+    },
+    "hard_stop_seconds": 14400,
+    "evaluation_reserve_seconds": 3600,
+    "can_plan_within_ceiling": true,
+    "limitations": [
+      "One mixed engineering batch; no sampled ordinary profile or 900s timeout profile.",
+      "Uses larger measured body cost as ordinary training proxy; future policy durations can differ."
+    ]
+  },
+  "benchmark_compatibility": {
+    "changed_bookkeeping_only": [
+      "analysis.py",
+      "config.py",
+      "experiment.py",
+      "registration.py"
+    ],
+    "simulation_prefix_inference_rewards_forecast_sources_identical": true
+  },
+  "tests": {
+    "v2_regression": {
+      "tests": 150,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "final_targeted_overlapping": {
+      "tests": 7,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "spectator_existing": {
+      "tests": 34,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "spectator_progress_overlapping": {
+      "tests": 5,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    }
+  },
+  "study_training_started": false,
+  "study_seed_partitions_opened": false,
+  "final_test_partitions_opened": false,
+  "approvals": {
+    "full_training": false,
+    "template_approved": false
+  },
+  "phase6_1_acceptance": "pending",
+  "historical_integrity": {
+    "historical_protected_files": 234,
+    "seed17_pilot_artifacts": 53,
+    "postpilot_engineering_artifacts": 9,
+    "earlier_pretraining_artifacts": 25,
+    "reporting_private_artifacts": 19,
+    "earlier_learning_smoke": 25,
+    "historical_selected_checkpoints": 9
+  },
+  "source_commits": {
+    "registration_runtime": "33e207398b44016a4b62842544033284e30e9c36",
+    "spectator": "e8a815f83bc98cab5c99c862f280bbdbffc509b2"
+  },
+  "actual_spectator_verification": {
+    "status": "verified_actual_engineering_replays",
+    "checks": [
+      {
+        "context": "body",
+        "neural_actor_identities": 3,
+        "recorded_neural_decisions": 51,
+        "outcome_matches_simulator": true,
+        "no_dead_policy_or_ballot_actions": true,
+        "meeting_task_completions": 0,
+        "frozen_meeting_frame_pairs": 148,
+        "scripted_prefix_not_presented_as_neural": true
+      },
+      {
+        "context": "meeting_crew",
+        "neural_actor_identities": 3,
+        "recorded_neural_decisions": 10,
+        "outcome_matches_simulator": true,
+        "no_dead_policy_or_ballot_actions": true,
+        "meeting_task_completions": 0,
+        "frozen_meeting_frame_pairs": 75,
+        "scripted_prefix_not_presented_as_neural": true
+      },
+      {
+        "context": "meeting_impostor",
+        "neural_actor_identities": 3,
+        "recorded_neural_decisions": 6,
+        "outcome_matches_simulator": true,
+        "no_dead_policy_or_ballot_actions": true,
+        "meeting_task_completions": 0,
+        "frozen_meeting_frame_pairs": 75,
+        "scripted_prefix_not_presented_as_neural": true
+      },
+      {
+        "context": "ordinary",
+        "neural_actor_identities": 4,
+        "recorded_neural_decisions": 42,
+        "outcome_matches_simulator": true,
+        "no_dead_policy_or_ballot_actions": true,
+        "meeting_task_completions": 0,
+        "frozen_meeting_frame_pairs": 74,
+        "scripted_prefix_not_presented_as_neural": true
+      }
+    ],
+    "rendered": "headless selected-actor private debug; no visible desktop launch claimed",
+    "viewer_independent_of_training": true,
+    "study_started": false
+  },
+  "distinct_test_cases": {
+    "v2_across_overlapping_runs": 151,
+    "spectator_across_overlapping_runs": 38
+  },
+  "prepared_watch_directory_empty": true,
+  "actual_study_output_absent": true
+}

@@ -1,0 +1,816 @@
+{
+  "experiment": "fourcrew-reporting-2048-seed17-v1",
+  "status": "registered_pending_final_owner_authorization",
+  "initialization": 17,
+  "initial_policy_sha256": "1a572645635edf2bb6a802a5572892b6321747452176abd4755fe5e5cfedc3d2",
+  "lobby": {
+    "schema": "crewmate-environment-v2.2",
+    "player_speed": 1.0,
+    "confirm_ejects": true,
+    "anonymous_votes": false,
+    "task_bar_updates": "always",
+    "emergency_meetings": 1,
+    "emergency_cooldown": 0.0,
+    "discussion_seconds": 15.0,
+    "voting_seconds": 120.0,
+    "crewmate_vision": 1.0,
+    "impostor_vision": 1.5,
+    "common_tasks": 1,
+    "long_tasks": 1,
+    "short_tasks": 2,
+    "visual_tasks": true,
+    "kill_cooldown": 45.0,
+    "kill_distance_character_widths": 2.0,
+    "dt": 0.2,
+    "decision_interval": 0.6,
+    "timeout": 900.0
+  },
+  "arms": {
+    "original": {
+      "schema": "crewmate-fourcrew-rewards-v2",
+      "alive_task": 1.0,
+      "report": 0.0,
+      "correct_vote": 0.0,
+      "incorrect_vote": 0.0,
+      "skip": 0.0,
+      "ghost_task": 0.0,
+      "death": -5.0,
+      "win": 10.0,
+      "loss": -10.0,
+      "draw": -5.0,
+      "time_per_decision": -0.005
+    },
+    "shaped_v2": {
+      "schema": "crewmate-fourcrew-rewards-v2",
+      "alive_task": 1.0,
+      "report": 1.5,
+      "correct_vote": 2.0,
+      "incorrect_vote": -1.0,
+      "skip": 0.0,
+      "ghost_task": 0.0,
+      "death": -5.0,
+      "win": 10.0,
+      "loss": -10.0,
+      "draw": -5.0,
+      "time_per_decision": -0.005
+    }
+  },
+  "zero_reference": "fresh initialization 17; frozen before all updates; greedy evaluation only",
+  "opponent": {
+    "controller": "ReporterController",
+    "crew_style_unused": "nearest",
+    "impostor_style": "hunter",
+    "meeting_style": "evidence",
+    "reporting": "seeded prompt/inspect/bypass with context rotation; actor-observation input only"
+  },
+  "algorithm": {
+    "policy": "FourCrewPolicy",
+    "workers": 4,
+    "complete_matches_per_batch": 2,
+    "central_updates_after_paired_batches": true,
+    "learning_rate": 0.0003,
+    "gamma": 0.99,
+    "gae_lambda": 0.95,
+    "ppo_epochs": 4,
+    "minibatch": 64,
+    "clip": 0.2,
+    "entropy": 0.02,
+    "value_coefficient": 0.5,
+    "max_gradient_norm": 0.5
+  },
+  "optimizer": {
+    "name": "Adam",
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 0.0,
+    "amsgrad": false
+  },
+  "train_schedule": [
+    {
+      "seed": 2780000,
+      "seed_partition": "registered_train",
+      "case_index": 0,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 0
+    },
+    {
+      "seed": 2780001,
+      "seed_partition": "registered_train",
+      "case_index": 0,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 1
+    },
+    {
+      "seed": 2780002,
+      "seed_partition": "registered_train",
+      "case_index": 1,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 2
+    },
+    {
+      "seed": 2780003,
+      "seed_partition": "registered_train",
+      "case_index": 1,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 0
+    },
+    {
+      "seed": 2780004,
+      "seed_partition": "registered_train",
+      "case_index": 2,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 1
+    },
+    {
+      "seed": 2780005,
+      "seed_partition": "registered_train",
+      "case_index": 2,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 2
+    },
+    {
+      "seed": 2780006,
+      "seed_partition": "registered_train",
+      "case_index": 3,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 0
+    },
+    {
+      "seed": 2780007,
+      "seed_partition": "registered_train",
+      "case_index": 3,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 1
+    },
+    {
+      "seed": 2780008,
+      "seed_partition": "registered_train",
+      "case_index": 4,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 2
+    },
+    {
+      "seed": 2780009,
+      "seed_partition": "registered_train",
+      "case_index": 4,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 0
+    },
+    {
+      "seed": 2780010,
+      "seed_partition": "registered_train",
+      "case_index": 5,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 1
+    },
+    {
+      "seed": 2780011,
+      "seed_partition": "registered_train",
+      "case_index": 5,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 2
+    },
+    {
+      "seed": 2780012,
+      "seed_partition": "registered_train",
+      "case_index": 6,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 0
+    },
+    {
+      "seed": 2780013,
+      "seed_partition": "registered_train",
+      "case_index": 6,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 1
+    },
+    {
+      "seed": 2780014,
+      "seed_partition": "registered_train",
+      "case_index": 7,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 2
+    },
+    {
+      "seed": 2780015,
+      "seed_partition": "registered_train",
+      "case_index": 7,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 0
+    },
+    {
+      "seed": 2780016,
+      "seed_partition": "registered_train",
+      "case_index": 8,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 1
+    },
+    {
+      "seed": 2780017,
+      "seed_partition": "registered_train",
+      "case_index": 8,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 2
+    },
+    {
+      "seed": 2780018,
+      "seed_partition": "registered_train",
+      "case_index": 9,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 0
+    },
+    {
+      "seed": 2780019,
+      "seed_partition": "registered_train",
+      "case_index": 9,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 1
+    },
+    {
+      "seed": 2780020,
+      "seed_partition": "registered_train",
+      "case_index": 10,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 2
+    },
+    {
+      "seed": 2780021,
+      "seed_partition": "registered_train",
+      "case_index": 10,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 0
+    },
+    {
+      "seed": 2780022,
+      "seed_partition": "registered_train",
+      "case_index": 11,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 1
+    },
+    {
+      "seed": 2780023,
+      "seed_partition": "registered_train",
+      "case_index": 11,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 2
+    },
+    {
+      "seed": 2780024,
+      "seed_partition": "registered_train",
+      "case_index": 12,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 0
+    },
+    {
+      "seed": 2780025,
+      "seed_partition": "registered_train",
+      "case_index": 12,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 1
+    },
+    {
+      "seed": 2780026,
+      "seed_partition": "registered_train",
+      "case_index": 13,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 2
+    },
+    {
+      "seed": 2780027,
+      "seed_partition": "registered_train",
+      "case_index": 13,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 0
+    },
+    {
+      "seed": 2780028,
+      "seed_partition": "registered_train",
+      "case_index": 14,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 1
+    },
+    {
+      "seed": 2780029,
+      "seed_partition": "registered_train",
+      "case_index": 14,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 2
+    },
+    {
+      "seed": 2780030,
+      "seed_partition": "registered_train",
+      "case_index": 15,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 0
+    },
+    {
+      "seed": 2780031,
+      "seed_partition": "registered_train",
+      "case_index": 15,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 1
+    },
+    {
+      "seed": 2780032,
+      "seed_partition": "registered_train",
+      "case_index": 16,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 2
+    },
+    {
+      "seed": 2780033,
+      "seed_partition": "registered_train",
+      "case_index": 16,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 0
+    },
+    {
+      "seed": 2780034,
+      "seed_partition": "registered_train",
+      "case_index": 17,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 1
+    },
+    {
+      "seed": 2780035,
+      "seed_partition": "registered_train",
+      "case_index": 17,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 2
+    },
+    {
+      "seed": 2780036,
+      "seed_partition": "registered_train",
+      "case_index": 18,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 0
+    },
+    {
+      "seed": 2780037,
+      "seed_partition": "registered_train",
+      "case_index": 18,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 1
+    },
+    {
+      "seed": 2780038,
+      "seed_partition": "registered_train",
+      "case_index": 19,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 2
+    },
+    {
+      "seed": 2780039,
+      "seed_partition": "registered_train",
+      "case_index": 19,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 0
+    },
+    {
+      "seed": 2780040,
+      "seed_partition": "registered_train",
+      "case_index": 20,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 1
+    },
+    {
+      "seed": 2780041,
+      "seed_partition": "registered_train",
+      "case_index": 20,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 2
+    },
+    {
+      "seed": 2780042,
+      "seed_partition": "registered_train",
+      "case_index": 21,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 0
+    },
+    {
+      "seed": 2780043,
+      "seed_partition": "registered_train",
+      "case_index": 21,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 1
+    },
+    {
+      "seed": 2780044,
+      "seed_partition": "registered_train",
+      "case_index": 22,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 2
+    },
+    {
+      "seed": 2780045,
+      "seed_partition": "registered_train",
+      "case_index": 22,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 0
+    },
+    {
+      "seed": 2780046,
+      "seed_partition": "registered_train",
+      "case_index": 23,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 1
+    },
+    {
+      "seed": 2780047,
+      "seed_partition": "registered_train",
+      "case_index": 23,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 2
+    },
+    {
+      "seed": 2780048,
+      "seed_partition": "registered_train",
+      "case_index": 24,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 0
+    },
+    {
+      "seed": 2780049,
+      "seed_partition": "registered_train",
+      "case_index": 24,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 1
+    },
+    {
+      "seed": 2780050,
+      "seed_partition": "registered_train",
+      "case_index": 25,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 2
+    },
+    {
+      "seed": 2780051,
+      "seed_partition": "registered_train",
+      "case_index": 25,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 0
+    },
+    {
+      "seed": 2780052,
+      "seed_partition": "registered_train",
+      "case_index": 26,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 1
+    },
+    {
+      "seed": 2780053,
+      "seed_partition": "registered_train",
+      "case_index": 26,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 2
+    },
+    {
+      "seed": 2780054,
+      "seed_partition": "registered_train",
+      "case_index": 27,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 0
+    },
+    {
+      "seed": 2780055,
+      "seed_partition": "registered_train",
+      "case_index": 27,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 1
+    },
+    {
+      "seed": 2780056,
+      "seed_partition": "registered_train",
+      "case_index": 28,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 2
+    },
+    {
+      "seed": 2780057,
+      "seed_partition": "registered_train",
+      "case_index": 28,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 0
+    },
+    {
+      "seed": 2780058,
+      "seed_partition": "registered_train",
+      "case_index": 29,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 1
+    },
+    {
+      "seed": 2780059,
+      "seed_partition": "registered_train",
+      "case_index": 29,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 2
+    },
+    {
+      "seed": 2780060,
+      "seed_partition": "registered_train",
+      "case_index": 30,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 0
+    },
+    {
+      "seed": 2780061,
+      "seed_partition": "registered_train",
+      "case_index": 30,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 1
+    },
+    {
+      "seed": 2780062,
+      "seed_partition": "registered_train",
+      "case_index": 31,
+      "context": "ordinary",
+      "deduction_frequency": 0.0,
+      "rotation": 2
+    },
+    {
+      "seed": 2780063,
+      "seed_partition": "registered_train",
+      "case_index": 31,
+      "context": "body",
+      "deduction_frequency": 1.0,
+      "rotation": 0
+    }
+  ],
+  "validation": [
+    {
+      "seed": 2790000,
+      "seed_partition": "registered_validation",
+      "case_index": 0,
+      "rotation": 0,
+      "context": "ordinary",
+      "deduction_frequency": 0.0
+    },
+    {
+      "seed": 2790000,
+      "seed_partition": "registered_validation",
+      "case_index": 0,
+      "rotation": 0,
+      "context": "body",
+      "deduction_frequency": 1.0
+    },
+    {
+      "seed": 2790001,
+      "seed_partition": "registered_validation",
+      "case_index": 1,
+      "rotation": 1,
+      "context": "ordinary",
+      "deduction_frequency": 0.0
+    },
+    {
+      "seed": 2790001,
+      "seed_partition": "registered_validation",
+      "case_index": 1,
+      "rotation": 1,
+      "context": "body",
+      "deduction_frequency": 1.0
+    },
+    {
+      "seed": 2790002,
+      "seed_partition": "registered_validation",
+      "case_index": 2,
+      "rotation": 2,
+      "context": "ordinary",
+      "deduction_frequency": 0.0
+    },
+    {
+      "seed": 2790002,
+      "seed_partition": "registered_validation",
+      "case_index": 2,
+      "rotation": 2,
+      "context": "body",
+      "deduction_frequency": 1.0
+    },
+    {
+      "seed": 2790003,
+      "seed_partition": "registered_validation",
+      "case_index": 3,
+      "rotation": 0,
+      "context": "ordinary",
+      "deduction_frequency": 0.0
+    },
+    {
+      "seed": 2790003,
+      "seed_partition": "registered_validation",
+      "case_index": 3,
+      "rotation": 0,
+      "context": "body",
+      "deduction_frequency": 1.0
+    },
+    {
+      "seed": 2790004,
+      "seed_partition": "registered_validation",
+      "case_index": 4,
+      "rotation": 1,
+      "context": "ordinary",
+      "deduction_frequency": 0.0
+    },
+    {
+      "seed": 2790004,
+      "seed_partition": "registered_validation",
+      "case_index": 4,
+      "rotation": 1,
+      "context": "meeting_crew",
+      "deduction_frequency": 1.0
+    },
+    {
+      "seed": 2790005,
+      "seed_partition": "registered_validation",
+      "case_index": 5,
+      "rotation": 2,
+      "context": "ordinary",
+      "deduction_frequency": 0.0
+    },
+    {
+      "seed": 2790005,
+      "seed_partition": "registered_validation",
+      "case_index": 5,
+      "rotation": 2,
+      "context": "meeting_impostor",
+      "deduction_frequency": 1.0
+    },
+    {
+      "seed": 2790006,
+      "seed_partition": "registered_validation",
+      "case_index": 6,
+      "rotation": 0,
+      "context": "ordinary",
+      "deduction_frequency": 0.0
+    },
+    {
+      "seed": 2790006,
+      "seed_partition": "registered_validation",
+      "case_index": 6,
+      "rotation": 0,
+      "context": "meeting_crew",
+      "deduction_frequency": 1.0
+    },
+    {
+      "seed": 2790007,
+      "seed_partition": "registered_validation",
+      "case_index": 7,
+      "rotation": 1,
+      "context": "ordinary",
+      "deduction_frequency": 0.0
+    },
+    {
+      "seed": 2790007,
+      "seed_partition": "registered_validation",
+      "case_index": 7,
+      "rotation": 1,
+      "context": "meeting_impostor",
+      "deduction_frequency": 1.0
+    }
+  ],
+  "decision_budget": {
+    "unit": "individual non-forced actor choices",
+    "target_per_arm": 2048,
+    "admissible_max_per_arm": 3072,
+    "minimum_matched_matches_per_arm": 16,
+    "maximum_matched_matches_per_arm": 64,
+    "stopping": "first completed paired two-match batch with both arms >=2048 and >=16 matches",
+    "overshoot": "Never trim trajectories. Reject a collected paired batch before either update if either cumulative total would exceed3072; mark budget-inconclusive.",
+    "exposure": "identical accepted seed/context/opponent sequence; actual actor decisions may differ"
+  },
+  "prefix": {
+    "version": "legal-body-or-meeting-prefix-v1",
+    "kill_seconds": 45.0,
+    "handoff_seconds": 75.0,
+    "meeting_handoff_seconds": 75.2,
+    "site_selector": "EmergencyConsole standing point in the frozen map",
+    "parking_selectors": [
+      "first task destination in frozen map order with room Weapons",
+      "first task destination in frozen map order with room Admin",
+      "first task destination in frozen map order with room MedBay"
+    ],
+    "victim": "sorted crewmate IDs at case_index modulo4; training body case_index is schedule_index//2",
+    "construction": "Legal navigation to public static waypoints, one legal kill, all survivors at common site; optional legal pre-policy report. Actor histories come only from observations.",
+    "no_policy_forced_actions": true,
+    "prefix_events_excluded_from_learning": true
+  },
+  "coverage": {
+    "training_legal_actor_body_pairs_per_arm": 24,
+    "training_prefix_body_matches_min": 8,
+    "validation_body_cases": 4,
+    "validation_legal_actor_body_pairs_per_policy": 12,
+    "validation_meeting_cases": 4,
+    "crew_reporter_meetings": 2,
+    "impostor_reporter_meetings": 2,
+    "minimum_legal_actor_meeting_pairs_per_policy": 12,
+    "realized_training_accepted_reports_for_reporting_learning_interpretation": 2
+  },
+  "evaluation": {
+    "policies": [
+      "original",
+      "shaped_v2",
+      "zero"
+    ],
+    "games_per_policy": 16,
+    "total_executions": 48,
+    "distinct_scenarios": 8,
+    "action_selection": "greedy",
+    "selection": "last common accepted training batch satisfying the preregistered stopping rule; never validation-selected",
+    "primary_endpoint": "per-game fraction of four controlled body games with any accepted neural crewmate report; paired comparisons B-A, B-zero, A-zero",
+    "secondary_endpoints": "ordinary/controlled win reasons, reporter-role macro identification and error/skip behavior; never select checkpoints from these outcomes",
+    "interpretation": "Report all results and uncertainty; no binary Phase6.1 acceptance or learned-deduction claim from reporter accuracy alone",
+    "metrics": [
+      "win reasons",
+      "own/ghost tasks",
+      "visibility/range/legal/choice/held report opportunities",
+      "selected/submitted/accepted reports",
+      "ballot participation/accuracy/skips",
+      "claims and incorrect accusations",
+      "survival",
+      "frozen-belief top1/NLL/Brier/ECE",
+      "policy vote-target ranking",
+      "reporter-only accuse/avoid/uniform",
+      "reporter-role macro strata",
+      "direct-witness strata",
+      "paired scenario bootstrap"
+    ]
+  },
+  "total_wall_seconds": 14400,
+  "minimum_eval_reserve_seconds": 3600,
+  "estimated_next_training_batch_reserve_seconds": 300,
+  "final_partitions": false,
+  "full_training_authorized": false,
+  "inconclusive": [
+    "wall stop or incomplete48 evaluations",
+    "budget overshoot/rejection or target not reached by64 matched games",
+    "prefix legality/clock/privacy/source/checkpoint failure",
+    "coverage below registered minimum",
+    "fewer than2 realized training reports in an arm: reporting-learning endpoint inconclusive",
+    "reporter-role coverage absent: independent-deduction endpoint inconclusive"
+  ],
+  "acceptance": "exploratory development study; no Phase6.1 acceptance or generalization claim from one initialization/eight clusters"
+}
