@@ -1,0 +1,14 @@
+{
+  "schema": "crewmate-v2-rewards-v1",
+  "alive_task": 1.0,
+  "report": 0.0,
+  "correct_vote": 0.0,
+  "incorrect_vote": 0.0,
+  "skip": 0.0,
+  "ghost_task": 1.0,
+  "death": -5.0,
+  "win": 10.0,
+  "loss": -10.0,
+  "draw": -5.0,
+  "time_per_decision": -0.005
+}

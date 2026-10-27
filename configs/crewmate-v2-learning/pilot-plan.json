@@ -1,0 +1,135 @@
+{
+  "schema": "crewmate-v2-learning-v1",
+  "initializations": [
+    17,
+    29
+  ],
+  "arms": [
+    "original",
+    "shaped"
+  ],
+  "decisions": 1024,
+  "architecture": {
+    "global_features": 42,
+    "candidate_shape": [
+      4,
+      29
+    ],
+    "task_shape": [
+      4,
+      8
+    ],
+    "action_shape": [
+      96,
+      23
+    ],
+    "candidate_encoder": [
+      29,
+      32,
+      32
+    ],
+    "task_encoder": [
+      8,
+      16,
+      16
+    ],
+    "context": [
+      90,
+      128,
+      128
+    ],
+    "actor": [
+      199,
+      64,
+      1
+    ],
+    "critic": [
+      128,
+      64,
+      1
+    ]
+  },
+  "rollout": 128,
+  "learning_rate": 0.0003,
+  "entropy": 0.02,
+  "gamma": 0.99,
+  "gae_lambda": 0.95,
+  "ppo_epochs": 4,
+  "minibatch": 64,
+  "clip": 0.2,
+  "value_coefficient": 0.5,
+  "max_gradient_norm": 0.5,
+  "checkpoint_decisions": [
+    256,
+    512,
+    768,
+    1024
+  ],
+  "selection": "fixed final budget 1024; no best-of-validation selection",
+  "deduction_frequency": 1.0,
+  "coalesce_forced_wait": true,
+  "opponents": "varied",
+  "partitions": {
+    "train": [
+      2700000,
+      2709999
+    ],
+    "validation": [
+      2710000,
+      2710003
+    ],
+    "smoke": [
+      2720000,
+      2720003
+    ],
+    "fixtures": [
+      2730000,
+      2730099
+    ]
+  },
+  "validation": {
+    "seeds": 4,
+    "report_rotations": [
+      0,
+      1,
+      2
+    ],
+    "modes": [
+      0.0,
+      1.0
+    ],
+    "original_opponent_controls": true,
+    "games_per_model": 32
+  },
+  "reward_original": {
+    "schema": "crewmate-v2-rewards-v1",
+    "alive_task": 1.0,
+    "report": 0.0,
+    "correct_vote": 0.0,
+    "incorrect_vote": 0.0,
+    "skip": 0.0,
+    "ghost_task": 1.0,
+    "death": -5.0,
+    "win": 10.0,
+    "loss": -10.0,
+    "draw": -5.0,
+    "time_per_decision": -0.005
+  },
+  "reward_shaped": {
+    "schema": "crewmate-v2-rewards-v1",
+    "alive_task": 1.0,
+    "report": 1.25,
+    "correct_vote": 2.0,
+    "incorrect_vote": -1.0,
+    "skip": 0.0,
+    "ghost_task": 0.0,
+    "death": -5.0,
+    "win": 10.0,
+    "loss": -10.0,
+    "draw": -5.0,
+    "time_per_decision": -0.005
+  },
+  "total_wall_ceiling_seconds": 10800,
+  "smoke_steps_per_arm": 32,
+  "smoke_wall_ceiling_seconds": 600
+}
