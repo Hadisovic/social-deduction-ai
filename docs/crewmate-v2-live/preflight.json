@@ -1,0 +1,13 @@
+{
+  "status": "preflight_passed",
+  "crewmate_tests": 178,
+  "spectator_tests": 31,
+  "protected_files_unchanged": 234,
+  "preserved_selected_checkpoints": 9,
+  "recording_wall_ratio": 1.003868361628962,
+  "real_ppo_completed_episodes": 4,
+  "core_sources_unchanged": true,
+  "training_started": false,
+  "desktop_verified_by_owner": true,
+  "live_runtime_sha256": "886d22405554adf830d859dd83d592c474d5906e3bb274c6b2f4521f0da950b3"
+}
