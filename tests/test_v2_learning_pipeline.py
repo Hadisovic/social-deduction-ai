@@ -134,3 +134,12 @@ def test_direct_training_helper_does_not_bypass_owner_gate(tmp_path):
     target=tmp_path/'not-authorized'
     with pytest.raises(PermissionError):run_one(target,'original',17,1024,perf_counter()+30,expected_lock=runtime_lock(LobbySettings()))
     assert not target.exists()
+
+
+def test_actor_trace_supports_numpy_and_is_deterministic(env):
+    import hashlib
+    from crewmate_v2.learning.train import actor_trace
+    env.match.deadline=None;env.reset(seed=2730015)
+    a=hashlib.sha256();b=hashlib.sha256();c=hashlib.sha256()
+    actor_trace(a,env.packet,0);actor_trace(b,{k:v.copy() for k,v in env.packet.items()},0);actor_trace(c,env.packet,1)
+    assert a.hexdigest()==b.hexdigest() and a.hexdigest()!=c.hexdigest()

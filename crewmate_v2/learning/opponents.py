@@ -53,10 +53,11 @@ class LearningMatch(V2StrategicMatch):
         cursor=len(self.game.event_log)
         observation=self.game.observe(self.focal)
         legal=focal_intent is not None and intent_allowed(observation,focal_intent)
-        if self.game.tick%self.decision_ticks==0 and observation.own.active:
+        if observation.own.active:
             self.report_visible.update(b.victim_id for b in observation.visible_bodies)
             reports=[a.target for a in observation.actions if a.kind is IntentKind.REPORT]
-            self.report_legal.update(reports);self.report_legal_windows+=bool(reports)
+            self.report_legal.update(reports)
+            if self.game.tick%self.decision_ticks==0:self.report_legal_windows+=bool(reports)
         result=super().tick(focal_intent)
         self.ledger.consume(self.game.event_log[cursor:],active=self.game.players[self.focal].active,
             terminal=self.game.is_terminal,winner=self.game.result.winner if self.game.is_terminal else None,

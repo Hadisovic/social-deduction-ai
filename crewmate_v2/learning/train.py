@@ -26,6 +26,13 @@ def state_hash(policy):
     return h.hexdigest()
 
 
+def actor_trace(trace,packet,action):
+    for key in sorted(packet):
+        value=np.ascontiguousarray(packet[key])
+        trace.update(key.encode());trace.update(str((value.dtype.str,value.shape)).encode());trace.update(value.tobytes())
+    trace.update(int(action).to_bytes(4,'big'))
+
+
 def run_one(output,arm,initialization,steps,deadline,*,smoke=False,expected_lock=None,approval=None):
     if arm not in ('original','shaped') or steps!=(32 if smoke else 1024):raise ValueError('Unregistered arm/decision budget')
     if not smoke and expected_lock is None:raise PermissionError('Pilot entry requires an approved runtime lock')
@@ -57,7 +64,7 @@ def run_one(output,arm,initialization,steps,deadline,*,smoke=False,expected_lock
             action,logp,value=policy.act(packet)
             if not packet['mask'][action] or int(packet['mask'].sum())<2:raise ValueError('Non-actionable or masked learner selection')
             actions[env.options[action].kind]+=1
-            trace.update(canonical_bytes((packet,action)))
+            actor_trace(trace,packet,action)
             new,reward,done,_,info=env.step(action)
             if env.match.game.metrics['illegal_actions'] or env.match.game.metrics['navigation_failures'] or info['masked_selection']:
                 raise ValueError('Illegal/navigation/masked transition')
