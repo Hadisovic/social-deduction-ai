@@ -1,6 +1,81 @@
 # Continuation handoff
 
-## CURRENT — V4 stopped; spawn-safe V4.1 preflight passed; prepare clean launch
+## CURRENT — V4.1 study COMPLETE; no jobs or further training authorized
+
+Finished27October2026 at23:48:55 Asia/Amman. Session50520 exited0. It recovered
+evaluation-only logging IO, not learning. All80 selection+5 sampled diagnostics+
+40 confirmation executions are saved. No reserved final partitions were opened.
+Original envelope elapsed165.09min (deadline01:03:50); corrected run87.03min,
+parallel training span42.45min. Runtime source83f75c4 remains byte-unchanged.
+
+Immutable selected83/8192 SHA
+69965afd8fab28e6ca5bdda46d9f8efdd8d6036ce57a05b86ff89fe22cf17ca9.
+New separate release artifacts/impostor-options-v41/release/policy.pt; all8 new
+snapshots strict-loaded/copied; old models not overwritten. Actual easy wrapper
+`python run_impostor_v41.py` passed8-frame headless launch; capture in report/viewer.
+Old `python run_impostor_ai.py` still loads historical V2, intentionally.
+
+Fresh20 paired cases/method:V41 0wins/34kills/0fake choices/33executed reports/
+15task losses/5own ejections/0witnessed kills; V2 0wins/9kills/3654fake choices/
+20task losses. New kills in20/20cases (14two-kill,6one-kill). No illegal actions
+or navigation failures in125 evaluation executions; frozen models unchanged.
+No reliable winning policy, causal deception or isolated shaping benefit claimed.
+Training71:72games60kills0wins;83:78games76kills1win;8192 decisions each.
+Positive credit42/72 and48/78 games; terminal cancellation/lifetime bound passed.
+
+Short owner/team doc docs/impostor-v2/CURRENT_RESULTS.md; full report/11graphs/
+raw cases/protocol/lock/recovery docs/impostor-v2/options-v41-study-20261027/.
+Master checklist/research log/architecture/future lobbies updated. Eight attempts
+total:7complete1partial;30policy snapshots, not30independent NNs. Next full study
+needs approval, a fresh protocol/cases and integration of the tested terminal-time
+math helper into a NEW versioned learner. Current V41 does not import that helper.
+
+Owner asked about sabotage and reporting: missing sabotage is a hypothesis, not
+proven cause; current crew have no trained functional sabotage response. Most
+losses are tasks75%,ejection25%. Do not ban selfreports or invent a flat penalty:
+first measure immediate-own-kill reporting and controlled leave/stay/report
+consequences, then train/evaluate choices. No new training is authorized by that
+question. Up-to15 total players/1–3impostors remains future work for both policies.
+Owner still says no computer use; send game commands. No merge/deploy.
+
+Completion packaging/push status should be checked in git/PR10; scientific
+results/release are complete regardless of a later documentation commit hash.
+
+## Historical execution notes — superseded, do not restart these jobs
+
+### V4.1 evaluation IO recovery (now finished)
+
+Training COMPLETE; selection COMPLETE and IMMUTABLE:83/checkpoint8192, SHA
+69965afd8fab28e6ca5bdda46d9f8efdd8d6036ce57a05b86ff89fe22cf17ca9.
+All4 candidates won0/20 selection cases; selected had28kills (tie-break).5 sampled
+diagnostics completed0wins/8kills. Confirmation had6/40 saved cases when root
+progress.json replacement hit transient Windows sharing violation WinError5.
+Session98577 exited1 from LOGGING, not optimizer/game/source failure.
+
+Owner already authorized completing the bounded study. Logging-only recovery via
+python -u tools/resume_impostor_v41_io.py --output artifacts/impostor_research/options-v41-20261027
+is active as session50520. It reuses all80 selection,5diagnostic and6 completed
+confirmation files, checks the same lock, performs NO training, and retains the
+ORIGINAL deadline01:03:50 +03. STOP marker was archived, not deleted. Two IO tests
+passed0.36s. The recovery launcher patches ONLY bounded output/logging retries at
+import in parent/spawned workers; scientific sources/weights/seeds unchanged.
+Recovery provenance is a separate io-recovery-*.json; do not edit study.json/lock.
+Do not edit healthy runtime/IO helper files. Avoid PowerShell Get-Content live
+progress files (brief Windows sharing locks); read/close with Python if needed.
+
+Report tool now derives original parallel training span from durable seed start/
+training records: a resumed runner's training_wall_seconds is near0 because it
+skips already completed learning. Total wall time includes IO downtime. Preserve
+the recovery record, unfinished-case replay and worker-sum caveats in the paper.
+
+Future trainer math audit found instantaneous terminal kills legitimately elapsed0,
+but inherited GAE requires >0. Current completed learning never hit it; inference/
+evaluation do not use GAE. Standalone candidate impostor_training_math.py and4tests
+passed5.21s; NOT wired into frozen V4.1. Integrate in a new registered learner
+before further full training. Controlled fixture is NOT a learned-policy win.
+
+Historical runtime/study notes below retained; session98577 is stopped. Current
+source remains83f75c4dc7c6c6e72cd553192e63d48dc5f32237 and current evaluation50520.
 
 Important discovery: all75 completed seed71 games and15 durable seed83 games had
 zero pursuit credit. Crowded spawn sets V4's lifetime proximity high-water to1
@@ -25,7 +100,39 @@ Read docs/impostor-v2/options-v41/TRAINING_PROTOCOL.md. New fresh training start
 selection cases, confirmation3200160–179 (40). Two scratch71/83 ×8192, one CPU
 worker, same PPO. New run must borrow original deadline from the old study SHA,
 not allocate another4h. Output intended artifacts/impostor_research/options-v41-20261027.
-No replacement study launched yet. Final preflight session62944 exited0:5 tests
+Replacement launched as session98577 from clean source commit
+83f75c4dc7c6c6e72cd553192e63d48dc5f32237. Manifest confirms dirty=False and ORIGINAL
+deadline2026-10-28 01:03:50.430218 +03;161.94min remained at corrected start.
+Both71/83 are active in two isolated CPU training workers. Read current persisted
+artifacts/impostor_research/options-v41-20261027/progress.json and LIVE_PROGRESS.md;
+root progress includes a `runs` dictionary and each seed also has progress.json.
+Preserve healthy workers. DO NOT edit either impostor_options_v4/ or
+impostor_options_v41/, root viewers, registered runners or either protocol.
+Only unguarded offline analysis tools/status docs may change while healthy.
+LATEST STAGE: both corrected learning runs COMPLETE; selection is running (80
+fixed matches over4 candidates).71:8192decisions/72games/60kills/0wins;83:
+8192/78games/76kills/1win. Total150 training games/136kills/1win. No selected lock
+as of this update; confirmation remains unopened. Preserve session98577.
+Ordinary corrected training has nonzero pursuit credit in BOTH initializations:
+at1024 decisions,71 paid3/8 games (max.03955),83 paid4/8 (max.00871). The real-spawn
+fix is active; terminal shaping still cancels and benefit is not yet established.
+
+Corrected offline tools are ready OUTSIDE guarded paths:
+tools/report_impostor_options_v41.py and release_impostor_options_v41.py.
+Four synthetic report/curation tests passed24.93s (not performance evidence).
+They use fresh3200140–159 selection/3200160–179 confirmation, selected_v41 method,
+11 graphs, original-budget accounting and parallel-worker timing caveats.
+After COMPLETE results.json, run:
+python tools/report_impostor_options_v41.py artifacts/impostor_research/options-v41-20261027 docs/impostor-v2/options-v41-study-20261027
+then inspect curves/paired results/fake streaks/ready time/true wins before curating:
+python tools/release_impostor_options_v41.py artifacts/impostor_research/options-v41-20261027 docs/impostor-v2/options-v41-study-20261027 artifacts/impostor-options-v41/study-20261027
+All outputs must be new directories. Never overwrite old release or tune/select
+using confirmation. Viewer command for corrected chosen release:
+python run_impostor_options_v41.py --checkpoint artifacts/impostor-options-v41/release/policy.pt
+Use terminal headless verification only; NO computer-use/GUI automation per owner.
+Report original interrupted run and repair separately; respect fixed01:03:50.
+
+Final preflight session62944 exited0:5 tests
 passed130.82s, including actual45s spawn/visible approach, bounded arming, real PPO/
 exact resume, old V4 compatibility and2 isolated8-decision development workers.
 The first real-world test initially failed because a room goal parked at a doorway
@@ -35,8 +142,7 @@ Two PARALLEL training CPU workers/one Torch thread each, two isolated evaluation
 method workers, sequential sampled diagnostics. Synthetic80-case scheduling test
 also passed14.23s (six total corrected preflight checks, not new performance data);
 this preserves2×8192 decisions and helps meet the original deadline. Sources and
-protocol record this before launch. Save clean local commit and launch; update this
-top section with actual source/session. Do NOT rerun original interrupted study.
+protocol recorded this before launch. Do NOT rerun original interrupted study.
 
 Six original V4 policy snapshots were preserved/strict-loaded in
 artifacts/impostor-options-v4-interrupted/study-20261027; compact logs and honest

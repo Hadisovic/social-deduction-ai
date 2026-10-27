@@ -1,0 +1,17 @@
+[
+  {
+    "kind": "logging_only_resume_no_new_training",
+    "started_epoch": 1793133551.529446,
+    "original_deadline_epoch": 1793138630.4302185,
+    "selected_checkpoint_sha256": "69965afd8fab28e6ca5bdda46d9f8efdd8d6036ce57a05b86ff89fe22cf17ca9",
+    "selection_lock_sha256": "df470c027ab834d7909d0e881fcb221fd0b0b30dabcf9150f0ffe150817f9d2e",
+    "completed_before": {
+      "selection": 80,
+      "diagnostic": 5,
+      "confirmation": 6
+    },
+    "launcher_sha256": "1a14745abb013475a0244cb1cd8070f762bc496213170a8f9d130e9871b722cb",
+    "helper_sha256": "06ccd28e1df01b048d55fefb20e4fe47fb1dbd7876b6476793c05d42c7590485",
+    "algorithms_sources_weights_unchanged": true
+  }
+]

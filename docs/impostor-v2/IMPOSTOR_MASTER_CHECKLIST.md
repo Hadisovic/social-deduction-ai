@@ -1,8 +1,9 @@
 # Learned impostor — full development checklist
 
-Updated27 October2026, Asia/Amman. **V4 interrupted with owner approval; spawn-safe
-V4.1 repair passed preflight; preparing launch.**
-Started21:03:50; hard stop01:03:50 on28 October. Checkboxes describe verified work,
+Updated27 October2026, Asia/Amman. **V4.1 training/evaluation COMPLETE at23:48:55.
+Fresh0/20wins,34kills; no fake choices. Winning strategy remains insufficient.**
+Read the short [teammate summary](CURRENT_RESULTS.md) first.
+Started21:03:50; completed within the01:03:50 deadline. Checkboxes describe verified work,
 not a percentage of model quality.
 “Best” means the strongest validated checkpoint among our tested candidates under
 declared opponents/settings. It does not mean globally optimal play.
@@ -12,12 +13,14 @@ declared opponents/settings. It does not mean globally optimal play.
 | Item | Actual status |
 |---|---|
 | Architecture | Unchanged75,075 parameters; separate actor/critic;12-family then target choice |
-| Current trained model | Historical V2, initialization71/checkpoint8192 |
-| Previous evidence | Selected2/20wins; fresh confirmation0/20wins,4kills |
+| Current trained model | Locked V4.1, initialization83/checkpoint8192; separate research release |
+| Fresh evidence | V4.1:0/20wins,34kills; unchanged V2 on same cases:0/20wins,9kills |
 | First learned win | Yes: seed83 training game;2kills and innocent crew ejection |
 | New V4 code | Reward/action/observation changes implemented and tested |
-| New V4 trained model |71 finished;83 interrupted at last durable1792; no validation/release. Corrected V4.1 pending preflight |
-| Visible current game | Old V2 weights in a labelled V4 transfer demo; inference only |
+| Interrupted V4 |71 finished;83 interrupted at last durable1792; no validation/release; six snapshots retained |
+| Corrected V4.1 training |71:72games/60kills/0wins;83:78games/76kills/1win; both8192 decisions |
+| Learning sufficiency | More kills and no fresh fake loop;15 task losses,5 ejections; no reliable winning policy |
+| Watch new game | `python run_impostor_v41.py`; actual locked weights, inference only |
 | Current roster | 1learned impostor,1frozen neural crew,3scripted crew |
 | Future roster | Configurable up to15 total players and1–3 impostors; validate legal combinations;10crew/2impostors is one preset |
 
@@ -49,8 +52,8 @@ declared opponents/settings. It does not mean globally optimal play.
 - [x] Preserve actual cooldown reset at a kill; do not punish its interval as idle.
 - [x] Log terminal, kill, ejection, ready-time and pursuit components separately.
 - [x] Document that shaped return can be negative for a slow win; assess true wins.
-- [ ] In trained V4, check for risky witnessed kills and excessive meeting usage
-  caused by the larger ready penalty. These are risks, not established outcomes.
+- [x] Measure V4.1 fresh behavior:0 witnessed kills,33 executed self-reports after
+ 34kills,5 own ejections. Repetitive reporting is observed; causation is not proven.
 
 ## 3. Fake-task exploit — mechanism fixed, learned preference unresolved
 
@@ -65,12 +68,12 @@ declared opponents/settings. It does not mean globally optimal play.
 - [x] Record owner's live observation: old weights still repeatedly fake in an
   empty room and do this across their watched games. This is an unresolved policy
   failure, not the original restart bug; the owner's watched-game count is unstated.
-- [ ] Train under the corrected interface after approval; watching alone does not
+- [x] Train under the corrected interface after approval; watching alone does not
   change weights, even when new reward costs are displayed.
-- [ ] Measure fake streak length, ready-idle seconds, visible-player count during
+- [x] Measure fake streak length, ready-idle seconds, visible-player count during
   faking, starts/completions/interruptions and opportunities forgone.
-- [ ] Demonstrate less unproductive repeated faking on fresh scenarios through
-  learned decisions, without a scripted fake limit or automatic chase.
+- [x] Fresh paired scenarios:0 V4.1 fake choices versus3654 V2; no forced fake limit
+  or chase. This sample does not prove optimal fake-task use in all situations.
 
 ## 4. Safe pursuit feedback — implemented, benefit untested
 
@@ -82,8 +85,8 @@ declared opponents/settings. It does not mean globally optimal play.
 - [x] Use potential differences and terminal correction; full-episode shaping sums0.
 - [x] Test oscillation, switching, visibility loss/reacquisition, small motion and
   hidden-position isolation; document conservative high-water limitations.
-- [ ] Check useful positive shaping actually occurs during exploration; current
-  old-weight smoke matches earned none.
+- [x] Corrected exploration pays positive credit in42/72 and48/78 complete training
+  games, maximum0.03955/0.04583; no lifetime-bound or terminal-cancellation violations.
 - [x] Detect and disclose real-spawn flaw: all90 durable V4 training games earned
   zero pursuit credit because initial close players saturated the lifetime frontier.
 - [x] Obtain owner decision to stop, fix and restart as a separate V4.1 study
@@ -130,6 +133,12 @@ declared opponents/settings. It does not mean globally optimal play.
   from confirmation and no silently retried runs/extensions.
 - [ ] Add action-only/reward-only ablations if approved compute permits; combined
   changes alone cannot establish which correction caused an improvement.
+- [x] Audit instantaneous terminal kill: actual elapsed0 is valid; inherited GAE
+  rejects it. Current completed runs did not hit it; evaluation is unaffected.
+- [x] Implement/test standalone zero-terminal-time GAE candidate:4 pure math checks
+  passed5.21s; positive-time parity and no fabricated simulator time.
+- [ ] Before any NEXT full study, wire that candidate into a new versioned learner
+  and record its source; frozen V4.1 does not import the helper.
 - [x] Verify finite gradients, PPO KL/clip fraction, entropy, value fitting and
   private RNG/checkpoint resume before scaling the approved rollout.
 - [x] Leave frozen crew and belief weights outside the impostor optimizer; gradient/resume tests pass.
@@ -141,10 +150,14 @@ Exact protocol: [TRAINING_PROTOCOL.md](options-v4/TRAINING_PROTOCOL.md).80 greed
 selection +5 sampled diagnostic +40 fresh confirmation executions. No architecture
 change, automatic extension, lobby expansion, merge/deployment or reserved finals.
 
-Live progress: [LIVE_PROGRESS.md](../../artifacts/impostor_research/options-v4-20261027/LIVE_PROGRESS.md).
-Original runtime commit`b59ab8ac482fcbdd80f064d3805a27beed6cba52`; session57078 is
-stopped, not healthy. New corrected [protocol](options-v41/TRAINING_PROTOCOL.md)
-uses fresh cases and preserves all interrupted evidence. No replacement started yet.
+Original runtime commit`b59ab8ac482fcbdd80f064d3805a27beed6cba52`; original V4 was
+stopped before validation. Corrected [protocol](options-v41/TRAINING_PROTOCOL.md)
+uses fresh cases and preserves all interrupted evidence. Corrected source commit
+`83f75c4dc7c6c6e72cd553192e63d48dc5f32237`; completed87.03min after restart and
+165.09min after the original start. Two CPU workers/one Torch thread each.
+[Completed results and11 graphs](options-v41-study-20261027/README.md).
+Evaluation-only IO recovery reused completed cases without retraining or changing
+the lock/deadline. All jobs exited; no additional full study is authorized.
 
 ## 7. Gameplay skills to learn and verify
 
@@ -158,6 +171,10 @@ These are evaluation questions, not hardcoded strategic rules or proven abilitie
   do not delay indefinitely once ready or assume every available kill is wise.
 - [ ] After a kill: choose movement, continued presence or self-report from evidence;
   no blanket prohibition/forced reporting rule.
+- [ ] Add explicit immediate-own-kill-report telemetry and controlled development
+  comparisons of leave/stay/report. Current33 reports after34 kills are a habit,
+  not proof reports caused losses. Do not introduce an arbitrary report penalty
+  or automatic escape rule; learn useful choices and measure survival/eventual wins.
 - [ ] Meetings: use public claims, own sightings and votes; choose accusation,
   defence of others, own location alibi, vote or skip rather than uniform guessing.
 - [ ] Deception: demonstrate beneficial false claims in matched controlled cases;
@@ -172,19 +189,20 @@ These are evaluation questions, not hardcoded strategic rules or proven abilitie
 
 ## 8. Validation, graphs and model selection
 
-- [ ] Use paired cases with fixed opponent mixture and honest train/selection/
+- [x] Use paired cases with fixed opponent mixture and honest train/selection/
   confirmation labels. Log wall time and simulated experience separately.
-- [ ] Compare frozen untrained NN, historical selected V2 and scripted attacker;
-  add compatible frozen best crew and roster conditions as separate comparisons.
-- [ ] Plot training return and true wins separately, across seeds/checkpoints.
-- [ ] Plot kills, legal kill opportunities, witnessed kills, task-loss/ejection/timeout
+- [x] Compare locked V4.1 with unchanged selected V2 on20 fresh paired cases.
+- [ ] Add fresh untrained/scripted and friend's compatible crew comparisons in a
+  separately approved protocol; older control results remain historical only.
+- [x] Plot training return and true wins separately, across seeds/checkpoints.
+- [x] Plot kills, legal kill opportunities, witnessed kills, task-loss/ejection/timeout
   reasons, ready-idle time, fake streaks and structured-claim/vote outcomes.
-- [ ] Plot reward-component totals, pursuit credit/correction, entropy/KL/clip
+- [x] Report reward-component totals and plot pursuit credit/correction, entropy/KL/clip
   fraction/value diagnostics, decisions, simulated hours and compute time.
-- [ ] Report denominators and uncertainty;20 cases alone give weak win-rate evidence.
-- [ ] Choose with a declared validation rule prioritizing true wins; lock identity
+- [x] Report denominators and uncertainty;20 cases alone give weak win-rate evidence.
+- [x] Choose with a declared validation rule prioritizing true wins; lock identity
   before opening fresh confirmation. Preserve all losing candidates.
-- [ ] If confirmation fails, report failure. A later tuned model needs a fresh
+- [x] If confirmation fails, report failure. A later tuned model needs a fresh
   protocol/dataset; never reuse confirmation as an untouched test.
 - [ ] Replicate useful learning across independent initializations before making
   robust claims. Expand fresh confirmation only with an approved budget.
@@ -192,17 +210,18 @@ These are evaluation questions, not hardcoded strategic rules or proven abilitie
 
 ## 9. Acceptance and release gates
 
-- [ ] No illegal actions, navigation failures, privacy leaks or corrupted checkpoints
-  in the declared verification/evaluation set.
-- [ ] Fake activity finishes; no persistent unproductive learned loop dominates
-  fresh greedy play. Quantify remaining loops rather than rely on a chosen demo.
+- [x] All125 evaluation executions had0 illegal actions/navigation failures;
+  frozen weights/source guards pass and all eight new snapshots strict-load.
+- [x] Fake activity finishes in tests/training; fresh greedy policy makes0 fake
+  choices. Preserve other strategy gates: no-faking alone is not sufficient.
 - [ ] Reliable real kills and wins on fresh ordinary task-enabled scenarios across
   seeds, with uncertainty and opponent mix clearly reported.
 - [ ] Evidence of improvement against historical/untrained baselines; compare with
   the scripted attacker without claiming superiority unsupported by the sample.
-- [ ] Select the strongest tested validated candidate; do not call it globally best.
-- [ ] Export immutable chosen checkpoint/config/hashes and reproduce its viewer.
-- [ ] Update full report/checklist/research paper, including failed runs and limitations.
+- [x] Select by the preregistered rule:83/8192; all selection wins0,28kills tie-break.
+- [x] Export immutable research checkpoint/config/hashes and verify8-frame viewer.
+- [x] Update teammate/report/checklist/research evidence, including failures/limits.
+- [ ] Write the final research paper after the planned evidence is complete.
 - [ ] Push/review the implementation/results when requested; merge/deploy require
   their own explicit authorization. No silent replacement of old release weights.
 
@@ -232,21 +251,25 @@ Detailed plan/model count: [FUTURE_LOBBIES.md](FUTURE_LOBBIES.md).
   team wins as one agent's personal contribution.
 - [ ] Only then explore learned coordination, adapting opponents and self-play with
   new approval, held-out opponent pools and forgetting/exploitability checks.
+- [ ] Consider functional sabotage as a separate versioned mechanics/both-role
+  training study. Current crew have not learned repairs. Preserve no-sabotage
+  baseline; do not assume missing sabotage caused the observed15 task losses.
 
 ## 11. Research paper evidence — maintained from now on
 
 - [x] Create [RESEARCH_LOG.md](RESEARCH_LOG.md) with all failed trials, the first
   learned win, measured exploit/fix, controls and causal limitations.
 - [x] Preserve old graphs/results and current implementation/smoke evidence.
-- [ ] After every approved experiment, append protocol, source/parent hashes,
+- [x] Append this completed experiment's protocol, source/parent hashes,
   hyperparameters, seeds, compute, failures, results and the next decision.
-- [ ] Distinguish observed exploits from hypothetical design risks and unit-test
+- [x] Distinguish observed exploits from hypothetical design risks and unit-test
   success from learned performance; record negative/unsuccessful findings.
 - [ ] Write methods, ablations, uncertainty, opponent limitations, sim-to-game
   limitations and reproducibility instructions when the evidence is ready.
 
 Implementation detail/reward table: [V4 report](options-v4/README.md).
 
-Run corrected transfer visualization: `python run_impostor_options.py`.
+Run the new locked research model: `python run_impostor_v41.py`.
+Run the old-weight transfer demo: `python run_impostor_options.py`.
 Run historical evaluated model: `python run_impostor_ai.py`.
-Neither command trains. Space/P pause; R replay; N new game; Esc quit.
+None of these commands train. Space/P pause; R replay; N new game; Esc quit.

@@ -152,3 +152,111 @@ Two one-thread CPU training workers run independent seeds in parallel; no extra
 runs/decisions. Absolute deadline stays01:03:50 Amman on28October; failed work and
 repair consume the same original budget. No test outcomes were used for this repair
 because original selection/confirmation had not opened.
+
+### First corrected V4.1 training win
+
+Initialization83 won scenario3111055, ending at training decision6311: PARITY,
+two kills, one witnessed kill, one self-report, one crew report, one correct and
+two incorrect crew votes. An innocent crew ejection plus the kills reached parity.
+Simulated duration394.2s; return15.328; positive pursuit credit0.0127289 before its
+terminal cancellation. Full row/hashes are preserved in
+[first-training-win.json](options-v41/first-training-win.json).
+
+This is an actual learned-impostor training win, separate from scripts and from
+the earlier V2 first win. It does not establish which claim caused the incorrect
+vote, learned deception, static greedy-checkpoint success or held-out reliability.
+
+### Next-trainer audit: instantaneous terminal time
+
+A controlled development fixture (not a neural-policy win) performed the final
+parity kill with actual elapsed simulator time0 and reward13 (=win10 +kill3).
+The inherited GAE validator rejects duration0, although a terminal transition has
+no bootstrap/continuation term. Evidence is in
+[terminal-duration-audit.json](options-v41/terminal-duration-audit.json).
+
+Both registered corrected runs finished successfully, so their collected updates
+did not hit this rejected case. Evaluation/inference does not call GAE. Frozen
+V4.1 sources/results remain unchanged. A separate candidate math repair in
+`impostor_training_math.py` accepts zero time only at terminal, leaves positive-time
+results identical, rejects zero nonterminal/negative time and never fabricates
+simulated time. Four pure math tests passed5.21s. This helper is **not wired into
+the frozen learner**: integrate and register it in the next trainer version before
+any further full study. Do not retroactively claim it was used for V4.1.
+
+## Completed corrected V4.1 study —27 October2026
+
+Source83f75c4dc7c6c6e72cd553192e63d48dc5f32237; protocol/config/opponent hashes
+were frozen before learning. Two scratch initializations71/83 ×8192 decisions:
+72/78 complete games,60/76 kills,0/1 training wins. Positive pursuit credit occurred
+in42/72 and48/78 games (maximum0.03955/0.04583); it stayed lifetime-bounded and
+terminal-cancelled. This repairs activation, not an isolated causal benefit.
+
+All four selection candidates won0/20. Declared kill tie-break selected83/8192
+with28kills. Identity was locked before fresh confirmation, SHA256
+69965afd8fab28e6ca5bdda46d9f8efdd8d6036ce57a05b86ff89fe22cf17ca9.
+Five sampled diagnostics reused first five selection cases:0wins/8kills; they
+did not change selection/inference. Fresh20paired cases per method:
+
+| Metric | Selected V4.1 | Unchanged V2 |
+|---|---:|---:|
+| Wins |0/20 |0/20 |
+| Kills |34 |9 |
+| Matches with a kill |20 |8 |
+| Fake choices |0 |3654 |
+| Executed impostor reports |33 |0 |
+| Task-loss / own-ejection endings |15 /5 |20 /0 |
+
+The fake stall disappeared in this fresh sample and killing increased. Winning
+did not. No false-claim/innocent-ejection success was observed in the selected
+fresh policy. Its33 reports after34 kills and33 location claims suggest a narrow
+post-kill habit; they do not establish reporting caused defeat. No direct
+witnessed kills occurred, which also does not establish learned witness avoidance.
+Ghost task completion and the ordinary task-enabled victory condition remained.
+Each0/20 win result has Wilson95% interval0–16.1%; the all-zero paired bootstrap
+is not evidence of population equivalence. Bundled corrections preclude component
+causal attribution; shaped returns differ between versions.125 executions include
+reused selection scenarios and are not125 independent confirmation matches.
+
+### Compute, IO failure and provenance
+
+Corrected22:21:54–23:48:55 Amman:87.03min. Original start21:03:50 through finish:
+165.09min including interrupted work/repair; original deadline01:03:50 was retained.
+Workers71/83:37.90/42.45min; their overlapping span42.45min. CPU-only Windows11,
+Intel64 Family6 Model183 Stepping1/32logicalCPUs;2independent training workers,
+up to2evaluation workers,1Torch thread each.36,180.4simulated training seconds
+include unfinished episodes; complete-game kill totals exclude them.
+
+A transient PermissionError/WinError5 on atomic progress.json replacement stopped
+the first evaluation process. Models, scientific sources, lock and completed cases
+were intact. A separately hashed logging-only wrapper added bounded retry without
+data transformations. It reused80 selection,5diagnostic and6confirmation files;
+only unfinished cases resumed. No optimizer ran during recovery; no seeds, model
+choice, deadline or scientific source changed. Near-zero resumed training phase
+time is not original training cost. Report derives training span from durable
+worker start/end records. Recovery and original failed STOP marker are retained.
+
+### Verification, next decision and artifacts
+
+125evaluation executions:0illegal actions/navigation failures; frozen model hashes
+unchanged. All8new policy snapshots strict-loaded; copied release hash matches
+the pre-confirmation lock. All16historical and6interrupted snapshots remain.
+Ten offline report/IO/math tests passed53.73s after the reporting-time correction.
+These are software tests, not performance observations. Actual new release passed
+8frame headless viewer launch. Eleven new graphs and two interrupted-failure
+graphs join the preserved historical figures; screenshot is ordinary demo3600000.
+
+[Short teammate summary](CURRENT_RESULTS.md), [full report/data](options-v41-study-20261027/README.md),
+[master checklist](IMPOSTOR_MASTER_CHECKLIST.md). Run `python run_impostor_v41.py`.
+No further training, reserved finals, merge or deployment. The research release
+is reproducible but insufficient as a strong winning AI. A new study first needs
+the versioned terminal-time GAE integration, post-kill/reporting audits, fresh
+development/selection/confirmation cases and approval. Keep the architecture
+initially; investigate learning/credit/exploration before increasing network size.
+
+Owner's sabotage question is logged as a hypothesis: mechanics could change task
+pace/encounters, but no present experiment isolates them. Current crew are not
+trained for functional sabotage. Add/test both-role interfaces and train repairs
+before a separately approved comparison; retain no-sabotage baseline. Do not ban
+reports or assign an arbitrary report cost based solely on correlated outcomes.
+Future custom lobbies, compatible crew cross-play and eventual self-play remain
+in [FUTURE_LOBBIES.md](FUTURE_LOBBIES.md).

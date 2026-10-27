@@ -1,0 +1,17 @@
+{
+  "kind": "controlled_development_fixture_not_a_policy_win",
+  "terminal": true,
+  "reason": "PARITY",
+  "elapsed_seconds": 0.0,
+  "reward": 13.0,
+  "reward_components": {
+    "terminal": 10.0,
+    "kill": 3.0,
+    "ejection": 0.0,
+    "cooldown_ready": 0.0,
+    "pursuit": 0.0
+  },
+  "legacy_gae_accepts_zero_terminal": false,
+  "legacy_error": "Invalid elapsed time/lambda",
+  "next_training_gate": "Allow duration0 only for terminal transitions; gamma/lambda terms are multiplied by done-mask0. Never fabricate simulated reward time."
+}

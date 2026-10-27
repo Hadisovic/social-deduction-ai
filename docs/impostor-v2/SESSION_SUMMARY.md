@@ -1,5 +1,11 @@
 # Impostor AI — where we stopped
 
+**Latest continuation:** [V4.1 teammate summary](CURRENT_RESULTS.md) and
+[11 new graphs/results](options-v41-study-20261027/README.md). New model:
+`python run_impostor_v41.py`; fresh0/20wins,34kills,0fake choices. Two corrected
+runs completed within the original4h envelope. The V2 summary below is historical;
+its checkpoints, viewer and unsuccessful results remain intact.
+
 **The training/evaluation pipeline works, but the impostor is not yet a good winning AI.**
 Yes, learned models won: one training game and three selection-match executions
 across two checkpoints (two with the chosen model, one with another). The chosen

@@ -43,6 +43,8 @@ yet; benchmark it before proposing a compute budget.
 - [ ] Prevent friendly kills and handle simultaneous actions, same-victim attempts,
   independent45s cooldowns, body/report transitions and parity correctly.
 - [ ] Keep actor-private memory and action RNG separate, even with shared weights.
+- [ ] Define actor-specific kill/ejection rewards versus faction-wide wins; do not
+  accidentally pay every impostor an own-kill bonus for a teammate's action.
 - [ ] Preserve living-player witness/report safeguards, voting legality, task victory
   and ghost-only information isolation at every roster size.
 - [ ] Test permutations of IDs/seats, deaths/ejections, disconnect-like roster
@@ -53,7 +55,8 @@ yet; benchmark it before proposing a compute budget.
 ## Learning and evaluation sequence
 
 1. Fix and validate useful single learned crew/impostor behavior in the current
-   task-enabled setting. The V4 study underway does not expand lobby size.
+   task-enabled setting. Completed V4.1 improved killing/faking but scored0/20
+   fresh wins; it does not expand lobby size or satisfy the reliable-win gate.
 2. Freeze compatible checkpoints for explicit mixed and fully neural cross-play.
    Do not attribute a whole-team victory to one learned crew actor without evidence.
 3. Implement/test variable lobbies, then separately approve their training protocol
@@ -65,7 +68,25 @@ yet; benchmark it before proposing a compute budget.
 5. Compare general policies with lobby-specific checkpoints if evidence warrants
    them. Preserve failures and report wins, uncertainty and compute by lobby size,
    impostor count, opponent mix and seed, rather than pool incompatible games.
+   Count independent matches, not every shared-policy seat as an independent trial;
+   report within-game/paired-scenario dependence.
 
 Tracked in [the master checklist](IMPOSTOR_MASTER_CHECKLIST.md) and
 [research log](RESEARCH_LOG.md). No code/lobby change or extra training is authorized
 by this future-work note.
+
+## Sabotage as a separate hypothesis
+
+The owner asked whether missing sabotage makes wins harder. It may alter task pace
+and encounters, but current results cannot identify that cause. V4.1 already won
+one training game without sabotage; fresh losses were15 task victories and5 own
+ejections. It also self-reported33 times after34 kills. Those choices warrant a
+post-kill strategy audit before declaring sabotage the necessary fix.
+
+- [ ] Version actual sabotage/repair mechanics and timing, with tests.
+- [ ] Give both roles only legitimate observations and legal actions. Current
+  frozen/scripted crew have no trained functional sabotage-response contract.
+- [ ] Train/evaluate crew repair responses and impostor sabotage choices separately
+  before cross-play. Do not make the impostor appear strong against helpless crew.
+- [ ] Keep no-sabotage baseline/checkpoints; preregister paired comparisons and
+  compute. Functional vents and free-text persuasion remain separate features.

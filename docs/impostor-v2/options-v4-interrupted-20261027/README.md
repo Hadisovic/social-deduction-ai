@@ -20,3 +20,13 @@ and a distinct schema. It inherits the ORIGINAL01:03:50 Amman deadline on28Octob
 the failed run and repair consume that same4h envelope, not extra training time.
 See ../options-v41/TRAINING_PROTOCOL.md and the research log. No release was selected
 from this interrupted experiment and no historical checkpoint was overwritten.
+
+## Recorded failed-run graphs
+
+These are sampled training diagnostics, not accuracy or held-out results. The83 curve is partial.
+
+![Interrupted training return, kills and fake streaks](figures/interrupted_training.png)
+
+The following plot shows the integration defect: no positive shaping credit in any durable game. This is not a controlled learning-benefit comparison.
+
+![Inactive pursuit credit in90 training games](figures/pursuit_zero_credit.png)

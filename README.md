@@ -10,7 +10,7 @@
 
 Explore the [interactive project journey](https://hadisovic.github.io/social-deduction-ai/) for a visual, non-technical guide to the milestones and current research frontier.
 
-## Independent learned impostor — V2 research branch
+## Independent learned impostor — V4.1 research results
 
 `codex/impostor-environment-v2` starts from the exact Crewmate V2 baseline. It keeps
 full-29 and the belief model frozen, with living-crewmate body reporting and witnessed
@@ -18,22 +18,27 @@ kill voting safeguards. The impostor alone learns movement, killing, fake tasks,
 structured claims and voting. Vents, sabotage and natural-language chat are outside
 this interface. No merge or deployment is part of this work.
 
-Read the [session summary](docs/impostor-v2/SESSION_SUMMARY.md) for every run, failed
-results, the learned/scripted opponent mix, both sides' decision logic and next fixes.
-Four training runs completed. The improved study took 117.24 minutes and selected
-initialization71/checkpoint8192: 2/20 selection wins, **0/20 fresh confirmation wins**.
-The model stalls on repeated fake-task actions and is not yet a strong winning AI.
-[Eight graphs and full results](docs/impostor-v2/strategic-v2-20261027/README.md) and
-[the failed first trial](docs/impostor-v2/pilot-20261027/README.md) remain preserved.
-The universal viewer loads that explicitly selected evaluated research checkpoint:
+Read the short [teammate summary](docs/impostor-v2/CURRENT_RESULTS.md) for the exact
+changes, all failed attempts, opponent mix and next learning gates. V4.1's two
+scratch8192-decision runs completed150 games,136kills and one training win. Its
+locked83/8192 checkpoint scored **0/20 fresh wins and34kills**, compared with the
+unchanged V2 control's0/20wins and9kills on the same cases. New fake-task choices
+were0 versus3654; losses were15 task victories and5 ejections. Repetitive
+self-reporting remains a concern. It is not yet a reliable winning AI.
+[Eleven new graphs/results](docs/impostor-v2/options-v41-study-20261027/README.md)
+include timing, uncertainty and the interrupted V4/IO-recovery provenance.
+Watch the explicitly locked new research checkpoint:
 
 ```powershell
-python run_impostor_ai.py
+python run_impostor_v41.py
 ```
 
 Crew and impostor development remain separate. Cross-play with a newer crewmate
 requires pinning and checking that model; it is not automatically substituted.
-The original `run_impostor.py` remains the preserved V2-only viewer. The separately
+`python run_impostor_ai.py` and the original `run_impostor.py` preserve V2 viewing.
+[The historical V2 study](docs/impostor-v2/strategic-v2-20261027/README.md) and
+[failed first trial](docs/impostor-v2/pilot-20261027/README.md) remain intact.
+The separately
 versioned [pursuit correction](docs/impostor-v2/pursuit-conditional-protocol.md) passed
 development checks but had no registered training study. That training session ended
 with a summary/push. No training remains running.
@@ -42,11 +47,16 @@ The later [V4 reward/action correction](docs/impostor-v2/options-v4/README.md) f
 fake-task restarts and versions the new rewards without resizing the network or
 rewriting old results.59 new/core checks and two complete development matches passed;
 old weights still repeatedly choose new fake activities and are not a strong model.
-The owner subsequently approved a bounded4h V4 study; see its [protocol](docs/impostor-v2/options-v4/TRAINING_PROTOCOL.md)
-and the [full master checklist](docs/impostor-v2/IMPOSTOR_MASTER_CHECKLIST.md),
+The owner approved stop/fix/restart after V4's crowded-spawn shaping flaw. Corrected
+V4.1 finished within the ORIGINAL4h envelope:165.09min including interrupted work
+and repair,87.03min after restart. No training remains running; no further full
+study is approved. See the [corrected protocol](docs/impostor-v2/options-v41/TRAINING_PROTOCOL.md),
+[full master checklist](docs/impostor-v2/IMPOSTOR_MASTER_CHECKLIST.md),
 [exact NN tables](docs/impostor-v2/NN_ARCHITECTURE.md) and [research log](docs/impostor-v2/RESEARCH_LOG.md).
 Use `python run_impostor_options.py` for the clearly labelled V4 transfer demo.
-The future10-crewmate/2-impostor lobby requires adapting both policies separately.
+Future settings up to15 total players/1–3 impostors require adapting both policies
+and belief assumptions. Normally share two role policies plus the existing belief
+NN, keeping independent private state per actor. [Future work](docs/impostor-v2/FUTURE_LOBBIES.md).
 
 ## Phase 6 foundations — in progress
 

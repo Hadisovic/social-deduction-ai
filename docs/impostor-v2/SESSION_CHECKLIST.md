@@ -1,7 +1,8 @@
 # Impostor development — live session checklist
 
 **Current session:** [full impostor master checklist](IMPOSTOR_MASTER_CHECKLIST.md).
-V4 reward/action changes are implemented and tested; no new full PPO study is
+**V4.1 study complete:** fresh0/20wins,34kills; no jobs running. Read
+[current teammate summary](CURRENT_RESULTS.md). No further full PPO study is
 approved. See [exact neural tables](NN_ARCHITECTURE.md),
 [V4 report](options-v4/README.md) and [research log](RESEARCH_LOG.md).
 The completed training checklist below describes the previous study.

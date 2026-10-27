@@ -1,8 +1,40 @@
 # Current learned impostor — exact neural architecture and inputs
 
-Applies to released `impostor-strategic-v2`, checkpoint 71/8192, SHA256
+**Latest research release:** V4.1,83/8192, SHA256
+`69965afd8fab28e6ca5bdda46d9f8efdd8d6036ce57a05b86ff89fe22cf17ca9`.
+Run `python run_impostor_v41.py`. Same architecture; the three overrides below
+apply before reading the preserved slot tables. [Fresh results](CURRENT_RESULTS.md).
+
+The original full slot tables describe preserved `impostor-strategic-v2`,71/8192, SHA256
 `8b861c9cb7477a2145d41af3961e03aa5d9bd6c1df1d1aaea8629c2c9597698c`.
-This documents the current trained model, not proposed new training.
+This older release remains reproducible with its original feature semantics.
+
+## New V4.1 experiment: same architecture, three versioned feature slots
+
+The full slot tables below describe the preserved V2 release. The corrected V4.1
+experiment keeps **75,075 parameters, all tensor dimensions and12 action families**,
+but uses the following explicit overrides. It is not silently compatible feature
+semantics; old weights under new rules are labelled transfer demos.
+
+| Tensor slot, one-based within its tensor | Preserved V2 table below | V4 / corrected V4.1 |
+|---|---|---|
+| Global4 | Boolean own interaction | Own remaining fake-task time /4;0 if not faking |
+| Extra3 | Own recorded kill count /3 | Observed proximity high-water frontier |
+| Extra4 | Age since own kill | Credited pursuit potential / configured0.05 lifetime scale |
+
+V4's initial crowded spawn saturated that frontier; its study was stopped before
+validation and preserved. **V4.1 clears geometry history while cooldown is positive,
+then arms a non-paying visible baseline when ready.** Credit is never replenished
+by cooldown/target switching and is repaid at terminal. Real-spawn tests and ordinary
+training demonstrate nonzero credit in90/150 games. Fresh V4.1 confirmation:
+0/20wins,34kills,0fake selections; shaping's isolated learning benefit is unproven.
+
+The new rewards are+3kill,extra-6ejection,+10win,-10loss,-12timeout,no unconditional
+time cost,-0.02 per active/roaming cooldown-ready simulated second, and bounded
+pursuit potential differences. Fakes now finish; repeated active same-console
+selections continue rather than restart. Strategy still comes from the NN.
+See [the corrected protocol](options-v41/TRAINING_PROTOCOL.md) and
+[master checklist](IMPOSTOR_MASTER_CHECKLIST.md) for current training/evaluation.
 
 ## Architecture
 

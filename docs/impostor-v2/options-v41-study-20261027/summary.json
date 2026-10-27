@@ -1,0 +1,302 @@
+{
+  "status": "complete_validation_confirmation_not_reserved_final",
+  "selected": {
+    "seed": 83,
+    "step": 8192,
+    "path": "artifacts/impostor_research/options-v41-20261027/seed-83/checkpoint-08192.pt",
+    "method": "seed83-step8192",
+    "sha256": "69965afd8fab28e6ca5bdda46d9f8efdd8d6036ce57a05b86ff89fe22cf17ca9",
+    "wins": 0,
+    "kills": 28,
+    "timeouts": 0
+  },
+  "training": {
+    "71": {
+      "seed": 71,
+      "decisions": 8192,
+      "episodes": 72,
+      "simulated_seconds": 16531.8000000015,
+      "wall_seconds": 2274.1595578193665,
+      "timed_seconds": 2259.275020300018,
+      "initial_hash": "50924f5b34dafdd0dbfe11ad5dc935eef6ba0809ba4cd052eeca7a5109920686",
+      "final_hash": "8ccf2bb94302fcd0c93644785dbf4a96639354e09d451550ba350dc9c6b37173",
+      "policy_changed": true,
+      "frozen_weights_unchanged": true,
+      "actions": {
+        "continue": 2438,
+        "go_to_room": 592,
+        "go_to_task": 1843,
+        "cancel_navigation": 2770,
+        "fake_task": 294,
+        "kill": 61,
+        "claim_was_in_region": 31,
+        "skip": 23,
+        "report": 22,
+        "vote": 32,
+        "go_to_body": 50,
+        "claim_defend_player": 10,
+        "claim_suspect_player": 6,
+        "claim_saw_elimination": 4,
+        "call_meeting": 6,
+        "claim_saw_player": 4,
+        "go_to_location": 6
+      },
+      "development": false
+    },
+    "83": {
+      "seed": 83,
+      "decisions": 8192,
+      "episodes": 78,
+      "simulated_seconds": 19648.60000000065,
+      "wall_seconds": 2547.065962076187,
+      "timed_seconds": 2532.069153300021,
+      "initial_hash": "e29292587e920f4e3935d42f18f24fb8541f1d31bee4b5305e24fff2c46be305",
+      "final_hash": "ebb59ec4cb1589a5b3e96d805085d2bec7ea35c7619be96c64a81c0ce1c94287",
+      "policy_changed": true,
+      "frozen_weights_unchanged": true,
+      "actions": {
+        "cancel_navigation": 2133,
+        "continue": 2413,
+        "go_to_task": 2150,
+        "go_to_room": 732,
+        "kill": 76,
+        "fake_task": 402,
+        "claim_was_in_region": 47,
+        "skip": 25,
+        "go_to_body": 82,
+        "report": 43,
+        "claim_defend_player": 7,
+        "vote": 47,
+        "call_meeting": 7,
+        "claim_suspect_player": 8,
+        "claim_saw_player": 8,
+        "claim_saw_elimination": 4,
+        "go_to_location": 8
+      },
+      "development": false
+    }
+  },
+  "confirmation": {
+    "selected_v41": {
+      "matches": 20,
+      "wins": 0,
+      "win_rate": 0.0,
+      "wilson95": [
+        0.0,
+        0.16112515805281938
+      ],
+      "mean_kills": 1.7,
+      "kills": 34,
+      "witnessed_kills": 0,
+      "own_ejections": 5,
+      "fake_starts": 0,
+      "fake_completions": 0,
+      "fake_selections": 0,
+      "fake_selections_no_visible": 0,
+      "mean_max_fake_streak": 0.0,
+      "fake_activity_seconds": 0.0,
+      "ready_faking_seconds": 0.0,
+      "ready_seconds": 480.2000000000002,
+      "pursuit_positive_total": 0.0,
+      "pursuit_paid_games": 0,
+      "rewards": {
+        "terminal": -200.0,
+        "kill": 102.0,
+        "ejection": -30.0,
+        "cooldown_ready": -9.604000000000005,
+        "pursuit": 0.0
+      },
+      "crew_reports": 0,
+      "impostor_reports": 33,
+      "correct_crew_votes": 18,
+      "incorrect_crew_votes": 0,
+      "innocent_team_ejections": 0,
+      "claims": {
+        "was_in_region": 33
+      },
+      "actions": {
+        "go_to_room": 3764,
+        "kill": 34,
+        "report": 33,
+        "claim_was_in_region": 33,
+        "vote": 32
+      },
+      "reasons": {
+        "TASKS_COMPLETED": 15,
+        "IMPOSTOR_EJECTED": 5
+      },
+      "illegal_actions": 0,
+      "navigation_failures": 0,
+      "simulated_seconds": 6738.2,
+      "wall_seconds": 656.7410096000094
+    },
+    "unchanged_v2": {
+      "matches": 20,
+      "wins": 0,
+      "win_rate": 0.0,
+      "wilson95": [
+        0.0,
+        0.16112515805281938
+      ],
+      "mean_kills": 0.45,
+      "kills": 9,
+      "witnessed_kills": 0,
+      "own_ejections": 0,
+      "fake_starts": 3654,
+      "fake_completions": 0,
+      "fake_selections": 3654,
+      "fake_selections_no_visible": 3296,
+      "mean_max_fake_streak": 160.35,
+      "fake_activity_seconds": 2192.7999999999997,
+      "ready_faking_seconds": 1430.8000000000002,
+      "ready_seconds": 1432.0000000000002,
+      "pursuit_positive_total": 0,
+      "pursuit_paid_games": 0,
+      "rewards": {},
+      "crew_reports": 7,
+      "impostor_reports": 0,
+      "correct_crew_votes": 4,
+      "incorrect_crew_votes": 4,
+      "innocent_team_ejections": 1,
+      "claims": {
+        "suspect_player": 6,
+        "saw_player": 1
+      },
+      "actions": {
+        "go_to_location": 236,
+        "go_to_task": 17,
+        "continue": 92,
+        "fake_task": 3654,
+        "kill": 9,
+        "go_to_body": 222,
+        "claim_suspect_player": 6,
+        "vote": 7,
+        "claim_saw_player": 1
+      },
+      "reasons": {
+        "TASKS_COMPLETED": 20
+      },
+      "illegal_actions": 0,
+      "navigation_failures": 0,
+      "simulated_seconds": 3582.8,
+      "wall_seconds": 364.60384669998894
+    }
+  },
+  "paired": {
+    "win_rate_difference": 0.0,
+    "paired_bootstrap95": [
+      0.0,
+      0.0
+    ],
+    "v4_only_wins": 0,
+    "v2_only_wins": 0,
+    "caveat": "20 paired cases; descriptive interval. Degenerate all-equal bootstrap is not population equivalence."
+  },
+  "diagnostic": {
+    "matches": 5,
+    "wins": 0,
+    "win_rate": 0.0,
+    "wilson95": [
+      0.0,
+      0.43448246478317476
+    ],
+    "mean_kills": 1.6,
+    "kills": 8,
+    "witnessed_kills": 1,
+    "own_ejections": 1,
+    "fake_starts": 9,
+    "fake_completions": 0,
+    "fake_selections": 11,
+    "fake_selections_no_visible": 8,
+    "mean_max_fake_streak": 1.0,
+    "fake_activity_seconds": 9.600000000000037,
+    "ready_faking_seconds": 1.799999999999983,
+    "ready_seconds": 91.20000000000003,
+    "pursuit_positive_total": 0.06723410346461399,
+    "pursuit_paid_games": 4,
+    "rewards": {
+      "terminal": -50.0,
+      "kill": 24.0,
+      "ejection": -6.0,
+      "cooldown_ready": -1.8240000000000007,
+      "pursuit": 0.0
+    },
+    "crew_reports": 2,
+    "impostor_reports": 6,
+    "correct_crew_votes": 3,
+    "incorrect_crew_votes": 0,
+    "innocent_team_ejections": 0,
+    "claims": {
+      "defend_player": 2,
+      "was_in_region": 5,
+      "saw_elimination": 1
+    },
+    "actions": {
+      "go_to_task": 120,
+      "continue": 91,
+      "cancel_navigation": 53,
+      "go_to_room": 49,
+      "fake_task": 11,
+      "kill": 8,
+      "go_to_body": 6,
+      "report": 6,
+      "claim_defend_player": 2,
+      "skip": 1,
+      "go_to_location": 2,
+      "claim_was_in_region": 5,
+      "vote": 7,
+      "claim_saw_elimination": 1
+    },
+    "reasons": {
+      "TASKS_COMPLETED": 4,
+      "IMPOSTOR_EJECTED": 1
+    },
+    "illegal_actions": 0,
+    "navigation_failures": 0,
+    "simulated_seconds": 1584.8,
+    "wall_seconds": 206.8459782999853
+  },
+  "seconds": 5221.750118017197,
+  "started_epoch": 1793128914.1351542,
+  "finished_epoch": 1793134135.8852723,
+  "locked_epoch": 1793132569.5121803,
+  "original_started_epoch": 1793124230.4302185,
+  "deadline_epoch": 1793138630.4302185,
+  "original_elapsed_seconds": 9905.455053806305,
+  "remaining_at_restart_seconds": 9716.295064210892,
+  "compute": {
+    "training_workers": 2,
+    "evaluation_workers": 2,
+    "torch_threads_per_worker": 1
+  },
+  "training_worker_overlap_span_seconds": 2547.0858256816864,
+  "io_recovery": [
+    {
+      "kind": "logging_only_resume_no_new_training",
+      "started_epoch": 1793133551.529446,
+      "original_deadline_epoch": 1793138630.4302185,
+      "selected_checkpoint_sha256": "69965afd8fab28e6ca5bdda46d9f8efdd8d6036ce57a05b86ff89fe22cf17ca9",
+      "selection_lock_sha256": "df470c027ab834d7909d0e881fcb221fd0b0b30dabcf9150f0ffe150817f9d2e",
+      "completed_before": {
+        "selection": 80,
+        "diagnostic": 5,
+        "confirmation": 6
+      },
+      "launcher_sha256": "1a14745abb013475a0244cb1cd8070f762bc496213170a8f9d130e9871b722cb",
+      "helper_sha256": "06ccd28e1df01b048d55fefb20e4fe47fb1dbd7876b6476793c05d42c7590485",
+      "algorithms_sources_weights_unchanged": true
+    }
+  ],
+  "source_commit": "83f75c4dc7c6c6e72cd553192e63d48dc5f32237",
+  "frozen_weights_unchanged": true,
+  "final_tests_opened": false,
+  "analysis_sha256": "910c69b9af6890dcd2bb60e2cf034820009a9cb54be7219805973c49394e7cac",
+  "caveats": [
+    "Bundled reward/action changes; no isolated causal ablation.",
+    "Two training initializations; only one selected checkpoint on20 fresh cases.",
+    "Old V2 control uses original feature/reward/action semantics; shaped returns are not comparable.",
+    "Five sampled diagnostics reuse selection cases; not confirmation or an unbiased greedy/sampled estimate.",
+    "Mixed crew: frozen full-29 NN and3 scripts with explicit reporting/witness safeguards.",
+    "No reserved final tests, new lobby size or model identity changes using confirmation."
+  ]
+}

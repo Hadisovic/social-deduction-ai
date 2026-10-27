@@ -1,0 +1,89 @@
+{
+  "schema": "impostor-options-v41",
+  "source_commit": "83f75c4dc7c6c6e72cd553192e63d48dc5f32237",
+  "selected": {
+    "seed": 83,
+    "step": 8192,
+    "path": "artifacts/impostor_research/options-v41-20261027/seed-83/checkpoint-08192.pt",
+    "method": "seed83-step8192",
+    "sha256": "69965afd8fab28e6ca5bdda46d9f8efdd8d6036ce57a05b86ff89fe22cf17ca9",
+    "wins": 0,
+    "kills": 28,
+    "timeouts": 0
+  },
+  "checkpoint_sha256": "69965afd8fab28e6ca5bdda46d9f8efdd8d6036ce57a05b86ff89fe22cf17ca9",
+  "selection_lock_sha256": "df470c027ab834d7909d0e881fcb221fd0b0b30dabcf9150f0ffe150817f9d2e",
+  "confirmation": {
+    "matches": 20,
+    "wins": 0,
+    "win_rate": 0.0,
+    "wilson95": [
+      0.0,
+      0.16112515805281938
+    ],
+    "mean_kills": 1.7,
+    "kills": 34,
+    "witnessed_kills": 0,
+    "own_ejections": 5,
+    "fake_starts": 0,
+    "fake_completions": 0,
+    "fake_selections": 0,
+    "fake_selections_no_visible": 0,
+    "mean_max_fake_streak": 0.0,
+    "fake_activity_seconds": 0.0,
+    "ready_faking_seconds": 0.0,
+    "ready_seconds": 480.2000000000002,
+    "pursuit_positive_total": 0.0,
+    "pursuit_paid_games": 0,
+    "rewards": {
+      "terminal": -200.0,
+      "kill": 102.0,
+      "ejection": -30.0,
+      "cooldown_ready": -9.604000000000005,
+      "pursuit": 0.0
+    },
+    "crew_reports": 0,
+    "impostor_reports": 33,
+    "correct_crew_votes": 18,
+    "incorrect_crew_votes": 0,
+    "innocent_team_ejections": 0,
+    "claims": {
+      "was_in_region": 33
+    },
+    "actions": {
+      "go_to_room": 3764,
+      "kill": 34,
+      "report": 33,
+      "claim_was_in_region": 33,
+      "vote": 32
+    },
+    "reasons": {
+      "TASKS_COMPLETED": 15,
+      "IMPOSTOR_EJECTED": 5
+    },
+    "illegal_actions": 0,
+    "navigation_failures": 0,
+    "simulated_seconds": 6738.2,
+    "wall_seconds": 656.7410096000094
+  },
+  "paired_comparison": {
+    "win_rate_difference": 0.0,
+    "paired_bootstrap95": [
+      0.0,
+      0.0
+    ],
+    "v4_only_wins": 0,
+    "v2_only_wins": 0,
+    "caveat": "20 paired cases; descriptive interval. Degenerate all-equal bootstrap is not population equivalence."
+  },
+  "quality": "insufficient_winning_strategy",
+  "report": "docs/impostor-v2/options-v41-study-20261027",
+  "summary_sha256": "7e4d9aa5febedd3a4b9d8f4959210a2e3ffa69ca2d13e9859832a5d1da1d1b22",
+  "frozen_weights_unchanged": true,
+  "final_tests_opened": false,
+  "historical_release_overwritten": false,
+  "original_deadline_epoch": 1793138630.4302185,
+  "original_study_sha256": "635c858b7988a1ce0a329931e832f359610025fa00c83d27bcaa9e4aa9b76a8b",
+  "command": "python run_impostor_options_v41.py --checkpoint artifacts/impostor-options-v41/release/policy.pt",
+  "disclaimer": "Immutable best among four preregistered V4.1 candidates by selection; not globally best or final-test accepted."
+}
