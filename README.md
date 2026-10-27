@@ -10,6 +10,30 @@
 
 Explore the [interactive project journey](https://hadisovic.github.io/social-deduction-ai/) for a visual, non-technical guide to the milestones and current research frontier.
 
+## Independent learned impostor — V2 research branch
+
+`codex/impostor-environment-v2` starts from the exact Crewmate V2 baseline. It keeps
+full-29 and the belief model frozen, with living-crewmate body reporting and witnessed
+kill voting safeguards. The impostor alone learns movement, killing, fake tasks,
+structured claims and voting. Vents, sabotage and natural-language chat are outside
+this interface. No merge or deployment is part of this work.
+
+The first pilot failed to learn useful killing or wins; its
+[results and graphs](docs/impostor-v2/pilot-20261027/README.md) are preserved. The
+[improved family-policy study](docs/impostor-v2/strategic-v2-protocol.md) is running;
+[the checklist](docs/impostor-v2/SESSION_CHECKLIST.md) tracks current progress. The
+universal viewer below will use the final explicitly selected evaluated release:
+
+```powershell
+python run_impostor_ai.py
+```
+
+Crew and impostor development remain separate. Cross-play with a newer crewmate
+requires pinning and checking that model; it is not automatically substituted.
+The original `run_impostor.py` remains the preserved V2-only viewer. A separately
+versioned [conditional pursuit correction](docs/impostor-v2/pursuit-conditional-protocol.md)
+can run only if V2 confirmation remains weak and enough time remains on the same deadline.
+
 ## Phase 6 foundations — in progress
 
 The approved [Phase 6.1 seed-17 pilot](docs/benchmarks/phase6/seed17-stage/README.md)
@@ -41,7 +65,8 @@ The smoke trainer caps runs at 512 decisions, and its evaluator exposes only
 development seeds. The separate [approved seed-17 stage](docs/phase6_1_staged_protocol.md)
 runner trains exactly three 8,192-decision conditions and uses validation only.
 Remaining initializations and final tests require further approval.
-No learned impostor, alternating training or multi-agent self-play is implemented.
+This historical Phase 6 foundation did not include a learned impostor. The separate
+V2 impostor track is described above; alternating training and self-play remain future work.
 Read the [experiment plan and compute proposal](docs/phase6_experiment_plan.md),
 [vision rules and compatibility](docs/phase6_vision_and_rules.md), and
 [foundation verification](docs/benchmarks/phase6/foundation/README.md).

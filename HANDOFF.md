@@ -1,6 +1,38 @@
 # Continuation handoff
 
-## CURRENT — improved impostor stage approved; preflight complete (2026-10-27)
+## CURRENT — improved impostor study RUNNING (2026-10-27)
+
+Healthy worker: session1855, source f96abbe (clean committed manifest).
+Output: artifacts/impostor_research/strategic-v2-20261027.
+Runner: python -u tools/run_impostor_v2.py --output artifacts/impostor_research/strategic-v2-20261027
+Live progress: same output directory / LIVE_PROGRESS.md and progress.json.
+Do not restart healthy jobs or modify loaded source modules, including run_impostor.py.
+Only offline analysis tools outside impostor_research/ and documentation may be edited.
+The study deadline is recorded in study.json; no extension or reserved-final evaluation.
+After completion curate locked checkpoint, graphs, assessment, verify viewer and push PR10.
+
+Progress: V2 training complete. Seed71:8192 decisions/82 games/68 kills/0wins,
+2156.67s wall. Seed83:8192/78games/57kills/1win,1581.21s wall. Selection running.
+Prepared a separate conditional pursuit correction in impostor_pursuit/ (NOT the
+hash-guarded impostor_research/ namespace); 3 tests passed in26.35s, including exact
+warm-start/resume and universal viewer schemas. It has NOT trained. Read
+docs/impostor-v2/pursuit-conditional-protocol.md: only if V2 completed confirmation
+<5/20 wins AND >=3600seconds remain on the ORIGINAL study.json deadline; no extension.
+One continuation8192 steps,60 selection+40 confirmation matches with fresh IDs. The
+unchanged V2 parent remains eligible. Source must be committed/clean before launch.
+Use tools/run_impostor_pursuit.py with output artifacts/impostor_research/pursuit-v3-20261027,
+--parent-study artifacts/impostor_research/strategic-v2-20261027,
+--parent-checkpoint artifacts/impostor-v2/release/policy.pt (curate V2 first).
+Universal final viewer is run_impostor_ai.py; it expects the final explicitly selected
+artifact at artifacts/impostor-ai/release/policy.pt. Preserve original run_impostor.py.
+Offline report/curation tools tools/report_impostor_v2.py and release_impostor_v2.py
+are ready and synthetic report checks passed. After V2 finishes generate report to
+docs/impostor-v2/strategic-v2-20261027 and curate8 checkpoints to
+artifacts/impostor-v2/study-20261027 (curator also writes V2 release and README).
+If conditional gate passes, commit these results before launching V3. Do not change
+loaded modules while either worker is healthy. New analysis tools outside both
+runtime namespaces are allowed. If V3 skipped/stopped, explicitly release fully
+evaluated V2 to universal viewer; never silently choose a partial model.
 
 Latest owner explicitly requests fixes to policies, reasonable rewards/NN settings,
 training a strong impostor, pushing results, and a file to run to watch it. The first
@@ -15,8 +47,8 @@ run_impostor.py implement a family/target neural policy, independent critic/grad
 clipping, +2 successful-kill shaping, -2 ejection, -12 timeout, -.002/sec, original
 terminal +/-10 and gamma1; interrupted3sec travel options; legitimate visible geometry.
 Canonical ordinary lobby/ghosts and frozen full29/belief unchanged. 78 tests passed,
-including six new policy/reward/privacy/resume/viewer checks. No improved study launched
-yet; commit/lock runtime and launch tools/run_impostor_v2.py next. Do not edit old pilot
+including six new policy/reward/privacy/resume/viewer checks. Improved study launched
+from f96abbe in session1855. Do not edit old pilot
 runtime files: old checkpoints must retain strict compatibility.
 
 Read docs/impostor-v2/strategic-v2-protocol.md. Approved bounded follow-up: seeds71/83

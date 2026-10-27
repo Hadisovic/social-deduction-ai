@@ -1,5 +1,11 @@
 # Before the first impostor training run
 
+**Historical first-pilot plan:** implemented and completed. Both pilots scored 0/20
+validation wins and zero validation kills. See [preserved results](pilot-20261027/README.md).
+The owner subsequently approved the [improved-policy study](strategic-v2-protocol.md),
+now running from `f96abbe`. Its protocol and [checklist](SESSION_CHECKLIST.md) supersede
+the old pending tasks and training hold below. No merge/deploy/reserved-final approval.
+
 **Pilot approved:** the owner's “go on” on 27 October authorizes the two 4,096-decision
 runs and 40 validation matches below, with a 3-hour learning/validation ceiling.
 Trainer verification and source locking precede those runs. No further training,

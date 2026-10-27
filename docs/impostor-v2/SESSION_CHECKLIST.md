@@ -1,6 +1,8 @@
 # Impostor development — live session checklist
 
-**Current step: first pilot archived; improved policy/rewards/viewer verified; follow-up source locking next.**
+**Current step: both improved training runs complete; fresh checkpoint-selection matches running.**
+
+[Live training progress](../../artifacts/impostor_research/strategic-v2-20261027/LIVE_PROGRESS.md).
 
 Draft PR: [#10 — impostor V2 environment](https://github.com/Hadisovic/social-deduction-ai/pull/10).
 All 10 benchmark matches and all 239 regression tests passed. The shared chat is now
@@ -9,9 +11,9 @@ read and reconciled; the existing Edge tab worked after the earlier access failu
 Updated: 27 October 2026 (Amman). Based on your `message (5).txt` and subsequent
 instructions. This file will be updated in place throughout this session.
 
-**Approved on 27 October: two 4,096-decision runs and 40 validation matches.**
-Learning plus validation has a 3-hour ceiling. Merges, deployment and reserved final
-evaluation remain unapproved.
+**Latest approval: improve rewards/policy, train and evaluate the impostor, add a viewer and push the branch.**
+Current registered stage: two 8,192-decision runs, 80 selection and 80 confirmation
+matches, with a 3-hour ceiling. Merges, deployment and reserved final tests remain closed.
 
 ## 1. Fetch and establish an independent baseline
 
@@ -113,15 +115,17 @@ matches reached parity. These are engineering scenarios, **not learned-policy re
 - [x] Generate six pilot graphs and assess learning sufficiency: pilot did not learn a useful winning strategy.
 - [ ] Update report, checklist and existing draft PR with pilot outcomes.
 
-## Approval gates
-
 ## Improved policy stage — newly approved
 
 - [x] Owner approved policy/reward/NN improvements and a runnable impostor viewer.
 - [x] Implement learned family/target selection, balanced entropy, separate critic, kill shaping and interrupted travel options.
 - [x] Verify 78 tests, including exact resume, privacy, rewards and headless `run_impostor.py`.
-- [ ] Commit and lock upgraded runtime/configuration.
-- [ ] Train two fresh 8,192-decision initializations.
+- [x] Two further controlled end-screen tests passed (win and loss); terminal absorbing packet remains valid.
+- [x] Offline report fixture passed paired-aggregate, zero/all-win uncertainty and eight-graph checks; no gameplay evaluation involved.
+- [x] Commit and lock upgraded runtime/configuration: `f96abbe`; clean study manifest.
+- [x] Train two fresh 8,192-decision initializations (session1855 continues into evaluation).
+  - Initialization 71: 82 completed games, 68 kills, 0 wins; 35.94 minutes wall.
+  - Initialization 83: 78 completed games, 57 kills, 1 win; measured wall time in training.json.
 - [ ] Run 80 candidate-selection matches, lock selection, then 80 fresh confirmation/control matches.
 - [ ] Generate upgraded graphs, assess results and preserve all checkpoints.
 - [ ] Create the selected checkpoint bundle and verify the playable viewer.
@@ -130,12 +134,25 @@ matches reached parity. These are engineering scenarios, **not learned-policy re
 Protocol: [strategic-v2-protocol.md](strategic-v2-protocol.md). This follow-up has a
 3-hour learning/evaluation ceiling. Existing reserved final-test partitions stay closed.
 
-Remaining work is listed in [TRAINING_NEXT_STEPS.md](TRAINING_NEXT_STEPS.md): trainer,
-checkpoint/resume, optimizer isolation and seconds-aware GAE verification, followed
-by two pilot runs and paired validation. Allow **about 2–4 hours to first results and
-graphs including preparation**. Longer training will depend on those results.
+The original [TRAINING_NEXT_STEPS.md](TRAINING_NEXT_STEPS.md) describes the now-completed
+first pilot. The current protocol above supersedes its old training-approval gate.
 
-- [x] Owner approval for this bounded two-run pilot only.
+## Conditional pursuit correction — same original deadline
+
+- [x] Register the conditional trigger and fresh scenario IDs before V2 confirmation.
+- [x] Implement a separate 13th learned pursuit family; keep all V2 source files unchanged.
+- [x] Three tests passed: family balance/warm start, exact gradient/resume/frozen checks and both viewer schemas.
+- [ ] After V2 completes, inspect the fixed trigger (<5/20 wins and >=1 hour remaining).
+- [ ] If triggered, commit/lock and run one continuation with 60 selection + 40 confirmation matches; otherwise record skipped.
+- [ ] Assess, curate the final explicit selection, verify `python run_impostor_ai.py`, push and report.
+
+See [conditional protocol](pursuit-conditional-protocol.md). This is a versioned
+correction under the owner's evidence-driven instruction, not an extension of the
+original three-hour wall-clock deadline. No new stage has started yet.
+
+## Remaining approval gates
+
+- [x] Owner approval for first pilot and subsequent improved-policy stage.
 - [ ] Owner approval for reserved final-test evaluation.
 - [ ] Owner approval to merge PRs.
 - [ ] Owner approval to deploy.

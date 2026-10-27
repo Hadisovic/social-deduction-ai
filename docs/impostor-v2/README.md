@@ -1,5 +1,16 @@
 # Impostor V2 engineering verification
 
+**Current status, 27 October:** the approved first pilot completed and failed to learn
+a useful killing strategy ([results and six graphs](pilot-20261027/README.md)).
+The owner then approved policy/reward improvements and a viewer. The registered
+[improved study](strategic-v2-protocol.md) is running from `f96abbe` after 78 tests passed.
+[Session checklist](SESSION_CHECKLIST.md) tracks delivery. `python run_impostor.py`
+will use the selected evaluated release; that release is pending the running study.
+Crew/belief remain frozen; no reserved final tests, merges or deployments.
+
+The engineering record below describes the earlier pretraining milestone. Its
+original "untrained/no training" statements apply to that milestone only.
+
 Implementation is on `codex/impostor-environment-v2`, based on V2 commit
 `e62ba0b6c33ffd0317f78e18b4289d778cd5af2b`. This is an independent development branch,
 not the owner's crewmate training branch.

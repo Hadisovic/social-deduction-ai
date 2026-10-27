@@ -1,13 +1,22 @@
 # Impostor track — implementation handoff
 
-Owner: impostor research. Friend: independent crewmate improvements. Only a future
-impostor policy may learn in this branch. Crew and belief weights stay frozen.
+Owner: impostor research. Friend: independent crewmate improvements. Only the
+impostor policy learns in this branch. Crew and belief weights stay frozen.
+
+**Current, 27 October:** later owner approval supersedes the old training hold below.
+The first two-run pilot completed without useful validation killing/wins;
+[preserved results](impostor-v2/pilot-20261027/README.md). An approved improved
+family-policy/reward study is now running from `f96abbe`: two 8,192-decision runs,
+80 selection and 80 fresh confirmation/control matches, with a three-hour ceiling.
+See [protocol](impostor-v2/strategic-v2-protocol.md) and
+[live checklist](impostor-v2/SESSION_CHECKLIST.md). No merge, deploy or final-test opening.
+The new root `run_impostor.py` viewer awaits the locked evaluated release checkpoint.
 
 ## Sources and authority
 
 - User's implementation request and attached **message (5).txt**, read in full on
-  26 October 2026. The latest direct instruction forbids **all RL training**, including
-  small optimizer smoke runs, until explicit approval. Engineering matches are allowed.
+  26 October 2026. That initial instruction held **all RL training**, including small
+  optimizer smoke runs, until explicit approval. Later direct approvals are recorded above.
 - [V2 PR #9](https://github.com/Hadisovic/social-deduction-ai/pull/9), pinned baseline
   `e62ba0b6c33ffd0317f78e18b4289d778cd5af2b`. Verified against the fetched remote.
 - Research baseline `2baa5dbc1b36b047ed97934d69526573b510c280`, verified ancestor of V2
@@ -36,7 +45,8 @@ website or production setting is edited. No PR is merged or deployment performed
 
 The model and Phase 4 belief predictor use evaluation mode, no gradients and tensor
 hash checks. Each actor has separate memory; model weights may be shared read-only.
-The impostor driver constructs no optimizer. The owner/friend cannot silently swap
+The original engineering driver constructs no optimizer; the approved standalone
+trainers optimize only their new impostor networks. The owner/friend cannot silently swap
 this pinned checkpoint during a future run.
 
 The adapter projects the legitimate V2 envelope's **unchanged legacy actor member**
