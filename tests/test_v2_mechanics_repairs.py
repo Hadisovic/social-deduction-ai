@@ -28,11 +28,18 @@ def test_dead_direct_vote_and_claim_rejected_and_do_not_block(status):
     g=game();voting(g);dead=next(p for p in g.players.values() if p.role is Role.CREWMATE)
     dead.status=status;g._make_ghost(dead);g._invalidate()
     assert not g._vote(dead.player_id,None)
+    # Even a poisoned internal dictionary cannot add a ghost's tally.
+    g.votes[dead.player_id]=next(pid for pid in g._eligible_voters())
     for pid in g._eligible_voters():assert g._vote(pid,None)
     g.step({dead.player_id:Intent(IntentKind.SKIP)})
     assert g.phase is Phase.ROAMING
     assert not any(e.get('voter_id')==dead.player_id for e in g.event_log)
     assert not g.observe(dead.player_id).actions
+    from social_deduction.phase3_api import ClaimDraft,ClaimKind
+    g.phase=Phase.DISCUSSION;g._invalidate();mark=len(g.event_log)
+    g.step({dead.player_id:Intent(IntentKind.CLAIM,claim=ClaimDraft(
+        ClaimKind.WAS_IN_REGION,dead.player_id,g.observe(dead.player_id).own.room,g.tick))})
+    assert not any(e['kind']=='claim' for e in g.event_log[mark:])
 
 
 def test_timeout_fills_only_eligible_and_simultaneous_ejection_order():

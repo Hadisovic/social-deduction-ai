@@ -139,3 +139,26 @@ def test_actual_death_ends_policy_actions_but_settles_delayed_team_return():
     assert m.views[victim].memory.tick==0
     assert m.ledgers[victim].components['death']==-5 and m.ledgers[victim].components['draw']==-5
     assert m.ledgers[victim].components.get('ghost_tasks',0)==0
+
+
+def test_private_actor_proof_does_not_update_teammate_memory_or_packet():
+    from crewmate_v2.api import V2Event,VisualTaskProof
+    from social_deduction.actor import Provenance
+    m=match();a,b=m.crew[:2];va,vb=m.views[a],m.views[b]
+    before=vb._packet()['players'].copy();memory=vb.public_memory.events.copy()
+    other=next(pid for pid in m.crew if pid not in (a,b))
+    m.game.v2_direct[a].append(V2Event(0,Provenance.DIRECT,VisualTaskProof(other,'SubmitScan','engineering-fixture')))
+    va.refresh();vb.refresh()
+    assert va.public_memory.events and vb.public_memory.events==memory
+    assert np.array_equal(vb._packet()['players'],before)
+
+
+def test_new_legal_reporting_interrupts_held_option_without_forcing_action():
+    from phase5_features import Choice
+    from dataclasses import replace
+    m=match();pid=m.crew[0];v=m.views[pid];m._lease(pid,Choice('room'))
+    m.game.tick=3
+    v.observation=replace(v.observation,actions=(*v.observation.actions,Intent(IntentKind.REPORT,'observed-body')),
+                          navigation_status='moving')
+    assert m._ready(pid)
+    assert m.selected[pid].kind=='room'  # no automatic report was submitted
