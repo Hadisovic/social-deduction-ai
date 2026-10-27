@@ -1,0 +1,100 @@
+{
+  "status": "infrastructure_smoke_only_not_learning_evidence",
+  "pilot_started": false,
+  "final_test_opened": false,
+  "source_commits": [
+    "a6f2584",
+    "772d7db",
+    "a4e117b"
+  ],
+  "runtime_versions": {
+    "python": "3.12.10",
+    "numpy": "2.5.3",
+    "torch": "2.6.0+cpu"
+  },
+  "pass_seconds": [
+    97.53488739999011,
+    95.81969730003038,
+    86.01778629998444
+  ],
+  "combined_optimizer_smoke_seconds": 279.37237100000493,
+  "total_optimizer_smoke_decisions": 192,
+  "final_pass_decisions_per_arm": 32,
+  "identical_initialization_and_preupdate_actor_trace": true,
+  "weight_and_actor_trace_reproduction_across_passes": true,
+  "frozen_belief_unchanged": true,
+  "checkpoint_roundtrip": true,
+  "final_runs": [
+    {
+      "arm": "original",
+      "seconds": 51.76160269998945,
+      "actionable_decisions": 32,
+      "simulated_seconds": 528.2000000000002,
+      "coalesced_forced_windows": 446,
+      "episodes_completed": 1,
+      "initial_state_sha256": "1a572645635edf2bb6a802a5572892b6321747452176abd4755fe5e5cfedc3d2",
+      "final_state_sha256": "88fb493cb504f3fa740cf4b67d5058502f4cbfb40c9dc53c5dfbca6ade4b4170",
+      "actor_action_trace_sha256": "a312ffbc7f307084d70a546fb9d5b6abbad373d45ff4393defe7a769d36d1c36",
+      "checkpoint_sha256": "8c9372918c324b24843f14c48170fd16150f8ca0f64ab927769055fa6d355b59",
+      "updates": [
+        {
+          "decisions": 32,
+          "simulated_seconds": 528.2000000000002,
+          "seconds": 51.70332110003801,
+          "loss": 1.0655428171157837,
+          "policy_loss": -9.704148396849632e-05,
+          "value_loss": 2.2495861053466797,
+          "gradient_norm": 0.4604244530200958,
+          "entropy": 2.9576592445373535,
+          "approximate_kl": 4.7497451305389404e-07,
+          "clip_fraction": 0.0,
+          "explained_variance": 0.0013564229011535645,
+          "entropy_coefficient": 0.02
+        }
+      ]
+    },
+    {
+      "arm": "shaped",
+      "seconds": 34.14276949997293,
+      "actionable_decisions": 32,
+      "simulated_seconds": 528.2000000000002,
+      "coalesced_forced_windows": 446,
+      "episodes_completed": 1,
+      "initial_state_sha256": "1a572645635edf2bb6a802a5572892b6321747452176abd4755fe5e5cfedc3d2",
+      "final_state_sha256": "57717f3df4d5d23c4bc5e30d1ce72291550438aa17daf52f3370868c451dc870",
+      "actor_action_trace_sha256": "a312ffbc7f307084d70a546fb9d5b6abbad373d45ff4393defe7a769d36d1c36",
+      "checkpoint_sha256": "6d6244bf5849d0740a666f4e72efaa6131a2e2fcac0062b6553bf437c7e5ef23",
+      "updates": [
+        {
+          "decisions": 32,
+          "simulated_seconds": 528.2000000000002,
+          "seconds": 34.09681909997016,
+          "loss": 1.1136442720890045,
+          "policy_loss": -9.212223812937737e-05,
+          "value_loss": 2.3457791805267334,
+          "gradient_norm": 0.3348498269915581,
+          "entropy": 2.9576594829559326,
+          "approximate_kl": 4.675239324569702e-07,
+          "clip_fraction": 0.0,
+          "explained_variance": 0.003552258014678955,
+          "entropy_coefficient": 0.02
+        }
+      ]
+    }
+  ],
+  "pilot_projection": {
+    "training_seconds": 1374.469955199398,
+    "validation_worst_duration_seconds": 3527.863872017455,
+    "baseline_total_seconds": 4902.333827216853,
+    "conservative_factor": 2,
+    "conservative_seconds": 9804.667654433706,
+    "hard_ceiling_seconds": 10800
+  },
+  "plan_sha256": "464ef897cc0ee4ec6d8e2efd50f2cb9b5e4c5b8fd3bc10301ed0b0345c6f5260",
+  "runtime_sha256": "e729b2ffb79710ce904b6943972fc669626606a63ec4ca2be77b28eeff81e95d",
+  "limitations": [
+    "Smoke produced no focal report; exact report/ghost/vote behavior is covered by controlled integration tests.",
+    "One chance-correct vote and a parity loss occurred per first complete smoke episode; these are not learning results.",
+    "First smoke sized the proposal; subsequent passes confirmed source/version locks and durable logging. No reward or architecture tuning occurred."
+  ]
+}

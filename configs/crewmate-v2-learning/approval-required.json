@@ -1,0 +1,6 @@
+{
+  "approved": false,
+  "plan_sha256": "464ef897cc0ee4ec6d8e2efd50f2cb9b5e4c5b8fd3bc10301ed0b0345c6f5260",
+  "runtime_sha256": "e729b2ffb79710ce904b6943972fc669626606a63ec4ca2be77b28eeff81e95d",
+  "note": "Await explicit owner approval; this is not authorization."
+}

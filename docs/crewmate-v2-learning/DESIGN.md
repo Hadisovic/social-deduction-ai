@@ -5,6 +5,12 @@ Owner authorizes implementation/tests and a minimal optimizer smoke only. Full p
 historical checkpoint changes, reserved final tests, merges and deployment remain gated.
 No additional standalone reporting diagnostic is requested or scheduled.
 
+**Measured-cost amendment:** the four-model/1,024-choice proposal below is the original
+design record, superseded by the current proposal awaiting approval. Smoke timing led to a smaller first stage
+before any pilot ran. [PILOT.md](PILOT.md) and the versioned JSON specify the final
+proposal: one seed-17 reward pair, 512 choices/model, 20 validation games/model and a
+three-hour total ceiling. Seed29 is reserved for a separately approved replication.
+
 ## Context map / reviewed design
 
 | New path | Responsibility |

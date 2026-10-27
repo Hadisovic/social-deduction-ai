@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "pytest": {
+    "tests": 96.0,
+    "errors": 0.0,
+    "failures": 0.0,
+    "skipped": 0.0,
+    "time": 38.449
+  },
+  "new_learning_tests": 29,
+  "existing_tests": 67,
+  "canonical_files_modified": false,
+  "full_pilot_started": false,
+  "owner_gate_default": "denied",
+  "note": "Exact rewards, ghost exclusion, single accounting, physical discounts, reset/privacy, masking, serialization, stage gate and partial-result logging verified.",
+  "preservation_and_preflight": {
+    "canonical_sha256": "78312533e6e29be6a8346496e581fde2ec92869f946fee2caaae73bf31531f82",
+    "selected_checkpoints_unchanged": 9,
+    "frozen_phase4_phase5_verified": true,
+    "previous_pretraining_files_unchanged": 25,
+    "reporting_private_files_unchanged": 19,
+    "smoke_files_preserved": 25,
+    "runtime_sha256": "e729b2ffb79710ce904b6943972fc669626606a63ec4ca2be77b28eeff81e95d",
+    "plan_sha256": "464ef897cc0ee4ec6d8e2efd50f2cb9b5e4c5b8fd3bc10301ed0b0345c6f5260",
+    "approval_default_refused": true,
+    "local_document_links_verified": 6,
+    "json_configs_valid": true,
+    "document_absolute_path_scan": "clear",
+    "existing_canonical_worktree_unchanged": true,
+    "main_unchanged": true
+  }
+}
