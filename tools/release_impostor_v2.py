@@ -75,7 +75,7 @@ def curate(source,report,bundle):
     trainrows=[]
     for seed in ('71','83'):
         t=summary['training'][seed];episodes=read(report/f'seed-{seed}'/'episodes.json')
-        trainrows.append(f'| {seed} | {t["decisions"]:,} | {len(episodes)} | {sum(r["impostor_win"] for r in episodes)} | {sum(r["kills"] for r in episodes)} | {t["wall_seconds"]/60:.2f} min |')
+        trainrows.append(f'| {seed} | {t["decisions"]:,} | {len(episodes)} | {sum(r["impostor_win"] for r in episodes)} | {sum(r["kills"] for r in episodes)} | {t["simulated_seconds"]/60:.2f} | {t["wall_seconds"]/60:.2f} min |')
     comparisons=[]
     for method,item in summary['paired_comparisons'].items():
         lo,hi=item['paired_bootstrap95']
@@ -153,14 +153,18 @@ states and replay journals are preserved. The exact configuration is in
 [study.json](study.json); the prior [registered protocol](../strategic-v2-protocol.md)
 fixed the budget, candidate set, controls and selection rule before learning.
 
-| Initialization | Decisions | Completed training games | Training wins | Kills | Wall time |
-|---|---:|---:|---:|---:|---:|
+| Initialization | Decisions | Completed training games | Training wins | Kills | Simulated minutes | Wall time |
+|---|---:|---:|---:|---:|---:|---:|
 {chr(10).join(trainrows)}
 
 These are sampled training outcomes, not held-out accuracy. A partly collected final
 episode contributes decisions but is not counted as a completed game.
 A win may involve other players' mistakes. It does not, by itself, show that a
 particular accusation or alibi caused the win; that requires a separate causal test.
+The two V2 runs collected {sum(t['simulated_seconds'] for t in summary['training'].values()):.1f}
+simulated seconds. The original pilot collected 4,909.2 seconds. Longer options and
+more decisions substantially increase experience; do not attribute differences to
+network/reward changes alone.
 
 ## Selection and fresh confirmation
 

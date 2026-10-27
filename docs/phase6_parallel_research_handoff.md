@@ -6,11 +6,16 @@ impostor policy learns in this branch. Crew and belief weights stay frozen.
 **Current, 27 October:** later owner approval supersedes the old training hold below.
 The first two-run pilot completed without useful validation killing/wins;
 [preserved results](impostor-v2/pilot-20261027/README.md). An approved improved
-family-policy/reward study is now running from `f96abbe`: two 8,192-decision runs,
-80 selection and 80 fresh confirmation/control matches, with a three-hour ceiling.
+family-policy/reward study completed from `f96abbe`: two 8,192-decision runs,
+80 selection and80 fresh confirmation/control matches in117.24 minutes. The selected
+71/8192 model won2/20 selection games but0/20 fresh confirmation games. It stalls on
+fake-task restarts; it is not a strong winning model. Read the [session summary](impostor-v2/SESSION_SUMMARY.md)
+for all four runs, failures, mixed crew roles, measured causes and next fixes.
 See [protocol](impostor-v2/strategic-v2-protocol.md) and
 [live checklist](impostor-v2/SESSION_CHECKLIST.md). No merge, deploy or final-test opening.
-The new root `run_impostor.py` viewer awaits the locked evaluated release checkpoint.
+The root `run_impostor_ai.py` now watches the evaluated release. Prepared pursuit
+code passed tiny development checks but no registered training study ran. The owner
+requested summary/push and an end to today's work; no training remains active.
 
 ## Sources and authority
 

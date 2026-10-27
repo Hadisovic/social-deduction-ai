@@ -18,11 +18,14 @@ kill voting safeguards. The impostor alone learns movement, killing, fake tasks,
 structured claims and voting. Vents, sabotage and natural-language chat are outside
 this interface. No merge or deployment is part of this work.
 
-The first pilot failed to learn useful killing or wins; its
-[results and graphs](docs/impostor-v2/pilot-20261027/README.md) are preserved. The
-[improved family-policy study](docs/impostor-v2/strategic-v2-protocol.md) is running;
-[the checklist](docs/impostor-v2/SESSION_CHECKLIST.md) tracks current progress. The
-universal viewer below will use the final explicitly selected evaluated release:
+Read the [session summary](docs/impostor-v2/SESSION_SUMMARY.md) for every run, failed
+results, the learned/scripted opponent mix, both sides' decision logic and next fixes.
+Four training runs completed. The improved study took 117.24 minutes and selected
+initialization71/checkpoint8192: 2/20 selection wins, **0/20 fresh confirmation wins**.
+The model stalls on repeated fake-task actions and is not yet a strong winning AI.
+[Eight graphs and full results](docs/impostor-v2/strategic-v2-20261027/README.md) and
+[the failed first trial](docs/impostor-v2/pilot-20261027/README.md) remain preserved.
+The universal viewer loads that explicitly selected evaluated research checkpoint:
 
 ```powershell
 python run_impostor_ai.py
@@ -30,9 +33,10 @@ python run_impostor_ai.py
 
 Crew and impostor development remain separate. Cross-play with a newer crewmate
 requires pinning and checking that model; it is not automatically substituted.
-The original `run_impostor.py` remains the preserved V2-only viewer. A separately
-versioned [conditional pursuit correction](docs/impostor-v2/pursuit-conditional-protocol.md)
-can run only if V2 confirmation remains weak and enough time remains on the same deadline.
+The original `run_impostor.py` remains the preserved V2-only viewer. The separately
+versioned [pursuit correction](docs/impostor-v2/pursuit-conditional-protocol.md) passed
+development checks but had no registered training study. The owner requested a
+summary/push and an end to today's work. No training remains running.
 
 ## Phase 6 foundations — in progress
 

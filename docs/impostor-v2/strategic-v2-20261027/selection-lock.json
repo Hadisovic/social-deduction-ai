@@ -1,0 +1,56 @@
+{
+  "selected": {
+    "seed": 71,
+    "step": 8192,
+    "path": "artifacts/impostor_research/strategic-v2-20261027/seed-71/checkpoint-08192.pt",
+    "method": "seed71-step8192",
+    "sha256": "8b861c9cb7477a2145d41af3961e03aa5d9bd6c1df1d1aaea8629c2c9597698c",
+    "wins": 2,
+    "kills": 12,
+    "timeouts": 0
+  },
+  "candidates": [
+    {
+      "seed": 71,
+      "step": 4096,
+      "path": "artifacts/impostor_research/strategic-v2-20261027/seed-71/checkpoint-04096.pt",
+      "method": "seed71-step4096",
+      "sha256": "80eecc8054b03d11ca782893de0e5503731c28e85f5984fbcbf0354e80c05613",
+      "wins": 0,
+      "kills": 26,
+      "timeouts": 0
+    },
+    {
+      "seed": 71,
+      "step": 8192,
+      "path": "artifacts/impostor_research/strategic-v2-20261027/seed-71/checkpoint-08192.pt",
+      "method": "seed71-step8192",
+      "sha256": "8b861c9cb7477a2145d41af3961e03aa5d9bd6c1df1d1aaea8629c2c9597698c",
+      "wins": 2,
+      "kills": 12,
+      "timeouts": 0
+    },
+    {
+      "seed": 83,
+      "step": 4096,
+      "path": "artifacts/impostor_research/strategic-v2-20261027/seed-83/checkpoint-04096.pt",
+      "method": "seed83-step4096",
+      "sha256": "f91c8cf3bc170e9600969985cd9b1171efd94adf3b3d55fa97d5e9b03f9bc7f5",
+      "wins": 1,
+      "kills": 13,
+      "timeouts": 0
+    },
+    {
+      "seed": 83,
+      "step": 8192,
+      "path": "artifacts/impostor_research/strategic-v2-20261027/seed-83/checkpoint-08192.pt",
+      "method": "seed83-step8192",
+      "sha256": "0fd512408afbbfc8b39b896db505cdce2af98e2a02cd8e74aa26465d387e8e57",
+      "wins": 0,
+      "kills": 14,
+      "timeouts": 0
+    }
+  ],
+  "locked_epoch": 1793061909.1750143,
+  "confirmation_unopened": true
+}

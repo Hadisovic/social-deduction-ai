@@ -1,6 +1,8 @@
 # Impostor development — live session checklist
 
-**Current step: both improved training runs complete; fresh checkpoint-selection matches running.**
+**Current step: training/evaluation, graphs, summary and default viewer verification complete; final commit/push pending.**
+
+Primary report: [session summary](SESSION_SUMMARY.md). No further training today.
 
 [Live training progress](../../artifacts/impostor_research/strategic-v2-20261027/LIVE_PROGRESS.md).
 
@@ -126,9 +128,11 @@ matches reached parity. These are engineering scenarios, **not learned-policy re
 - [x] Train two fresh 8,192-decision initializations (session1855 continues into evaluation).
   - Initialization 71: 82 completed games, 68 kills, 0 wins; 35.94 minutes wall.
   - Initialization 83: 78 completed games, 57 kills, 1 win; measured wall time in training.json.
-- [ ] Run 80 candidate-selection matches, lock selection, then 80 fresh confirmation/control matches.
-- [ ] Generate upgraded graphs, assess results and preserve all checkpoints.
-- [ ] Create the selected checkpoint bundle and verify the playable viewer.
+- [x] Run 80 candidate-selection matches, lock selection, then 80 fresh confirmation/control matches.
+  - All 80 selection executions complete. Locked seed71/8192: 2/20 wins,12 kills; checkpoint SHA begins `8b861c9c`.
+  - Complete: selected0/20, older AI0/20, scripted attacker1/20, untrained NN0/20. Lock unchanged.
+- [x] Generate eight upgraded graphs, assess failure and preserve all eight new policy snapshots.
+- [x] Create selected checkpoint bundles; strict-load all copies; default `run_impostor_ai.py` passed eight headless frames.
 - [ ] Update/push the existing draft PR and provide the exact run command.
 
 Protocol: [strategic-v2-protocol.md](strategic-v2-protocol.md). This follow-up has a
@@ -142,9 +146,11 @@ first pilot. The current protocol above supersedes its old training-approval gat
 - [x] Register the conditional trigger and fresh scenario IDs before V2 confirmation.
 - [x] Implement a separate 13th learned pursuit family; keep all V2 source files unchanged.
 - [x] Three tests passed: family balance/warm start, exact gradient/resume/frozen checks and both viewer schemas.
-- [ ] After V2 completes, inspect the fixed trigger (<5/20 wins and >=1 hour remaining).
-- [ ] If triggered, commit/lock and run one continuation with 60 selection + 40 confirmation matches; otherwise record skipped.
-- [ ] Assess, curate the final explicit selection, verify `python run_impostor_ai.py`, push and report.
+- [x] Record skipped: latest owner requested summary/push and end of today's work instead of a new study.
+- [x] Preserve prepared code and three development checks; no registered pursuit training or performance study.
+- **Latest owner instruction supersedes this gate: summarize completed training and push; no pursuit study will run.** The three checks above were tiny development tests, not performance evidence.
+- [x] Assess and curate the explicit V2 selection; verify `python run_impostor_ai.py`; write complete session summary.
+- [ ] Push final code/checkpoints/graphs/summary and report completion.
 
 See [conditional protocol](pursuit-conditional-protocol.md). This is a versioned
 correction under the owner's evidence-driven instruction, not an extension of the

@@ -1,6 +1,58 @@
 # Continuation handoff
 
-## CURRENT — improved impostor study RUNNING (2026-10-27)
+## CURRENT — studies and delivery artifacts complete; push pending (2026-10-27)
+
+Owner's latest instruction: summarize all results, PUSH ALL, then call it a day.
+DO NOT start further training, including the previously prepared pursuit study.
+All actual jobs finished: V1 session66647 and V2 session1855 exited0; default viewer
+session5698 exited0 after8 headless frames with the actual selected model.
+
+Four registered runs: V1 seeds71/83 each4096 decisions (18games each,0wins,0/1kills);
+V2 seeds71/83 each8192 (82/78games,0/1wins,68/57kills). V1 validation0/20 each.
+V2 selection locked71/8192 at2/20 wins; fresh confirmation0/20 wins,4kills,all task
+losses,0ejections. Older AI0/20; scripted attacker1/20; untrained NN0/20. V2 study
+117.24min; V1 study25.37min. All160 V2 evaluations legal/navigation-failure-free.
+
+Measured failure:3560 fake-task selections in fresh20games; only4games offered legal
+kill windows and all4were killed. FAKE_TASK restarts4s activity; wrapper re-decides
+every.6s, so repeated greedy choices restart it. No witness/deception competence
+established. Pursuit version only passed tiny development gradient/resume/viewer
+tests; no registered training/performance study. It remains untrained research code.
+
+Primary summary: docs/impostor-v2/SESSION_SUMMARY.md (plain controller names, all
+failed runs, actual crew NN/script logic, failure analysis and next work).
+Detailed guide: docs/impostor-v2/final-20261027/README.md, with viewer.png.
+Eight V2 graphs/full data: docs/impostor-v2/strategic-v2-20261027/.
+Six V1 graphs/data: docs/impostor-v2/pilot-20261027/.
+16 policy snapshots preserved across artifacts/impostor-pilot-20261027 and
+artifacts/impostor-v2/study-20261027; raw resume journals remain local/ignored.
+Universal release: artifacts/impostor-ai/release/policy.pt, SHA
+8b861c9cb7477a2145d41af3961e03aa5d9bd6c1df1d1aaea8629c2c9597698c.
+Watch command: python run_impostor_ai.py. V2-only original run_impostor.py retained.
+All strict loaders/frozen weights/historical source guards retained.
+
+Next: commit/push all intended artifacts and source on codex/impostor-environment-v2;
+update existing draft PR10(base codex/crewmate-environment-v2); mark checklist pushed
+after verification. No merge, deploy, new training or reserved final tests. Then stop.
+The historical execution notes below are superseded; do not act on old launch advice.
+
+## Historical execution notes — improved study (superseded)
+
+LATEST OWNER STEERING: training is finished; owner requests a complete summary
+(failed runs too, impostor/crew logic and mixed roster, results/causes/next fixes,
+gameplay command) then PUSH ALL. Finish healthy existing evaluation, but DO NOT
+launch the conditional pursuit study. Prepared pursuit code stays documented as
+tested with tiny development-only gradient checks, not a registered training run.
+Use tools/report_impostor_final.py with --pursuit-skip-reason
+"Owner requested summary and push after completed training; no further training."
+and NO --v3-source. Final universal release must remain the locked evaluated V2
+checkpoint; default watch command python run_impostor_ai.py.
+The final guide generator now includes all4 actual runs, exact mixed opponent
+logic, fake-task-collapse evidence and concrete next fixes. V2's selected model
+confirmed0/20:20task losses,4kills,0ejections;3560fake_task,209go_to_location,
+17go_to_task,96continue,264go_to_body,3claim_suspect_player,3vote. Only4matches
+had legal kill opportunities; it killed in all4. Do not claim learned witness
+avoidance/deception. The scripted hunter control has at least1win; finish all80.
 
 Healthy worker: session1855, source f96abbe (clean committed manifest).
 Output: artifacts/impostor_research/strategic-v2-20261027.
@@ -12,8 +64,11 @@ The study deadline is recorded in study.json; no extension or reserved-final eva
 After completion curate locked checkpoint, graphs, assessment, verify viewer and push PR10.
 
 Progress: V2 training complete. Seed71:8192 decisions/82 games/68 kills/0wins,
-2156.67s wall. Seed83:8192/78games/57kills/1win,1581.21s wall. Selection running.
-Prepared a separate conditional pursuit correction in impostor_pursuit/ (NOT the
+2156.67s wall. Seed83:8192/78games/57kills/1win,1581.21s wall. Selection COMPLETE.
+Immutable lock: seed71/8192,2/20 selection wins,12 kills, checkpoint SHA
+8b861c9cb7477a2145d41af3961e03aa5d9bd6c1df1d1aaea8629c2c9597698c.
+Confirmation/control80 now running; do not change this selected identity.
+Prepared/committed in18e401d a separate conditional pursuit correction in impostor_pursuit/ (NOT the
 hash-guarded impostor_research/ namespace); 3 tests passed in26.35s, including exact
 warm-start/resume and universal viewer schemas. It has NOT trained. Read
 docs/impostor-v2/pursuit-conditional-protocol.md: only if V2 completed confirmation
@@ -26,7 +81,10 @@ Use tools/run_impostor_pursuit.py with output artifacts/impostor_research/pursui
 Universal final viewer is run_impostor_ai.py; it expects the final explicitly selected
 artifact at artifacts/impostor-ai/release/policy.pt. Preserve original run_impostor.py.
 Offline report/curation tools tools/report_impostor_v2.py and release_impostor_v2.py
-are ready and synthetic report checks passed. After V2 finishes generate report to
+are ready and synthetic report checks passed. New tools/report_impostor_final.py
+(currently uncommitted) also passed isolated byte-copy/strict-load/zero-win guide
+checks; it can handle V3 completed, skipped or stopped and writes universal release.
+After V2 finishes generate report to
 docs/impostor-v2/strategic-v2-20261027 and curate8 checkpoints to
 artifacts/impostor-v2/study-20261027 (curator also writes V2 release and README).
 If conditional gate passes, commit these results before launching V3. Do not change

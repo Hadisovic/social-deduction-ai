@@ -1,0 +1,31 @@
+{
+  "seed": 71,
+  "decisions": 8192,
+  "episodes": 82,
+  "simulated_seconds": 18427.800000000534,
+  "wall_seconds": 2156.67054605484,
+  "timed_seconds": 2149.820456300011,
+  "policy_changed": true,
+  "frozen_weights_unchanged": true,
+  "initial_hash": "50924f5b34dafdd0dbfe11ad5dc935eef6ba0809ba4cd052eeca7a5109920686",
+  "final_hash": "60490f80aa0de15c810492b5a2f7f579c986d2dd82f0e7280e2bdb7bacc4fea5",
+  "actions": {
+    "go_to_task": 2005,
+    "continue": 2611,
+    "go_to_room": 680,
+    "cancel_navigation": 2149,
+    "fake_task": 441,
+    "kill": 68,
+    "claim_was_in_region": 33,
+    "skip": 28,
+    "report": 31,
+    "claim_suspect_player": 9,
+    "vote": 39,
+    "go_to_location": 9,
+    "claim_defend_player": 10,
+    "go_to_body": 59,
+    "claim_saw_elimination": 9,
+    "call_meeting": 6,
+    "claim_saw_player": 5
+  }
+}

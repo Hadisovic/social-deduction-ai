@@ -1,5 +1,11 @@
 # Conditional pursuit correction — registered before confirmation
 
+**End-of-session status:** this study did not run. After V2 training finished, the
+owner explicitly requested the results summary, push and an end to today's work.
+Only tiny development gradient/resume/viewer checks were executed. This is a
+preserved proposed protocol, not training authorization for a later session.
+See [the session summary](SESSION_SUMMARY.md) before proposing a new study.
+
 The owner approved policy/reward fixes and evidence-driven training toward the best
 tested impostor. The first improved run selected visible-player goals only 9 times
 in 8,192 decisions, versus 2,685 room/task goals. The second selected 13 versus 2,527.

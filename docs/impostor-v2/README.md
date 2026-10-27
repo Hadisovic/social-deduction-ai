@@ -3,9 +3,12 @@
 **Current status, 27 October:** the approved first pilot completed and failed to learn
 a useful killing strategy ([results and six graphs](pilot-20261027/README.md)).
 The owner then approved policy/reward improvements and a viewer. The registered
-[improved study](strategic-v2-protocol.md) is running from `f96abbe` after 78 tests passed.
-[Session checklist](SESSION_CHECKLIST.md) tracks delivery. `python run_impostor.py`
-will use the selected evaluated release; that release is pending the running study.
+[improved study](strategic-v2-20261027/README.md) completed in117.24 minutes: the
+selected model won0/20 fresh confirmation matches. Read the [session summary](SESSION_SUMMARY.md)
+for failures, the fake-task loop, both sides' logic, controls and next steps.
+`python run_impostor_ai.py` loads the evaluated research checkpoint; default launch
+passed its headless check. The pursuit version is prepared/tested, not study-trained.
+No more training is running, following the owner's end-of-day instruction.
 Crew/belief remain frozen; no reserved final tests, merges or deployments.
 
 The engineering record below describes the earlier pretraining milestone. Its
