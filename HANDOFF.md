@@ -38,8 +38,10 @@ consequences, then train/evaluate choices. No new training is authorized by that
 question. Up-to15 total players/1–3impostors remains future work for both policies.
 Owner still says no computer use; send game commands. No merge/deploy.
 
-Completion packaging/push status should be checked in git/PR10; scientific
-results/release are complete regardless of a later documentation commit hash.
+Completed source/results/checkpoints were pushed as99fc9d5 to the existing branch;
+PR10 title/body updated and confirmed draft/open/unmerged, base still exacte62.
+This later checklist-status note may have its own documentation commit. Read git
+log for the latest hash. Scientific results/release/verification are complete.
 
 ## Historical execution notes — superseded, do not restart these jobs
 

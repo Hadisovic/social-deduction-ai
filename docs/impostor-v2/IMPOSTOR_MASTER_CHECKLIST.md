@@ -222,8 +222,8 @@ These are evaluation questions, not hardcoded strategic rules or proven abilitie
 - [x] Export immutable research checkpoint/config/hashes and verify8-frame viewer.
 - [x] Update teammate/report/checklist/research evidence, including failures/limits.
 - [ ] Write the final research paper after the planned evidence is complete.
-- [ ] Push/review the implementation/results when requested; merge/deploy require
-  their own explicit authorization. No silent replacement of old release weights.
+- [x] Push the implementation/results and update draft PR10. Review/acceptance,
+  merge and deployment remain separate; old release weights were not replaced.
 
 ## 10. Crew cross-play and configurable future lobbies
 
