@@ -14,7 +14,7 @@ def calibration(rows,key):
         accuracy=sum(r['bins'][i]['correct']*r['bins'][i]['n'] for r in records if r['n'])/count if count else None
         if count:ece+=count/n*abs(confidence-accuracy)
         bins.append(dict(n=count,confidence=confidence,accuracy=accuracy))
-    return dict(n=n,**result,ece=ece,bins=bins)
+    return dict(n=n,**result,ece=ece,bins=bins,high_confidence_wrong=sum(r.get('high_confidence_wrong',0) for r in records))
 
 
 def summarize(rows):
@@ -24,6 +24,9 @@ def summarize(rows):
     denominator=sum(r['report_legal_unique'] for r in rows)
     cast=counts['correct_votes']+counts['incorrect_votes']
     n=sum(r['pre_vote_count'] for r in rows)
+    strata={role:calibration([dict(metric=r['policy_vote_ranking_by_reporter_role'].get(role,dict(n=0))) for r in rows],'metric')
+            for role in ('crewmate','impostor')}
+    balanced=(strata['crewmate']['top1']+strata['impostor']['top1'])/2 if all(r['n'] for r in strata.values()) else None
     def rate(a,b):return a/b if b else None
     return dict(games=len(rows),distinct_scenarios=len({r['seed'] for r in rows}),
         crew_win_rate=rate(sum(r['crew_win'] for r in rows),len(rows)),reasons=dict(Counter(r['reason'] for r in rows)),
@@ -33,6 +36,7 @@ def summarize(rows):
         unsubmitted_ballots=n-cast-counts['skips']-counts['automatic_skips'],vote_accuracy=rate(counts['correct_votes'],cast),
         frozen_belief=calibration(rows,'frozen_belief'),policy_vote_ranking=calibration(rows,'policy_vote_ranking'),
         reporter_only_accuracy={k:rate(v,n) for k,v in heuristic.items()},
+        policy_reporter_role_strata=strata,reporter_role_balanced_policy_top1=balanced,
         policy_means={key:sum(r[key]*r['pre_vote_count'] for r in rows if r['pre_vote_count'])/n if n else None
             for key in ('mean_vote_probability','mean_skip_probability','mean_self_vote_probability','mean_report_counter_channel_tv')},
         regimes={key:dict(games=sum(r['opponents']==key for r in rows),crew_win_rate=rate(sum(r['crew_win'] for r in rows if r['opponents']==key),sum(r['opponents']==key for r in rows))) for key in ('original','varied')})

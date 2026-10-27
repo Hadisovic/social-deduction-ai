@@ -125,6 +125,9 @@ def test_bounded_frozen_inference_validation_path_no_training():
     assert result['illegal_actions']==result['navigation_failures']==0
     summary=summarize([result])
     assert summary['reporting_rate'] is None and summary['legal_ballot_opportunities']==0
+    balanced=deepcopy(result)
+    balanced['policy_vote_ranking_by_reporter_role']={role:probability_metrics([([.8,.2],0)]) for role in ('crewmate','impostor')}
+    assert summarize([balanced])['reporter_role_balanced_policy_top1']==1.
     paired=compare([dict(arm='original',games=[result]),dict(arm='shaped',games=[result])])
     assert paired['paired_bootstrap']['win_rate']['mean']==0
 
@@ -143,3 +146,12 @@ def test_actor_trace_supports_numpy_and_is_deterministic(env):
     a=hashlib.sha256();b=hashlib.sha256();c=hashlib.sha256()
     actor_trace(a,env.packet,0);actor_trace(b,{k:v.copy() for k,v in env.packet.items()},0);actor_trace(c,env.packet,1)
     assert a.hexdigest()==b.hexdigest() and a.hexdigest()!=c.hexdigest()
+
+
+def test_replication_cannot_start_and_incremental_logs_preserve_records(tmp_path):
+    from crewmate_v2.learning.train import run_one,append
+    with pytest.raises(ValueError,match='Initialization'):
+        run_one(tmp_path/'unapproved-replication','original',29,512,perf_counter()+1)
+    assert not (tmp_path/'unapproved-replication').exists()
+    path=tmp_path/'progress.jsonl';append(path,dict(index=1));append(path,dict(index=2))
+    assert [json.loads(line)['index'] for line in path.read_text().splitlines()]==[1,2]

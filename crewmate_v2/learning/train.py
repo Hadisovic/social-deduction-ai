@@ -20,6 +20,11 @@ def write(path,record):
     with Path(path).open('x',encoding='utf-8') as stream:json.dump(record,stream,indent=2,allow_nan=False);stream.write('\n')
 
 
+def append(path,record):
+    with Path(path).open('a',encoding='utf-8') as stream:
+        stream.write(json.dumps(record,allow_nan=False)+'\n');stream.flush()
+
+
 def state_hash(policy):
     h=hashlib.sha256()
     for key,value in sorted(policy.state_dict().items()):h.update(key.encode());h.update(value.detach().cpu().numpy().tobytes())
@@ -35,6 +40,7 @@ def actor_trace(trace,packet,action):
 
 def run_one(output,arm,initialization,steps,deadline,*,smoke=False,expected_lock=None,approval=None):
     if arm not in ('original','shaped') or steps!=(32 if smoke else 512):raise ValueError('Unregistered arm/decision budget')
+    if not smoke and initialization not in pilot_plan()['initializations']:raise ValueError('Initialization is outside the approved first stage')
     if not smoke and expected_lock is None:raise PermissionError('Pilot entry requires an approved runtime lock')
     if not smoke:validate_approval(approval or {},expected_lock)
     output=Path(output);output.mkdir(parents=True,exist_ok=False)
@@ -55,12 +61,16 @@ def run_one(output,arm,initialization,steps,deadline,*,smoke=False,expected_lock
         initialization_sha256=initial)
     write(output/'config.json',metadata)
     updates=[];episodes=[];actions=Counter();trace=hashlib.sha256();used=[]
+    policy_bodies=set();policy_reports=set();policy_ballots=set()
     while completed<steps:
         if perf_counter()>deadline:raise TimeoutError('Shared compute ceiling reached')
         if runtime_lock(LobbySettings())!=expected_lock:raise ValueError('Source/config drift')
         rollout={k:[] for k in ('packets','actions','logp','values','next_values','rewards','discounts','dones','durations')}
         for _ in range(min(32 if smoke else 128,steps-completed)):
             check_packet(packet)
+            policy_bodies.update(b.victim_id for b in env.observation.visible_bodies)
+            policy_reports.update(a.target for a in env.observation.actions if a.kind.value=='report')
+            if any(c.kind in ('vote','skip') for c in env.options):policy_ballots.add(env.observation.context.meeting_id)
             action,logp,value=policy.act(packet)
             if not packet['mask'][action] or int(packet['mask'].sum())<2:raise ValueError('Non-actionable or masked learner selection')
             actions[env.options[action].kind]+=1
@@ -74,9 +84,12 @@ def run_one(output,arm,initialization,steps,deadline,*,smoke=False,expected_lock
                 rollout[key].append(item)
             completed+=1;simulated+=info['elapsed_seconds'];forced+=info['coalesced_forced_windows']
             if done:
-                episodes.append(dict(seed=match_seed('smoke' if smoke else 'train',episode//3),rotation=episode%3,**info['episode']))
+                episodes.append(dict(seed=match_seed('smoke' if smoke else 'train',episode//3),rotation=episode%3,
+                    policy_body_visible_unique=len(policy_bodies),policy_report_legal_unique=len(policy_reports),
+                    policy_ballot_opportunities=len(policy_ballots),**info['episode']))
+                append(output/'episodes.jsonl',episodes[-1])
                 used.append(dict(seed=match_seed('smoke' if smoke else 'train',episode//3),rotation=episode%3))
-                episode+=1;packet=reset()
+                episode+=1;policy_bodies.clear();policy_reports.clear();policy_ballots.clear();packet=reset()
             else:packet=new
         diagnostics=ppo_update(policy,optimizer,rollout,.02,rng)
         if perf_counter()>deadline:raise TimeoutError('Compute ceiling reached during optimizer update')
@@ -87,6 +100,7 @@ def run_one(output,arm,initialization,steps,deadline,*,smoke=False,expected_lock
         if any(not torch.isfinite(p).all() for p in policy.parameters()):raise FloatingPointError('Nonfinite policy weights')
         if not all(torch.equal(v,frozen[k]) for k,v in env.belief_model.network.state_dict().items()):raise ValueError('Frozen belief changed')
         updates.append(dict(decisions=completed,simulated_seconds=simulated,seconds=perf_counter()-began,**diagnostics))
+        append(output/'updates.jsonl',updates[-1])
         print(f'{arm}-{initialization}: '+json.dumps(updates[-1]),flush=True)
         if smoke or completed in pilot_plan()['checkpoint_decisions']:
             training_state=dict(torch_rng=torch.get_rng_state(),numpy_rng=rng.bit_generator.state,
@@ -101,6 +115,7 @@ def run_one(output,arm,initialization,steps,deadline,*,smoke=False,expected_lock
         coalesced_forced_windows=forced,seconds=perf_counter()-began,episodes_completed=len(episodes),
         episodes=episodes,partial_episode_counts=dict(env.match.ledger.counts),
         partial_episode_components=dict(env.match.ledger.components),actions=dict(actions),
+        partial_policy_opportunities=dict(body_visible=len(policy_bodies),report_legal=len(policy_reports),ballots=len(policy_ballots)),
         initial_state_sha256=initial,final_state_sha256=final,actor_action_trace_sha256=trace.hexdigest(),
         frozen_belief_unchanged=True,checkpoint_roundtrip=True,
         checkpoint_sha256=hashlib.sha256((output/f'checkpoint-{steps}.pt').read_bytes()).hexdigest(),
@@ -143,7 +158,10 @@ def pilot(output,approval,smoke_record):
                 folder=output/f'{arm}-{initialization}'
                 result=run_one(folder,arm,initialization,512,deadline,expected_lock=lock,approval=approval)
                 policy,_=V2Policy.load(folder/'checkpoint-512.pt')
-                validation=[evaluate_game(policy,deadline=deadline,**context) for context in validation_contexts()]
+                validation=[]
+                for context in validation_contexts():
+                    row=evaluate_game(policy,deadline=deadline,**context)
+                    append(folder/'validation.jsonl',row);validation.append(row)
                 write(folder/'validation.json',dict(status='development_only',games=validation))
                 runs.append(dict(arm=arm,initialization_seed=initialization,result=result,games=validation))
     except BaseException as error:

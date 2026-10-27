@@ -53,6 +53,8 @@ class LearningEnv(CrewmateV2Env):
             reward_counts=scored['counts'],learning_execution='v2-learning-options-v1')
         if done:
             info['episode'].update(alive_tasks=self.match.ledger.counts['alive_tasks'],ghost_tasks=self.match.ledger.counts['ghost_tasks'],
+                physical_body_visible_unique=len(self.match.report_visible),physical_report_legal_unique=len(self.match.report_legal),
+                scheduled_report_legal_windows=self.match.report_legal_windows,
                 reward_components=dict(self.match.ledger.components),reward_counts=dict(self.match.ledger.counts))
         return packet,float(reward),done,truncated,info
 
