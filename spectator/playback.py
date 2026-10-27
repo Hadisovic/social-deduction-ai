@@ -25,6 +25,10 @@ class PlayerState:
     interaction_task: str | None
     cooldown: float
     meetings_remaining: int
+    task_progress: float | None = None
+    tasks_completed: int | None = None
+    tasks_total: int | None = None
+    ghost_position: tuple | None = None
 
 
 @dataclass
@@ -232,6 +236,8 @@ class ReplayPlayer:
                 interaction_task=pdata.get("interaction_task"),
                 cooldown=pdata.get("cooldown", 0.0),
                 meetings_remaining=pdata.get("meetings_remaining", 1),
+                task_progress=pdata.get('task_progress'), tasks_completed=pdata.get('tasks_completed'),
+                tasks_total=pdata.get('tasks_total'), ghost_position=pdata.get('ghost_position'),
             )
 
         bodies: dict[str, BodyState] = {}
@@ -310,4 +316,10 @@ class ReplayPlayer:
             "complete": self.replay.get("complete", False),
             "tags": self.replay.get("tags", []),
             "duration": self._max_sim_time,
+            "controller_types": h.get('controller_types',{}),
+            "config": h.get('config',{}),
+            "condition": h.get('config',{}).get('training_condition','Scripted / historical recording'),
+            "stream": h.get('config',{}).get('stream'),
+            "worker": h.get('config',{}).get('worker'),
+            "focal_player": h.get('config',{}).get('focal_player'),
         }

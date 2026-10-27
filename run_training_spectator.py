@@ -38,6 +38,7 @@ import argparse
 import os
 import sys
 import time
+import json
 from pathlib import Path
 
 # ── Make sure the repository root is on sys.path ─────────────────────────────
@@ -75,6 +76,8 @@ def _parse_args(argv=None):
                    help="Exit after this many frames (smoke test mode)")
     p.add_argument("--capture", type=Path,
                    help="Save one screenshot and exit (CI/documentation)")
+    p.add_argument('--status-file',type=Path,help='Optional atomic training progress JSON')
+    p.add_argument('--state-file',type=Path,help='Optional local GUI verification state')
     return p.parse_args(argv)
 
 
@@ -217,7 +220,10 @@ def main(argv=None) -> int:
         app.player_duration = rp.duration
         app.event_markers = rp.markers
         app.episode_info = rp.episode_info()
+        app.selected_player=app.episode_info.get('focal_player') or next(iter(rp.current_state().players),None)
         app.playing = True
+        pygame.display.set_caption('Social Deduction AI | Spectator & Replay Studio | '+app.episode_info['condition'])
+        print(f"[spectator] Loaded {p.name}: {app.episode_info['condition']}",flush=True)
 
     # ── Initial replay ───────────────────────────────────────────────────────
     if args.replay:
@@ -243,6 +249,7 @@ def main(argv=None) -> int:
     frames = 0
     anim_time = 0.0
     lib_refresh_countdown = 0
+    next_status=0.
     running = True
 
     toggle_keys = {
@@ -372,7 +379,10 @@ def main(argv=None) -> int:
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
-                    _handle_mouse_click(event.pos, app, _player)
+                    selected=_handle_mouse_click(event.pos, app, _player)
+                    if selected:
+                        _set_replay(selected)
+                        app.playback_mode='manual'
 
         # ── Watch service poll ──────────────────────────────────────────────
         if watcher.poll():
@@ -381,6 +391,10 @@ def main(argv=None) -> int:
                 latest = watcher.latest_complete_path()
                 if latest and str(latest) != app.current_replay_path:
                     _set_replay(latest)
+            elif app.playback_mode=='auto_next' and (_player is None or (_player.at_end and not app.playing)):
+                nxt=watcher.next_after(app.current_replay_path)
+                if nxt:
+                    _set_replay(nxt)
 
         # ── Advance playback ────────────────────────────────────────────────
         if _player and app.playing:
@@ -392,10 +406,7 @@ def main(argv=None) -> int:
                     nxt = watcher.next_after(app.current_replay_path)
                     if nxt:
                         _set_replay(nxt)
-                    else:
-                        # Re-run current from start
-                        _player.seek_to_time(0.0)
-                        app.playing = True
+                    # Stay at end until the watcher discovers the next complete game.
 
         # ── Build frame state ──────────────────────────────────────────────
         if _player:
@@ -417,6 +428,22 @@ def main(argv=None) -> int:
 
         screen.blit(frame_surf, (0, 0))
         pygame.display.flip()
+        if time.monotonic()>=next_status:
+            next_status=time.monotonic()+2
+            if args.status_file:
+                try:
+                    app.training_metrics=json.loads(args.status_file.read_text())
+                except (OSError,ValueError):
+                    pass
+            if args.state_file:
+                args.state_file.parent.mkdir(parents=True,exist_ok=True)
+                temporary=args.state_file.with_suffix('.tmp')
+                temporary.write_text(json.dumps(dict(pid=os.getpid(),replay=app.current_replay_path,
+                    condition=(app.episode_info or {}).get('condition'),selected_player=app.selected_player,
+                    sim_time=app.frame_state.sim_time if app.frame_state else None,
+                    library_count=len(app.library_entries),mode=app.playback_mode,playing=app.playing,
+                    updated_unix=time.time())),encoding='utf-8')
+                temporary.replace(args.state_file)
 
         # ── Capture mode (CI/documentation) ───────────────────────────────
         if args.capture and frames == 30:  # After 30 frames — settled state
@@ -438,6 +465,13 @@ def _handle_mouse_click(pos: tuple[int, int], app: SpectatorAppState,
                         player: "ReplayPlayer | None") -> None:
     """Handle left-click on the timeline scrub bar or map."""
     from spectator.app_state import SpectatorAppState
+    for pid,rect in app._player_hitboxes.items():
+        if rect.collidepoint(pos):
+            app.selected_player=pid
+            return
+    for rect,path in app._library_hitboxes:
+        if rect.collidepoint(pos):
+            return path
 
     # Scrub bar seek
     if app._scrub_rect and app._scrub_rect.collidepoint(pos):

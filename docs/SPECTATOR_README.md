@@ -8,7 +8,7 @@ A polished desktop application for watching reinforcement-learning agents play A
 inspecting their neural network decisions, following training progress, and replaying
 previously recorded games.
 
-![Spectator Screenshot](docs/spectator_screenshot.png)
+![Spectator Screenshot](spectator_screenshot.png)
 
 ---
 
@@ -366,20 +366,34 @@ launch_spectator.bat          ← Windows one-click launcher
 
 ---
 
-## Crewmate V2 Integration Status
+## Crewmate V2 integration
 
-The spectator is built against the **Phase 3 / ScriptedMatch** interface, which
-is the base class for `CrewmateV2Game`.
+The separate local crewmate integration connects the real centrally updated V2 PPO
+collector to this recorder without changing simulator/PPO sources. A short engineering
+pair generated four completed real PPO episodes. Recording on/off produced identical
+actions, rewards, outcomes, final actor packets and updated weights. This is plumbing
+verification, not evidence of learned intelligence. Raw training replays remain local.
 
-To use `CrewmateV2Game` as the match source, replace `ScriptedMatch` in
-`spectator/recorder.py` with `CrewmateV2Game` and supply appropriate V2 bots/policies.
-The recorder calls only `match.game.players`, `match.game.bodies`,
-`match.game.event_log`, and `match.game.result`, which are all present in both
-Phase 3 and V2.
+Recordings carry model condition (A Original / B Shaped), stream/worker, seed, episode,
+focal PPO identity, actual neural probabilities/value/entropy, accepted game events,
+owned task progress and actual ghost positions. Historical missing data is unavailable,
+not synthesized. Rewards are raw per-option components; PPO's physical-time discounting
+is unchanged. The UI reports the decision's recorded timestamp and policy update.
 
-The neural decision panel is ready to display `V2Observation` outputs once the
-PPO training pipeline calls `recorder.record_neural(...)` with the action
-probabilities and value estimates from the policy network.
+Use the existing entry point with a private replay directory. `--mode auto_next` queues
+newly completed matches; `--status-file` optionally reads atomic training progress JSON.
+`--state-file` supplies a local app-loop heartbeat for verification. The GUI is an
+independent process; training workers never render or wait for playback. Do not use
+`--capture` for a persistent viewer: it intentionally saves a frame and exits.
+
+Completed episodes are published atomically; `.writing` files stay private and unplayed.
+Click a library card to inspect it in manual mode, click a player row or Tab to inspect
+an actor, and press M to return to automatic playback. Favourites persist by relative
+path without copying replay data. Desktop verification for this delivery used the native
+window listing, a real rendered PPO frame, a fresh app heartbeat, and owner confirmation
+of the visible Skeld replay/neural panel. No private replay or GUI capture is committed.
+
+See [recovery notes](SPECTATOR_RECOVERY.md) for scope and checks.
 
 ---
 
@@ -389,4 +403,4 @@ probabilities and value estimates from the policy network.
 - **Network architecture diagram** is not yet implemented; the decision dashboard (action probabilities, value, entropy) is complete
 - **Training statistics dashboard** is embedded in episode info rather than a separate charting panel; full charting requires tensorboard log parsing (future work)
 - **Actor-perspective mode** (showing only observations visible to the selected player) is architecturally supported but not yet surfaced in the UI
-- **V2 ghost rendering** is not yet implemented (ghosts from `crewmate_v2.ghosts` would require exposing ghost positions via the recorder)
+- **V2 ghosts and task progress** display only when recorded; older files show missing information honestly. Ghost tasks are automatic, not further neural actions.

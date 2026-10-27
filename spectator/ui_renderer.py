@@ -240,6 +240,8 @@ class SpectatorRenderer:
         surf = pygame.Surface(self._window_size)
         surf.fill(BG_DEEP)
         lay = self._layout
+        app_state._library_hitboxes=[]
+        app_state._player_hitboxes={}
 
         # Map area (background rendered first)
         self._draw_map_area(surf, lay.map_area, app_state)
@@ -286,7 +288,7 @@ class SpectatorRenderer:
         ep_str = f"Episode {ep.get('episode', '—')}   seed {ep.get('seed', '—')}"
         draw_text(surf, ep_str, (rect.right - 200, 10), TEXT_MUTED, f.small, align="left")
         draw_text(surf, f"{app.fps:.0f} fps", (rect.right - 60, 10), TEXT_DIM, f.small)
-        schema = ep.get("game_schema", "")
+        schema = ep.get('condition',ep.get('game_schema',''))
         if schema:
             draw_text(surf, schema, (rect.right - 200, 30), TEXT_DIM, f.small)
 
@@ -338,10 +340,11 @@ class SpectatorRenderer:
             players_sorted = sorted(fs.players.values(), key=lambda p: (-p.position[1], p.player_id))
             labels: list[pygame.Rect] = []
             for player in players_sorted:
-                if player.status not in ("alive", "ejected"):
+                ghost=player.ghost_position is not None and player.status!='alive'
+                if player.status not in ("alive", "ejected") and not ghost:
                     continue
                 color_rgb = player_color(player.color)
-                point = m.point(player.position)
+                point = m.point(player.ghost_position if ghost else player.position)
 
                 # Route overlay
                 if opts.get("routes"):
@@ -360,18 +363,21 @@ class SpectatorRenderer:
                             ("left" if vx < 0 else "right")
                 height = max(28, round(m.scale * 0.97))
                 frame = int(self._anim_time * 8) % 4 if moving else 0
-                alpha = 80 if player.status == "ejected" else 255
+                alpha = 80 if player.status == "ejected" or ghost else 255
                 draw_character(map_surf, player.color, point, height, direction, frame,
                                body=False, alpha=alpha)
 
                 # Task progress bar
                 if player.interaction_task:
                     bar_rect = pygame.Rect(point[0] - 17, point[1] + 8, 36, 5)
-                    draw_progress_bar(map_surf, bar_rect, 0.5, ACCENT_TEAL)
+                    if player.task_progress is not None:
+                        draw_progress_bar(map_surf, bar_rect, player.task_progress, ACCENT_TEAL)
+                    else:
+                        draw_text(map_surf,'working',(point[0]-17,point[1]+8),ACCENT_TEAL,self.fonts.tiny)
 
                 # Label
                 if opts.get("labels", True):
-                    lbl_surf = self.fonts.small.render(player.player_id, True, TEXT_PRIMARY)
+                    lbl_surf = self.fonts.small.render(player.player_id+(' (auto ghost)' if ghost else ''), True, TEXT_PRIMARY)
                     lbl_rect = lbl_surf.get_rect(topleft=(point[0] + 11, point[1] - 20)).inflate(6, 2)
                     while any(lbl_rect.colliderect(prior) for prior in labels):
                         lbl_rect.y -= 16
@@ -510,6 +516,22 @@ class SpectatorRenderer:
         y += 8
 
         # Episode list
+        metrics=app.training_metrics or {}
+        if metrics:
+            draw_text(surf,str(metrics.get('condition','PPO training')),(x,y),ACCENT_PURPLE,self.fonts.small,max_width=w)
+            y+=18
+            draw_text(surf,f"Choices {metrics.get('decisions',0)}/512  validation {metrics.get('validation_games',0)}/20",(x,y),TEXT_PRIMARY,self.fonts.tiny)
+            y+=16
+            draw_text(surf,f"{metrics.get('stage','')}  elapsed {metrics.get('elapsed_seconds',0)/60:.1f} min",(x,y),TEXT_MUTED,self.fonts.tiny)
+            y+=22
+            d=metrics.get('diagnostics') or {}
+            if d:
+                draw_text(surf,f"loss {d.get('loss',0):.3f}   KL {d.get('approximate_kl',0):.5f}",(x,y),TEXT_MUTED,self.fonts.tiny)
+                y+=18
+        ep=app.episode_info or {}
+        if ep.get('stream') is not None:
+            draw_text(surf,f"Worker {ep.get('worker')} / stream {ep['stream']}",(x,y),ACCENT_TEAL,self.fonts.tiny)
+            y+=20
         entries = app.library_entries or []
         visible_entries = entries[-20:]  # most recent 20
         for i, entry in enumerate(visible_entries):
@@ -524,6 +546,7 @@ class SpectatorRenderer:
             bg = BG_HOVER if is_current else BG_CARD
 
             card_rect = pygame.Rect(x, y, w, 44)
+            app._library_hitboxes.append((card_rect,str(entry['path'])))
             draw_rect_aa(surf, bg, card_rect, radius=5)
             if is_current:
                 pygame.draw.rect(surf, ACCENT_TEAL, card_rect, 1, border_radius=5)
@@ -531,7 +554,9 @@ class SpectatorRenderer:
             icon_color = ACCENT_GREEN if winner == "crewmate" else ACCENT_RED if winner == "impostor" else TEXT_DIM
             draw_text(surf, "●", (x + 6, y + 6), icon_color, self.fonts.small)
 
-            draw_text(surf, f"Ep {ep_num}", (x + 20, y + 4), TEXT_PRIMARY, self.fonts.small)
+            condition=entry.get('header',{}).get('config',{}).get('training_condition','Replay')
+            short='A Original' if condition.startswith('Model A') else 'B Shaped' if condition.startswith('Model B') else 'Replay'
+            draw_text(surf, f"{short} / ep {ep_num}", (x + 20, y + 4), TEXT_PRIMARY, self.fonts.tiny)
             draw_text(surf, f"seed {seed}", (x + 20, y + 22), TEXT_MUTED, self.fonts.tiny)
 
             status_str = "✓ complete" if complete else "⟳ recording…"
@@ -584,6 +609,7 @@ class SpectatorRenderer:
             is_sel = app.selected_player == pid
             bg = BG_HOVER if is_sel else BG_CARD
             row = pygame.Rect(x, y, w, 30)
+            app._player_hitboxes[pid]=row
             draw_rect_aa(surf, bg, row, radius=4)
             if is_sel:
                 pygame.draw.rect(surf, ACCENT_TEAL, row, 1, border_radius=4)
@@ -626,6 +652,7 @@ class SpectatorRenderer:
             ("Intention", player.intention[:22]),
             ("Cooldown",  f"{player.cooldown:.1f}s" if player.cooldown > 0.01 else "—"),
             ("Meetings",  str(player.meetings_remaining)),
+            ("Own tasks", f"{player.tasks_completed}/{player.tasks_total}" if player.tasks_total is not None else 'unavailable'),
         ]
         for label, value in rows:
             draw_text(surf, label, (x, y), TEXT_DIM, self.fonts.tiny)
@@ -634,7 +661,7 @@ class SpectatorRenderer:
 
         # Controller type
         header = (app.episode_info or {})
-        ctrl = header.get("controller_types", {}).get(player.player_id, "scripted")
+        ctrl = header.get("controller_types", {}).get(player.player_id, "unavailable")
         ctrl_color = ACCENT_PURPLE if ctrl == "ppo" else TEXT_MUTED
         draw_pill(surf, ctrl.upper(), (x, y), ctrl_color)
         y += 22
@@ -644,7 +671,7 @@ class SpectatorRenderer:
                   if e.get("player_id") == player.player_id or
                   e.get("killer_id") == player.player_id or
                   e.get("reporter_id") == player.player_id or
-                  e.get("voter_id") == player.player_id][:5]
+                  e.get("voter_id") == player.player_id][:2]
         if recent:
             y += 4
             draw_text(surf, "RECENT EVENTS", (x, y), TEXT_DIM, self.fonts.tiny)
@@ -674,9 +701,9 @@ class SpectatorRenderer:
         if neural is None:
             draw_text(surf, "No neural data recorded", (x, y), TEXT_DIM, self.fonts.small)
             y += 22
-            draw_text(surf, "(scripted bots use rule-based", (x, y), TEXT_DIM, self.fonts.tiny)
+            draw_text(surf, "This actor/recording has no", (x, y), TEXT_DIM, self.fonts.tiny)
             y += 16
-            draw_text(surf, "decisions, not neural networks)", (x, y), TEXT_DIM, self.fonts.tiny)
+            draw_text(surf, "available neural trace.", (x, y), TEXT_DIM, self.fonts.tiny)
             y += 24
             # Indicate where neural data would appear
             draw_text(surf, "When PPO training data is recorded,", (x, y), TEXT_DIM, self.fonts.tiny)
@@ -687,6 +714,8 @@ class SpectatorRenderer:
             return y + 20
 
         # Action chosen
+        draw_text(surf,f"Decision t={neural.get('sim_time',0):.1f}s / update {neural.get('policy_update','?')}",(x,y),TEXT_DIM,self.fonts.tiny)
+        y+=16
         chosen = neural.get("action_kind", "?")
         draw_text(surf, "CHOSEN ACTION", (x, y), TEXT_DIM, self.fonts.tiny)
         y += 14
@@ -701,10 +730,10 @@ class SpectatorRenderer:
         # Action probabilities
         probs: dict = neural.get("action_probabilities", {})
         if probs:
-            draw_text(surf, "ACTION PROBABILITIES", (x, y), TEXT_DIM, self.fonts.tiny)
+            draw_text(surf, "ACTION PROBABILITIES (TOP 5)", (x, y), TEXT_DIM, self.fonts.tiny)
             y += 14
             sorted_probs = sorted(probs.items(), key=lambda kv: kv[1], reverse=True)
-            for action, prob in sorted_probs[:8]:
+            for action, prob in sorted_probs[:5]:
                 action_str = str(action).replace("_", " ")[:18]
                 is_chosen = str(action) == chosen
                 bar_color = PROB_CHOSEN if is_chosen else PROB_OTHER
@@ -723,7 +752,7 @@ class SpectatorRenderer:
         if value is not None:
             draw_text(surf, "Value estimate", (x, y), TEXT_DIM, self.fonts.tiny)
             draw_text(surf, f"{float(value):+.3f}", (x + 100, y),
-                      ACCENT_AMBER if float(value) > 0 else TEXT_DANGER, self.fonts.small)
+                      ACCENT_AMBER if float(value) > 0 else ACCENT_RED, self.fonts.small)
             y += 18
         if entropy is not None:
             draw_text(surf, "Policy entropy", (x, y), TEXT_DIM, self.fonts.tiny)

@@ -98,6 +98,9 @@ class ReplayNeural:
     legal_actions: list = field(default_factory=list)
     masked_actions: list = field(default_factory=list)
     observation_features: dict = field(default_factory=dict)
+    training_step: int | None = None
+    policy_update: int | None = None
+    selected_action_index: int | None = None
 
 
 @dataclass
@@ -164,8 +167,11 @@ class ReplayRecorder:
         self.path = Path(path)
         self.path.parent.mkdir(parents=True, exist_ok=True)
         self._tmp = self.path.with_suffix(".jsonl.writing")
-        self._stream = self._tmp.open("w", encoding="utf-8", newline="\n", buffering=1)
+        if self.path.exists():
+            raise FileExistsError(self.path)
+        self._stream = self._tmp.open("x", encoding="utf-8", newline="\n", buffering=65536)
         self._closed = False
+        self.error = None
         self._tick_count = 0
         self._event_count = 0
 
@@ -195,8 +201,8 @@ class ReplayRecorder:
             return
         try:
             self._stream.write(_dump(obj) + "\n")
-        except Exception:
-            pass  # Never crash the simulation
+        except Exception as error:
+            self.error = repr(error)
 
     def close(self) -> None:
         if self._closed:
@@ -204,13 +210,17 @@ class ReplayRecorder:
         self._closed = True
         try:
             self._stream.close()
+            if self.error:
+                return
             # Atomic rename so readers never see a partial file
-            self._tmp.replace(self.path)
-        except Exception:
-            pass
+            if self.path.exists():
+                raise FileExistsError(self.path)
+            self._tmp.rename(self.path)  # Windows atomic rename refuses an existing target.
+        except Exception as error:
+            self.error = repr(error)
 
     def __del__(self):
-        if not self._closed:
+        if not getattr(self, "_closed", True):
             try:
                 self._stream.close()
             except Exception:
@@ -264,10 +274,30 @@ def parse_replay(path: Path | str) -> dict:
                     obj = json.loads(raw)
                 except json.JSONDecodeError:
                     continue  # Tolerate partial last line (file still being written)
+                if not isinstance(obj, dict):
+                    continue
                 record = obj.get("record", "")
                 if record == "header":
                     result["header"] = obj
                 elif record == "tick":
+                    import math
+                    if (not isinstance(obj.get('players',{}),dict) or not isinstance(obj.get('bodies',{}),dict)
+                            or not isinstance(obj.get('sim_time'),(int,float)) or not math.isfinite(obj['sim_time'])
+                            or not isinstance(obj.get('tick'),int) or not isinstance(obj.get('phase','roaming'),str)):
+                        continue
+                    if any(not isinstance(p,dict) or not isinstance(p.get('position'),list)
+                           or len(p['position'])!=2 or any(not isinstance(v,(int,float)) or not math.isfinite(v) for v in p['position'])
+                           for p in obj.get('players',{}).values()):
+                        continue
+                    if any(any(not isinstance(p.get(k,''),str) for k in ('status','color','role','intention'))
+                           or not isinstance(p.get('velocity',[0,0]),list) or len(p.get('velocity',[0,0]))!=2
+                           or any(not isinstance(v,(int,float)) or not math.isfinite(v) for v in p.get('velocity',[0,0]))
+                           for p in obj.get('players',{}).values()):
+                        continue
+                    if any(not isinstance(b,dict) or not isinstance(b.get('position'),list) or len(b['position'])!=2
+                           or any(not isinstance(v,(int,float)) or not math.isfinite(v) for v in b['position'])
+                           for b in obj.get('bodies',{}).values()):
+                        continue
                     result["ticks"].append(obj)
                 elif record == "event":
                     result["events"].append(obj)
@@ -281,6 +311,7 @@ def parse_replay(path: Path | str) -> dict:
     except (OSError, PermissionError):
         pass  # File locked or missing — return what we have
 
+    result['complete'] = bool(result['result'] and result['ticks'] and result['header'].get('schema')==SCHEMA_VERSION)
     result["tags"] = _detect_tags(result)
     return result
 
@@ -348,30 +379,44 @@ class ReplayLibrary:
     EXTENSIONS = (".jsonl",)
 
     def __init__(self, watch_dir: Path | str | None = None):
-        self.watch_dir = Path(watch_dir) if watch_dir else None
+        self.watch_dir = Path(watch_dir).resolve() if watch_dir else None
         self._index: list[dict] = []   # list of lightweight summary dicts
         self._mtime: float = 0.0
         self.favorites: set[str] = set()
+        self._files = ()
+        self._load_favorites()
 
     def set_directory(self, directory: Path | str) -> None:
-        self.watch_dir = Path(directory)
+        self.watch_dir = Path(directory).resolve()
         self._index.clear()
         self._mtime = 0.0
+        self._files = ()
+        self._load_favorites()
+
+    def _load_favorites(self):
+        self.favorites = set()
+        if not self.watch_dir:
+            return
+        try:
+            for name in json.loads((self.watch_dir/'.spectator-favorites.json').read_text()):
+                path=(self.watch_dir/name).resolve()
+                if path.is_relative_to(self.watch_dir.resolve()):
+                    self.favorites.add(str(path))
+        except (OSError,ValueError,TypeError):
+            pass
 
     def refresh(self) -> bool:
         """Scan the directory and update the index.  Returns True if changed."""
         if not self.watch_dir or not self.watch_dir.is_dir():
             return False
         try:
-            current_mtime = max(
-                (p.stat().st_mtime for p in self.watch_dir.rglob("*.jsonl")
-                 if not p.name.endswith(".writing")),
-                default=0.0,
-            )
+            fingerprint=tuple(sorted((str(p),p.stat().st_mtime_ns,p.stat().st_size) for p in self.watch_dir.rglob('*.jsonl')))
+            current_mtime=max((mtime/1e9 for _,mtime,_ in fingerprint),default=0.)
         except OSError:
             return False
-        if current_mtime <= self._mtime:
+        if fingerprint == self._files:
             return False
+        self._files = fingerprint
         self._mtime = current_mtime
         new_index = []
         for path in sorted(self.watch_dir.rglob("*.jsonl")):
@@ -404,8 +449,9 @@ class ReplayLibrary:
                     if len(lines) >= 2:
                         break  # Got header; stop for speed
             # Also check last few lines for result
-            with path.open("r", encoding="utf-8") as f:
-                tail_lines = f.readlines()[-5:]
+            with path.open('rb') as f:
+                f.seek(max(0,stat.st_size-65536))
+                tail_lines=f.read().decode('utf-8',errors='replace').splitlines()[-5:]
             for line in tail_lines:
                 try:
                     obj = json.loads(line.strip())
@@ -425,6 +471,8 @@ class ReplayLibrary:
                     pass
         except OSError:
             pass
+        if summary['header'].get('schema') != SCHEMA_VERSION:
+            return None
         if summary["result"]:
             summary["tags"] = _detect_tags({"result": summary["result"], "events": []})
         return summary
@@ -442,3 +490,11 @@ class ReplayLibrary:
             self.favorites.discard(path)
         else:
             self.favorites.add(path)
+        for entry in self._index:
+            entry['favorite']=entry['path'] in self.favorites
+        if self.watch_dir:
+            names=[str(Path(p).resolve().relative_to(self.watch_dir.resolve())) for p in self.favorites
+                   if Path(p).resolve().is_relative_to(self.watch_dir.resolve())]
+            temporary=self.watch_dir/'.spectator-favorites.tmp'
+            temporary.write_text(json.dumps(names),encoding='utf-8')
+            temporary.replace(self.watch_dir/'.spectator-favorites.json')

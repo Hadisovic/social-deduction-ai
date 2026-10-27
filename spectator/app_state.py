@@ -47,3 +47,6 @@ class SpectatorAppState:
 
     # Internal: set by renderer for mouse interaction
     _scrub_rect: pygame.Rect | None = None
+    _library_hitboxes: list = field(default_factory=list)
+    _player_hitboxes: dict = field(default_factory=dict)
+    training_metrics: dict = field(default_factory=dict)

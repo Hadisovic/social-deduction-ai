@@ -42,7 +42,8 @@ class MatchRecorder:
                  episode: int = 0,
                  training_session: str = "",
                  checkpoint_path: str = "",
-                 model_architecture: str = ""):
+                 model_architecture: str = "", controller_types: dict | None = None,
+                 metadata: dict | None = None, source_version: str | None = None):
         self.match = match
         self.recorder = ReplayRecorder(path)
         self._episode = episode
@@ -53,12 +54,12 @@ class MatchRecorder:
         players = game.players
 
         agent_roles = {pid: _val(p.role) for pid, p in players.items()}
-        controller_types = {pid: "scripted" for pid in players}
+        controller_types = controller_types or {pid: "scripted" for pid in players}
 
         header = ReplayHeader(
             schema=SCHEMA_VERSION,
             game_schema="crewmate-v2" if hasattr(game, "observe_v2") else "phase3-v1",
-            source_version=self._git_sha(),
+            source_version=source_version if source_version is not None else self._git_sha(),
             training_session=training_session,
             episode=episode,
             scenario_seed=getattr(game, "seed", 0),
@@ -67,7 +68,7 @@ class MatchRecorder:
             checkpoint_path=checkpoint_path,
             model_architecture=model_architecture,
             simulation_timestamp=time.time(),
-            config=self._safe_config(game),
+            config={**self._safe_config(game), **(metadata or {})},
         )
         self.recorder.write_header(header)
         self._wrote_header = True
@@ -116,6 +117,8 @@ class MatchRecorder:
         # Write tick snapshot
         players_snap = {}
         for pid, p in game.players.items():
+            owned=[t for t in getattr(p,'tasks',[]) if hasattr(t,'progress')]
+            task=next((t for t in owned if t.task_id==getattr(p,'interaction_task',None)),None)
             players_snap[pid] = {
                 "position": list(p.position),
                 "velocity": list(getattr(p, "velocity", (0, 0))),
@@ -126,6 +129,10 @@ class MatchRecorder:
                 "interaction_task": getattr(p, "interaction_task", None),
                 "cooldown": getattr(p, "cooldown", 0.0),
                 "meetings_remaining": getattr(p, "meetings_remaining", 0),
+                "task_progress": task.progress if task is not None else None,
+                "tasks_completed": sum(t.progress>=1 for t in owned) if owned else None,
+                "tasks_total": len(owned) if owned else None,
+                "ghost_position": list(game.ghosts[pid].position) if pid in getattr(game,'ghosts',{}) else None,
             }
 
         bodies_snap = {}
@@ -165,7 +172,8 @@ class MatchRecorder:
     def record_neural(self, player_id: str, action_kind: str, action_target=None,
                       probabilities: dict | None = None, value_estimate: float | None = None,
                       entropy: float | None = None, legal_actions: list | None = None,
-                      masked_actions: list | None = None) -> None:
+                      masked_actions: list | None = None, training_step: int | None = None,
+                      policy_update: int | None = None, selected_action_index: int | None = None) -> None:
         """Optional: record a neural agent's decision for this player."""
         from spectator.replay_format import ReplayNeural
         game = getattr(self.match, "game", self.match)
@@ -180,5 +188,6 @@ class MatchRecorder:
             policy_entropy=float(entropy) if entropy is not None else None,
             legal_actions=list(legal_actions or []),
             masked_actions=list(masked_actions or []),
+            training_step=training_step, policy_update=policy_update, selected_action_index=selected_action_index,
         )
         self.recorder.write_neural(neural)
