@@ -6,13 +6,11 @@ from crewmate_v2.learning.config import RewardConfig
 
 @dataclass(frozen=True)
 class Rewards(RewardConfig):
-    schema:str='crewmate-fourcrew-rewards-v1'
-    # First four-crew architecture commit uses the preserved shaping coefficient.
-    # The owner's +1.5 revision is committed separately.
-    report:float=1.25
+    schema:str='crewmate-fourcrew-rewards-v2'
+    report:float=1.5
 
     def __post_init__(self):
-        if self.schema!='crewmate-fourcrew-rewards-v1':raise ValueError('Unknown four-crew reward schema')
+        if self.schema!='crewmate-fourcrew-rewards-v2':raise ValueError('Unknown four-crew reward schema')
         for name,value in asdict(self).items():
             if name!='schema' and (type(value) not in (int,float) or not math.isfinite(value)):
                 raise ValueError('Nonfinite reward coefficient')
