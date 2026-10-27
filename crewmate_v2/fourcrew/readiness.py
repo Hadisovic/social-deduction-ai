@@ -4,7 +4,6 @@ import copy
 from pathlib import Path
 from time import perf_counter
 import numpy as np
-import psutil
 import torch
 from crewmate_v2.learning.train import state_hash
 from crewmate_v2.learning.provenance import digest
@@ -31,13 +30,9 @@ def main():
         ctx=dict(seed=2760020+i,seed_partition='engineering',case_index=i,rotation=i%3,context=context,deduction_frequency=float(i!=0))
         payloads+=jobs(zero,[ctx],rewards=Rewards(),label='benchmark-'+context,deadline=deadline,session='registration-readiness',
             greedy=i!=1,replay_dir=a.output/'replays',spectator_source=a.spectator_source)
-    samples=[];parent=psutil.Process()
+    samples=[]
     def sample():
-        processes=[parent,*parent.children(recursive=True)];rss=0
-        for process in processes:
-            try:rss+=process.memory_info().rss
-            except psutil.Error:pass
-        samples.append(dict(elapsed_seconds=perf_counter()-start,aggregate_rss_bytes=rss,system_cpu_percent=psutil.cpu_percent()))
+        samples.append(dict(elapsed_seconds=perf_counter()-start))
     try:
         rows=run_jobs(payloads,deadline,on_sample=sample,
             on_result=lambda i,r:write(a.output/f'match-{i}.json',r[1]))
@@ -49,13 +44,13 @@ def main():
         record=dict(status='completed_representative_engineering_benchmark',seconds=perf_counter()-start,
             simultaneous_jobs=4,batch_inference_wall_seconds=inference_wall,ppo_update_seconds=update_seconds,
             disposable_update_diagnostics=diagnostics,matches=[r[1] for r in rows],zero_unchanged=True,
-            peak_aggregate_rss_bytes=max(x['aggregate_rss_bytes'] for x in samples),resource_samples=samples,
+            resource_measurement='Runtime only; CPU/RAM not instrumented in this benchmark',progress_samples=samples,
             study_seed_partitions_opened=False,full_training_started=False)
         write(a.output/'benchmark.json',record)
-        print({k:v for k,v in record.items() if k not in ('matches','resource_samples','disposable_update_diagnostics')})
+        print({k:v for k,v in record.items() if k not in ('matches','progress_samples','disposable_update_diagnostics')})
     except BaseException as error:
         write(a.output/'failure.json',dict(status='benchmark_incomplete',error=repr(error),seconds=perf_counter()-start,
-            resource_samples=samples,study_seed_partitions_opened=False));raise
+            progress_samples=samples,study_seed_partitions_opened=False));raise
 
 
 if __name__=='__main__':main()
