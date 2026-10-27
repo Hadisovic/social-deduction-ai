@@ -1,6 +1,8 @@
 # Final-registration handoff
 
-**STOP: final owner authorization to train is still required.** No full-study output or study-seed execution exists. `approval-template.json` remains approved=false. Do not silently change it or start the driver merely because registration work is complete.
+**Execution update — 2026-10-28:** The owner-authorized single execution **completed normally** in `local-runs/fourcrew-reporting-2048-seed17-v1`; do not launch another copy. [Results and limitations](../results/registered-2048-seed17-v1/REPORT.md), [aggregate metrics](../results/registered-2048-seed17-v1/metrics.json), and [activation record](ACTIVATION.md). Both arms accepted46 matched games (23 ordinary/23 body), reaching2058 original/2092 shaped decisions and23 updates each. All48 validations completed in34.54 minutes total; no registered inconclusive flag. Shaped controlled wins8/8 versus original0/8, but ordinary wins4/8 versus original8/8; zero wins2/8 ordinary and3/8 controlled. Historical artifacts and frozen reference verified unchanged. The separate private activation binds the unchanged plan/runtime hashes; `approval-template.json` remains approved=false as the historical template. The independent spectator is open with96 recordings. **Stop: Phase6.1 acceptance, further training and final-test access remain unapproved.** No branches/PRs were pushed or merged.
+
+The sections below retain the pre-execution registration snapshot; statements that seeds or watch directories were unused describe that snapshot, not the current running state.
 
 Crew worktree: `C:/Files/RL/_v2_fourcrew_registration`, branch `codex/crewmate-v2-fourcrew-registration`. It preserves prior implementation `7b66989`, pilot `5b663f6`, cleanup `27ff525` and performance `c18ff5f`. Read [SPECIFICATION.md](SPECIFICATION.md), [plan.json](plan.json), [runtime-lock.json](runtime-lock.json), [readiness.json](readiness.json) and [research R019](../../research/ISSUES.md).
 

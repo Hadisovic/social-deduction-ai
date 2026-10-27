@@ -1,0 +1,2568 @@
+{
+  "status": "exploratory_development_only_phase6_1_acceptance_pending",
+  "experiment": "fourcrew-reporting-2048-seed17-v1",
+  "initialization": 17,
+  "runtime": {
+    "driver_total_seconds": 2072.448468799994,
+    "training_phase_approx_seconds": 1514.420181274414,
+    "phase_split_method": "Last training update file mtime minus recorded wall-clock start; approximate. Total uses driver monotonic timer.",
+    "hard_stop_seconds": 14400
+  },
+  "training_summary": {
+    "original": {
+      "matches": 46,
+      "ordinary_matches": 23,
+      "body_matches": 23,
+      "accepted_decisions": 2058,
+      "ppo_updates": 23,
+      "simulated_game_seconds": 7179.2,
+      "learned_control_seconds": 5454.2,
+      "sum_worker_wall_seconds": 2292.0839532000828,
+      "wins": 4,
+      "endings": {
+        "PARITY": 42,
+        "IMPOSTOR_EJECTED": 4
+      },
+      "actor_event_counts": {
+        "death": 109,
+        "ghost_tasks": 180,
+        "loss": 168,
+        "alive_tasks": 91,
+        "incorrect_votes": 79,
+        "reports": 5,
+        "correct_votes": 33,
+        "skips": 32,
+        "win": 16
+      },
+      "decisions_by_within_match_crew_rank": {
+        "0": 456,
+        "1": 555,
+        "2": 479,
+        "3": 568
+      }
+    },
+    "shaped_v2": {
+      "matches": 46,
+      "ordinary_matches": 23,
+      "body_matches": 23,
+      "accepted_decisions": 2092,
+      "ppo_updates": 23,
+      "simulated_game_seconds": 7265.4,
+      "learned_control_seconds": 5540.4,
+      "sum_worker_wall_seconds": 2316.578388400143,
+      "wins": 4,
+      "endings": {
+        "PARITY": 42,
+        "IMPOSTOR_EJECTED": 4
+      },
+      "actor_event_counts": {
+        "death": 109,
+        "ghost_tasks": 184,
+        "loss": 168,
+        "alive_tasks": 94,
+        "incorrect_votes": 78,
+        "reports": 5,
+        "correct_votes": 35,
+        "skips": 32,
+        "win": 16
+      },
+      "decisions_by_within_match_crew_rank": {
+        "0": 470,
+        "1": 552,
+        "2": 479,
+        "3": 591
+      }
+    }
+  },
+  "training_curves": {
+    "original": [
+      {
+        "matched_games": 2,
+        "accepted_decisions": 77,
+        "cumulative_accepted_neural_reports": 1
+      },
+      {
+        "matched_games": 4,
+        "accepted_decisions": 175,
+        "cumulative_accepted_neural_reports": 2
+      },
+      {
+        "matched_games": 6,
+        "accepted_decisions": 248,
+        "cumulative_accepted_neural_reports": 2
+      },
+      {
+        "matched_games": 8,
+        "accepted_decisions": 329,
+        "cumulative_accepted_neural_reports": 2
+      },
+      {
+        "matched_games": 10,
+        "accepted_decisions": 418,
+        "cumulative_accepted_neural_reports": 2
+      },
+      {
+        "matched_games": 12,
+        "accepted_decisions": 504,
+        "cumulative_accepted_neural_reports": 2
+      },
+      {
+        "matched_games": 14,
+        "accepted_decisions": 588,
+        "cumulative_accepted_neural_reports": 2
+      },
+      {
+        "matched_games": 16,
+        "accepted_decisions": 713,
+        "cumulative_accepted_neural_reports": 2
+      },
+      {
+        "matched_games": 18,
+        "accepted_decisions": 779,
+        "cumulative_accepted_neural_reports": 3
+      },
+      {
+        "matched_games": 20,
+        "accepted_decisions": 874,
+        "cumulative_accepted_neural_reports": 3
+      },
+      {
+        "matched_games": 22,
+        "accepted_decisions": 954,
+        "cumulative_accepted_neural_reports": 3
+      },
+      {
+        "matched_games": 24,
+        "accepted_decisions": 1067,
+        "cumulative_accepted_neural_reports": 3
+      },
+      {
+        "matched_games": 26,
+        "accepted_decisions": 1198,
+        "cumulative_accepted_neural_reports": 4
+      },
+      {
+        "matched_games": 28,
+        "accepted_decisions": 1273,
+        "cumulative_accepted_neural_reports": 4
+      },
+      {
+        "matched_games": 30,
+        "accepted_decisions": 1354,
+        "cumulative_accepted_neural_reports": 4
+      },
+      {
+        "matched_games": 32,
+        "accepted_decisions": 1408,
+        "cumulative_accepted_neural_reports": 4
+      },
+      {
+        "matched_games": 34,
+        "accepted_decisions": 1495,
+        "cumulative_accepted_neural_reports": 4
+      },
+      {
+        "matched_games": 36,
+        "accepted_decisions": 1552,
+        "cumulative_accepted_neural_reports": 4
+      },
+      {
+        "matched_games": 38,
+        "accepted_decisions": 1675,
+        "cumulative_accepted_neural_reports": 4
+      },
+      {
+        "matched_games": 40,
+        "accepted_decisions": 1778,
+        "cumulative_accepted_neural_reports": 5
+      },
+      {
+        "matched_games": 42,
+        "accepted_decisions": 1870,
+        "cumulative_accepted_neural_reports": 5
+      },
+      {
+        "matched_games": 44,
+        "accepted_decisions": 1955,
+        "cumulative_accepted_neural_reports": 5
+      },
+      {
+        "matched_games": 46,
+        "accepted_decisions": 2058,
+        "cumulative_accepted_neural_reports": 5
+      }
+    ],
+    "shaped_v2": [
+      {
+        "matched_games": 2,
+        "accepted_decisions": 77,
+        "cumulative_accepted_neural_reports": 1
+      },
+      {
+        "matched_games": 4,
+        "accepted_decisions": 175,
+        "cumulative_accepted_neural_reports": 2
+      },
+      {
+        "matched_games": 6,
+        "accepted_decisions": 248,
+        "cumulative_accepted_neural_reports": 2
+      },
+      {
+        "matched_games": 8,
+        "accepted_decisions": 329,
+        "cumulative_accepted_neural_reports": 2
+      },
+      {
+        "matched_games": 10,
+        "accepted_decisions": 418,
+        "cumulative_accepted_neural_reports": 2
+      },
+      {
+        "matched_games": 12,
+        "accepted_decisions": 504,
+        "cumulative_accepted_neural_reports": 2
+      },
+      {
+        "matched_games": 14,
+        "accepted_decisions": 588,
+        "cumulative_accepted_neural_reports": 2
+      },
+      {
+        "matched_games": 16,
+        "accepted_decisions": 713,
+        "cumulative_accepted_neural_reports": 2
+      },
+      {
+        "matched_games": 18,
+        "accepted_decisions": 779,
+        "cumulative_accepted_neural_reports": 3
+      },
+      {
+        "matched_games": 20,
+        "accepted_decisions": 874,
+        "cumulative_accepted_neural_reports": 3
+      },
+      {
+        "matched_games": 22,
+        "accepted_decisions": 954,
+        "cumulative_accepted_neural_reports": 3
+      },
+      {
+        "matched_games": 24,
+        "accepted_decisions": 1067,
+        "cumulative_accepted_neural_reports": 3
+      },
+      {
+        "matched_games": 26,
+        "accepted_decisions": 1198,
+        "cumulative_accepted_neural_reports": 4
+      },
+      {
+        "matched_games": 28,
+        "accepted_decisions": 1273,
+        "cumulative_accepted_neural_reports": 4
+      },
+      {
+        "matched_games": 30,
+        "accepted_decisions": 1354,
+        "cumulative_accepted_neural_reports": 4
+      },
+      {
+        "matched_games": 32,
+        "accepted_decisions": 1408,
+        "cumulative_accepted_neural_reports": 4
+      },
+      {
+        "matched_games": 34,
+        "accepted_decisions": 1495,
+        "cumulative_accepted_neural_reports": 4
+      },
+      {
+        "matched_games": 36,
+        "accepted_decisions": 1552,
+        "cumulative_accepted_neural_reports": 4
+      },
+      {
+        "matched_games": 38,
+        "accepted_decisions": 1675,
+        "cumulative_accepted_neural_reports": 4
+      },
+      {
+        "matched_games": 40,
+        "accepted_decisions": 1778,
+        "cumulative_accepted_neural_reports": 5
+      },
+      {
+        "matched_games": 42,
+        "accepted_decisions": 1870,
+        "cumulative_accepted_neural_reports": 5
+      },
+      {
+        "matched_games": 44,
+        "accepted_decisions": 1955,
+        "cumulative_accepted_neural_reports": 5
+      },
+      {
+        "matched_games": 46,
+        "accepted_decisions": 2092,
+        "cumulative_accepted_neural_reports": 5
+      }
+    ]
+  },
+  "registered_aggregate": {
+    "status": "exploratory_development_only_acceptance_pending",
+    "groups": {
+      "original": {
+        "ordinary": {
+          "games": 8,
+          "scenario_clusters": 8,
+          "wins": 8,
+          "endings": {
+            "TASKS_COMPLETED": 8
+          },
+          "actor_event_counts": {
+            "alive_tasks": 106,
+            "death": 12,
+            "ghost_tasks": 22,
+            "win": 32,
+            "skips": 16
+          },
+          "report_actions": {
+            "accepted": 0,
+            "meeting_triggered": 0
+          },
+          "reporting_opportunities": {
+            "visible": 7,
+            "range": 7,
+            "legal": 7,
+            "choice_legal": 7,
+            "held_legal": 7
+          },
+          "actor_report_conversion": 0.0,
+          "games_with_crew_reports": 0,
+          "vote_accuracy": null,
+          "action_counts": {
+            "task": 202,
+            "claim_location": 16,
+            "skip": 16,
+            "wait": 768
+          },
+          "frozen_belief": {
+            "n": 16,
+            "top1": 1.0,
+            "nll": 0.02598295688164526,
+            "brier": 0.00748978689295936,
+            "ece": 0.023776879204647022,
+            "bins": [
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 1,
+                "confidence": 0.7669164160390451,
+                "accuracy": 1.0
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 15,
+                "confidence": 0.9901769011124402,
+                "accuracy": 1.0
+              }
+            ],
+            "high_confidence_wrong": 0
+          },
+          "policy_vote_ranking": {
+            "n": 16,
+            "top1": 1.0,
+            "nll": 0.996583344343182,
+            "brier": 0.6244924504574196,
+            "ece": 0.624746126976155,
+            "bins": [
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 12,
+                "confidence": 0.3335402410688067,
+                "accuracy": 1.0
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 4,
+                "confidence": 0.5003947688889604,
+                "accuracy": 1.0
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              }
+            ],
+            "high_confidence_wrong": 0
+          },
+          "selected_incorrect_suspect_claims": 0
+        },
+        "controlled": {
+          "games": 8,
+          "scenario_clusters": 8,
+          "wins": 0,
+          "endings": {
+            "PARITY": 8
+          },
+          "actor_event_counts": {
+            "ghost_tasks": 43,
+            "loss": 32,
+            "skips": 26,
+            "alive_tasks": 51,
+            "death": 16
+          },
+          "report_actions": {
+            "accepted": 0,
+            "meeting_triggered": 0
+          },
+          "reporting_opportunities": {
+            "visible": 17,
+            "range": 16,
+            "legal": 16,
+            "choice_legal": 16,
+            "held_legal": 10
+          },
+          "actor_report_conversion": 0.0,
+          "games_with_crew_reports": 0,
+          "vote_accuracy": null,
+          "action_counts": {
+            "task": 121,
+            "claim_location": 26,
+            "skip": 26,
+            "wait": 503
+          },
+          "frozen_belief": {
+            "n": 26,
+            "top1": 0.9615384615384616,
+            "nll": 0.08312949802972612,
+            "brier": 0.05203422168258317,
+            "ece": 0.04872290758083102,
+            "bins": [
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 1,
+                "confidence": 0.37798631192281623,
+                "accuracy": 0.0
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 1,
+                "confidence": 0.5179490978511787,
+                "accuracy": 1.0
+              },
+              {
+                "n": 1,
+                "confidence": 0.6269397673974428,
+                "accuracy": 1.0
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 23,
+                "confidence": 0.9985348630248951,
+                "accuracy": 1.0
+              }
+            ],
+            "high_confidence_wrong": 0
+          },
+          "policy_vote_ranking": {
+            "n": 26,
+            "top1": 0.9230769230769231,
+            "nll": 0.9730025375132049,
+            "brier": 0.6147283561338905,
+            "ece": 0.538129958626177,
+            "bins": [
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 18,
+                "confidence": 0.3336199809182498,
+                "accuracy": 0.8888888888888888
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 8,
+                "confidence": 0.5004326773988624,
+                "accuracy": 1.0
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              }
+            ],
+            "high_confidence_wrong": 0
+          },
+          "selected_incorrect_suspect_claims": 0
+        },
+        "body": {
+          "games": 4,
+          "scenario_clusters": 4,
+          "wins": 0,
+          "endings": {
+            "PARITY": 4
+          },
+          "actor_event_counts": {
+            "ghost_tasks": 23,
+            "loss": 16,
+            "skips": 10,
+            "alive_tasks": 26,
+            "death": 8
+          },
+          "report_actions": {
+            "accepted": 0,
+            "meeting_triggered": 0
+          },
+          "reporting_opportunities": {
+            "visible": 15,
+            "range": 14,
+            "legal": 14,
+            "choice_legal": 14,
+            "held_legal": 8
+          },
+          "actor_report_conversion": 0.0,
+          "games_with_crew_reports": 0,
+          "vote_accuracy": null,
+          "action_counts": {
+            "task": 67,
+            "claim_location": 10,
+            "skip": 10,
+            "wait": 387
+          },
+          "frozen_belief": {
+            "n": 10,
+            "top1": 1.0,
+            "nll": 0.0017212091729076075,
+            "brier": 5.7906969074259624e-05,
+            "ece": 0.0017065652335863657,
+            "bins": [
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 10,
+                "confidence": 0.9982934347664136,
+                "accuracy": 1.0
+              }
+            ],
+            "high_confidence_wrong": 0
+          },
+          "policy_vote_ranking": {
+            "n": 10,
+            "top1": 1.0,
+            "nll": 0.9354671029196606,
+            "brier": 0.599226468644381,
+            "ece": 0.5996130679360201,
+            "bins": [
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 6,
+                "confidence": 0.3336429242406671,
+                "accuracy": 1.0
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 4,
+                "confidence": 0.5005029437989492,
+                "accuracy": 1.0
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              }
+            ],
+            "high_confidence_wrong": 0
+          },
+          "selected_incorrect_suspect_claims": 0
+        },
+        "meeting": {
+          "games": 4,
+          "scenario_clusters": 4,
+          "wins": 0,
+          "endings": {
+            "PARITY": 4
+          },
+          "actor_event_counts": {
+            "ghost_tasks": 20,
+            "loss": 16,
+            "skips": 16,
+            "alive_tasks": 25,
+            "death": 8
+          },
+          "report_actions": {
+            "accepted": 0,
+            "meeting_triggered": 0
+          },
+          "reporting_opportunities": {
+            "visible": 2,
+            "range": 2,
+            "legal": 2,
+            "choice_legal": 2,
+            "held_legal": 2
+          },
+          "actor_report_conversion": 0.0,
+          "games_with_crew_reports": 0,
+          "vote_accuracy": null,
+          "action_counts": {
+            "claim_location": 16,
+            "skip": 16,
+            "task": 54,
+            "wait": 116
+          },
+          "frozen_belief": {
+            "n": 16,
+            "top1": 0.9375,
+            "nll": 0.1340096785652377,
+            "brier": 0.08451941837852624,
+            "ece": 0.078108121547859,
+            "bins": [
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 1,
+                "confidence": 0.37798631192281623,
+                "accuracy": 0.0
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 1,
+                "confidence": 0.5179490978511787,
+                "accuracy": 1.0
+              },
+              {
+                "n": 1,
+                "confidence": 0.6269397673974428,
+                "accuracy": 1.0
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 13,
+                "confidence": 0.9987205770698808,
+                "accuracy": 1.0
+              }
+            ],
+            "high_confidence_wrong": 0
+          },
+          "policy_vote_ranking": {
+            "n": 16,
+            "top1": 0.875,
+            "nll": 0.9964621841341703,
+            "brier": 0.624417035814834,
+            "ece": 0.49970301530752526,
+            "bins": [
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 12,
+                "confidence": 0.33360850925704116,
+                "accuracy": 0.8333333333333334
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 4,
+                "confidence": 0.5003624109987757,
+                "accuracy": 1.0
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              }
+            ],
+            "high_confidence_wrong": 0
+          },
+          "selected_incorrect_suspect_claims": 0
+        },
+        "controlled_reporter_role_macro": {
+          "crewmate": {
+            "games": 2,
+            "policy_top1_macro": 0.5,
+            "accuse_reporter_macro": 0.0
+          },
+          "impostor": {
+            "games": 2,
+            "policy_top1_macro": 1.0,
+            "accuse_reporter_macro": 1.0
+          }
+        }
+      },
+      "shaped_v2": {
+        "ordinary": {
+          "games": 8,
+          "scenario_clusters": 8,
+          "wins": 4,
+          "endings": {
+            "IMPOSTOR_EJECTED": 3,
+            "PARITY": 4,
+            "TASKS_COMPLETED": 1
+          },
+          "actor_event_counts": {
+            "alive_tasks": 71,
+            "death": 17,
+            "win": 16,
+            "correct_votes": 12,
+            "ghost_tasks": 21,
+            "loss": 16,
+            "incorrect_votes": 8,
+            "reports": 4
+          },
+          "report_actions": {
+            "accepted": 4,
+            "meeting_triggered": 4,
+            "selected": 4,
+            "submitted": 4
+          },
+          "reporting_opportunities": {
+            "visible": 5,
+            "range": 4,
+            "legal": 4,
+            "choice_legal": 4,
+            "held_legal": 0
+          },
+          "actor_report_conversion": 1.0,
+          "games_with_crew_reports": 4,
+          "vote_accuracy": 0.6,
+          "action_counts": {
+            "task": 141,
+            "claim_defend": 21,
+            "vote": 21,
+            "wait": 1031,
+            "report": 4,
+            "follow": 1
+          },
+          "frozen_belief": {
+            "n": 21,
+            "top1": 0.5714285714285714,
+            "nll": 1.4023885841459072,
+            "brier": 0.7193572009614274,
+            "ece": 0.3685678599405028,
+            "bins": [
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 1,
+                "confidence": 0.51947282060223,
+                "accuracy": 0.0
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 1,
+                "confidence": 0.7688369368457413,
+                "accuracy": 0.0
+              },
+              {
+                "n": 2,
+                "confidence": 0.8924228577768267,
+                "accuracy": 0.0
+              },
+              {
+                "n": 17,
+                "confidence": 0.9803982109264079,
+                "accuracy": 0.7058823529411765
+              }
+            ],
+            "high_confidence_wrong": 5
+          },
+          "policy_vote_ranking": {
+            "n": 21,
+            "top1": 0.5714285714285714,
+            "nll": 1.0965070350278607,
+            "brier": 0.6652617061150738,
+            "ece": 0.23681048675148803,
+            "bins": [
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 21,
+                "confidence": 0.33461808467708337,
+                "accuracy": 0.5714285714285714
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              }
+            ],
+            "high_confidence_wrong": 0
+          },
+          "selected_incorrect_suspect_claims": 0
+        },
+        "controlled": {
+          "games": 8,
+          "scenario_clusters": 8,
+          "wins": 8,
+          "endings": {
+            "IMPOSTOR_EJECTED": 8
+          },
+          "actor_event_counts": {
+            "win": 32,
+            "reports": 4,
+            "correct_votes": 23,
+            "incorrect_votes": 1
+          },
+          "report_actions": {
+            "accepted": 4,
+            "meeting_triggered": 4,
+            "selected": 12,
+            "submitted": 12
+          },
+          "reporting_opportunities": {
+            "visible": 12,
+            "range": 12,
+            "legal": 12,
+            "choice_legal": 12,
+            "held_legal": 0
+          },
+          "actor_report_conversion": 0.3333333333333333,
+          "games_with_crew_reports": 4,
+          "vote_accuracy": 0.9583333333333334,
+          "action_counts": {
+            "report": 12,
+            "claim_defend": 24,
+            "vote": 24
+          },
+          "frozen_belief": {
+            "n": 24,
+            "top1": 0.8333333333333334,
+            "nll": 0.2989032272210907,
+            "brier": 0.1721455366892527,
+            "ece": 0.11068260017886843,
+            "bins": [
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 1,
+                "confidence": 0.46718814865943753,
+                "accuracy": 0.0
+              },
+              {
+                "n": 1,
+                "confidence": 0.5130183709682652,
+                "accuracy": 0.0
+              },
+              {
+                "n": 1,
+                "confidence": 0.6152378199863298,
+                "accuracy": 0.0
+              },
+              {
+                "n": 1,
+                "confidence": 0.7896249784915774,
+                "accuracy": 1.0
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 20,
+                "confidence": 0.9925281521585193,
+                "accuracy": 0.95
+              }
+            ],
+            "high_confidence_wrong": 1
+          },
+          "policy_vote_ranking": {
+            "n": 24,
+            "top1": 0.9583333333333334,
+            "nll": 1.094091337751427,
+            "brier": 0.6636494116620434,
+            "ece": 0.623456423204149,
+            "bins": [
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 24,
+                "confidence": 0.3348769101291844,
+                "accuracy": 0.9583333333333334
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              }
+            ],
+            "high_confidence_wrong": 0
+          },
+          "selected_incorrect_suspect_claims": 0
+        },
+        "body": {
+          "games": 4,
+          "scenario_clusters": 4,
+          "wins": 4,
+          "endings": {
+            "IMPOSTOR_EJECTED": 4
+          },
+          "actor_event_counts": {
+            "win": 16,
+            "reports": 4,
+            "correct_votes": 11,
+            "incorrect_votes": 1
+          },
+          "report_actions": {
+            "accepted": 4,
+            "meeting_triggered": 4,
+            "selected": 12,
+            "submitted": 12
+          },
+          "reporting_opportunities": {
+            "visible": 12,
+            "range": 12,
+            "legal": 12,
+            "choice_legal": 12,
+            "held_legal": 0
+          },
+          "actor_report_conversion": 0.3333333333333333,
+          "games_with_crew_reports": 4,
+          "vote_accuracy": 0.9166666666666666,
+          "action_counts": {
+            "report": 12,
+            "claim_defend": 12,
+            "vote": 12
+          },
+          "frozen_belief": {
+            "n": 12,
+            "top1": 0.8333333333333334,
+            "nll": 0.38603934763391295,
+            "brier": 0.20371028131841754,
+            "ece": 0.1136861003596017,
+            "bins": [
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 1,
+                "confidence": 0.5130183709682652,
+                "accuracy": 0.0
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 11,
+                "confidence": 0.9864740757588141,
+                "accuracy": 0.9090909090909091
+              }
+            ],
+            "high_confidence_wrong": 1
+          },
+          "policy_vote_ranking": {
+            "n": 12,
+            "top1": 0.9166666666666666,
+            "nll": 1.0945039566910129,
+            "brier": 0.6639252673683592,
+            "ece": 0.5818949966001515,
+            "bins": [
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 12,
+                "confidence": 0.3347716700665151,
+                "accuracy": 0.9166666666666666
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              }
+            ],
+            "high_confidence_wrong": 0
+          },
+          "selected_incorrect_suspect_claims": 0
+        },
+        "meeting": {
+          "games": 4,
+          "scenario_clusters": 4,
+          "wins": 4,
+          "endings": {
+            "IMPOSTOR_EJECTED": 4
+          },
+          "actor_event_counts": {
+            "win": 16,
+            "correct_votes": 12
+          },
+          "report_actions": {
+            "accepted": 0,
+            "meeting_triggered": 0
+          },
+          "reporting_opportunities": {
+            "visible": 0,
+            "range": 0,
+            "legal": 0,
+            "choice_legal": 0,
+            "held_legal": 0
+          },
+          "actor_report_conversion": null,
+          "games_with_crew_reports": 0,
+          "vote_accuracy": 1.0,
+          "action_counts": {
+            "claim_defend": 12,
+            "vote": 12
+          },
+          "frozen_belief": {
+            "n": 12,
+            "top1": 0.8333333333333334,
+            "nll": 0.21176710680826838,
+            "brier": 0.14058079206008786,
+            "ece": 0.10778773169422991,
+            "bins": [
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 1,
+                "confidence": 0.46718814865943753,
+                "accuracy": 0.0
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 1,
+                "confidence": 0.6152378199863298,
+                "accuracy": 0.0
+              },
+              {
+                "n": 1,
+                "confidence": 0.7896249784915774,
+                "accuracy": 1.0
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 9,
+                "confidence": 0.9999275788692701,
+                "accuracy": 1.0
+              }
+            ],
+            "high_confidence_wrong": 0
+          },
+          "policy_vote_ranking": {
+            "n": 12,
+            "top1": 1.0,
+            "nll": 1.093678718811841,
+            "brier": 0.6633735559557277,
+            "ece": 0.6650178498081463,
+            "bins": [
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 12,
+                "confidence": 0.33498215019185373,
+                "accuracy": 1.0
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              }
+            ],
+            "high_confidence_wrong": 0
+          },
+          "selected_incorrect_suspect_claims": 0
+        },
+        "controlled_reporter_role_macro": {
+          "crewmate": {
+            "games": 2,
+            "policy_top1_macro": 1.0,
+            "accuse_reporter_macro": 0.0
+          },
+          "impostor": {
+            "games": 2,
+            "policy_top1_macro": 1.0,
+            "accuse_reporter_macro": 1.0
+          }
+        }
+      },
+      "zero": {
+        "ordinary": {
+          "games": 8,
+          "scenario_clusters": 8,
+          "wins": 2,
+          "endings": {
+            "IMPOSTOR_EJECTED": 2,
+            "PARITY": 6
+          },
+          "actor_event_counts": {
+            "correct_votes": 6,
+            "win": 8,
+            "death": 20,
+            "loss": 24,
+            "ghost_tasks": 42,
+            "incorrect_votes": 4
+          },
+          "report_actions": {
+            "accepted": 0,
+            "meeting_triggered": 0
+          },
+          "reporting_opportunities": {
+            "visible": 32,
+            "range": 30,
+            "legal": 30,
+            "choice_legal": 30,
+            "held_legal": 24
+          },
+          "actor_report_conversion": 0.0,
+          "games_with_crew_reports": 0,
+          "vote_accuracy": 0.6,
+          "action_counts": {
+            "room": 1369,
+            "claim_location": 12,
+            "vote": 12
+          },
+          "frozen_belief": {
+            "n": 12,
+            "top1": 1.0,
+            "nll": 0.0006163032827817748,
+            "brier": 4.1086413801806074e-06,
+            "ece": 0.00061526380742849,
+            "bins": [
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 12,
+                "confidence": 0.9993847361925715,
+                "accuracy": 1.0
+              }
+            ],
+            "high_confidence_wrong": 0
+          },
+          "policy_vote_ranking": {
+            "n": 12,
+            "top1": 0.6666666666666666,
+            "nll": 1.0986032950678946,
+            "brier": 0.6666606709292608,
+            "ece": 0.3333280273950275,
+            "bins": [
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 12,
+                "confidence": 0.33333863927163915,
+                "accuracy": 0.6666666666666666
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              }
+            ],
+            "high_confidence_wrong": 0
+          },
+          "selected_incorrect_suspect_claims": 0
+        },
+        "controlled": {
+          "games": 8,
+          "scenario_clusters": 8,
+          "wins": 3,
+          "endings": {
+            "IMPOSTOR_EJECTED": 3,
+            "PARITY": 5
+          },
+          "actor_event_counts": {
+            "win": 12,
+            "correct_votes": 6,
+            "incorrect_votes": 9,
+            "death": 10,
+            "ghost_tasks": 20,
+            "loss": 20
+          },
+          "report_actions": {
+            "accepted": 0,
+            "meeting_triggered": 0
+          },
+          "reporting_opportunities": {
+            "visible": 16,
+            "range": 16,
+            "legal": 16,
+            "choice_legal": 16,
+            "held_legal": 10
+          },
+          "actor_report_conversion": 0.0,
+          "games_with_crew_reports": 0,
+          "vote_accuracy": 0.4,
+          "action_counts": {
+            "room": 151,
+            "claim_location": 18,
+            "vote": 18
+          },
+          "frozen_belief": {
+            "n": 18,
+            "top1": 0.9444444444444444,
+            "nll": 0.11917702247364022,
+            "brier": 0.07513214645407044,
+            "ece": 0.06948578961657295,
+            "bins": [
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 1,
+                "confidence": 0.37798631192281623,
+                "accuracy": 0.0
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 1,
+                "confidence": 0.5179490978511787,
+                "accuracy": 1.0
+              },
+              {
+                "n": 1,
+                "confidence": 0.6269397673974428,
+                "accuracy": 1.0
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 15,
+                "confidence": 0.9988235489050588,
+                "accuracy": 1.0
+              }
+            ],
+            "high_confidence_wrong": 0
+          },
+          "policy_vote_ranking": {
+            "n": 18,
+            "top1": 0.3333333333333333,
+            "nll": 1.0986085337352067,
+            "brier": 0.6666641634625216,
+            "ece": 5.6205166650280525e-06,
+            "bins": [
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 18,
+                "confidence": 0.33333895384999834,
+                "accuracy": 0.3333333333333333
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              }
+            ],
+            "high_confidence_wrong": 0
+          },
+          "selected_incorrect_suspect_claims": 0
+        },
+        "body": {
+          "games": 4,
+          "scenario_clusters": 4,
+          "wins": 1,
+          "endings": {
+            "IMPOSTOR_EJECTED": 1,
+            "PARITY": 3
+          },
+          "actor_event_counts": {
+            "win": 4,
+            "correct_votes": 2,
+            "incorrect_votes": 3,
+            "death": 6,
+            "ghost_tasks": 17,
+            "loss": 12
+          },
+          "report_actions": {
+            "accepted": 0,
+            "meeting_triggered": 0
+          },
+          "reporting_opportunities": {
+            "visible": 16,
+            "range": 16,
+            "legal": 16,
+            "choice_legal": 16,
+            "held_legal": 10
+          },
+          "actor_report_conversion": 0.0,
+          "games_with_crew_reports": 0,
+          "vote_accuracy": 0.4,
+          "action_counts": {
+            "room": 143,
+            "claim_location": 6,
+            "vote": 6
+          },
+          "frozen_belief": {
+            "n": 6,
+            "top1": 1.0,
+            "nll": 0.0028686812787901707,
+            "brier": 9.651161512376408e-05,
+            "ece": 0.0028442747132547685,
+            "bins": [
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 6,
+                "confidence": 0.9971557252867452,
+                "accuracy": 1.0
+              }
+            ],
+            "high_confidence_wrong": 0
+          },
+          "policy_vote_ranking": {
+            "n": 6,
+            "top1": 0.3333333333333333,
+            "nll": 1.098608010533837,
+            "brier": 0.6666638146677579,
+            "ece": 5.399762471380853e-06,
+            "bins": [
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 6,
+                "confidence": 0.3333387330958047,
+                "accuracy": 0.3333333333333333
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              }
+            ],
+            "high_confidence_wrong": 0
+          },
+          "selected_incorrect_suspect_claims": 0
+        },
+        "meeting": {
+          "games": 4,
+          "scenario_clusters": 4,
+          "wins": 2,
+          "endings": {
+            "PARITY": 2,
+            "IMPOSTOR_EJECTED": 2
+          },
+          "actor_event_counts": {
+            "ghost_tasks": 3,
+            "loss": 8,
+            "incorrect_votes": 6,
+            "death": 4,
+            "correct_votes": 4,
+            "win": 8
+          },
+          "report_actions": {
+            "accepted": 0,
+            "meeting_triggered": 0
+          },
+          "reporting_opportunities": {
+            "visible": 0,
+            "range": 0,
+            "legal": 0,
+            "choice_legal": 0,
+            "held_legal": 0
+          },
+          "actor_report_conversion": null,
+          "games_with_crew_reports": 0,
+          "vote_accuracy": 0.4,
+          "action_counts": {
+            "claim_location": 12,
+            "vote": 12,
+            "room": 8
+          },
+          "frozen_belief": {
+            "n": 12,
+            "top1": 0.9166666666666666,
+            "nll": 0.17733119307106526,
+            "brier": 0.11264996387354377,
+            "ece": 0.10280654706823186,
+            "bins": [
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 1,
+                "confidence": 0.37798631192281623,
+                "accuracy": 0.0
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 1,
+                "confidence": 0.5179490978511787,
+                "accuracy": 1.0
+              },
+              {
+                "n": 1,
+                "confidence": 0.6269397673974428,
+                "accuracy": 1.0
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 9,
+                "confidence": 0.999935431317268,
+                "accuracy": 1.0
+              }
+            ],
+            "high_confidence_wrong": 0
+          },
+          "policy_vote_ranking": {
+            "n": 12,
+            "top1": 0.3333333333333333,
+            "nll": 1.0986087953358914,
+            "brier": 0.6666643378599034,
+            "ece": 5.730893761768385e-06,
+            "bins": [
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 12,
+                "confidence": 0.3333390642270951,
+                "accuracy": 0.3333333333333333
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              }
+            ],
+            "high_confidence_wrong": 0
+          },
+          "selected_incorrect_suspect_claims": 0
+        },
+        "controlled_reporter_role_macro": {
+          "crewmate": {
+            "games": 2,
+            "policy_top1_macro": 0.0,
+            "accuse_reporter_macro": 0.0
+          },
+          "impostor": {
+            "games": 2,
+            "policy_top1_macro": 0.6666666666666666,
+            "accuse_reporter_macro": 1.0
+          }
+        }
+      }
+    },
+    "training_coverage": {
+      "original": {
+        "body_matches": 23,
+        "body_actor_pairs": 77,
+        "accepted_learning_reports": 5
+      },
+      "shaped_v2": {
+        "body_matches": 23,
+        "body_actor_pairs": 77,
+        "accepted_learning_reports": 5
+      }
+    },
+    "evaluation_coverage": {
+      "original": {
+        "body_actor_pairs": 14,
+        "legal_actor_meetings": 12,
+        "reporter_role_meetings": {
+          "crewmate": 2,
+          "impostor": 2
+        }
+      },
+      "shaped_v2": {
+        "body_actor_pairs": 12,
+        "legal_actor_meetings": 12,
+        "reporter_role_meetings": {
+          "crewmate": 2,
+          "impostor": 2
+        }
+      },
+      "zero": {
+        "body_actor_pairs": 16,
+        "legal_actor_meetings": 12,
+        "reporter_role_meetings": {
+          "crewmate": 2,
+          "impostor": 2
+        }
+      }
+    },
+    "inconclusive_flags": [],
+    "paired_win_uncertainty": {
+      "ordinary": {
+        "scenario_clusters": 8,
+        "mean_shaped_minus_original": -0.5,
+        "descriptive_percentile_95": [
+          -0.875,
+          -0.125
+        ]
+      },
+      "controlled": {
+        "scenario_clusters": 8,
+        "mean_shaped_minus_original": 1.0,
+        "descriptive_percentile_95": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "paired_primary_reporting": {
+      "shaped_v2-minus-original": {
+        "scenario_clusters": 4,
+        "mean": 1.0,
+        "descriptive_percentile_95": [
+          1.0,
+          1.0
+        ]
+      },
+      "shaped_v2-minus-zero": {
+        "scenario_clusters": 4,
+        "mean": 1.0,
+        "descriptive_percentile_95": [
+          1.0,
+          1.0
+        ]
+      },
+      "original-minus-zero": {
+        "scenario_clusters": 4,
+        "mean": 0.0,
+        "descriptive_percentile_95": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "limits": [
+      "One initialization; eight scenario clusters, with only four body/four meeting controlled cases.",
+      "Actor/body pairs are not independent corpses or scenarios; compare per-game results as well.",
+      "Controlled prefixes can introduce choreography cues; ordinary performance stays separate.",
+      "Reporter-role comparison uses nonreporter actors and per-game macro weighting.",
+      "The shared frozen belief predictor is not separately trained for each policy."
+    ]
+  },
+  "controlled_reporter_controls": {
+    "original": {
+      "crewmate": {
+        "games": 2,
+        "actor_meetings": 4,
+        "policy_top1_macro": 0.5,
+        "heuristics": {
+          "uniform": 0.3333333333333333,
+          "accuse": 0.0,
+          "avoid": 0.5
+        }
+      },
+      "impostor": {
+        "games": 2,
+        "actor_meetings": 6,
+        "policy_top1_macro": 1.0,
+        "heuristics": {
+          "uniform": 0.3333333333333333,
+          "accuse": 1.0,
+          "avoid": 0.0
+        }
+      }
+    },
+    "shaped_v2": {
+      "crewmate": {
+        "games": 2,
+        "actor_meetings": 4,
+        "policy_top1_macro": 1.0,
+        "heuristics": {
+          "uniform": 0.3333333333333333,
+          "accuse": 0.0,
+          "avoid": 0.5
+        }
+      },
+      "impostor": {
+        "games": 2,
+        "actor_meetings": 6,
+        "policy_top1_macro": 1.0,
+        "heuristics": {
+          "uniform": 0.3333333333333333,
+          "accuse": 1.0,
+          "avoid": 0.0
+        }
+      }
+    },
+    "zero": {
+      "crewmate": {
+        "games": 2,
+        "actor_meetings": 4,
+        "policy_top1_macro": 0.0,
+        "heuristics": {
+          "uniform": 0.3333333333333333,
+          "accuse": 0.0,
+          "avoid": 0.5
+        }
+      },
+      "impostor": {
+        "games": 2,
+        "actor_meetings": 6,
+        "policy_top1_macro": 0.6666666666666666,
+        "heuristics": {
+          "uniform": 0.3333333333333333,
+          "accuse": 1.0,
+          "avoid": 0.0
+        }
+      }
+    }
+  },
+  "verification": {
+    "status": "passed",
+    "no_game_or_training_executed": true,
+    "validation_executions": 48,
+    "training_matches_per_arm": 46,
+    "decisions": {
+      "original": 2058,
+      "shaped_v2": 2092
+    },
+    "plan_sha256": "bc449451df3a83bdf5a38c83f7be0cb36e616895f34d9bdca2400c5d0d732fd1",
+    "runtime_sha256": "2875af6f30f25f588ec0cd52c8a14d5ac6313053c995fe3ef1ac117b2df51bca",
+    "initial_and_zero_tensor_sha256": "1a572645635edf2bb6a802a5572892b6321747452176abd4755fe5e5cfedc3d2",
+    "selected": {
+      "original": {
+        "file_sha256": "3b843996c5b9189da06888c89b42bc03c40479c629a01d060ad8ff4099162f7c",
+        "tensor_sha256": "0c30c05dfe0d1793de14e835f8501cb12e80cffb404580b8627eea463356d40f"
+      },
+      "shaped_v2": {
+        "file_sha256": "88103ee9bab248c7be4bbc64d39173300ffc7c8cbbbc40c7e95182a2c38355aa",
+        "tensor_sha256": "0014a4d2e215e7508d05758322fb9d0b0a2a5d26bf55c6a5c3e09ae94a86664f"
+      }
+    },
+    "aggregate_reproduced_exactly": true,
+    "no_illegal_actions": true,
+    "zero_personal_ghost_task_rewards": true,
+    "first_common_stopping_checkpoint": true,
+    "reserved_final_tests_opened": false,
+    "registered_inconclusive_flags": [],
+    "preservation": [
+      {
+        "manifest": "historical protected files",
+        "verified_entries": 234,
+        "mismatches": 0
+      },
+      {
+        "manifest": "historical focal pilot",
+        "verified_entries": 53,
+        "mismatches": 0
+      },
+      {
+        "manifest": "pretraining diagnostic",
+        "verified_entries": 25,
+        "mismatches": 0
+      },
+      {
+        "manifest": "reporting diversity diagnostic",
+        "verified_entries": 19,
+        "mismatches": 0
+      },
+      {
+        "manifest": "historical learning smoke",
+        "verified_entries": 25,
+        "mismatches": 0
+      },
+      {
+        "manifest": "fourcrew engineering artifacts",
+        "verified_entries": 9,
+        "mismatches": 0
+      },
+      {
+        "manifest": "registration readiness artifacts",
+        "verified_entries": 19,
+        "mismatches": 0
+      },
+      {
+        "manifest": "nine historical selected checkpoints",
+        "verified_entries": 9,
+        "mismatches": 0
+      }
+    ]
+  },
+  "replay_audit": {
+    "status": "passed",
+    "completed_recordings": 48,
+    "no_game_or_training_executed": true,
+    "no_dead_neural_ballot_or_claim_actions": true,
+    "no_meeting_task_or_position_updates": true,
+    "honest_prefix_handoffs_and_normalized_neural_probabilities": true,
+    "replay_outcomes_and_neural_counts_match_saved_validation": true,
+    "groups": {
+      "original": {
+        "ordinary": {
+          "all_reports_impostor": 6,
+          "frozen_meeting_frame_pairs": 444,
+          "games": 8,
+          "meetings": 6,
+          "neural_decisions": 1002
+        },
+        "body": {
+          "all_reports_impostor": 4,
+          "frozen_meeting_frame_pairs": 296,
+          "games": 4,
+          "meetings": 4,
+          "neural_decisions": 474
+        },
+        "meeting": {
+          "all_reports_crewmate": 2,
+          "prefix_reports_crewmate": 2,
+          "frozen_meeting_frame_pairs": 448,
+          "games": 4,
+          "meetings": 6,
+          "neural_decisions": 202,
+          "all_reports_impostor": 4,
+          "prefix_reports_impostor": 2
+        }
+      },
+      "shaped_v2": {
+        "ordinary": {
+          "all_reports_impostor": 3,
+          "frozen_meeting_frame_pairs": 523,
+          "games": 8,
+          "meetings": 7,
+          "neural_decisions": 1219,
+          "all_reports_crewmate": 4,
+          "accepted_neural_reports": 4
+        },
+        "body": {
+          "all_reports_crewmate": 4,
+          "accepted_neural_reports": 4,
+          "frozen_meeting_frame_pairs": 296,
+          "games": 4,
+          "meetings": 4,
+          "neural_decisions": 36
+        },
+        "meeting": {
+          "all_reports_crewmate": 2,
+          "prefix_reports_crewmate": 2,
+          "frozen_meeting_frame_pairs": 300,
+          "games": 4,
+          "meetings": 4,
+          "neural_decisions": 24,
+          "all_reports_impostor": 2,
+          "prefix_reports_impostor": 2
+        }
+      },
+      "zero": {
+        "ordinary": {
+          "all_reports_impostor": 4,
+          "frozen_meeting_frame_pairs": 296,
+          "games": 8,
+          "meetings": 4,
+          "neural_decisions": 1393
+        },
+        "body": {
+          "all_reports_impostor": 2,
+          "frozen_meeting_frame_pairs": 148,
+          "games": 4,
+          "meetings": 2,
+          "neural_decisions": 155
+        },
+        "meeting": {
+          "all_reports_crewmate": 2,
+          "prefix_reports_crewmate": 2,
+          "frozen_meeting_frame_pairs": 300,
+          "games": 4,
+          "meetings": 4,
+          "neural_decisions": 32,
+          "all_reports_impostor": 2,
+          "prefix_reports_impostor": 2
+        }
+      }
+    }
+  },
+  "provenance": {
+    "training_source_commit": "723c8d4774a25af6ccb6a863e141c68ae3966a38",
+    "spectator_commit": "e8a815f83bc98cab5c99c862f280bbdbffc509b2",
+    "plan_sha256": "bc449451df3a83bdf5a38c83f7be0cb36e616895f34d9bdca2400c5d0d732fd1",
+    "runtime_sha256": "2875af6f30f25f588ec0cd52c8a14d5ac6313053c995fe3ef1ac117b2df51bca",
+    "zero_tensor_sha256": "1a572645635edf2bb6a802a5572892b6321747452176abd4755fe5e5cfedc3d2"
+  }
+}

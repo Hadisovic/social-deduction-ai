@@ -1,5 +1,7 @@
 # Final four-crewmate experiment registration
 
+**Execution update — 2026-10-28:** The owner subsequently authorized this exact registration. Its single execution is complete; [report](../results/registered-2048-seed17-v1/REPORT.md). The specification below is preserved as the pre-authorization snapshot. Phase6.1 acceptance and further work remain pending.
+
 2026-10-27. Experiment **`fourcrew-reporting-2048-seed17-v1`**. **Registered for review; full training is not authorized or started.** Phase 6.1 acceptance remains pending.
 
 The owner approved the overall design. This document and [plan.json](plan.json) resolve the remaining choices before final authorization. The local runner refuses to create a study without an approval record binding the exact plan and runtime hashes. Registration and benchmark work do not grant that approval.

@@ -1,5 +1,7 @@
 # Proposed next four-crew learning study — not authorized to run
 
+**2026-10-28 follow-up:** The subsequently finalized registration was explicitly authorized and its single experiment completed. See the [registered results](results/registered-2048-seed17-v1/REPORT.md). This document retains the earlier design sketch; its pending-authorization language below is historical. No further training or final-test evaluation is authorized; Phase6.1 acceptance remains pending.
+
 **Final registration is now saved in [registration/SPECIFICATION.md](registration/SPECIFICATION.md), with exact [plan.json](registration/plan.json) and measured [readiness.json](registration/readiness.json).** That registration supersedes the unresolved partitions, prefixes, budget rules and preliminary cost estimate below. This document remains the earlier approved design sketch. Final owner authorization to execute is still pending; no full training has started.
 
 Goal: determine whether shared-policy learning improves legitimate reporting and evidence-conditioned team decisions, beyond random initialization and reporter identity. Exactly four learned crewmates versus one scripted impostor. No final-test partition, learned impostor or population expansion.

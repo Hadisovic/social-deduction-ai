@@ -1,5 +1,7 @@
 # Registered-study spectator launch
 
+**2026-10-28 execution update:** The authorized experiment completed and the spectator remains open with96 completed recordings:48 sampled training and48 validation replays. Its status panel reports completion with acceptance pending. Choose original/shaped-v2/zero recordings from the library; D opens selected-actor private debug and M cycles playback modes. All48 validation replays passed offline outcome/neural/ghost/meeting checks. Do not launch a duplicate viewer or training driver. The remaining text preserves readiness-stage launch instructions and verification. See [results](../results/registered-2048-seed17-v1/REPORT.md) and [ACTIVATION.md](ACTIVATION.md).
+
 The viewer remains an independent Pygame process; headless workers never render. The repaired viewer worktree is `C:/Files/RL/_spectator_fourcrew`, now on isolated branch `codex/spectator-fourcrew-registration`. Original PR #11 and its `_spectator_live` worktree are unchanged.
 
 Prepared next-study watch directory:
