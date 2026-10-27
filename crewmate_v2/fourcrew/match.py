@@ -37,8 +37,8 @@ class ActorView(LearningEnv):
 
 
 class FourCrewMatch:
-    def __init__(self,seed,*,lobby=None,mixture=None,rewards=None,rotation=0,deadline=None):
-        check_seed(seed)
+    def __init__(self,seed,*,lobby=None,mixture=None,rewards=None,rotation=0,deadline=None,seed_partition='engineering'):
+        check_seed(seed,seed_partition)
         self.match=V2StrategicMatch(seed,lobby=lobby,mixture=mixture)
         self.game=self.match.game;self.seed=seed;self.deadline=deadline or perf_counter()+120
         self.crew=tuple(sorted(pid for pid,p in self.game.players.items() if p.role is Role.CREWMATE))
@@ -92,7 +92,7 @@ class FourCrewMatch:
                 player_id=pid,reward=score['undiscounted_reward'],
                 cumulative_reward=sum(self.ledgers[pid].components.values()),components=score['components']))
 
-    def collect(self,policy,*,initialization=17,policy_version=0,recorder=None,deterministic=False):
+    def collect(self,policy,*,initialization=17,policy_version=0,recorder=None,deterministic=False,decision_observer=None):
         if self.policy_version is not None:raise RuntimeError('A match cannot be collected twice')
         self.policy_version=policy_version
         self.recorder=recorder
@@ -121,6 +121,9 @@ class FourCrewMatch:
                     self._settle(pid,float(values[i]))
                     self.rows[pid].append(dict(packets=packets[i],actions=index,logp=float(probs[index].log()),values=float(values[i]),frame_start=len(self.ledgers[pid].frames)))
                     self.actions[pid][choice.kind]+=1;self.decisions+=1
+                    if decision_observer is not None:
+                        decision_observer(pid,view.observation,view.memory,view.belief,view.options,
+                                          probs.detach().clone(),packets[i],index)
                     legal={a.target for a in view.observation.actions if a.kind is IntentKind.REPORT}
                     self.opportunities[pid]['choice_legal'].update(legal)
                     if choice.kind=='report':self.reporting[pid]['selected']+=1

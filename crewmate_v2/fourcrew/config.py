@@ -20,9 +20,11 @@ class Rewards(RewardConfig):
     def original(cls):return cls(report=0.,correct_vote=0.,incorrect_vote=0.)
 
 
-PARTITIONS={'engineering':(2760000,2760099)}
+PARTITIONS={'engineering':(2760000,2760099),'registered_train':(2780000,2780031),
+            'registered_validation':(2790000,2790007)}
 
 
-def check_seed(seed):
-    lo,hi=PARTITIONS['engineering']
-    if type(seed) is not int or not lo<=seed<=hi:raise ValueError('Only registered engineering seeds are executable')
+def check_seed(seed,partition='engineering'):
+    if partition not in PARTITIONS:raise ValueError('Unknown development partition')
+    lo,hi=PARTITIONS[partition]
+    if type(seed) is not int or not lo<=seed<=hi:raise ValueError('Seed outside explicit development partition')

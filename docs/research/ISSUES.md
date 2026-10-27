@@ -1,5 +1,12 @@
 # Research issue register
 
+## R019 — Final four-crewmate study registration and readiness (2026-10-27)
+
+- **Observation/status:** Owner approved the overall design but requires exact registration and realistic cost evidence before final training authorization. The focal seed-17 pilot remains a negative/exploratory baseline; failed report exposure, reporter-pattern confound, voting incentive concerns and V2.2 repairs remain documented in R002–R017.
+- **Investigation/design:** [Registration context map](../crewmate-v2-fourcrew/registration/CONTEXT.md). Matched fresh initialization, zero-update reference, independent memories, legal-prefix body and reporter-role cases, complete-match overshoot and a four-hour global deadline. No reward coefficient changes.
+- **Implemented/tests:** Approval-gated runner, exact prospective partitions, legal actor-observation prefix construction, reporter-role/evidence metrics and paired-cluster analysis. Eight controlled-prefix engineering families and initialization/budget/approval tests passed. One bounded representative engineering benchmark is the next readiness check; no study training/evaluation seeds have been executed.
+- **Results/limits/final status:** Pending measured benchmark and final specification. This is registration work, not authorization to run the study. Prefix choreography and small scenario counts remain limitations; no learned deduction is claimed.
+
 Updated 2026-10-27. This complements the existing [project timeline](../PROJECT_PROGRESS.md). Each entry records phase/date, observation/confirmation, evidence, investigation/root cause, proposed and implemented changes, commits/tests, results/limitations and final status. Unknown historical dates use development phases. Unmeasured claims remain unmeasured.
 
 ## R001 — Navigation prototype to social-deduction RL
