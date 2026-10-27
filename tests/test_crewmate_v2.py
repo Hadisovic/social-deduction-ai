@@ -268,10 +268,8 @@ def test_meeting_settings_visible_votes_confirmed_eject_and_ghost(planner,confir
     assert not g.v2_publications
     g.step({pid:Intent(IntentKind.VOTE,victim.player_id) for pid in g.participants})
     ballot=[e for e in g.observe(caller.player_id).evidence if type(e.payload) is Vote]
-    assert ballot==[] and set(g.context.voted_ids)==set(g.participants)
-    while g.tick<start+75+600-1:g.step()
-    assert victim.active and not g.v2_publications
-    g.step()
+    # V2.2 publishes ballots when all eligible actors respond, without waiting.
+    assert len(ballot)==5
     assert victim.status=='ejected' and victim.player_id in g.ghosts and len(victim.tasks)==4
     events=[e for e in g.observe_v2(caller.player_id).events if type(e.payload) is ConfirmedEjection]
     assert bool(events)==confirmed
@@ -279,7 +277,7 @@ def test_meeting_settings_visible_votes_confirmed_eject_and_ghost(planner,confir
     ballot=[e for e in g.observe(caller.player_id).evidence if type(e.payload) is Vote]
     assert len(ballot)==5 and {e.payload.voter_id for e in ballot}==set(g.players)
     assert all(e.tick==g.tick for e in ballot)
-    assert g.time==135.
+    assert g.time==pytest.approx(15.2)
     # Another living player can call immediately; there is no global emergency delay.
     other=next(p for p in crew(g) if p.active and p.meetings_remaining)
     call_meeting(g,other);assert other.meetings_remaining==0
@@ -318,4 +316,4 @@ def test_simultaneous_ejection_parity_takes_priority_over_ghost_task_win(game):
     game.participants=tuple(pid for pid,p in game.players.items() if p.active)
     game.votes={pid:target.player_id for pid in game.participants};game._invalidate()
     game.step()
-    assert task.progress==1 and game.result.reason=='PARITY' and game.result.winner is Role.IMPOSTOR
+    assert task.progress<1 and game.result.reason=='PARITY' and game.result.winner is Role.IMPOSTOR

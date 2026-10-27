@@ -82,14 +82,24 @@ class CrewmateV2Game(Phase3Game):
         self._make_ghost(victim)
 
     def _vote(self,voter_id,target_id):
-        if voter_id in self.votes:return
+        eligible=self._eligible_voters()
+        if (self.phase is not Phase.VOTING or voter_id not in eligible or voter_id in self.votes
+                or target_id is not None and target_id not in eligible):
+            return False
         self.votes[voter_id]=target_id;self.metrics['votes']+=1
         # During voting only voted_ids is public. Target/identity pairs are
         # non-anonymous RESULTS, delivered together at the resolution deadline.
         self._record('vote_submitted',voter_id=voter_id,target_id=target_id,meeting_id=self.meeting_id)
         self._invalidate()
+        return True
+
+    def _eligible_voters(self):
+        return {pid for pid in self.participants if pid in self.players and self.players[pid].active}
 
     def _resolve_meeting(self):
+        eligible=self._eligible_voters()
+        self.votes={pid:target for pid,target in self.votes.items()
+                    if pid in eligible and (target is None or target in eligible)}
         self._record('meeting_resolution',channel='public',meeting_id=self.meeting_id)
         for voter,target in sorted(self.votes.items()):
             self._publish(Vote(self.meeting_id,voter,target),'vote',meeting_id=self.meeting_id,
@@ -128,6 +138,7 @@ class CrewmateV2Game(Phase3Game):
                         VisualTaskProof(player.player_id,task.plan.task_type,task.console_id)))
 
     def _advance_tasks(self):
+        if self.phase is not Phase.ROAMING:return
         for player in self.players.values():
             if not player.active or player.interaction_task is None:continue
             if player.interaction_task.startswith('fake:'):
@@ -150,6 +161,7 @@ class CrewmateV2Game(Phase3Game):
                 player.interaction_task=None;player.intention='wait'
 
     def _advance_ghosts(self):
+        if self.phase is not Phase.ROAMING:return
         for pid,state in sorted(self.ghosts.items()):
             player=self.players[pid]
             new,completed=advance_ghost(state,tuple(player.tasks),self._ghost_goals,self.config.dt,self.time)
@@ -168,6 +180,11 @@ class CrewmateV2Game(Phase3Game):
         """Same tick semantics in both paths; fast omits UNUSED validation projections."""
         if self.is_terminal:return self.result
         actions=actions or {};self.metrics['steps']+=1
+        meeting_tick=self.phase in (Phase.DISCUSSION,Phase.VOTING)
+        if meeting_tick:
+            # Pause pending incubation as well as movement/interaction work.
+            for task in self.tasks.values():
+                if task.progress<1 and task.ready_at>self.time:task.ready_at+=self.config.dt
         submitted={pid:a for pid,a in actions.items() if a is not None and not
                    (isinstance(a,Intent) and a.kind is IntentKind.WAIT)}
         ids=sorted(pid for pid in submitted if pid in self.players) if self.fast else sorted(self.players)
@@ -211,11 +228,12 @@ class CrewmateV2Game(Phase3Game):
                 self.phase=Phase.VOTING;self.phase_started_tick=self.tick
                 self._record('voting_started',channel='public',meeting_id=self.meeting_id)
         elif not self.is_terminal and self.phase is Phase.VOTING:
-            if self.tick-self.phase_started_tick>=math.ceil(self.config.voting_seconds/self.config.dt):
-                for pid in self.participants:
+            if (self._eligible_voters() <= self.votes.keys() or
+                    self.tick-self.phase_started_tick>=math.ceil(self.config.voting_seconds/self.config.dt)):
+                for pid in sorted(self._eligible_voters()):
                     if pid not in self.votes:self._vote(pid,None)
                 self._resolve_meeting()
-        # Resolve an ejection at its deadline before checking simultaneous task
+        # Resolve an ejection before checking simultaneous task
         # completion, preserving ejection/parity priority over task victory.
         if not self.is_terminal:self._check_win()
         if not self.is_terminal and self.tick>=math.ceil(self.config.timeout/self.config.dt):self._finish(None,'TIMEOUT')

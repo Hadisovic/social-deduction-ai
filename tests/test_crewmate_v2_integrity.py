@@ -62,5 +62,6 @@ def test_new_replay_and_reset_have_v2_schema_independent_streams_and_same_roles(
     b=V2StrategicMatch(2610004,lobby=LobbySettings(timeout=1.),planner=a.game.planner)
     assert a.focal==b.focal and a.game.players[a.focal].role is Role.CREWMATE
     assert a.game.snapshot()==b.game.snapshot()
-    assert a.replay_document()['schema']=='crewmate-environment-v2.1-replay'
+    from crewmate_v2 import SCHEMA
+    assert a.replay_document()['schema']==SCHEMA+'-replay'
     assert len({id(c) for c in a.controllers.values()})==5

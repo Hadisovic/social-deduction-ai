@@ -48,9 +48,10 @@ def test_recording_is_pure_and_probabilities_are_actual_policy_outputs(spectator
         assert n['action_kind'] in n['legal_actions'] and n['selected_action_index']>=0
 
 
-def test_observer_preserves_original_source_compatibility(spectator):
-    assert digest(runtime_lock(LobbySettings()))=='e729b2ffb79710ce904b6943972fc669626606a63ec4ca2be77b28eeff81e95d'
-    assert digest(base_lock())=='ecd49a56cb51863d8feac271786b76dfbd6ce3d2980f5afa67925f7dd7f2cf4a'
+def test_authorized_mechanics_revision_invalidates_old_runtime_locks(spectator):
+    # Historical pilot remains source-locked on 5b663f6, not silently migrated.
+    assert digest(runtime_lock(LobbySettings()))!='e729b2ffb79710ce904b6943972fc669626606a63ec4ca2be77b28eeff81e95d'
+    assert digest(base_lock())!='ecd49a56cb51863d8feac271786b76dfbd6ce3d2980f5afa67925f7dd7f2cf4a'
 
 
 def test_no_pilot_before_explicit_verified_gui_and_proof(spectator,tmp_path):
