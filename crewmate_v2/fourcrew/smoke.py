@@ -19,11 +19,12 @@ def main():
     a.output.mkdir(parents=True,exist_ok=False)
     started=perf_counter();torch.set_num_threads(1);torch.manual_seed(17);torch.use_deterministic_algorithms(True)
     policy=FourCrewPolicy();initial=state_hash(policy)
-    rollout=collect_matches(policy,[2760000,2760001],workers=a.workers,lobby=LobbySettings(timeout=3.),
+    seeds=[2760000,2760001,2760002,2760003]
+    rollout=collect_matches(policy,seeds,workers=a.workers,lobby=LobbySettings(timeout=3.),
                             mixture=MatchMixture(1.),rewards=Rewards(),deadline=started+120)
     optimizer=torch.optim.Adam(policy.parameters(),lr=.0003);rng=np.random.default_rng(17)
     diagnostics=update(policy,optimizer,rollout,rng)
-    metadata=dict(engineering_only=True,initialization=17,seeds=[2760000,2760001],
+    metadata=dict(engineering_only=True,initialization=17,seeds=seeds,
                   lobby=LobbySettings(timeout=3.).to_dict(),rewards=Rewards().to_dict(),deduction_frequency=1.,
                   completed_matches=rollout['episodes'],individual_actor_decisions=len(rollout['actions']),
                   policy_version=1,optimizer=optimizer.state_dict(),update_rng=rng.bit_generator.state,torch_rng=torch.get_rng_state())

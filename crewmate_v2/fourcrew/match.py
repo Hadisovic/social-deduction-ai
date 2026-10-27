@@ -17,6 +17,7 @@ from phase5_features import mechanical_intent
 from social_deduction.actor import Phase,Role
 from social_deduction.phase3_api import IntentKind,intent_allowed,WitnessedElimination
 from .config import Rewards,check_seed
+from crewmate_v2.learning.train import state_hash
 
 FIELDS=('packets','actions','logp','values','next_values','rewards','discounts','dones','durations')
 EXTENDED={'task','room','follow','flee','approach_body','emergency_travel'}
@@ -85,12 +86,20 @@ class FourCrewMatch:
         score=self.ledgers[pid].rollup(row.pop('frame_start'))
         row.update(rewards=score['reward'],discounts=score['discount'],durations=score['elapsed_seconds'],
                    next_values=next_value,dones=done,settled=True)
+        if self.recorder is not None:
+            from spectator.replay_format import ReplayReward
+            self.recorder.recorder.write_reward(ReplayReward(tick=self.game.tick,sim_time=self.game.time,
+                player_id=pid,reward=score['undiscounted_reward'],
+                cumulative_reward=sum(self.ledgers[pid].components.values()),components=score['components']))
 
     def collect(self,policy,*,initialization=17,policy_version=0,recorder=None,deterministic=False):
         if self.policy_version is not None:raise RuntimeError('A match cannot be collected twice')
         self.policy_version=policy_version
-        generators={pid:torch.Generator().manual_seed(int.from_bytes(hashlib.sha256(
-            f'fourcrew:{initialization}:{self.seed}:{pid}'.encode()).digest()[:8],'big')) for pid in self.crew}
+        self.recorder=recorder
+        frozen_parameters=state_hash(policy)
+        sampling_seeds={pid:int.from_bytes(hashlib.sha256(
+            f'fourcrew:{initialization}:{self.seed}:{pid}'.encode()).digest()[:8],'big') for pid in self.crew}
+        generators={pid:torch.Generator().manual_seed(seed) for pid,seed in sampling_seeds.items()}
         if recorder:recorder.after_step()
         while not self.game.is_terminal:
             if perf_counter()>self.deadline:raise TimeoutError('Engineering match wall ceiling')
@@ -149,8 +158,11 @@ class FourCrewMatch:
                 reports=sum(e['kind']=='report' and e.get('reporter_id')==pid for e in events)
                 self.reporting[pid]['accepted']+=reports;self.reporting[pid]['meeting_triggered']+=reports
             if recorder:recorder.after_step()
+            if recorder and recorder.recorder.error:raise OSError(recorder.recorder.error)
         for pid in self.crew:self._settle(pid,done=True)
+        if state_hash(policy)!=frozen_parameters:raise RuntimeError('Policy version changed inside a match')
         if recorder:recorder.finish()
+        if recorder and recorder.recorder.error:raise OSError(recorder.recorder.error)
         flat={k:[] for k in FIELDS};segments=[];keys=[]
         for pid in self.crew:
             lo=len(flat['actions'])
@@ -163,5 +175,6 @@ class FourCrewMatch:
             actors={pid:dict(actions=dict(self.actions[pid]),reward_components=dict(self.ledgers[pid].components),
                 reward_counts=dict(self.ledgers[pid].counts),reporting=dict(self.reporting[pid]),
                 opportunities={k:len(v) for k,v in self.opportunities[pid].items()},memory_events=len(self.views[pid].memory.events)) for pid in self.crew},
-            max_candidates=self.max_candidates,policy_version=policy_version,illegal_actions=self.game.metrics['illegal_actions'])
+            max_candidates=self.max_candidates,policy_version=policy_version,sampling_seeds=sampling_seeds,
+            illegal_actions=self.game.metrics['illegal_actions'])
         return flat,summary

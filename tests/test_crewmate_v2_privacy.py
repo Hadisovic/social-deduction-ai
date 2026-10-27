@@ -165,4 +165,5 @@ def test_strong_witness_suspicion_does_not_override_selected_skip(planner):
     assert env.belief.by_player[killer.player_id]>.9
     selected=next(i for i,c in enumerate(env.options) if c.kind=='skip')
     env.step(selected)
-    assert env.focal in g.votes and g.votes[env.focal] is None
+    # Early resolution can clear the in-progress dict; audit the submitted action.
+    assert any(e['kind']=='vote_submitted' and e['voter_id']==env.focal and e['target_id'] is None for e in g.event_log)

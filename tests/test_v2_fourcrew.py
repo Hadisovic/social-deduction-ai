@@ -38,6 +38,7 @@ def test_deterministic_sampling_is_per_actor_and_gae_segments_are_isolated():
     torch.manual_seed(17);p=FourCrewPolicy();runs=[]
     for _ in range(2):
         m=match();r,s=m.collect(p);runs.append((r,s))
+        assert len(set(s['sampling_seeds'].values()))==4
         assert len(r['segments'])==4 and len(set(r['trajectory_keys']))==4
         for lo,hi in r['segments']:
             assert r['dones'][hi-1] and not any(r['dones'][lo:hi-1])
@@ -123,3 +124,18 @@ def test_real_four_agent_replay_capture_has_no_effect(tmp_path):
     assert len({r['player_id'] for r in replay['neural']})==4
     assert all(r['suspicion_probabilities'] for r in replay['neural'])
     assert sum(v=='ppo' for v in replay['header']['controller_types'].values())==4
+    assert len({r['player_id'] for r in replay['rewards']})==4
+
+
+def test_actual_death_ends_policy_actions_but_settles_delayed_team_return():
+    m=match(3.);g=m.game;victim=m.crew[0];killer=g.players[m.impostor]
+    for pid,room in zip(m.crew[1:],('Reactor','Navigation','Communications')):
+        g.players[pid].motion.spawn(next(d.standing for d in g.map.destinations if d.room==room))
+    g.players[victim].motion.spawn((-1.4,-2.8));killer.motion.spawn((-.7,-2.8));killer.cooldown=0
+    g._invalidate();torch.manual_seed(17);r,s=m.collect(FourCrewPolicy())
+    assert len(m.rows[victim])==1 and not g.players[victim].active
+    row=m.rows[victim][0]
+    assert row['dones'] and row['next_values']==0 and row['durations']==pytest.approx(3.)
+    assert m.views[victim].memory.tick==0
+    assert m.ledgers[victim].components['death']==-5 and m.ledgers[victim].components['draw']==-5
+    assert m.ledgers[victim].components.get('ghost_tasks',0)==0
