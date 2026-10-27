@@ -49,14 +49,14 @@ def match_seed(partition,index):
 
 
 def pilot_plan():
-    return dict(schema=SCHEMA,initializations=[17,29],arms=['original','shaped'],decisions=1024,
+    return dict(schema=SCHEMA,initializations=[17],replication_after_review=[29],arms=['original','shaped'],decisions=512,
         architecture=dict(global_features=42,candidate_shape=[4,29],task_shape=[4,8],action_shape=[96,23],
             candidate_encoder=[29,32,32],task_encoder=[8,16,16],context=[90,128,128],actor=[199,64,1],critic=[128,64,1]),
         rollout=128,learning_rate=.0003,entropy=.02,gamma=.99,gae_lambda=.95,
         ppo_epochs=4,minibatch=64,clip=.2,value_coefficient=.5,max_gradient_norm=.5,
-        checkpoint_decisions=[256,512,768,1024],selection='fixed final budget 1024; no best-of-validation selection',
+        checkpoint_decisions=[128,256,384,512],selection='fixed final budget 512; no best-of-validation selection',
         deduction_frequency=1.,coalesce_forced_wait=True,opponents='varied',partitions=PARTITIONS,
-        validation=dict(seeds=4,report_rotations=[0,1,2],modes=[0.,1.],
-            original_opponent_controls=True,games_per_model=32),
+        validation=dict(seeds=4,deduction_report_rotations=[0,1,2],ordinary_report_rotations=[0],
+            original_opponent_controls='deduction only',games_per_model=20),
         reward_original=RewardConfig.legacy().to_dict(),reward_shaped=RewardConfig().to_dict(),
         total_wall_ceiling_seconds=10800,smoke_steps_per_arm=32,smoke_wall_ceiling_seconds=600)

@@ -108,9 +108,9 @@ def test_calibration_metrics_and_exact_validation_matrix():
     m=probability_metrics([([.8,.2],0),([.3,.7],1)])
     assert m['top1']==1. and m['brier']==pytest.approx((.08+.18)/2)
     assert m['nll']==pytest.approx(-np.log(.8*.7)/2) and m['ece']==pytest.approx(.25)
-    contexts=list(validation_contexts());assert len(contexts)==32
+    contexts=list(validation_contexts());assert len(contexts)==20
     assert len({c['seed'] for c in contexts})==4
-    assert len([c for c in contexts if c['opponents']=='varied'])==24
+    assert len([c for c in contexts if c['opponents']=='varied'])==16
 
 
 def test_deadline_and_actor_choice_survive_wrapper(env):
@@ -132,7 +132,7 @@ def test_bounded_frozen_inference_validation_path_no_training():
 def test_direct_training_helper_does_not_bypass_owner_gate(tmp_path):
     from crewmate_v2.learning.train import run_one
     target=tmp_path/'not-authorized'
-    with pytest.raises(PermissionError):run_one(target,'original',17,1024,perf_counter()+30,expected_lock=runtime_lock(LobbySettings()))
+    with pytest.raises(PermissionError):run_one(target,'original',17,512,perf_counter()+30,expected_lock=runtime_lock(LobbySettings()))
     assert not target.exists()
 
 

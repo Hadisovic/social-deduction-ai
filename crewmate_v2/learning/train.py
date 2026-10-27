@@ -34,7 +34,7 @@ def actor_trace(trace,packet,action):
 
 
 def run_one(output,arm,initialization,steps,deadline,*,smoke=False,expected_lock=None,approval=None):
-    if arm not in ('original','shaped') or steps!=(32 if smoke else 1024):raise ValueError('Unregistered arm/decision budget')
+    if arm not in ('original','shaped') or steps!=(32 if smoke else 512):raise ValueError('Unregistered arm/decision budget')
     if not smoke and expected_lock is None:raise PermissionError('Pilot entry requires an approved runtime lock')
     if not smoke:validate_approval(approval or {},expected_lock)
     output=Path(output);output.mkdir(parents=True,exist_ok=False)
@@ -88,7 +88,7 @@ def run_one(output,arm,initialization,steps,deadline,*,smoke=False,expected_lock
         if not all(torch.equal(v,frozen[k]) for k,v in env.belief_model.network.state_dict().items()):raise ValueError('Frozen belief changed')
         updates.append(dict(decisions=completed,simulated_seconds=simulated,seconds=perf_counter()-began,**diagnostics))
         print(f'{arm}-{initialization}: '+json.dumps(updates[-1]),flush=True)
-        if smoke or completed%256==0:
+        if smoke or completed in pilot_plan()['checkpoint_decisions']:
             training_state=dict(torch_rng=torch.get_rng_state(),numpy_rng=rng.bit_generator.state,
                 optimizer=optimizer.state_dict(),decisions=completed,episode_index=episode)
             policy.save(output/f'checkpoint-{completed}.pt',{**metadata,'training_state':training_state})
@@ -109,8 +109,9 @@ def run_one(output,arm,initialization,steps,deadline,*,smoke=False,expected_lock
     return result
 
 
-def smoke(output):
-    output=Path(output);output.mkdir(parents=True,exist_ok=False);started=perf_counter();deadline=started+600.
+def smoke(output,ceiling=600.):
+    if not 0<ceiling<=600:raise ValueError('Smoke ceiling must stay within ten minutes')
+    output=Path(output);output.mkdir(parents=True,exist_ok=False);started=perf_counter();deadline=started+ceiling
     lock=runtime_lock(LobbySettings());rows=[]
     for arm in ('original','shaped'):
         try:rows.append(run_one(output/arm,arm,17,32,deadline,smoke=True,expected_lock=lock))
@@ -129,18 +130,19 @@ def pilot(output,approval,smoke_record):
     plan=pilot_plan()
     # Conservative measured forecast: training scaling + worst-duration validation.
     rates=[r['seconds']/r['simulated_seconds'] for r in smoke_record['runs']]
-    projected=2.*(sum(r['seconds'] for r in smoke_record['runs'])*2*1024/32+max(rates)*900*128)
+    games=plan['validation']['games_per_model']*2*len(plan['initializations'])
+    projected=2.*(sum(r['seconds'] for r in smoke_record['runs'])*len(plan['initializations'])*plan['decisions']/32+max(rates)*900*games)
     if projected>plan['total_wall_ceiling_seconds']:raise TimeoutError('Projected pilot exceeds approved three-hour ceiling; request revised scope/budget')
     output=Path(output);output.mkdir(parents=True,exist_ok=False);started=perf_counter();deadline=started+10800
     write(output/'registration.json',dict(plan=plan,plan_sha256=plan_hash(),runtime=lock,projected_seconds=projected))
     from .evaluate import evaluate_game,validation_contexts
     runs=[]
     try:
-        for initialization in (17,29):
+        for initialization in plan['initializations']:
             for arm in ('original','shaped'):
                 folder=output/f'{arm}-{initialization}'
-                result=run_one(folder,arm,initialization,1024,deadline,expected_lock=lock,approval=approval)
-                policy,_=V2Policy.load(folder/'checkpoint-1024.pt')
+                result=run_one(folder,arm,initialization,512,deadline,expected_lock=lock,approval=approval)
+                policy,_=V2Policy.load(folder/'checkpoint-512.pt')
                 validation=[evaluate_game(policy,deadline=deadline,**context) for context in validation_contexts()]
                 write(folder/'validation.json',dict(status='development_only',games=validation))
                 runs.append(dict(arm=arm,initialization_seed=initialization,result=result,games=validation))
@@ -156,8 +158,9 @@ def pilot(output,approval,smoke_record):
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('mode',choices=('smoke','pilot'))
     parser.add_argument('--output',required=True,type=Path);parser.add_argument('--approval',type=Path);parser.add_argument('--smoke-record',type=Path)
+    parser.add_argument('--smoke-wall-seconds',type=float,default=600.)
     args=parser.parse_args()
-    if args.mode=='smoke':smoke(args.output)
+    if args.mode=='smoke':smoke(args.output,args.smoke_wall_seconds)
     else:
         if args.approval is None or args.smoke_record is None:raise PermissionError('Owner approval and matching smoke record required before pilot')
         pilot(args.output,json.loads(args.approval.read_text()),json.loads(args.smoke_record.read_text()))

@@ -95,6 +95,6 @@ def evaluate_game(policy,*,seed,mode,rotation=0,opponents='varied',deadline=None
 
 def validation_contexts():
     for i in range(4):
-        for mode in (0.,1.):
-            for rotation in (0,1,2):yield dict(seed=match_seed('validation',i),mode=mode,rotation=rotation,opponents='varied')
-            yield dict(seed=match_seed('validation',i),mode=mode,rotation=0,opponents='original')
+        for rotation in (0,1,2):yield dict(seed=match_seed('validation',i),mode=1.,rotation=rotation,opponents='varied')
+        yield dict(seed=match_seed('validation',i),mode=1.,rotation=0,opponents='original')
+        yield dict(seed=match_seed('validation',i),mode=0.,rotation=0,opponents='varied')

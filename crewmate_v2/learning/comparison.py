@@ -52,4 +52,4 @@ def compare(records):
         intervals[metric]=dict(paired_scenarios=len(values),mean=float(values.mean()) if len(values) else None,
             percentile_95=np.quantile(samples,[.025,.975]).tolist() if len(values) else None)
     return dict(status='exploratory_development_only_acceptance_pending',arms=summaries,paired_deltas=deltas,
-        paired_bootstrap=intervals,uncertainty_note='Four scenario clusters; both initializations/rotations/modes stay within each cluster. Conditional on two initializations; not acceptance evidence.')
+        paired_bootstrap=intervals,uncertainty_note='Four scenario clusters; rotations/modes stay within each cluster. Initial stage has one initialization; not acceptance evidence.')

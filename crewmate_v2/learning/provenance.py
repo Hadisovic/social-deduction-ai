@@ -3,6 +3,9 @@ from dataclasses import asdict
 import hashlib
 import json
 from pathlib import Path
+import platform
+import numpy as np
+import torch
 from crewmate_v2.provenance import metadata as canonical_metadata
 from . import SCHEMA
 from .config import pilot_plan
@@ -15,7 +18,8 @@ def digest(value):return hashlib.sha256(json.dumps(value,sort_keys=True,separato
 
 def runtime_lock(lobby):
     package=Path(__file__).resolve().parent
-    return dict(schema=SCHEMA,canonical=canonical_metadata(lobby),learning_sources={
+    return dict(schema=SCHEMA,versions=dict(python=platform.python_version(),numpy=str(np.__version__),torch=str(torch.__version__)),
+        canonical=canonical_metadata(lobby),learning_sources={
         p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes().replace(b'\r\n',b'\n')).hexdigest()
         for p in sorted(package.glob('*.py'))},evaluation_helpers={name:hashlib.sha256(
             (ROOT/name).read_bytes().replace(b'\r\n',b'\n')).hexdigest()
