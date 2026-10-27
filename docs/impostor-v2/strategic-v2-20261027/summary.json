@@ -1,0 +1,412 @@
+{
+  "status": "locked_confirmation_validation_not_final_test",
+  "selected": {
+    "seed": 71,
+    "step": 8192,
+    "path": "artifacts/impostor_research/strategic-v2-20261027/seed-71/checkpoint-08192.pt",
+    "method": "seed71-step8192",
+    "sha256": "8b861c9cb7477a2145d41af3961e03aa5d9bd6c1df1d1aaea8629c2c9597698c",
+    "wins": 2,
+    "kills": 12,
+    "timeouts": 0
+  },
+  "training": {
+    "71": {
+      "seed": 71,
+      "decisions": 8192,
+      "episodes": 82,
+      "simulated_seconds": 18427.800000000534,
+      "wall_seconds": 2156.67054605484,
+      "timed_seconds": 2149.820456300011,
+      "policy_changed": true,
+      "frozen_weights_unchanged": true,
+      "initial_hash": "50924f5b34dafdd0dbfe11ad5dc935eef6ba0809ba4cd052eeca7a5109920686",
+      "final_hash": "60490f80aa0de15c810492b5a2f7f579c986d2dd82f0e7280e2bdb7bacc4fea5",
+      "actions": {
+        "go_to_task": 2005,
+        "continue": 2611,
+        "go_to_room": 680,
+        "cancel_navigation": 2149,
+        "fake_task": 441,
+        "kill": 68,
+        "claim_was_in_region": 33,
+        "skip": 28,
+        "report": 31,
+        "claim_suspect_player": 9,
+        "vote": 39,
+        "go_to_location": 9,
+        "claim_defend_player": 10,
+        "go_to_body": 59,
+        "claim_saw_elimination": 9,
+        "call_meeting": 6,
+        "claim_saw_player": 5
+      }
+    },
+    "83": {
+      "seed": 83,
+      "decisions": 8192,
+      "episodes": 78,
+      "simulated_seconds": 16639.600000001396,
+      "wall_seconds": 1581.2077097892761,
+      "timed_seconds": 1579.269127200001,
+      "policy_changed": true,
+      "frozen_weights_unchanged": true,
+      "initial_hash": "e29292587e920f4e3935d42f18f24fb8541f1d31bee4b5305e24fff2c46be305",
+      "final_hash": "49d5fcd4fe6186841feddebf4982fd4a4ac42808c8f2408736afa91f657c39e9",
+      "actions": {
+        "continue": 2864,
+        "cancel_navigation": 2230,
+        "go_to_room": 606,
+        "go_to_task": 1921,
+        "fake_task": 307,
+        "kill": 57,
+        "vote": 27,
+        "go_to_location": 13,
+        "claim_was_in_region": 26,
+        "skip": 28,
+        "report": 31,
+        "claim_defend_player": 6,
+        "go_to_body": 47,
+        "call_meeting": 7,
+        "claim_saw_player": 9,
+        "claim_suspect_player": 9,
+        "claim_saw_elimination": 4
+      }
+    }
+  },
+  "selection": {
+    "seed71-step4096": {
+      "matches": 20,
+      "wins": 0,
+      "win_rate": 0.0,
+      "wilson95": [
+        0.0,
+        0.16112515805281938
+      ],
+      "mean_kills": 1.3,
+      "witnessed_kills": 4,
+      "own_ejections": 9,
+      "crew_reports": 22,
+      "impostor_reports": 0,
+      "correct_crew_votes": 16,
+      "incorrect_crew_votes": 9,
+      "crew_skips": 28,
+      "innocent_team_ejections": 0,
+      "impostor_claims": {},
+      "reasons": {
+        "TASKS_COMPLETED": 11,
+        "IMPOSTOR_EJECTED": 9
+      },
+      "actions": {
+        "go_to_room": 3356,
+        "kill": 28,
+        "continue": 136,
+        "vote": 19
+      },
+      "illegal_actions": 0,
+      "navigation_failures": 0,
+      "simulated_seconds": 4736.4,
+      "wall_seconds": 378.8831932000103
+    },
+    "seed71-step8192": {
+      "matches": 20,
+      "wins": 2,
+      "win_rate": 0.1,
+      "wilson95": [
+        0.027866481213768224,
+        0.3010336452284873
+      ],
+      "mean_kills": 0.6,
+      "witnessed_kills": 2,
+      "own_ejections": 0,
+      "crew_reports": 8,
+      "impostor_reports": 0,
+      "correct_crew_votes": 3,
+      "incorrect_crew_votes": 5,
+      "crew_skips": 13,
+      "innocent_team_ejections": 2,
+      "impostor_claims": {
+        "suspect_player": 7,
+        "saw_player": 1
+      },
+      "reasons": {
+        "TASKS_COMPLETED": 18,
+        "PARITY": 2
+      },
+      "actions": {
+        "go_to_location": 254,
+        "go_to_task": 15,
+        "continue": 102,
+        "fake_task": 3141,
+        "kill": 12,
+        "go_to_body": 664,
+        "claim_suspect_player": 7,
+        "vote": 8,
+        "claim_saw_player": 1
+      },
+      "illegal_actions": 0,
+      "navigation_failures": 0,
+      "simulated_seconds": 3697.8,
+      "wall_seconds": 490.0536498000074
+    },
+    "seed83-step4096": {
+      "matches": 20,
+      "wins": 1,
+      "win_rate": 0.05,
+      "wilson95": [
+        0.008881448800795402,
+        0.23613119344674205
+      ],
+      "mean_kills": 0.65,
+      "witnessed_kills": 1,
+      "own_ejections": 1,
+      "crew_reports": 10,
+      "impostor_reports": 0,
+      "correct_crew_votes": 6,
+      "incorrect_crew_votes": 5,
+      "crew_skips": 18,
+      "innocent_team_ejections": 0,
+      "impostor_claims": {},
+      "reasons": {
+        "TASKS_COMPLETED": 18,
+        "IMPOSTOR_EJECTED": 1,
+        "PARITY": 1
+      },
+      "actions": {
+        "continue": 4416,
+        "kill": 13,
+        "skip": 10
+      },
+      "illegal_actions": 0,
+      "navigation_failures": 0,
+      "simulated_seconds": 3958.8,
+      "wall_seconds": 442.50803440000163
+    },
+    "seed83-step8192": {
+      "matches": 20,
+      "wins": 0,
+      "win_rate": 0.0,
+      "wilson95": [
+        0.0,
+        0.16112515805281938
+      ],
+      "mean_kills": 0.7,
+      "witnessed_kills": 0,
+      "own_ejections": 0,
+      "crew_reports": 0,
+      "impostor_reports": 14,
+      "correct_crew_votes": 7,
+      "incorrect_crew_votes": 2,
+      "crew_skips": 33,
+      "innocent_team_ejections": 0,
+      "impostor_claims": {
+        "defend_player": 14
+      },
+      "reasons": {
+        "TASKS_COMPLETED": 20
+      },
+      "actions": {
+        "go_to_room": 3950,
+        "go_to_location": 1,
+        "kill": 14,
+        "report": 14,
+        "claim_defend_player": 14,
+        "vote": 14
+      },
+      "illegal_actions": 0,
+      "navigation_failures": 0,
+      "simulated_seconds": 4358.2,
+      "wall_seconds": 551.9238745999974
+    }
+  },
+  "confirmation": {
+    "selected_family": {
+      "matches": 20,
+      "wins": 0,
+      "win_rate": 0.0,
+      "wilson95": [
+        0.0,
+        0.16112515805281938
+      ],
+      "mean_kills": 0.2,
+      "witnessed_kills": 0,
+      "own_ejections": 0,
+      "crew_reports": 3,
+      "impostor_reports": 0,
+      "correct_crew_votes": 2,
+      "incorrect_crew_votes": 1,
+      "crew_skips": 6,
+      "innocent_team_ejections": 0,
+      "impostor_claims": {
+        "suspect_player": 3
+      },
+      "reasons": {
+        "TASKS_COMPLETED": 20
+      },
+      "actions": {
+        "go_to_location": 209,
+        "go_to_task": 17,
+        "continue": 96,
+        "fake_task": 3560,
+        "kill": 4,
+        "go_to_body": 264,
+        "claim_suspect_player": 3,
+        "vote": 3
+      },
+      "illegal_actions": 0,
+      "navigation_failures": 0,
+      "simulated_seconds": 3022.2,
+      "wall_seconds": 345.18180830001074
+    },
+    "pilot83": {
+      "matches": 20,
+      "wins": 0,
+      "win_rate": 0.0,
+      "wilson95": [
+        0.0,
+        0.16112515805281938
+      ],
+      "mean_kills": 0.0,
+      "witnessed_kills": 0,
+      "own_ejections": 0,
+      "crew_reports": 0,
+      "impostor_reports": 0,
+      "correct_crew_votes": 0,
+      "incorrect_crew_votes": 0,
+      "crew_skips": 0,
+      "innocent_team_ejections": 0,
+      "impostor_claims": {},
+      "reasons": {
+        "TASKS_COMPLETED": 20
+      },
+      "actions": {
+        "go_to_room": 4387
+      },
+      "illegal_actions": 0,
+      "navigation_failures": 0,
+      "simulated_seconds": 2628.0,
+      "wall_seconds": 300.99714049998875
+    },
+    "scripted_hunter": {
+      "matches": 20,
+      "wins": 1,
+      "win_rate": 0.05,
+      "wilson95": [
+        0.008881448800795402,
+        0.23613119344674205
+      ],
+      "mean_kills": 1.55,
+      "witnessed_kills": 4,
+      "own_ejections": 2,
+      "crew_reports": 3,
+      "impostor_reports": 26,
+      "correct_crew_votes": 17,
+      "incorrect_crew_votes": 3,
+      "crew_skips": 55,
+      "innocent_team_ejections": 0,
+      "impostor_claims": {
+        "suspect_player": 29
+      },
+      "reasons": {
+        "TASKS_COMPLETED": 17,
+        "IMPOSTOR_EJECTED": 2,
+        "PARITY": 1
+      },
+      "actions": {
+        "go_to_task": 107,
+        "wait": 3248,
+        "fake_task": 323,
+        "go_to_location": 87,
+        "kill": 31,
+        "report": 26,
+        "claim": 29,
+        "skip": 18,
+        "go_to_body": 5,
+        "vote": 10
+      },
+      "illegal_actions": 0,
+      "navigation_failures": 0,
+      "simulated_seconds": 5942.6,
+      "wall_seconds": 470.7262403999921
+    },
+    "untrained_family": {
+      "matches": 20,
+      "wins": 0,
+      "win_rate": 0.0,
+      "wilson95": [
+        0.0,
+        0.16112515805281938
+      ],
+      "mean_kills": 0.0,
+      "witnessed_kills": 0,
+      "own_ejections": 0,
+      "crew_reports": 0,
+      "impostor_reports": 0,
+      "correct_crew_votes": 0,
+      "incorrect_crew_votes": 0,
+      "crew_skips": 0,
+      "innocent_team_ejections": 0,
+      "impostor_claims": {},
+      "reasons": {
+        "TASKS_COMPLETED": 20
+      },
+      "actions": {
+        "go_to_task": 60,
+        "fake_task": 4220
+      },
+      "illegal_actions": 0,
+      "navigation_failures": 0,
+      "simulated_seconds": 2628.0,
+      "wall_seconds": 308.2589085000218
+    }
+  },
+  "paired_comparisons": {
+    "pilot83": {
+      "win_rate_difference": 0.0,
+      "paired_bootstrap95": [
+        0.0,
+        0.0
+      ],
+      "selected_only_wins": 0,
+      "control_only_wins": 0,
+      "caveat": "20 paired scenarios; descriptive intervals, no multiplicity adjustment. A degenerate all-equal bootstrap does not establish population equivalence."
+    },
+    "scripted_hunter": {
+      "win_rate_difference": -0.05,
+      "paired_bootstrap95": [
+        -0.15,
+        0.0
+      ],
+      "selected_only_wins": 0,
+      "control_only_wins": 1,
+      "caveat": "20 paired scenarios; descriptive intervals, no multiplicity adjustment. A degenerate all-equal bootstrap does not establish population equivalence."
+    },
+    "untrained_family": {
+      "win_rate_difference": 0.0,
+      "paired_bootstrap95": [
+        0.0,
+        0.0
+      ],
+      "selected_only_wins": 0,
+      "control_only_wins": 0,
+      "caveat": "20 paired scenarios; descriptive intervals, no multiplicity adjustment. A degenerate all-equal bootstrap does not establish population equivalence."
+    }
+  },
+  "seconds": 7034.451434373856,
+  "started_epoch": 1793056303.6842961,
+  "finished_epoch": 1793063338.1357305,
+  "selection_locked_epoch": 1793061909.1750143,
+  "source_commit": "f96abbe366b5377c4826a874437fd0cd70050586",
+  "frozen_weights_unchanged": true,
+  "final_tests_opened": false,
+  "analysis_sha256": "eb7ceff285c1eba70a9248bed09d62fb96a2aaa98a2b99e48508494df94693e0",
+  "caveats": [
+    "Bundled architecture/reward/option change, not a controlled single-factor ablation.",
+    "Only two initialization seeds and 20 independent confirmation scenarios per method.",
+    "Greedy family-then-target evaluation differs from sampled learning.",
+    "Travel options change simulated experience per decision; raw decision counts are not equal compute.",
+    "Old-pilot and hunter controls retain their original decision interface and sparse reward.",
+    "All methods use identical ordinary V2 rules, frozen full-29 plus three scripts, and crew safeguards.",
+    "No model identity is changed using confirmation outcomes."
+  ]
+}

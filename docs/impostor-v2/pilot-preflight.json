@@ -1,0 +1,24 @@
+{
+  "status": "passed_before_approved_pilot",
+  "approval": "Owner said go on on 27 October 2026 after the two-run/40-match/time-budget proposal",
+  "combined_suite": {"tests": 79, "failures": 0, "seconds": 52.64},
+  "final_trainer_and_report_suite": {"tests": 9, "failures": 0, "seconds": 28.28},
+  "unique_targeted_tests": 81,
+  "repeated_tests_in_final_suite": 7,
+  "checks": [
+    "Real disposable development PPO updates change only impostor weights",
+    "Frozen crew/belief tensors and all nine checkpoint registrations are verified",
+    "Optimizer rejects foreign/frozen parameters",
+    "Replay resume restores private memories, actor packet, opponent action hash, next sampled action and identical subsequent PPO weights",
+    "Checkpoint overwrite, tampered replay, source/config/lobby changes and deadline failures are rejected",
+    "OS worker lock rejects a duplicate writer",
+    "Seconds-aware GAE composes elapsed durations and stops at terminal boundaries",
+    "All 27 impostor mechanics/interface tests and 45 V2 privacy/integrity tests pass",
+    "Six graph exports work for synthetic zero/all-win cases and absent kill opportunities"
+  ],
+  "notes": [
+    "Development optimizer tests are disposable preflight executions, not pilot candidates or validation evidence.",
+    "The approved substantive pilot remains exactly seeds 71/83 x4096 decisions plus 40 paired validation matches.",
+    "Pilot source is committed after this preflight and recorded by exact hashes/commit in the immutable study manifest."
+  ]
+}

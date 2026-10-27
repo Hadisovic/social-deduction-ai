@@ -1,0 +1,56 @@
+{
+  "selected": {
+    "seed": 83,
+    "step": 8192,
+    "path": "artifacts/impostor_research/options-v41-20261027/seed-83/checkpoint-08192.pt",
+    "method": "seed83-step8192",
+    "sha256": "69965afd8fab28e6ca5bdda46d9f8efdd8d6036ce57a05b86ff89fe22cf17ca9",
+    "wins": 0,
+    "kills": 28,
+    "timeouts": 0
+  },
+  "candidates": [
+    {
+      "seed": 71,
+      "step": 4096,
+      "path": "artifacts/impostor_research/options-v41-20261027/seed-71/checkpoint-04096.pt",
+      "method": "seed71-step4096",
+      "sha256": "3bb5b9d439ffdeefffe863adcd3a9bf8acbc9f4b20c5e310d1a51d5b70cc82d7",
+      "wins": 0,
+      "kills": 18,
+      "timeouts": 0
+    },
+    {
+      "seed": 71,
+      "step": 8192,
+      "path": "artifacts/impostor_research/options-v41-20261027/seed-71/checkpoint-08192.pt",
+      "method": "seed71-step8192",
+      "sha256": "9ecebab8367c249cb114364e4dda70aac59fcfa8dffe4b18e2a7ddc7ae1149a0",
+      "wins": 0,
+      "kills": 10,
+      "timeouts": 0
+    },
+    {
+      "seed": 83,
+      "step": 4096,
+      "path": "artifacts/impostor_research/options-v41-20261027/seed-83/checkpoint-04096.pt",
+      "method": "seed83-step4096",
+      "sha256": "87232d45ceb7f46324c02e4377f04b262e656ad055fcd3db8ab5b7ede2b1b9d4",
+      "wins": 0,
+      "kills": 9,
+      "timeouts": 0
+    },
+    {
+      "seed": 83,
+      "step": 8192,
+      "path": "artifacts/impostor_research/options-v41-20261027/seed-83/checkpoint-08192.pt",
+      "method": "seed83-step8192",
+      "sha256": "69965afd8fab28e6ca5bdda46d9f8efdd8d6036ce57a05b86ff89fe22cf17ca9",
+      "wins": 0,
+      "kills": 28,
+      "timeouts": 0
+    }
+  ],
+  "locked_epoch": 1793132569.5121803,
+  "confirmation_unopened": true
+}

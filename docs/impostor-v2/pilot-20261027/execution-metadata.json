@@ -1,0 +1,77 @@
+{
+  "source_commit": "2c31f060212bd42a28d92b98e132f5f97d0d2832",
+  "started_utc": "2026-10-26T21:59:06.227492+00:00",
+  "started_amman": "2026-10-27T00:59:06.227492+03:00",
+  "finished_amman": "2026-10-27T01:24:28.395584+03:00",
+  "learning_and_validation_seconds": 1522.1680924892426,
+  "approved_ceiling_seconds": 10800,
+  "training_wall_seconds_by_seed": {
+    "71": 463.9843485355377,
+    "83": 400.2008054256439
+  },
+  "collection_seconds": 819.4117239000188,
+  "optimization_seconds": 23.52651050001441,
+  "optimization_fraction_of_collection_and_updates": 0.027910123826284328,
+  "validation_seconds_by_seed": {
+    "71": 324.5418058000141,
+    "83": 330.48015830000077
+  },
+  "training_simulated_seconds": 4909.199999999622,
+  "validation_simulated_seconds": 5616.4,
+  "completed_training_episodes": {
+    "71": 18,
+    "83": 18
+  },
+  "training_wins": {
+    "71": 0,
+    "83": 0
+  },
+  "training_kills": {
+    "71": 0,
+    "83": 1
+  },
+  "training_actions": {
+    "71": {
+      "go_to_room": 1027,
+      "go_to_task": 2958,
+      "go_to_location": 15,
+      "cancel_navigation": 52,
+      "continue": 40,
+      "fake_task": 4
+    },
+    "83": {
+      "go_to_location": 22,
+      "go_to_task": 2989,
+      "go_to_room": 988,
+      "continue": 51,
+      "fake_task": 4,
+      "cancel_navigation": 41,
+      "kill": 1
+    }
+  },
+  "validation_legal_kill_opportunity_matches": {
+    "71": 20,
+    "83": 19
+  },
+  "compute": {
+    "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "logical_cpus": 32,
+    "torch_threads": 1,
+    "device": "cpu",
+    "workers": 1,
+    "os": "Windows-11-10.0.26200-SP0"
+  },
+  "versions": {
+    "python": "3.12.3",
+    "torch": "2.9.1+cpu",
+    "numpy": "1.26.4"
+  },
+  "preparation_lower_bound_seconds": 984.2274916172028,
+  "preparation_note": "Measured from the first recorded clock in the approved preparation turn; excludes earlier engineering and final curation/report writing.",
+  "runtime_source_hashes_verified": true,
+  "all_eight_curated_checkpoints_strictly_loaded": true,
+  "frozen_weights_unchanged": true,
+  "final_tests_opened": false,
+  "automatic_extensions": 0,
+  "raw_resume_journals": "Preserved locally under ignored artifacts/impostor_research/pilot-20261027"
+}

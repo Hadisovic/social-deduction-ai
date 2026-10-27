@@ -1,0 +1,68 @@
+{
+  "status": "interrupted_before_validation_for_spawn_saturation",
+  "selection_opened": false,
+  "confirmation_opened": false,
+  "checkpoints": [
+    {
+      "seed": 71,
+      "decisions": 0,
+      "path": "artifacts/impostor-options-v4-interrupted/study-20261027/seed-71/checkpoint-00000.pt",
+      "sha256": "54520d9be267a89d51c43abedd36354b8fcbcdf955f4f181463ddb1143e78100",
+      "strictly_loaded": true
+    },
+    {
+      "seed": 71,
+      "decisions": 2048,
+      "path": "artifacts/impostor-options-v4-interrupted/study-20261027/seed-71/checkpoint-02048.pt",
+      "sha256": "ab8d460c6e4e77217f69111faf019118c744798aec0632f5263108f24874c733",
+      "strictly_loaded": true
+    },
+    {
+      "seed": 71,
+      "decisions": 4096,
+      "path": "artifacts/impostor-options-v4-interrupted/study-20261027/seed-71/checkpoint-04096.pt",
+      "sha256": "58347f004631f466596b9cd400ffa071aef047acf5afb4a646645fcd91a1001e",
+      "strictly_loaded": true
+    },
+    {
+      "seed": 71,
+      "decisions": 8192,
+      "path": "artifacts/impostor-options-v4-interrupted/study-20261027/seed-71/checkpoint-08192.pt",
+      "sha256": "edfd32b3562ef7c2c527944f1c650fde4cd9653f5a32aeecd33dd39487843e43",
+      "strictly_loaded": true
+    },
+    {
+      "seed": 83,
+      "decisions": 0,
+      "path": "artifacts/impostor-options-v4-interrupted/study-20261027/seed-83/checkpoint-00000.pt",
+      "sha256": "6354352f61463ecd9b6255b2d3e084346b53d74e3bc4582c968eeb91511bab33",
+      "strictly_loaded": true
+    },
+    {
+      "seed": 83,
+      "decisions": 1792,
+      "path": "artifacts/impostor-options-v4-interrupted/study-20261027/seed-83/checkpoint-01792.pt",
+      "sha256": "e8f91db8e13d1284ab25e8349829f83397f64a83f3c7f0bbaf10874209c600bc",
+      "strictly_loaded": true,
+      "partial_not_selected": true
+    }
+  ],
+  "training": {
+    "71": {
+      "completed_games": 75,
+      "wins": 0,
+      "kills": 68,
+      "pursuit_paid_games": 0,
+      "decisions": 8192,
+      "complete": true
+    },
+    "83": {
+      "completed_games": 15,
+      "wins": 0,
+      "kills": 16,
+      "pursuit_paid_games": 0,
+      "decisions": 1792,
+      "complete": false
+    }
+  }
+}

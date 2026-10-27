@@ -1,0 +1,66 @@
+{
+  "status": "evaluated_research_release_not_final_test_acceptance",
+  "selection_stage": "V2",
+  "selected": {
+    "seed": 71,
+    "step": 8192,
+    "path": "artifacts/impostor_research/strategic-v2-20261027/seed-71/checkpoint-08192.pt",
+    "method": "seed71-step8192",
+    "sha256": "8b861c9cb7477a2145d41af3961e03aa5d9bd6c1df1d1aaea8629c2c9597698c",
+    "wins": 2,
+    "kills": 12,
+    "timeouts": 0
+  },
+  "schema": "impostor-strategic-v2",
+  "confirmation": {
+    "matches": 20,
+    "wins": 0,
+    "win_rate": 0.0,
+    "wilson95": [
+      0.0,
+      0.16112515805281938
+    ],
+    "mean_kills": 0.2,
+    "witnessed_kills": 0,
+    "own_ejections": 0,
+    "crew_reports": 3,
+    "impostor_reports": 0,
+    "correct_crew_votes": 2,
+    "incorrect_crew_votes": 1,
+    "crew_skips": 6,
+    "innocent_team_ejections": 0,
+    "impostor_claims": {
+      "suspect_player": 3
+    },
+    "reasons": {
+      "TASKS_COMPLETED": 20
+    },
+    "actions": {
+      "go_to_location": 209,
+      "go_to_task": 17,
+      "continue": 96,
+      "fake_task": 3560,
+      "kill": 4,
+      "go_to_body": 264,
+      "claim_suspect_player": 3,
+      "vote": 3
+    },
+    "illegal_actions": 0,
+    "navigation_failures": 0,
+    "simulated_seconds": 3022.2,
+    "wall_seconds": 345.18180830001074
+  },
+  "same_partition_parent": null,
+  "pursuit_status": "not_run",
+  "pursuit_skip_reason": "Owner requested summary and push after completed training; no further training.",
+  "checkpoint_sha256": "8b861c9cb7477a2145d41af3961e03aa5d9bd6c1df1d1aaea8629c2c9597698c",
+  "frozen_opponent_sha256": "238904b7fe303b77e885c4cd6fdf4d9d447a62eb5b463436a391c0b4d6e1cb43",
+  "frozen_weights_unchanged": true,
+  "final_tests_opened": false,
+  "source_commit": "f96abbe366b5377c4826a874437fd0cd70050586",
+  "v2_seconds": 7034.451434373856,
+  "pursuit_seconds": null,
+  "original_deadline_epoch": 1793067103.6842961,
+  "analysis_sha256": "6293172386853e5aa49139aa58d82a36bb1f7638ae4adad708e997f711f26728",
+  "note": "Selection follows immutable validation lock, never confirmation results. One continuation is not replication; no global-best claim."
+}

@@ -1,0 +1,28 @@
+{
+  "source_commit": "cb9b5f4fc3a606383f3b04815151602cb54f45ec",
+  "status": "engineering_regression_passed",
+  "tests": 239,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "deselected": 1,
+  "seconds": 146.023,
+  "impostor_tests": 27,
+  "v2_mechanics_privacy_integrity_tests": 45,
+  "historical_regression_tests": 167,
+  "selected_checkpoint_hashes_preserved": 9,
+  "original_strict_continuation_checkpoint_loads": 6,
+  "phase4_phase5_release_hashes_preserved": true,
+  "historical_runtime_and_v2_source_edits": false,
+  "rl_training_run_started": false,
+  "reserved_final_matches_run": false,
+  "notes": [
+    "Initial new-fixture failures used a point without map clearance; corrected fixture geometry, not engine geometry.",
+    "An additional kill-candidate fixture initially placed the target beyond the canonical 0.88 range; corrected target placement, not kill range.",
+    "An earlier regression invocation also passed the existing legacy synthetic eight-sample optimizer/serialization unit test on a disposable freshly initialized policy. It did not train a gameplay agent or update any frozen model. That test was explicitly deselected in this final inference/mechanics run.",
+    "The first engineering benchmark completed eight matches but rejected its action audit because WAIT and no submission were hashed differently. Actor packets and event hashes already matched. The final implementation normalizes those equivalent no-ops; initial records remain preserved locally and are not the final throughput evidence.",
+    "All 27 new tests use development fixtures. Witness/report sequence fixtures use controlled positions and cooldown readiness and are distinct from natural canonical-lobby benchmark matches.",
+    "All nine selected checkpoint files and both selection locks remain unchanged; six continuation checkpoints load with the original strict loader. Seed-17 runtime migration is not implemented or claimed.",
+    "No source files loaded by running benchmark workers were edited. No optimizer is invoked by the impostor benchmark."
+  ]
+}

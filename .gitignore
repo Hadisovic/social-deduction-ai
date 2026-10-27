@@ -56,3 +56,6 @@ artifacts/phase5/runs/
 # Phase 6 development outputs; configs and curated reports are tracked separately.
 artifacts/phase6/runs/
 artifacts/phase6/smoke/
+
+# Preserve local impostor pilot checkpoints/journals; curate results separately.
+artifacts/impostor_research/

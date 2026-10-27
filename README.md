@@ -10,6 +10,54 @@
 
 Explore the [interactive project journey](https://hadisovic.github.io/social-deduction-ai/) for a visual, non-technical guide to the milestones and current research frontier.
 
+## Independent learned impostor — V4.1 research results
+
+`codex/impostor-environment-v2` starts from the exact Crewmate V2 baseline. It keeps
+full-29 and the belief model frozen, with living-crewmate body reporting and witnessed
+kill voting safeguards. The impostor alone learns movement, killing, fake tasks,
+structured claims and voting. Vents, sabotage and natural-language chat are outside
+this interface. No merge or deployment is part of this work.
+
+Read the short [teammate summary](docs/impostor-v2/CURRENT_RESULTS.md) for the exact
+changes, all failed attempts, opponent mix and next learning gates. V4.1's two
+scratch8192-decision runs completed150 games,136kills and one training win. Its
+locked83/8192 checkpoint scored **0/20 fresh wins and34kills**, compared with the
+unchanged V2 control's0/20wins and9kills on the same cases. New fake-task choices
+were0 versus3654; losses were15 task victories and5 ejections. Repetitive
+self-reporting remains a concern. It is not yet a reliable winning AI.
+[Eleven new graphs/results](docs/impostor-v2/options-v41-study-20261027/README.md)
+include timing, uncertainty and the interrupted V4/IO-recovery provenance.
+Watch the explicitly locked new research checkpoint:
+
+```powershell
+python run_impostor_v41.py
+```
+
+Crew and impostor development remain separate. Cross-play with a newer crewmate
+requires pinning and checking that model; it is not automatically substituted.
+`python run_impostor_ai.py` and the original `run_impostor.py` preserve V2 viewing.
+[The historical V2 study](docs/impostor-v2/strategic-v2-20261027/README.md) and
+[failed first trial](docs/impostor-v2/pilot-20261027/README.md) remain intact.
+The separately
+versioned [pursuit correction](docs/impostor-v2/pursuit-conditional-protocol.md) passed
+development checks but had no registered training study. That training session ended
+with a summary/push. No training remains running.
+
+The later [V4 reward/action correction](docs/impostor-v2/options-v4/README.md) fixes
+fake-task restarts and versions the new rewards without resizing the network or
+rewriting old results.59 new/core checks and two complete development matches passed;
+old weights still repeatedly choose new fake activities and are not a strong model.
+The owner approved stop/fix/restart after V4's crowded-spawn shaping flaw. Corrected
+V4.1 finished within the ORIGINAL4h envelope:165.09min including interrupted work
+and repair,87.03min after restart. No training remains running; no further full
+study is approved. See the [corrected protocol](docs/impostor-v2/options-v41/TRAINING_PROTOCOL.md),
+[full master checklist](docs/impostor-v2/IMPOSTOR_MASTER_CHECKLIST.md),
+[exact NN tables](docs/impostor-v2/NN_ARCHITECTURE.md) and [research log](docs/impostor-v2/RESEARCH_LOG.md).
+Use `python run_impostor_options.py` for the clearly labelled V4 transfer demo.
+Future settings up to15 total players/1–3 impostors require adapting both policies
+and belief assumptions. Normally share two role policies plus the existing belief
+NN, keeping independent private state per actor. [Future work](docs/impostor-v2/FUTURE_LOBBIES.md).
+
 ## Phase 6 foundations — in progress
 
 The approved [Phase 6.1 seed-17 pilot](docs/benchmarks/phase6/seed17-stage/README.md)
@@ -41,7 +89,8 @@ The smoke trainer caps runs at 512 decisions, and its evaluator exposes only
 development seeds. The separate [approved seed-17 stage](docs/phase6_1_staged_protocol.md)
 runner trains exactly three 8,192-decision conditions and uses validation only.
 Remaining initializations and final tests require further approval.
-No learned impostor, alternating training or multi-agent self-play is implemented.
+This historical Phase 6 foundation did not include a learned impostor. The separate
+V2 impostor track is described above; alternating training and self-play remain future work.
 Read the [experiment plan and compute proposal](docs/phase6_experiment_plan.md),
 [vision rules and compatibility](docs/phase6_vision_and_rules.md), and
 [foundation verification](docs/benchmarks/phase6/foundation/README.md).

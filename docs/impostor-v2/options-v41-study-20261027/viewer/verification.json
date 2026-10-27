@@ -1,0 +1,15 @@
+{
+  "command": "python run_impostor_v41.py --max-frames 8 --capture docs/impostor-v2/options-v41-study-20261027/viewer",
+  "environment": {
+    "SDL_VIDEODRIVER": "dummy",
+    "SDL_AUDIODRIVER": "dummy"
+  },
+  "exit_code": 0,
+  "frames": 8,
+  "scenario": 3600000,
+  "checkpoint_sha256": "69965afd8fab28e6ca5bdda46d9f8efdd8d6036ce57a05b86ff89fe22cf17ca9",
+  "capture_sha256": "82edc76b8be12b4634095d6226fe59b7d0b47a44328019882ddfadae07349e27",
+  "training": false,
+  "computer_use": false,
+  "interpretation": "Viewer startup verification, not a complete match or performance estimate"
+}
