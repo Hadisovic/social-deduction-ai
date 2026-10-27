@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "pytest": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "165",
+    "time": "52.831",
+    "timestamp": "2026-10-27T17:41:20.575002+03:00",
+    "hostname": "Neo"
+  },
+  "protected_files_unchanged": 234,
+  "legacy_imports": "passed",
+  "documentation_links": "passed",
+  "files_removed": 0,
+  "python_paths_relocated": 0,
+  "raw_or_binary_archives_moved": 0
+}

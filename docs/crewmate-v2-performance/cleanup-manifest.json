@@ -1,0 +1,105 @@
+{
+  "base_commit": "8e99383c108c0b7f07b7c90ed3fb2062e6c98055",
+  "historical_readme": "archive/research/README-before-v2-organization.md",
+  "files_removed": [],
+  "generated_test_reports_reorganized": [
+    {
+      "original": "temp_pretraining_diagnostic_tests.xml",
+      "current": "local-runs/engineering-tests/temp_pretraining_diagnostic_tests.xml",
+      "sha256": "60171efefc4fc4fdb55aa28405ab2dc263333bf7ae6376604bfe442e4f2aa8c2",
+      "bytes": 1528
+    },
+    {
+      "original": "temp_pretraining_tests.xml",
+      "current": "local-runs/engineering-tests/temp_pretraining_tests.xml",
+      "sha256": "be15171f8b6875d374689e077196763feb7448a105290687dd2e394c3280ca6b",
+      "bytes": 12327
+    },
+    {
+      "original": "temp_pretraining_tests_final.xml",
+      "current": "local-runs/engineering-tests/temp_pretraining_tests_final.xml",
+      "sha256": "b67848d67dcd9961cde317d569cdecc052eb8a7dba79caf61ac3183cbd8d671c",
+      "bytes": 7299
+    },
+    {
+      "original": "temp_reporting_diversity_final_tests.xml",
+      "current": "local-runs/engineering-tests/temp_reporting_diversity_final_tests.xml",
+      "sha256": "310905c32c406f806d2b3d6775d4542da1b47d0b477df266357d5f412bbc12c2",
+      "bytes": 9501
+    },
+    {
+      "original": "temp_reporting_diversity_new_tests.xml",
+      "current": "local-runs/engineering-tests/temp_reporting_diversity_new_tests.xml",
+      "sha256": "31393a70674502bb11ee9c996465278b57c88b0536ab385623981b484f474e68",
+      "bytes": 2580
+    },
+    {
+      "original": "temp_reporting_diversity_tests.xml",
+      "current": "local-runs/engineering-tests/temp_reporting_diversity_tests.xml",
+      "sha256": "3811b98cc302ba1b0cea2a429f003fa3d0cc3387ceabfbe3842f3d48a4032b44",
+      "bytes": 8048
+    },
+    {
+      "original": "temp_v2_learning_confirmed_tests.xml",
+      "current": "local-runs/engineering-tests/temp_v2_learning_confirmed_tests.xml",
+      "sha256": "61d350a4e5a5cee3e9e2adaa29c69bfb838a571af47d983a04f8e00fb8909541",
+      "bytes": 13583
+    },
+    {
+      "original": "temp_v2_learning_expanded.xml",
+      "current": "local-runs/engineering-tests/temp_v2_learning_expanded.xml",
+      "sha256": "8f63c43418749c4b863ecb385eb8d9f4ab7cd1c7e0a4491cef831532b3290a95",
+      "bytes": 3780
+    },
+    {
+      "original": "temp_v2_learning_finalchecks.xml",
+      "current": "local-runs/engineering-tests/temp_v2_learning_finalchecks.xml",
+      "sha256": "48919abcb53cd8780d67c6f090c8a474f7c7999c69be54dd703171d5a444a807",
+      "bytes": 13439
+    },
+    {
+      "original": "temp_v2_learning_frozen_tests.xml",
+      "current": "local-runs/engineering-tests/temp_v2_learning_frozen_tests.xml",
+      "sha256": "600914e16777cb74193d5d37cc8c457dfa050b29914623ca282a599e490c72b6",
+      "bytes": 4041
+    },
+    {
+      "original": "temp_v2_learning_fullchecks.xml",
+      "current": "local-runs/engineering-tests/temp_v2_learning_fullchecks.xml",
+      "sha256": "ec4adacbd32e8693a5fd7ee2557270b9561e8d3b0efd231a03c9252be32f4966",
+      "bytes": 12757
+    },
+    {
+      "original": "temp_v2_learning_ready.xml",
+      "current": "local-runs/engineering-tests/temp_v2_learning_ready.xml",
+      "sha256": "4582315f6ab6c930947d1e248ae100c00843d5ba0919dc98d597831101b21b55",
+      "bytes": 3911
+    },
+    {
+      "original": "temp_v2_learning_releasechecks.xml",
+      "current": "local-runs/engineering-tests/temp_v2_learning_releasechecks.xml",
+      "sha256": "8e0edb669a65155beaec6186ca5c8ea94d6b6c02325067738059d2e40af52617",
+      "bytes": 13583
+    },
+    {
+      "original": "temp_v2_learning_smoke_preflight.xml",
+      "current": "local-runs/engineering-tests/temp_v2_learning_smoke_preflight.xml",
+      "sha256": "210b88a5014400c1f300a9a55d583508f55777a16e9e9feaba6935ff52db6aef",
+      "bytes": 4040
+    },
+    {
+      "original": "temp_v2_learning_tests.xml",
+      "current": "local-runs/engineering-tests/temp_v2_learning_tests.xml",
+      "sha256": "98026c453056ad34c27c6901750713be635acfa5f03199e8b691fc2b497ec9d1",
+      "bytes": 3224
+    },
+    {
+      "original": "temp_v2_reward_checks.xml",
+      "current": "local-runs/engineering-tests/temp_v2_reward_checks.xml",
+      "sha256": "9ce677681356c4d4876e598024c3a256df55965d20cfa35127d00541acfa7e60",
+      "bytes": 2019
+    }
+  ],
+  "raw_data_and_checkpoint_directories_moved": false,
+  "legacy_python_modules_relocated": false
+}

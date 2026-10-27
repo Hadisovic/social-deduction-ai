@@ -56,3 +56,13 @@ artifacts/phase5/runs/
 # Phase 6 development outputs; configs and curated reports are tracked separately.
 artifacts/phase6/runs/
 artifacts/phase6/smoke/
+
+# Current crewmate engineering outputs. Never blanket-ignore historical artifacts/.
+/local-runs/
+/runs/crewmate-v2/
+/artifacts/crewmate-v2/runs/
+/artifacts/crewmate-v2/engineering/
+/.ruff_cache/
+/.mypy_cache/
+/wandb/
+events.out.tfevents.*
