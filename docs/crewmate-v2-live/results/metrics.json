@@ -1,0 +1,909 @@
+{
+  "status": "exploratory_development_only_acceptance_pending",
+  "wall_seconds": 2904.551330699993,
+  "arms": {
+    "original": {
+      "training": {
+        "decisions": 512,
+        "completed_episodes": 20,
+        "partial_streams": 8,
+        "simulated_seconds": 11632.400000000001,
+        "seconds": 612.6284884000197,
+        "event_counts": {
+          "death": 18,
+          "ghost_tasks": 41,
+          "loss": 19,
+          "alive_tasks": 34,
+          "incorrect_votes": 17,
+          "correct_votes": 6,
+          "skips": 6,
+          "win": 1
+        },
+        "reward_components": {
+          "time": -96.93666666666327,
+          "death": -90.0,
+          "ghost_tasks": 41.0,
+          "loss": -190.0,
+          "alive_tasks": 34.0,
+          "incorrect_votes": 0.0,
+          "correct_votes": 0.0,
+          "skips": 0.0,
+          "win": 10.0
+        },
+        "legal_report_opportunities": 2,
+        "reporting_rate": 0.0,
+        "actions": {
+          "task": 79,
+          "flee": 7,
+          "wait": 20,
+          "emergency_travel": 24,
+          "room": 282,
+          "follow": 10,
+          "continue": 29,
+          "approach_body": 2,
+          "claim_suspect": 8,
+          "claim_sighting": 9,
+          "vote": 23,
+          "skip": 6,
+          "claim_defend": 10,
+          "claim_location": 3
+        },
+        "checkpoint_sha256": "1d57b4094c193dcd46512930fe1dc0e16f2a6a5fad52e28530bfa59d1904b86c"
+      },
+      "validation": {
+        "games": 20,
+        "wins": 5,
+        "losses": 15,
+        "reasons": {
+          "PARITY": 15,
+          "TASKS_COMPLETED": 4,
+          "IMPOSTOR_EJECTED": 1
+        },
+        "event_counts": {
+          "alive_tasks": 80,
+          "correct_votes": 24,
+          "loss": 15,
+          "death": 12,
+          "incorrect_votes": 3,
+          "win": 5
+        },
+        "action_counts": {
+          "task": 109,
+          "claim_sighting": 27,
+          "vote": 27,
+          "emergency_travel": 113,
+          "wait": 1366,
+          "flee": 20,
+          "follow": 76,
+          "continue": 296
+        },
+        "report_opportunities": 0,
+        "reports": 0,
+        "reporting_rate": null,
+        "physical_report_pairs": 2,
+        "visible_body_pairs": 2,
+        "vote_accuracy": 0.8888888888888888,
+        "survived": 8,
+        "mean_survival_seconds": 341.93,
+        "mean_common_legacy_return": -7.358166666666562,
+        "mean_counterfactual_shaped_return": -5.108166666666562,
+        "repeated_correct_votes": 9,
+        "direct_witness_vote_strata": {
+          "with_direct_witness": {
+            "counts": {},
+            "cast_accuracy": null
+          },
+          "without_direct_witness": {
+            "counts": {
+              "correct_votes": 24,
+              "incorrect_votes": 3,
+              "skips": 0,
+              "automatic_skips": 0
+            },
+            "cast_accuracy": 0.8888888888888888
+          }
+        },
+        "modes": {
+          "0.0": {
+            "games": 4,
+            "wins": 4,
+            "reasons": {
+              "TASKS_COMPLETED": 4
+            }
+          },
+          "1.0": {
+            "games": 16,
+            "wins": 1,
+            "reasons": {
+              "PARITY": 15,
+              "IMPOSTOR_EJECTED": 1
+            }
+          }
+        }
+      }
+    },
+    "shaped": {
+      "training": {
+        "decisions": 512,
+        "completed_episodes": 20,
+        "partial_streams": 8,
+        "simulated_seconds": 11632.400000000001,
+        "seconds": 653.5405813000398,
+        "event_counts": {
+          "death": 18,
+          "ghost_tasks": 41,
+          "loss": 19,
+          "alive_tasks": 34,
+          "incorrect_votes": 17,
+          "correct_votes": 6,
+          "skips": 6,
+          "win": 1
+        },
+        "reward_components": {
+          "time": -96.93666666666327,
+          "death": -90.0,
+          "ghost_tasks": 0.0,
+          "loss": -190.0,
+          "alive_tasks": 34.0,
+          "incorrect_votes": -17.0,
+          "correct_votes": 12.0,
+          "skips": 0.0,
+          "win": 10.0
+        },
+        "legal_report_opportunities": 2,
+        "reporting_rate": 0.0,
+        "actions": {
+          "task": 79,
+          "flee": 7,
+          "wait": 20,
+          "emergency_travel": 24,
+          "room": 282,
+          "follow": 10,
+          "continue": 29,
+          "approach_body": 2,
+          "claim_suspect": 8,
+          "claim_sighting": 9,
+          "vote": 23,
+          "skip": 6,
+          "claim_defend": 10,
+          "claim_location": 3
+        },
+        "checkpoint_sha256": "902233a2257b8376090e1f42c40c7d52f66e93fd50532a21d349e190543743b2"
+      },
+      "validation": {
+        "games": 20,
+        "wins": 4,
+        "losses": 16,
+        "reasons": {
+          "PARITY": 16,
+          "TASKS_COMPLETED": 4
+        },
+        "event_counts": {
+          "alive_tasks": 80,
+          "correct_votes": 24,
+          "loss": 16,
+          "death": 11,
+          "incorrect_votes": 5,
+          "win": 4
+        },
+        "action_counts": {
+          "task": 107,
+          "claim_location": 17,
+          "vote": 29,
+          "wait": 2673,
+          "flee": 4,
+          "claim_suspect": 12,
+          "follow": 21,
+          "emergency_travel": 5
+        },
+        "report_opportunities": 0,
+        "reports": 0,
+        "reporting_rate": null,
+        "physical_report_pairs": 0,
+        "visible_body_pairs": 0,
+        "vote_accuracy": 0.8275862068965517,
+        "survived": 9,
+        "mean_survival_seconds": 368.21000000000004,
+        "mean_common_legacy_return": -8.127249999999902,
+        "mean_counterfactual_shaped_return": -5.977249999999902,
+        "repeated_correct_votes": 9,
+        "direct_witness_vote_strata": {
+          "with_direct_witness": {
+            "counts": {},
+            "cast_accuracy": null
+          },
+          "without_direct_witness": {
+            "counts": {
+              "correct_votes": 24,
+              "incorrect_votes": 5,
+              "skips": 0,
+              "automatic_skips": 0
+            },
+            "cast_accuracy": 0.8275862068965517
+          }
+        },
+        "modes": {
+          "0.0": {
+            "games": 4,
+            "wins": 4,
+            "reasons": {
+              "TASKS_COMPLETED": 4
+            }
+          },
+          "1.0": {
+            "games": 16,
+            "wins": 0,
+            "reasons": {
+              "PARITY": 16
+            }
+          }
+        }
+      }
+    }
+  },
+  "comparison": {
+    "status": "exploratory_development_only_acceptance_pending",
+    "arms": {
+      "original": {
+        "games": 20,
+        "distinct_scenarios": 4,
+        "crew_win_rate": 0.25,
+        "reasons": {
+          "PARITY": 15,
+          "TASKS_COMPLETED": 4,
+          "IMPOSTOR_EJECTED": 1
+        },
+        "event_counts": {
+          "alive_tasks": 80,
+          "correct_votes": 24,
+          "loss": 15,
+          "death": 12,
+          "incorrect_votes": 3,
+          "win": 5
+        },
+        "behavior": {
+          "actionable_decisions": 2034,
+          "legal_report_windows": 0,
+          "report_submissions": 0,
+          "forced_windows": 6021
+        },
+        "report_opportunities": 0,
+        "reporting_rate": null,
+        "legal_ballot_opportunities": 27,
+        "voting_participation": 1.0,
+        "skip_rate": 0.0,
+        "unsubmitted_ballots": 0,
+        "vote_accuracy": 0.8888888888888888,
+        "frozen_belief": {
+          "n": 27,
+          "top1": 0.8888888888888888,
+          "nll": 0.37869935218188083,
+          "brier": 0.19267380224075398,
+          "ece": 0.09161823469350439,
+          "bins": [
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 2,
+              "confidence": 0.8673002407849953,
+              "accuracy": 0.0
+            },
+            {
+              "n": 25,
+              "confidence": 0.9895636742061851,
+              "accuracy": 0.96
+            }
+          ],
+          "high_confidence_wrong": 1
+        },
+        "policy_vote_ranking": {
+          "n": 27,
+          "top1": 0.8888888888888888,
+          "nll": 0.9631423326108512,
+          "brier": 0.6108599657727625,
+          "ece": 0.4998645221739965,
+          "bins": [
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 18,
+              "confidence": 0.3334438598873284,
+              "accuracy": 0.8333333333333334
+            },
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 9,
+              "confidence": 0.5001853803700202,
+              "accuracy": 1.0
+            },
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            }
+          ],
+          "high_confidence_wrong": 0
+        },
+        "reporter_only_accuracy": {
+          "uniform": 0.38888888888888895,
+          "accuse": 0.8888888888888888,
+          "avoid": 0.05555555555555555
+        },
+        "policy_reporter_role_strata": {
+          "crewmate": {
+            "n": 3,
+            "top1": 0.0,
+            "nll": 1.098682686223762,
+            "brier": 0.6667136040672349,
+            "ece": 0.3333988444777009,
+            "bins": [
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 3,
+                "confidence": 0.3333988444777009,
+                "accuracy": 0.0
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              }
+            ],
+            "high_confidence_wrong": 0
+          },
+          "impostor": {
+            "n": 24,
+            "top1": 1.0,
+            "nll": 0.9461997884092375,
+            "brier": 0.6038782609859535,
+            "ece": 0.6040224430054587,
+            "bins": [
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 15,
+                "confidence": 0.33345286296925386,
+                "accuracy": 1.0
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 9,
+                "confidence": 0.5001853803700202,
+                "accuracy": 1.0
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              }
+            ],
+            "high_confidence_wrong": 0
+          }
+        },
+        "reporter_role_balanced_policy_top1": 0.5,
+        "policy_means": {
+          "mean_vote_probability": 0.6447210836189764,
+          "mean_skip_probability": 0.1776624901427163,
+          "mean_self_vote_probability": 0.17758034224863406,
+          "mean_report_counter_channel_tv": 1.460589744426586e-06
+        },
+        "regimes": {
+          "original": {
+            "games": 4,
+            "crew_win_rate": 0.0
+          },
+          "varied": {
+            "games": 16,
+            "crew_win_rate": 0.3125
+          }
+        }
+      },
+      "shaped": {
+        "games": 20,
+        "distinct_scenarios": 4,
+        "crew_win_rate": 0.2,
+        "reasons": {
+          "PARITY": 16,
+          "TASKS_COMPLETED": 4
+        },
+        "event_counts": {
+          "alive_tasks": 80,
+          "correct_votes": 24,
+          "loss": 16,
+          "death": 11,
+          "incorrect_votes": 5,
+          "win": 4
+        },
+        "behavior": {
+          "actionable_decisions": 2868,
+          "legal_report_windows": 0,
+          "report_submissions": 0,
+          "forced_windows": 6467
+        },
+        "report_opportunities": 0,
+        "reporting_rate": null,
+        "legal_ballot_opportunities": 29,
+        "voting_participation": 1.0,
+        "skip_rate": 0.0,
+        "unsubmitted_ballots": 0,
+        "vote_accuracy": 0.8275862068965517,
+        "frozen_belief": {
+          "n": 29,
+          "top1": 0.8275862068965517,
+          "nll": 0.5996876128885442,
+          "brier": 0.3114906158366105,
+          "ece": 0.1535047832980564,
+          "bins": [
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 29,
+              "confidence": 0.9810909901946081,
+              "accuracy": 0.8275862068965517
+            }
+          ],
+          "high_confidence_wrong": 5
+        },
+        "policy_vote_ranking": {
+          "n": 29,
+          "top1": 0.8275862068965517,
+          "nll": 0.9584490529262872,
+          "brier": 0.6089244720188617,
+          "ece": 0.4366134263279431,
+          "bins": [
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 19,
+              "confidence": 0.33348436858824276,
+              "accuracy": 0.7894736842105263
+            },
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 10,
+              "confidence": 0.5002007633313038,
+              "accuracy": 0.9
+            },
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            },
+            {
+              "n": 0,
+              "confidence": null,
+              "accuracy": null
+            }
+          ],
+          "high_confidence_wrong": 0
+        },
+        "reporter_only_accuracy": {
+          "uniform": 0.3908045977011495,
+          "accuse": 0.8275862068965517,
+          "avoid": 0.10344827586206896
+        },
+        "policy_reporter_role_strata": {
+          "crewmate": {
+            "n": 5,
+            "top1": 0.0,
+            "nll": 1.0176538928937429,
+            "brier": 0.6334434504732464,
+            "ece": 0.3668012247646435,
+            "bins": [
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 4,
+                "confidence": 0.33346338398433234,
+                "accuracy": 0.0
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 1,
+                "confidence": 0.500152587885888,
+                "accuracy": 0.0
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              }
+            ],
+            "high_confidence_wrong": 0
+          },
+          "impostor": {
+            "n": 24,
+            "top1": 1.0,
+            "nll": 0.9461147112664006,
+            "brier": 0.6038163515075315,
+            "ece": 0.6039914786388986,
+            "bins": [
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 15,
+                "confidence": 0.3334899644826189,
+                "accuracy": 1.0
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 9,
+                "confidence": 0.5002061161585724,
+                "accuracy": 1.0
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              },
+              {
+                "n": 0,
+                "confidence": null,
+                "accuracy": null
+              }
+            ],
+            "high_confidence_wrong": 0
+          }
+        },
+        "reporter_role_balanced_policy_top1": 0.5,
+        "policy_means": {
+          "mean_vote_probability": 0.6436806465017384,
+          "mean_skip_probability": 0.1783075671771477,
+          "mean_self_vote_probability": 0.17774904493627877,
+          "mean_report_counter_channel_tv": 1.5949380808863146e-06
+        },
+        "regimes": {
+          "original": {
+            "games": 4,
+            "crew_win_rate": 0.0
+          },
+          "varied": {
+            "games": 16,
+            "crew_win_rate": 0.25
+          }
+        }
+      }
+    },
+    "paired_deltas": [
+      {
+        "seed": 2710000,
+        "win_rate": 0.0,
+        "reporting_rate": null
+      },
+      {
+        "seed": 2710001,
+        "win_rate": -0.2,
+        "reporting_rate": null
+      },
+      {
+        "seed": 2710002,
+        "win_rate": 0.0,
+        "reporting_rate": null
+      },
+      {
+        "seed": 2710003,
+        "win_rate": 0.0,
+        "reporting_rate": null
+      }
+    ],
+    "paired_bootstrap": {
+      "win_rate": {
+        "paired_scenarios": 4,
+        "mean": -0.05,
+        "percentile_95": [
+          -0.15000000000000002,
+          0.0
+        ]
+      },
+      "reporting_rate": {
+        "paired_scenarios": 0,
+        "mean": null,
+        "percentile_95": null
+      }
+    },
+    "uncertainty_note": "Four scenario clusters; rotations/modes stay within each cluster. Initial stage has one initialization; not acceptance evidence."
+  },
+  "sampled_training_claims": {
+    "original": {
+      "completed_replays": 11,
+      "all_focal_claims": 10,
+      "kind:suspect_player": 2,
+      "accusations": 2,
+      "correct_accusations": 1,
+      "incorrect_accusations": 1,
+      "kind:saw_player": 5,
+      "kind:defend_player": 2,
+      "kind:was_in_region": 1
+    },
+    "shaped": {
+      "completed_replays": 11,
+      "all_focal_claims": 10,
+      "kind:suspect_player": 2,
+      "accusations": 2,
+      "correct_accusations": 1,
+      "incorrect_accusations": 1,
+      "kind:saw_player": 5,
+      "kind:defend_player": 2,
+      "kind:was_in_region": 1
+    }
+  },
+  "preupdate_reproduction": {
+    "sampled_decisions_compared": 64,
+    "expected_sampled_decisions": 64,
+    "identical_before_first_update": true,
+    "equal_coverage": true,
+    "scope": "Preselected streams0\u20133, first128 global choices; includes valid prefixes of incomplete recordings without labeling them completed."
+  },
+  "seed29_started": false,
+  "final_partitions_opened": false
+}

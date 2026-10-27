@@ -1,0 +1,42 @@
+{
+  "status": "passed_development_pilot_acceptance_pending",
+  "checks": {
+    "protected_files": 234,
+    "pretraining_files": 25,
+    "reporting_private_files": 19,
+    "earlier_learning_smoke_files": 25,
+    "historical_selected_checkpoints": 9,
+    "new_checkpoint_loads": 8
+  },
+  "tests": {
+    "crewmate": {
+      "tests": 178,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "spectator": {
+      "tests": 31,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    }
+  },
+  "live_runtime_sha256": "886d22405554adf830d859dd83d592c474d5906e3bb274c6b2f4521f0da950b3",
+  "selected": {
+    "original": {
+      "checkpoint_sha256": "1d57b4094c193dcd46512930fe1dc0e16f2a6a5fad52e28530bfa59d1904b86c",
+      "state_sha256": "5f70b1d4f7cfd54514677bfc2202f2d95db33be30f300c858da7e29c8c21cab6"
+    },
+    "shaped": {
+      "checkpoint_sha256": "902233a2257b8376090e1f42c40c7d52f66e93fd50532a21d349e190543743b2",
+      "state_sha256": "59bbedf7c2e7078d9347f2e1b1c665a26c41f0d7e8066669fe644c7450a0aded"
+    }
+  },
+  "immutable_pilot_artifacts": 53,
+  "protected_refs_unchanged": true,
+  "canonical_learning_collection_sources_unchanged": true,
+  "final_test_opened": false,
+  "seed29_started": false,
+  "pilot_seconds": 2904.551330699993
+}
