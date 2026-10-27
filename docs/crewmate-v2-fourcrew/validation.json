@@ -1,0 +1,110 @@
+{
+  "status": "engineering_validated_full_training_not_started_acceptance_pending",
+  "preservation": {
+    "historical_protected_files": 234,
+    "immutable_pilot_artifacts": 53,
+    "previous_pretraining_artifacts": 25,
+    "reporting_private_artifacts": 19,
+    "earlier_learning_smoke": 25,
+    "historical_selected_checkpoints": 9
+  },
+  "protected_refs_and_worktrees_unchanged": true,
+  "tests": {
+    "v2": {
+      "tests": 134,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "strengthened_overlapping": {
+      "tests": 17,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "spectator": {
+      "tests": 34,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    }
+  },
+  "smoke": {
+    "status": "engineering_only_no_full_pilot",
+    "seconds": 12.848538499965798,
+    "workers": 4,
+    "decisions": 23,
+    "initial_sha256": "1a572645635edf2bb6a802a5572892b6321747452176abd4755fe5e5cfedc3d2",
+    "final_sha256": "a0cf22e46b038ab40180a835e969d82b82f19b2282383777a72f69521ceb19ac",
+    "diagnostics": {
+      "loss": 10.256581544876099,
+      "gradient_norm": 5.737311601638794,
+      "entropy": 3.3541107177734375,
+      "approximate_kl": 2.565591330494499e-07,
+      "clip_fraction": 0.0,
+      "explained_variance": -0.005580902099609375
+    },
+    "actor_trajectories": 16
+  },
+  "recording": {
+    "seconds_off": 19.09262069995748,
+    "seconds_on": 16.21208349999506,
+    "exact_noninterference": true,
+    "actor_decisions": 32,
+    "simulation_seconds": 60.0
+  },
+  "replay_audit": {
+    "scope": "Offline, completed preselected training streams only; paired arms are not independent samples.",
+    "limitations": "Preceding tick snapshots are approximate exposure, not causal safety labels. No validation replay census; no numeric historical suspicion trace.",
+    "arms": {
+      "original": {
+        "completed_sampled_replays": 11,
+        "meeting_task_completions": 35,
+        "meeting_ghost_task_completions": 35,
+        "submitted_ballots": 70,
+        "dead_submitted_ballots": 0,
+        "focal_first_killed": 4,
+        "focal_killed": 9,
+        "last_choice_followed_eventual_killer": 0,
+        "prekill_snapshots_scored": 9,
+        "no_other_crew_visible_at_preceding_snapshot": 9,
+        "last_choice_before_kill": {
+          "room": 5,
+          "emergency_travel": 2,
+          "task": 2
+        },
+        "decision_to_death_seconds": {
+          "median": 5.399999999999999,
+          "maximum": 18.0
+        },
+        "median_killed_at_seconds": 228.0
+      },
+      "shaped": {
+        "completed_sampled_replays": 11,
+        "meeting_task_completions": 35,
+        "meeting_ghost_task_completions": 35,
+        "submitted_ballots": 70,
+        "dead_submitted_ballots": 0,
+        "focal_first_killed": 4,
+        "focal_killed": 9,
+        "last_choice_followed_eventual_killer": 0,
+        "prekill_snapshots_scored": 9,
+        "no_other_crew_visible_at_preceding_snapshot": 9,
+        "last_choice_before_kill": {
+          "room": 5,
+          "emergency_travel": 2,
+          "task": 2
+        },
+        "decision_to_death_seconds": {
+          "median": 5.399999999999999,
+          "maximum": 18.0
+        },
+        "median_killed_at_seconds": 228.0
+      }
+    }
+  },
+  "checkpoint_sha256": "1b35347ed4638c2eb18e8022688d10f52ca21ef29b7df50ba0e4c17651318330",
+  "final_test_opened": false,
+  "full_pilot_started": false,
+  "seed29_started": false
+}

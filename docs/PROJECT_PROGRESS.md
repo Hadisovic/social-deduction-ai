@@ -1,5 +1,9 @@
 # Project Progress & Technical Evolution
 
+## 2026-10-27: Post-pilot mechanics and four-crewmate engineering
+
+The completed focal-agent pilot at `5b663f6` is preserved unchanged. V2.2 meeting/ghost repairs and four private actors sharing PPO weights are a new experimental regime, with engineering validation only. No full four-crew pilot has started; Phase 6.1 acceptance remains pending. See the permanent [research issue register](research/ISSUES.md), [implementation review](crewmate-v2-fourcrew/REVIEW.md) and [next experiment proposal](crewmate-v2-fourcrew/NEXT_EXPERIMENT.md). The earlier phase histories below remain historical records.
+
 > **Canonical Document**: Detailed technical history, experimental results, architectural pivot, and roadmap status for the **Social Deduction AI** project.
 
 ## 2026-10-10: Phase 6.1 seed-17 pilot completed; replications gated
