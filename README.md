@@ -375,3 +375,8 @@ Comprehensive project documentation is maintained in the [`docs/`](docs/) direct
 - **RL Interfaces**: Gymnasium 1.1, Stable-Baselines3 2.7
 - **Deep Learning**: PyTorch 2.6
 - **Numeric & Testing**: NumPy, Pytest 9.1
+
+
+## Frozen crewmate / impostor collaboration handoff
+
+See [the verified five-player environment, Model A/B and Spectator V2 handoff](docs/collaboration/impostor-training-handoff/README.md). This is an isolated draft integration; existing research acceptance and roadmap status are unchanged.

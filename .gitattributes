@@ -16,3 +16,11 @@ run_phase4.py text eol=lf
 train_phase4.py text eol=lf
 evaluate_phase4.py text eol=lf
 artifacts/phase4/*.json text eol=lf
+
+# The historical V2 checkpoint locks this JSON's raw CRLF bytes. Preserve them.
+assets/skeld/among_us_map.json -text whitespace=cr-at-eol
+# Handoff code is portable; original model/checksum/artwork bytes are binary.
+frozen_handoff/*.py text eol=lf
+spectator/**/*.py text eol=lf
+artifacts/crew-handoff/**/*.pt -text
+assets/phase3_local/** -text
