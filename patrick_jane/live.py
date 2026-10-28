@@ -50,6 +50,7 @@ class LiveBridge:
         self.match=match;self.directory=Path(directory);self.metadata=metadata
         self.environment=metadata['environment'];self.recorder=None;self.polled=-1e20;self.published=-1e20
         self.seconds=0.;self.error=None
+        self.transient_write_failures=0;self.first_write_failure=None
 
     def check(self):
         now=monotonic()
@@ -58,7 +59,8 @@ class LiveBridge:
         try:focus=int(json.loads((self.directory/'focus.json').read_text())['environment'])
         except (OSError,ValueError,KeyError,TypeError):pass
         if focus==self.environment and self.recorder is None:self.recorder=LiveRecorder(self.match,self.metadata)
-        elif focus!=self.environment:self.recorder=None
+        elif focus!=self.environment:
+            self.recorder=None;self.first_write_failure=None
 
     @property
     def active(self):return self.recorder is not None
@@ -90,7 +92,13 @@ class LiveBridge:
             if game.is_terminal:self.recorder.finish()
             try:
                 self.directory.mkdir(parents=True,exist_ok=True)
-                path=self.directory/f'env-{self.environment:02d}.json';temporary=path.with_suffix('.tmp')
-                temporary.write_text(json.dumps(self.recorder.recorder.data(),separators=(',',':')))
-                temporary.replace(path);self.published=started
+                from .progress import atomic_json
+                path=self.directory/f'env-{self.environment:02d}.json'
+                atomic_json(path,self.recorder.recorder.data(),attempts=8 if force else 1,compact=True)
+                self.published=started;self.first_write_failure=None
+            except PermissionError:
+                self.transient_write_failures+=1
+                if self.first_write_failure is None:self.first_write_failure=started
+                if started-self.first_write_failure>=10.:
+                    self.error='Persistent snapshot permission failure (10 seconds)'
             except OSError as exc:self.error=type(exc).__name__ # Observer cannot stop simulation.

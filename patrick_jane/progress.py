@@ -2,13 +2,19 @@
 from collections import Counter
 import json
 from pathlib import Path
-from time import perf_counter
+from time import perf_counter,sleep
 
 
-def atomic_json(path,record):
+def atomic_json(path,record,*,attempts=8,compact=False):
     path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
     temporary=path.with_name(path.name+'.tmp')
-    temporary.write_text(json.dumps(record,indent=2,allow_nan=False)+'\n');temporary.replace(path)
+    temporary.write_text(json.dumps(record,indent=None if compact else 2,
+        separators=(',',':') if compact else None,allow_nan=False)+'\n')
+    for attempt in range(attempts):
+        try:temporary.replace(path);return
+        except PermissionError:
+            if attempt+1==attempts:raise
+            sleep(.003)  # Windows readers can briefly deny rename; never spin indefinitely.
 
 
 class Progress:

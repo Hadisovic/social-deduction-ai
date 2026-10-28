@@ -55,7 +55,7 @@ def main():
     failure=json.loads((args.pilot/'failure.json').read_text()) if (args.pilot/'failure.json').is_file() else None
     evaluations=[json.loads(path.read_text()) for path in sorted((args.pilot/'evaluations').glob('*.json'))]
     evaluations.sort(key=lambda row:row['update']);reference=next((row for row in evaluations if row['label']=='zero'),None)
-    stages=[dict(label=row['label'],update=row['update'],metrics=aggregate(row['matches']),
+    stages=[dict(label=row['label'],update=row['update'],elapsed=row.get('elapsed'),metrics=aggregate(row['matches']),
         paired_vs_zero=paired(reference['matches'],row['matches']) if reference else None) for row in evaluations]
     training=aggregate([m for row in history for m in row['rollout']['matches']])
     collection=sum(row['rollout']['elapsed'] for row in history);ppo=sum(row['ppo']['elapsed'] for row in history)
@@ -66,19 +66,23 @@ def main():
     elapsed=(completion or failure or {}).get('elapsed',0)
     total_evaluated=sum(len(row['matches']) for row in evaluations)
     evaluation_and_overhead=max(0,elapsed-collection-ppo)
+    validation_seconds=sum(row.get('elapsed',0) for row in evaluations)
+    other_overhead=max(0,evaluation_and_overhead-validation_seconds)
     training_rate=training['totals'].get('decisions',0)/max(1,collection+ppo)
     # Whole-run experience, not a promise: fixed validation overhead is included separately.
     million_training=1_000_000/max(.01,training_rate)
-    million_evaluation=1100*evaluation_and_overhead/max(1,total_evaluated)
+    observed_validation_cost=max((row.get('elapsed',0)/max(1,len(row['matches'])) for row in evaluations),default=0)
+    million_evaluation=1100*observed_validation_cost+other_overhead*1_000_000/max(1,training['totals'].get('decisions',0))
     result=dict(status='complete' if completion else 'stopped' if failure else 'incomplete',source_commit=args.source_commit,
         acceptance='pending',development_only=True,workers=registration['workers'],target=registration['target_decisions'],
         training=training,reward_components=dict(rewards),validation=stages,
         runtime=dict(wall_seconds=elapsed,collection_seconds=collection,ppo_seconds=ppo,
-            validation_and_other_overhead_seconds=evaluation_and_overhead,training_decisions_per_second=training_rate,
+            validation_and_other_overhead_seconds=evaluation_and_overhead,validation_seconds=validation_seconds,
+            other_overhead_seconds=other_overhead,training_decisions_per_second=training_rate,
             pilot_decisions_per_total_second=training['totals'].get('decisions',0)/max(1,elapsed)),
         larger_estimate=dict(one_million_training_seconds=million_training,
             estimated_validation_and_overhead_seconds=million_evaluation,total_seconds=million_training+million_evaluation,
-            basis='Observed pilot training throughput plus 1100 fixed development validation executions; extrapolation, not a started run'),
+            basis='Observed pilot training throughput plus 1100 development validation games at the slowest observed evaluation cost, with scaled miscellaneous overhead; extrapolation, not a started run'),
         benchmark=[dict(workers=int(n),training_rate=r['decisions_per_training_second'],
             collection_rate=r['decisions_per_collection_second'],collection_seconds=r['collection_seconds'],ppo_seconds=r['ppo_seconds']) for n,r in benchmark['results'].items()],
         failure=failure['error'] if failure else None)
@@ -107,7 +111,8 @@ def main():
         f"Training collected {training['totals'].get('decisions',0):,} individual decisions across {training['totals'].get('games',0)} complete matches using {registration['workers']} workers. Collection: {collection/60:.2f} minutes; PPO: {ppo/60:.2f} minutes; total measured run: {elapsed/3600:.3f} hours. Effective collection-plus-update rate: {training_rate:.2f} decisions/s.",'',
         'Validation uncertainty is paired across the same scenarios; repeated states are not independent datasets. Exact values, per-stage actions, report/repair opportunity denominators and critical-failure counts are in `aggregate.json`. Opportunity counts are legal choices at learner decision points, not unique bodies or independent games. Selected report/repair intentions may exceed accepted actions because simultaneous reports end the roaming tick.','',
         'Task progress is separated into living crew and scripted ghost completions. Ghosts receive their unchanged owner reward and do not act or complete tasks during meetings. Increasing shaped return alone is not evidence of better deduction or gameplay. Neural vote accuracy is scored offline against roles; those role labels never enter neural observations.','',
-        f"A one-million-decision run with the same evaluation schedule extrapolates to {(million_training+million_evaluation)/3600:.2f} hours before a contingency margin. This estimate uses pilot throughput, treats validation plus miscellaneous overhead conservatively together, and is not authorization or launch of the larger stage.",'',
+        'Reporter-role imbalance and scripted opponent patterns can confound deduction metrics; this study does not eliminate that shortcut. Validation uses new seeds and a shifted mixture of the same script families. Ten shared-policy actors in a match are correlated observations, not ten independent scenarios. Action probabilities are not calibrated impostor-belief probabilities.','',
+        f"A one-million-decision run with the same evaluation schedule extrapolates to {(million_training+million_evaluation)/3600:.2f} hours before a contingency margin. This uses measured training throughput and the slowest observed validation cost, with other overhead scaled conservatively. It is not authorization or launch of the larger stage.",'',
         'No fixes, reward tuning, final-test evaluation, production changes or partner-impostor changes are included in this report. Review the paired results, sabotage responses and evidence limitations before proposing the next experiment.']
     if failure:lines+=['',f"Automatic stop: `{failure['error']}`. Preserved complete checkpoints remain available; no completion claim."]
     (args.output/'REPORT.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')

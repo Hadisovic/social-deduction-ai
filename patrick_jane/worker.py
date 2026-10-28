@@ -162,7 +162,8 @@ class Match:
             impostor_reports=sum(e['kind']=='report' and e.get('reporter_id') not in self.crew for e in g.event_log),
             ghost_tasks=sum(e['kind']=='task_completed' and e.get('ghost',False) for e in g.event_log),
             recording_seconds=self.recorder.seconds if self.recorder else 0.,
-            monitor_seconds=self.live.seconds if self.live else 0.,monitor_error=self.live.error if self.live else None)
+            monitor_seconds=self.live.seconds if self.live else 0.,monitor_error=self.live.error if self.live else None,
+            monitor_transient_write_failures=self.live.transient_write_failures if self.live else 0)
 
 
 def serve(connection):

@@ -12,6 +12,7 @@ from .preferences import Preferences
 from .library import Library
 from .renderer import Renderer,SPEEDS
 from .widgets import Widgets,font
+from .shared_io import read_json,write_json
 
 ROOT=Path(__file__).resolve().parents[2]
 REGISTERED=ROOT.parent/'_v2_fourcrew_registration'
@@ -82,7 +83,7 @@ class Application:
 
     def load_metrics(self,path):
         try:
-            data=json.loads(Path(path).read_text(encoding='utf-8'))
+            data=read_json(path)
             groups=data.get('registered_aggregate',data).get('groups',{})
             if not groups or not all(label in groups for label in ('original','shaped_v2','zero')):raise ValueError('Unsupported aggregate metrics groups')
             self.state.metrics=data;self.tell('Loaded recorded aggregate study metrics; no experiment executed.')
@@ -105,7 +106,7 @@ class Application:
             else:
                 app.index=ReplayIndex(data);app.current_path=path;self.loaded_frames=0
                 ids=list(app.index.frame().players);default=app.prefs['default_player']
-                app.selected=default if default in ids else next((p for p in ids if app.index.header.get('controller_types',{}).get(p) in ('ppo','frozen')),ids[0] if ids else None)
+                app.selected=default if default in ids else next((p for p in ids if app.index.header.get('controller_types',{}).get(p) in ('ppo','frozen','patrick-jane-ppo')),ids[0] if ids else None)
                 app.playing=app.prefs['autoplay'];app.auto_wait=False;app.pins={};app.retrospective_compare=False;app.scrolls['inspector']=0;app.meeting_open=False;app.meeting_collapsed=False
                 self.renderer.map.fit();app.prefs.remember(path)
                 self.last_follow_mtime=Path(path).stat().st_mtime
@@ -128,7 +129,7 @@ class Application:
             stream=next((s for s in streams if s['environment']==app.live_environment),None)
             if stream and stream.get('snapshot'):
                 try:
-                    path=Path(stream['snapshot']);data=json.loads(path.read_text())
+                    path=Path(stream['snapshot']);data=read_json(path)
                     same_seed=data.get('header',{}).get('scenario_seed')==stream['seed']
                     expected_update=app.status.get('environment_progress',{}).get('update')
                     same_update=expected_update is None or data.get('header',{}).get('config',{}).get('update')==expected_update
@@ -144,6 +145,7 @@ class Application:
 
     def set_pref(self,key,value):
         app=self.state
+        if key=='mode':app.live_environment=None  # Re-selecting follow_latest also leaves live snapshots.
         if not app.prefs.set(key,value):return
         if key=='speed':app.speed=app.prefs['speed']
         if key=='mode':
@@ -193,8 +195,7 @@ class Application:
             directory=app.status.get('monitor_dir')
             if directory:
                 try:
-                    path=Path(directory)/'focus.json';temporary=path.with_suffix('.tmp')
-                    temporary.write_text(json.dumps(dict(environment=app.live_environment)));temporary.replace(path)
+                    write_json(Path(directory)/'focus.json',dict(environment=app.live_environment))
                     self.tell('Watching real throttled snapshots · bounded history · no simulation control')
                 except OSError as exc:self.tell('Live selection unavailable: '+str(exc))
         elif command=='live_menu':
@@ -412,7 +413,7 @@ def main(argv=None):
             status_file=args.status_file or WATCH/'status.json'
             if now-last_status>=1:
                 last_status=now
-                try:app.state.status=json.loads(status_file.read_text())
+                try:app.state.status=read_json(status_file)
                 except (OSError,ValueError):pass
                 if args.live_environment is not None and app.state.status.get('monitor_dir'):
                     app.dispatch(('live_environment',args.live_environment));args.live_environment=None
@@ -421,10 +422,12 @@ def main(argv=None):
                 record=dict(pid=os.getpid(),updated_unix=time.time(),scene=app.state.scene,replay=app.state.current_path,
                     selected=app.state.selected,tab=app.state.tab,sim_time=app.state.index.player.current_sim_time if app.state.index else None,
                     live_environment=app.state.live_environment,
+                    display_driver=pygame.display.get_driver(),
                     playing=app.state.playing,speed=app.state.speed,fullscreen=app.state.fullscreen,window=list(app.screen.get_size()),
                     indexed=len(app.state.library.entries),indexing=app.state.library.busy,omniscient=prefs['omniscient'],reveal_ballots=prefs['reveal_ballots'],
                     controls=[dict(key=c.key,rect=list(c.rect)) for c in app.ui.controls],fps=app.state.fps)
-                temp=args.state_file.with_suffix('.tmp');temp.write_text(json.dumps(record));temp.replace(args.state_file)
+                try:write_json(args.state_file,record)
+                except PermissionError:pass  # Retry next diagnostic tick; never close the viewer for a reader lock.
             target=app.capture_request or (args.capture if app.state.index and app.loaded_frames>=3 else None)
             if target:
                 target.parent.mkdir(parents=True,exist_ok=True);pygame.image.save(app.screen,str(target));app.capture_request=None

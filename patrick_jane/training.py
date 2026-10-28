@@ -77,7 +77,9 @@ def train(output,*,target_decisions,owner_approved=False,environments=16,device=
                     replay_dir=folder/'replays',record_every=record_every,monitor_dir=progress.monitor_dir,
                     update=counters['update'],training_step=counters['individual_decisions'],checkpoint=str(current_checkpoint),
                     status_callback=lambda active:progress.publish(active,validation_complete=len(matches),validation_target=experiment.evaluation_matches))
-                result.pop('trajectories');audit_rollout(result)
+                result.pop('trajectories')
+                atomic_json(folder/f'batches/validation-u{counters["update"]:06d}-{label}-{offset:03d}.json',result)
+                audit_rollout(result)
                 matches.extend(result['matches']);eval_decisions+=result['individual_decisions']
             remaining()
             record=dict(label=label,update=counters['update'],checkpoint=str(current_checkpoint),matches=matches,
@@ -117,6 +119,8 @@ def train(output,*,target_decisions,owner_approved=False,environments=16,device=
                         wall_limit=remaining(),status_callback=progress.publish,checkpoint=str(current_checkpoint),monitor_dir=progress.monitor_dir,
                         decision_limit=configuration['absolute_decision_ceiling']-counters['individual_decisions'])
                     progress.stage='PPO';progress.publish(dict(progress.final_streams(rollout['matches'],counters['update'],record_every),decisions=rollout['individual_decisions']))
+                    atomic_json(folder/f'batches/training-u{counters["update"]:06d}.json',
+                        {key:value for key,value in rollout.items() if key!='trajectories'})
                     audit_rollout(rollout)
                     remaining()
                     learning=update(policy,optimizer,rollout.pop('trajectories'),experiment,rng=rng,device=device,deadline=deadline)

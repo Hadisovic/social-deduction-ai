@@ -6,6 +6,29 @@ until the pilot is reviewed. This document records the rules before training;
 the run's immutable `registration.json`, source snapshot and checkpoints record
 the selected worker count, exact hashes, runtime and measured wall ceiling.
 
+Selected execution: **32 workers**, nominal **250,000** decisions, absolute guard
+**275,000**, wall ceiling **14,400 seconds (four hours)**. Corrected matched
+benchmarks measured 79.7085 decisions/s including PPO, versus 63.4993 at sixteen
+and 45.2103 at eight. All 32 scenarios had identical traces/results at every
+count; all audits passed. The pre-run estimate is **2.539 hours**, provisionally
+including 400 validation executions at the engineering mean decisions/game.
+Validation runtime may differ; preserve full coverage and stop at the ceiling.
+
+Windows launch uses **`python -m tools.run_pj_pilot`**, with the same frozen
+`train` function. The direct training-module CLI amplified Torch/CUDA imports
+into every spawned CPU worker and failed before any update (research R035).
+The preserved restart uses identical initial weights and the original overall
+four-hour deadline, not a new four-hour allowance. Its launcher source/hash and
+recovery timing are stored with the run.
+
+The second attempt stopped before learning because a brief Windows snapshot read
+lock was retained as a fatal observer error (R036). The replacement attempt keeps
+the same network, rewards, scenarios and PPO protocol. It versions only file
+publication/audit diagnostics, preserves all previous artifacts, journals each
+completed batch before auditing, and uses the remaining original deadline.
+Brief locked snapshot writes are counted and retried; sustained permission
+failure for ten seconds and all non-transient I/O/legality failures still stop.
+
 ## Frozen design
 
 Ten living AI crewmates initially, sharing one PPO policy but with independent

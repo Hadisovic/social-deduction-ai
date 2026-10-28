@@ -6,7 +6,7 @@ from statistics import median
 def audit_rollout(rollout):
     for match in rollout['matches']:
         if match['metrics']['illegal_actions'] or match.get('monitor_error'):
-            raise RuntimeError('Legality or observer regression')
+            raise RuntimeError(f"Seed {match.get('seed')}: illegal_actions={match['metrics']['illegal_actions']}, monitor_error={match.get('monitor_error')}")
         if match['individual_decisions']!=match['neural_actions'].get('travel',0)+sum(match['neural_actions'].get(k,0) for k in ('task','report','repair','emergency','silent','share_evidence','accuse','defend','question','strategic_claim','skip','vote')):
             raise RuntimeError('Individual action accounting mismatch')
     for owner,components in rollout['reward_components'].items():
