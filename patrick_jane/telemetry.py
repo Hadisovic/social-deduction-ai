@@ -22,7 +22,7 @@ class Resources:
                 if command.returncode==0:
                     util,memory=command.stdout.strip().splitlines()[0].split(',');item.update(gpu_percent=float(util),gpu_memory_mib=float(memory))
                 self.samples.append(item)
-            except (OSError,ValueError,subprocess.SubprocessError):pass
+            except (OSError,ValueError,subprocess.SubprocessError,psutil.Error):pass
             self.stop_event.wait(2.)
     def summary(self):
         keys=('cpu_percent','ram_used_bytes','training_tree_rss_bytes','gpu_percent','gpu_memory_mib')

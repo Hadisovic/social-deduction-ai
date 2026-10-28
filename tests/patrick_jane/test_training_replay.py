@@ -64,6 +64,49 @@ class TrainingReplayTests(unittest.TestCase):
     def test_full_run_requires_explicit_approval(self):
         with self.assertRaises(PermissionError):train('never-created',target_decisions=1_000_000)
 
+    def test_partial_evaluation_batch_reuses_existing_workers(self):
+        with Pool(2,False) as pool:
+            result=collect(self.policy,pool,self.experiment,[2920099],wall_limit=60.)
+        self.assertEqual(len(result['matches']),1)
+        self.assertEqual(len(result['trajectories']),10)
+
+    def test_registered_runner_checkpoint_validation_and_bounded_completion(self):
+        import json
+        with tempfile.TemporaryDirectory(dir=Path.cwd()/"local-runs") as folder:
+            output=Path(folder)/'registered'
+            experiment=replace(self.experiment,evaluation_matches=2)
+            result=train(output,target_decisions=1,owner_approved=True,environments=1,device='cpu',
+                experiment=experiment,hard_wall_seconds=90,record_every=1)
+            self.assertEqual(result['update'],1);self.assertGreater(result['individual_decisions'],1)
+            self.assertTrue((output/'completion.json').is_file());self.assertTrue((output/'latest.json').is_file())
+            self.assertEqual(len(list((output/'evaluations').glob('*.json'))),2)
+            zero=json.loads((output/'evaluations/update-000000-zero.json').read_text())
+            final=json.loads((output/'evaluations/update-000001-final.json').read_text())
+            self.assertEqual([m['seed'] for m in zero['matches']],[m['seed'] for m in final['matches']])
+            status=json.loads((output/'status.json').read_text());self.assertEqual(status['stage'],'complete')
+            self.assertEqual(status['overall_decisions'],result['individual_decisions'])
+            self.assertTrue((output/'champions/champion.json').is_file())
+
+    def test_expired_ppo_deadline_preserves_weights(self):
+        result=self.rollout();before={k:v.clone() for k,v in self.policy.state_dict().items()}
+        optimizer=torch.optim.Adam(self.policy.parameters(),lr=.0003)
+        with self.assertRaises(TimeoutError):update(self.policy,optimizer,result['trajectories'],self.experiment,deadline=0)
+        self.assertTrue(all(torch.equal(v,self.policy.state_dict()[k]) for k,v in before.items()))
+
+    def test_live_monitor_is_observer_only_and_uses_real_replay_schema(self):
+        import json
+        from spectator.v2.data import ReplayIndex
+        plain=self.rollout()
+        with tempfile.TemporaryDirectory(dir=Path.cwd()/"local-runs") as folder:
+            with Pool(1,False) as pool:
+                live=collect(self.policy,pool,self.experiment,[2920099],monitor_dir=folder,wall_limit=60.)
+            self.assertEqual(plain['matches'][0]['trace'],live['matches'][0]['trace'])
+            self.assertEqual(plain['reward_components'],live['reward_components'])
+            data=json.loads((Path(folder)/'env-00.json').read_text());index=ReplayIndex(data)
+            self.assertEqual(len(index.frame().players),12);self.assertTrue(data['neural'])
+            self.assertTrue(data['complete']);self.assertTrue(data['live_snapshot']);self.assertFalse(index.issues)
+            self.assertEqual(data['result']['reason'],live['matches'][0]['reason'])
+
 
 if __name__=='__main__':unittest.main()
 

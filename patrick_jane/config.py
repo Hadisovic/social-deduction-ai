@@ -1,7 +1,29 @@
 """Versioned public mechanics and locked initial learning configuration."""
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict, dataclass, field, fields, replace
 import math
 from crewmate_v2.config import LobbySettings
+
+
+@dataclass(frozen=True)
+class ClassicLobby(LobbySettings):
+    """PJ-only profile; historical V2 settings and source hashes stay untouched."""
+    schema: str = 'patrick-jane-classic-v2'
+    emergency_cooldown: float = 15.
+    initial_kill_cooldown: float = 10.
+
+    def __post_init__(self):
+        if self.schema != 'patrick-jane-classic-v2':
+            raise ValueError('Unknown Patrick Jane lobby version')
+        original = {f.name:getattr(self,f.name) for f in fields(LobbySettings)}
+        original.update(schema=LobbySettings().schema,emergency_cooldown=0.)
+        LobbySettings(**original)
+        for key in ('emergency_cooldown','initial_kill_cooldown'):
+            value=getattr(self,key)
+            if type(value) not in (int,float) or not math.isfinite(value) or value<0:
+                raise ValueError(f'{key} must be nonnegative and finite')
+
+    def engine_config(self, player_radius):
+        return replace(super().engine_config(player_radius),initial_kill_cooldown=self.initial_kill_cooldown)
 
 
 @dataclass(frozen=True)
@@ -12,7 +34,7 @@ class Population:
     def __post_init__(self):
         if type(self.crew) is not int or type(self.impostors) is not int:
             raise ValueError('Integer population required')
-        if not 1 <= self.impostors <= 3 or not self.impostors < self.crew <= 12 or self.total > 15:
+        if not 1 <= self.impostors <= 3 or not self.impostors < self.crew <= 12 or not 4 <= self.total <= 15:
             raise ValueError('Need 1..3 impostors, more crew than impostors, at most 15 players')
 
     @property
@@ -23,6 +45,7 @@ class Population:
 class SabotageSettings:
     """Explicit approximations, not a claim of retail timing fidelity."""
     cooldown: float = 30.
+    initial_cooldown: float = 10.
     oxygen_seconds: float = 30.
     reactor_seconds: float = 30.
     lights_factor: float = .2
@@ -35,7 +58,7 @@ class SabotageSettings:
 @dataclass(frozen=True)
 class Experiment:
     population: Population = field(default_factory=Population)
-    lobby: LobbySettings = field(default_factory=LobbySettings)
+    lobby: LobbySettings = field(default_factory=ClassicLobby)
     sabotage: SabotageSettings = field(default_factory=SabotageSettings)
     learning_rate: float = .0003
     gamma: float = .99

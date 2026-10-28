@@ -63,7 +63,8 @@ class Renderer:
         text(surface,'SPECTATOR V2 / RESEARCH',48,47,11,MUTED)
         index=app.index
         if index:
-            config=index.config;label=f"{config.get('training_condition','Patrick Jane' if config.get('patrick_jane_schema') else 'Historical').upper()}   /   {config.get('context','REPLAY').replace('_',' ').upper()}   /   SEED {index.header.get('scenario_seed','—')}"
+            config=index.config;context='LIVE · BOUNDED SNAPSHOT' if index.data.get('live_snapshot') else config.get('context','REPLAY').replace('_',' ').upper()
+            label=f"{config.get('training_condition','Patrick Jane' if config.get('patrick_jane_schema') else 'Historical').upper()}   /   {context}   /   SEED {index.header.get('scenario_seed','—')}"
             text(surface,label,265,20,14,CYAN,True,width=r.w-600)
             phase=index.frame().phase.upper();warning=f' · {len(index.issues)} telemetry warnings' if index.issues else ''
             text(surface,f"{phase}   ·   t {index.player.current_sim_time:07.2f}s   ·   tick {index.frame().tick}"+warning,265,46,13,AMBER if warning else MUTED,width=r.w-600,mono=True)
@@ -78,9 +79,18 @@ class Renderer:
             for key,label in (('roster','Roster'),('inspector','Inspector')):
                 ui.button(surface,'panel-'+key,label,pygame.Rect(x+16,y,92,30),('toggle',key),app.prefs[key],accent=CYAN);x+=100
         ui.button(surface,'help','Help',pygame.Rect(x+18,y,58,30),('help',),tooltip='F1: keyboard controls and data provenance')
+        if app.status.get('schema')=='patrick-jane-progress-v1' and app.status.get('monitor_dir'):
+            ui.button(surface,'pj-live-menu','Instances' if app.live_environment is None else f'LIVE env {app.live_environment:02d}',
+                pygame.Rect(x+90,y,125,30),('live_menu',),app.live_environment is not None,accent=CYAN)
         mode='OMNISCIENT' if app.prefs['omniscient'] else 'CHRONOLOGICAL'
         text(surface,mode,r.w-260,r.bottom-25,11,AMBER if app.prefs['omniscient'] else MUTED,width=200)
         if app.status:
+            if app.status.get('schema')=='patrick-jane-progress-v1':
+                c=app.status.get('counters',{});p=app.status.get('environment_progress',{})
+                decisions=app.status.get('overall_decisions',c.get('individual_decisions',0)+p.get('decisions',0))
+                label=f"PJ · {decisions:,} decisions · update {c.get('update',0)} · {app.status.get('throughput',0):.1f}/s"
+                text(surface,label,r.w-440,51,11,CYAN,width=410)
+                return
             d=app.status.get('decisions',{});v=app.status.get('validation_games');target=app.status.get('validation_target')
             label=('A '+str(d.get('original','—'))+' / B '+str(d.get('shaped_v2','—'))) if isinstance(d,dict) else 'Decisions '+str(d)
             if v is not None:label+=' · validation '+str(v)+('/'+str(target) if target is not None else '')

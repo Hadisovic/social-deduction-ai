@@ -15,6 +15,8 @@ def main():
     parser.add_argument('--inline',action='store_true')
     parser.add_argument('--wall-seconds',type=float,default=240.)
     parser.add_argument('--checkpoint')
+    parser.add_argument('--monitor-dir')
+    parser.add_argument('--status-mirror')
     args=parser.parse_args()
     if not 1<=args.environments<=32 or not 0<args.wall_seconds<=600:
         parser.error('Engineering checks allow 1..32 workers and at most ten minutes')
@@ -30,7 +32,7 @@ def main():
     from .config import Experiment,ENGINEERING,DEV_VALIDATION
     from .collector import Pool,collect
     from .ppo import update
-    from .checkpoint import save,load,source_lock
+    from .checkpoint import save,load,source_lock,freeze_sources
     from .telemetry import Resources
     torch.set_num_threads(1);torch.manual_seed(17);random.seed(17)
     torch.use_deterministic_algorithms(True)
@@ -39,12 +41,17 @@ def main():
     optimizer=torch.optim.Adam(policy.parameters(),lr=experiment.learning_rate)
     if args.checkpoint:load(args.checkpoint,policy,optimizer,rng=rng)
     (output/'config.json').write_text(json.dumps(dict(experiment=experiment.to_dict(),architecture=policy.architecture(),
-        sources=source_lock(),engineering_only=True,initialization_seed=17,device=args.device,environments=args.environments),indent=2)+'\n')
+        sources=source_lock(),source_snapshot=freeze_sources(output),engineering_only=True,initialization_seed=17,device=args.device,environments=args.environments),indent=2)+'\n')
     print(json.dumps(dict(event='start',mode=args.mode,output=str(output),environments=args.environments)),flush=True)
     def status(x):
-        record=dict(schema='patrick-jane-progress-v1',stage=args.mode,counters=dict(individual_decisions=x['decisions'],update=x['update']),
-                    workers=args.environments,elapsed=x['elapsed'],environment_progress=x,resources=resources.summary())
+        record=dict(schema='patrick-jane-progress-v1',stage=args.mode,counters=dict(individual_decisions=0,update=x['update']),
+                    workers=args.environments,elapsed=x['elapsed'],environment_progress=x,resources=resources.summary(),
+                    monitor_dir=str(Path(args.monitor_dir).resolve()) if args.monitor_dir else None,
+                    throughput=x['decisions']/max(1,x['elapsed']))
         temporary=output/'status.json.tmp';temporary.write_text(json.dumps(record,indent=2)+'\n');temporary.replace(output/'status.json')
+        if args.status_mirror:
+            mirror=Path(args.status_mirror);mirror.parent.mkdir(parents=True,exist_ok=True)
+            temp=mirror.with_suffix('.tmp');temp.write_text(json.dumps(record,indent=2)+'\n');temp.replace(mirror)
         print(json.dumps(dict(event='progress',**{k:v for k,v in x.items() if k!='streams'})),flush=True)
     before={k:v.detach().cpu().clone() for k,v in policy.state_dict().items()}
     initial_checkpoint=output/'checkpoints/update-000000.pt'
@@ -55,7 +62,8 @@ def main():
         with Resources() as resources,Pool(args.environments,not args.inline) as pool:
             result=collect(policy,pool,experiment,(DEV_VALIDATION if args.mode=='evaluate' else ENGINEERING)[:args.environments],
                 device=args.device,replay_dir=output/'replays',record_every=8,wall_limit=args.wall_seconds,
-                status_callback=status,held_out=args.mode=='evaluate',checkpoint=str(initial_checkpoint) if args.mode=='smoke' else args.checkpoint)
+                status_callback=status,held_out=args.mode=='evaluate',checkpoint=str(initial_checkpoint) if args.mode=='smoke' else args.checkpoint,
+                monitor_dir=args.monitor_dir)
         trajectories=result.pop('trajectories')
         if args.mode=='smoke':
             if perf_counter()-began>=args.wall_seconds:raise TimeoutError('No smoke update after wall budget expired')

@@ -72,7 +72,7 @@ def encode(obs,memory,nav):
         if point is not None:values.extend([point['x']/30,point['y']/30])
     values.extend([nav.original.position[0]/30,nav.original.position[1]/30,
                    max(0.,nav.detour_until-now)/8] if nav.original else [0.,0.,0.])
-    values.append(idn(own.player_id))
+    values.extend([idn(own.player_id),obs.emergency_ready_in/60,float(obs.own_repair_hold is not None)])
     self_features=np.zeros(SELF_WIDTH,np.float32);self_features[:min(len(values),SELF_WIDTH)]=values[:SELF_WIDTH]
     players=np.zeros((MAX_OTHERS,PLAYER_WIDTH),np.float32);pm=np.zeros(MAX_OTHERS,bool)
     visible={p.player_id:p for p in a.visible_players}

@@ -64,7 +64,9 @@ class PatrickJaneGame(CrewmateV2Game):
         self.ghosts = {}; self._ghost_goals = {d.id:tuple(d.standing) for d in self.map.destinations}
         self.v2_publications = []; self.v2_direct = {pid:[] for pid in self.players}; self.deduction_only = False
         self.pj_public = []; self.sabotage = None; self.sabotage_deadline = None
-        self.sabotage_ready = self.experiment.sabotage.cooldown
+        self.sabotage_ready = self.experiment.sabotage.initial_cooldown
+        self.emergency_ready = 0.  # Retail emergency cooldown starts after meetings.
+        self.repair_holds = {}
         self.repaired = set(); self.repair_contributors = set(); self.sabotage_number = 0
         utilities = list(self.map.destinations)
         self.utilities = {
@@ -88,7 +90,7 @@ class PatrickJaneGame(CrewmateV2Game):
         teammates = {p.player_id for p in self.players.values() if p.role is Role.IMPOSTOR}
         actions = tuple(a for a in obs.actions if not (
             a.kind is IntentKind.KILL and a.target in teammates or
-            a.kind is IntentKind.CALL_MEETING and self.sabotage in ('oxygen','reactor')))
+            a.kind is IntentKind.CALL_MEETING and (self.sabotage is not None or self.time < self.emergency_ready)))
         return replace(obs,actions=actions)
 
     def observe_pj(self, player_id):
@@ -111,7 +113,8 @@ class PatrickJaneGame(CrewmateV2Game):
             self.utilities.get(self.sabotage,()),tuple(sorted(self.repaired)),
             active and actor.own.role is Role.IMPOSTOR and self.sabotage is None and self.time>=self.sabotage_ready,
             teammates if actor.own.role is Role.IMPOSTOR else (),
-            tuple(self.players[player_id].navigator.route[getattr(self.players[player_id].navigator,'_waypoint',0):]))
+            tuple(self.players[player_id].navigator.route[getattr(self.players[player_id].navigator,'_waypoint',0):]),
+            max(0.,self.emergency_ready-self.time),self.repair_holds.get(player_id))
 
     def _eliminate(self,killer,victim):
         # Preserve V2 witness semantics with dynamic, role-local lights visibility.
@@ -124,6 +127,7 @@ class PatrickJaneGame(CrewmateV2Game):
                              killer_id=killer.player_id,victim_id=victim.player_id)
         self._interrupt(victim,'eliminated'); victim.status='dead'
         self.bodies[victim.player_id] = Body(victim.player_id,victim.position,self.tick,killer.player_id)
+        self._interrupt(killer,'kill_lunge'); killer.motion.spawn(victim.position)
         killer.cooldown=self.config.kill_cooldown; self.metrics['eliminations']+=1
         self._record('elimination',killer_id=killer.player_id,victim_id=victim.player_id,position=victim.position)
         self._make_ghost(victim); self._invalidate(); self._check_win()
@@ -141,12 +145,29 @@ class PatrickJaneGame(CrewmateV2Game):
                         VisualTaskProof(player.player_id,task.plan.task_type,task.console_id)))
 
     def _start_meeting(self,reporter,body=None):
+        self.repair_holds.clear()
         if self.sabotage in ('oxygen','reactor'):
             self._record('sabotage_cancelled',channel='public',sabotage=self.sabotage)
             self.sabotage=None; self.sabotage_deadline=None
             self.sabotage_ready=self.time+self.experiment.sabotage.cooldown
             self.repaired.clear(); self.repair_contributors.clear()
         return super()._start_meeting(reporter,body)
+
+    def _interrupt(self,player,reason):
+        if hasattr(self,'repair_holds'):self.repair_holds.pop(player.player_id,None)
+        return super()._interrupt(player,reason)
+
+    def _resolve_meeting(self):
+        super()._resolve_meeting()
+        if self.phase is Phase.ROAMING:
+            self.emergency_ready=self.time+self.lobby.emergency_cooldown
+            for slot,player in enumerate(self.players.values()):
+                if not player.active:continue
+                self._interrupt(player,'meeting_respawn')
+                player.motion.spawn(self.map.nearest_node((-2.1+(slot%5)*.7,-2.8-(slot//5)*.7)))
+                if player.role is Role.IMPOSTOR:player.cooldown=self.config.kill_cooldown
+            self._record('meeting_respawn',channel='public',emergency_ready=self.emergency_ready)
+            self._invalidate()
 
     def _extension_allowed(self,pid,action,obs):
         if type(action) is not Action or not obs.actor.own.active: return False
@@ -165,6 +186,7 @@ class PatrickJaneGame(CrewmateV2Game):
         return False
 
     def _begin_sabotage(self,kind):
+        self.repair_holds.clear()
         self.sabotage=kind; self.sabotage_number+=1; self.repaired.clear(); self.repair_contributors.clear()
         seconds=getattr(self.experiment.sabotage,kind+'_seconds',None)
         self.sabotage_deadline=self.time+seconds if seconds is not None else None
@@ -178,7 +200,15 @@ class PatrickJaneGame(CrewmateV2Game):
         if not self.sabotage: return
         legal={pid:a.target for pid,a in repairs.items() if self.players[pid].active}
         if self.sabotage=='reactor':
-            # Both distinct consoles held by distinct actors in this same physics tick.
+            # Holding the interface persists until another intention or leaving it.
+            for pid,target in legal.items():
+                self._interrupt(self.players[pid],'reactor_hold')
+                self.players[pid].intention='repair:'+target
+                self.players[pid].navigator.status=NavStatus.SUCCESS
+                self.repair_holds[pid]=target
+            self.repair_holds={pid:target for pid,target in self.repair_holds.items()
+                if self.players[pid].active and self.planner.arrival_region(NavTarget.task(target)).contains(self.players[pid].position)}
+            legal=self.repair_holds
             complete=set(legal.values())==set(self.utilities['reactor']) and len(legal)>=2
             if complete:self.repair_contributors.update(legal)
         else:
@@ -190,7 +220,7 @@ class PatrickJaneGame(CrewmateV2Game):
             self.pj_public.append(Event('sabotage_repaired',observed=self.time,delivered=self.time,detail=self.sabotage))
             self.metrics['repairs']+=1; self.sabotage=None; self.sabotage_deadline=None
             self.sabotage_ready=self.time+self.experiment.sabotage.cooldown
-            self.repaired.clear(); self.repair_contributors.clear(); self._invalidate()
+            self.repaired.clear(); self.repair_contributors.clear(); self.repair_holds.clear(); self._invalidate()
 
     def step(self,actions=None):
         if self.is_terminal:return self.result
@@ -203,7 +233,7 @@ class PatrickJaneGame(CrewmateV2Game):
             obs=observations.get(pid)
             if obs is not None and type(a) is Intent and intent_allowed(obs.actor,a) and (
                     a.kind is not IntentKind.KILL or a.target not in obs.teammates) and not (
-                    a.kind is IntentKind.CALL_MEETING and self.sabotage in ('oxygen','reactor')):
+                    a.kind is IntentKind.CALL_MEETING and (self.sabotage is not None or self.time < self.emergency_ready)):
                 if a.kind is IntentKind.GO_TO_LOCATION and (a.position is None or not self.map.contains((a.position.x,a.position.y))):
                     self.metrics['illegal_actions']+=1
                 else:valid[pid]=a
@@ -216,6 +246,8 @@ class PatrickJaneGame(CrewmateV2Game):
             if self.phase is Phase.ROAMING:
                 for pid,a in extra.items():
                     if a.kind=='sabotage' and self.sabotage is None:self._begin_sabotage(a.target)
+                for pid,a in valid.items():
+                    if a.kind not in (IntentKind.WAIT,):self.repair_holds.pop(pid,None)
                 for pid,a in valid.items():
                     if a.kind is IntentKind.KILL and self.players[pid].active and self.players[a.target].active:
                         self._eliminate(self.players[pid],self.players[a.target])

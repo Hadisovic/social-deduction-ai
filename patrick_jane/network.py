@@ -75,6 +75,15 @@ class PatrickJane(nn.Module):
         recurrent,new_hidden=self.gru(self.encode(batch)[None,:,:],hidden.unsqueeze(0))
         return self.decode(batch,recurrent[0]),new_hidden.squeeze(0)
 
+    def forward_sequences(self,batch,hidden,lengths):
+        """Batch independent owners; padding follows their last used output only."""
+        encoded=self.encode(batch)
+        padded=nn.utils.rnn.pad_sequence(encoded.split(lengths),batch_first=True)
+        recurrent,new_hidden=self.gru(padded,hidden.unsqueeze(0))
+        shared=torch.cat([row[:n] for row,n in zip(recurrent,lengths)])
+        final=torch.stack([row[n-1] for row,n in zip(recurrent,lengths)])
+        return self.decode(batch,shared),final
+
     def architecture(self):
         return dict(parameters=sum(p.numel() for p in self.parameters()),
             modules={name:sum(p.numel() for p in module.parameters()) for name,module in self.named_children()},

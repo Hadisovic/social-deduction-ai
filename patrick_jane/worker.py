@@ -1,5 +1,5 @@
 """Simulation only. This module never imports Torch or owns an optimizer."""
-from collections import defaultdict
+from collections import defaultdict,Counter
 import hashlib
 import json
 import math
@@ -16,7 +16,7 @@ from .opponents import Opponent
 
 
 class Match:
-    def __init__(self,seed,experiment,*,held_out=False,replay=None,metadata=None):
+    def __init__(self,seed,experiment,*,held_out=False,replay=None,metadata=None,live_dir=None):
         self.game=PatrickJaneGame(seed,experiment=experiment)
         self.crew=tuple(pid for pid,p in self.game.players.items() if p.role is Role.CREWMATE)
         self.memory={p:Memory(p,experiment.event_capacity) for p in self.crew}
@@ -25,6 +25,11 @@ class Match:
         self.ledger=RewardLedger(self.game);self.packets={};self.rewards=[];self.recorder=None;self.trace=hashlib.sha256()
         self.decisions=0;self.all_decisions=defaultdict(int);self.last_phase=self.game.phase
         self.last_direct={p:0 for p in self.crew};self.recording_seconds=0.
+        self.live=None;self.cumulative=defaultdict(float)
+        self.exposure={p:Counter() for p in self.crew};self.selected={p:Counter() for p in self.crew}
+        if live_dir:
+            from .live import LiveBridge
+            self.live=LiveBridge(self,live_dir,metadata)
         if replay:
             from .replay import Recorder
             self.recorder=Recorder(self,replay,metadata or {})
@@ -36,6 +41,7 @@ class Match:
 
     def prepare(self):
         self.packets={};game=self.game
+        if self.live:self.live.check()
         if game.is_terminal:return self.response()
         # Project every learner and opponent before anybody executes an action.
         self.observations={pid:game.observe_pj(pid) for pid,p in game.players.items() if p.active}
@@ -46,15 +52,27 @@ class Match:
             eligible=(a.context.phase is Phase.ROAMING or
                 a.context.phase is Phase.DISCUSSION and a.context.speaker_id==pid or
                 a.context.phase is Phase.VOTING and pid in a.context.participants and pid not in a.context.voted_ids)
-            if eligible:self.packets[pid]=encode(obs,self.memory[pid],self.nav[pid])
+            if eligible:
+                self.packets[pid]=encode(obs,self.memory[pid],self.nav[pid])
+                counts=self.exposure[pid];counts['decisions']+=1
+                counts['roaming' if a.context.phase is Phase.ROAMING else 'discussion' if a.context.phase is Phase.DISCUSSION else 'voting']+=1
+                counts['body_visible']+=bool(a.visible_bodies)
+                counts['legal_report']+=any(x.kind.value=='report' for x in a.actions)
+                counts['legal_repair']+=bool(self.packets[pid].interaction_mask[3])
+                if obs.sabotage:counts['during_'+obs.sabotage]+=1
         return self.response()
 
     def response(self):
         result=dict(time=self.game.time,terminal=self.game.is_terminal,
             packets={p:model_packet(x) for p,x in self.packets.items()},rewards=self.rewards,
-            result=self.summary() if self.game.is_terminal else None)
+            result=self.summary() if self.game.is_terminal else None,
+            monitoring=bool(self.live and self.live.active),phase=self.game.phase.value,
+            live_error=self.live.error if self.live else None)
         if self.recorder:
             for time,pid,components in self.rewards:self.recorder.reward(time,pid,components)
+        for time,pid,components in self.rewards:
+            self.cumulative[pid]+=sum(components.values())
+            if self.live:self.live.reward(time,pid,components,self.cumulative[pid])
         self.rewards=[]
         return result
 
@@ -64,8 +82,22 @@ class Match:
         for pid,record in decisions.items():
             choice=record['choice'];packet=self.packets[pid]
             actions[pid]=execute(choice,packet,self.nav[pid]);self.decisions+=1;self.all_decisions[pid]+=1
+            counts=self.selected[pid]
+            if packet.phase==2:
+                counts['skip' if choice.voting==14 else 'vote']+=1
+                if choice.voting!=14:
+                    target=packet.other_ids[choice.voting]
+                    counts['vote_target/'+target]+=1
+            elif packet.phase==1:
+                kind=('silent','share_evidence','accuse','defend','question','strategic_claim')[choice.communication]
+                counts[kind]+=1
+                if kind=='accuse':
+                    target=packet.candidates[choice.target].key
+                    counts['accusation_target/'+target]+=1
+            else:counts[('travel','task','report','repair','emergency')[choice.interaction]]+=1
             self.trace.update(json.dumps(json_value(dict(player=pid,tick=self.game.tick,action=actions[pid])),sort_keys=True).encode())
             if self.recorder:self.recorder.neural(pid,record,packet,self.nav[pid])
+            if self.live:self.live.neural(pid,record,packet,self.nav[pid])
         for pid,script in self.opponents.items():
             if pid in self.observations:actions[pid]=script.decide(self.observations[pid])
         interval=max(1,round(self.game.config.decision_interval/self.game.config.dt))
@@ -85,11 +117,12 @@ class Match:
                 # Measure actual elapsed physics time; exclude incubation, interaction,
                 # movement and meetings rather than charging a nominal .6 seconds.
                 avoidable=(pre[pid] and p.active and start_phase is Phase.ROAMING and self.game.phase is Phase.ROAMING and
-                           p.navigator.status.value!='moving' and p.interaction_task is None and not incubation_wait and
+                           p.navigator.status.value!='moving' and p.interaction_task is None and pid not in self.game.repair_holds and not incubation_wait and
                            decisions[pid]['choice'].interaction==0 and decisions[pid]['choice'].navigation==0)
                 penalty=self.ledger.waiting(pid,self.game.time-previous_time,avoidable)
                 if penalty:self.rewards.append((self.game.time,pid,penalty))
             if self.recorder:self.recorder.step()
+            if self.live:self.live.step()
             first=False
             interrupt=self.game.phase is not start_phase or any(len(self.game.direct_events[p])>self.last_direct[p] for p in self.crew)
             if self.game.tick%interval==0 or interrupt:break
@@ -97,6 +130,7 @@ class Match:
         if self.game.is_terminal:
             self.packets={}
             response=self.response()
+            if self.live:self.live.publish(force=True)  # Include final delayed rewards in live display.
             if self.recorder:self.recorder.finish()
             return response
         return self.prepare()
@@ -104,6 +138,15 @@ class Match:
     def summary(self):
         g=self.game;result=g.result
         ejections=[e for e in g.event_log if e['kind']=='ejection' and e.get('player_id')]
+        sabotages=Counter(e.get('sabotage') for e in g.event_log if e['kind']=='sabotage_started')
+        repaired=Counter(e.get('sabotage') for e in g.event_log if e['kind']=='sabotage_repaired')
+        choices=Counter()
+        for actor_counts in self.selected.values():
+            for key,value in actor_counts.items():
+                if '/' in key:
+                    family,target=key.split('/',1)
+                    key=('correct_' if g.players[target].role is Role.IMPOSTOR else 'incorrect_')+('vote' if family=='vote_target' else 'accusation')
+                choices[key]+=value
         return dict(seed=g.seed,players=len(g.players),crew=len(self.crew),impostors=len(g.players)-len(self.crew),
             winner=result.winner.value if result and result.winner else None,reason=result.reason if result else None,
             simulation_seconds=g.time,individual_decisions=self.decisions,per_actor=dict(self.all_decisions),
@@ -112,7 +155,14 @@ class Match:
             skips=sum(e['kind']=='vote_submitted' and e.get('target_id') is None for e in g.event_log),
             mean_coverage=sum(float((n.seen_at>=0).mean()) for n in self.nav.values())/len(self.nav),
             memories={p:m.summary() for p,m in self.memory.items()},trace=self.trace.hexdigest(),
-            recording_seconds=self.recorder.seconds if self.recorder else 0.)
+            exposure=dict(sum(self.exposure.values(),Counter())),neural_actions=dict(choices),
+            sabotages_by_kind=dict(sabotages),repairs_by_kind=dict(repaired),
+            critical_cancellations=sum(e['kind']=='sabotage_cancelled' for e in g.event_log),
+            crew_reports=sum(e['kind']=='report' and e.get('reporter_id') in self.crew for e in g.event_log),
+            impostor_reports=sum(e['kind']=='report' and e.get('reporter_id') not in self.crew for e in g.event_log),
+            ghost_tasks=sum(e['kind']=='task_completed' and e.get('ghost',False) for e in g.event_log),
+            recording_seconds=self.recorder.seconds if self.recorder else 0.,
+            monitor_seconds=self.live.seconds if self.live else 0.,monitor_error=self.live.error if self.live else None)
 
 
 def serve(connection):

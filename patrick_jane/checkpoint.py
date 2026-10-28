@@ -4,6 +4,7 @@ import hashlib
 import json
 import random
 import platform
+import zipfile
 from pathlib import Path
 import numpy as np
 import torch
@@ -22,6 +23,15 @@ def source_lock():
     paths+=list((ROOT/'assets/skeld').rglob('*.json'))
     paths+=[ROOT/p for p in ('phase3_renderer.py','among_us_renderer.py')]
     return {p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes().replace(b'\r\n',b'\n')).hexdigest() for p in sorted(paths)}
+
+
+def freeze_sources(folder):
+    """Preserve the exact runnable research sources, beyond their content hashes."""
+    path=Path(folder)/'source-snapshot.zip';sources=source_lock()
+    with zipfile.ZipFile(path,'x',compression=zipfile.ZIP_DEFLATED) as archive:
+        for name in sources:archive.writestr(name,(ROOT/name).read_bytes())
+        archive.writestr('source-lock.json',json.dumps(sources,indent=2)+'\n')
+    return dict(path=path.name,sha256=hashlib.sha256(path.read_bytes()).hexdigest(),files=len(sources))
 
 
 def save(path,policy,optimizer,experiment,counters,*,rng,metadata=None):

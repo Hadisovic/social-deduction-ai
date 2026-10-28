@@ -68,6 +68,23 @@ class NetworkMemoryTests(unittest.TestCase):
             self.assertIsNotNone(self.policy.gru.weight_ih_l0.grad)
             self.assertTrue(all(x.grad is None or torch.isfinite(x.grad).all() for x in self.policy.parameters()))
 
+    def test_independent_sequence_batch_matches_outputs_and_gradients(self):
+        import copy
+        _,_,_,_,_,packet=self.setup_actor();lengths=[3,1,2]
+        hidden=torch.randn(3,256)*.1
+        reference=copy.deepcopy(self.policy);batched=copy.deepcopy(self.policy)
+        expected=[];final=[];loss=0
+        for i,n in enumerate(lengths):
+            output,h=reference.forward_sequence(collate([packet]*n),hidden[i:i+1])
+            expected.append(output);final.append(h[0]);loss=loss+sum(v.sum() for v in output.values())
+        loss.backward()
+        output,h=batched.forward_sequences(collate([packet]*sum(lengths)),hidden,lengths)
+        self.assertTrue(torch.allclose(h,torch.stack(final),atol=2e-6,rtol=2e-5))
+        for key in output:self.assertTrue(torch.allclose(output[key],torch.cat([x[key] for x in expected]),atol=2e-6,rtol=2e-5),key)
+        sum(v.sum() for v in output.values()).backward()
+        for (name,a),(_,b) in zip(reference.named_parameters(),batched.named_parameters()):
+            if a.grad is not None:self.assertTrue(torch.allclose(a.grad,b.grad,atol=2e-5,rtol=3e-4),name)
+
     def test_vectorized_conditional_likelihood_matches_scalar(self):
         _,_,_,_,_,p=self.setup_actor();packets=[model_packet(p) for _ in range(3)]
         for phase,packet in enumerate(packets):packet.phase=phase

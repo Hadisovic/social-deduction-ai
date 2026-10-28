@@ -56,6 +56,7 @@ class State:
     study_context:str='ordinary'
     metrics:dict=field(default_factory=dict)
     status:dict=field(default_factory=dict)
+    live_environment:int|None=None
     message:str=''
     message_until:float=0.
     fullscreen:bool=False
@@ -71,10 +72,12 @@ class Application:
         self.renderer=Renderer(world);self.ui=Widgets();self.screen=None;self.running=True
         self.drag=None;self.scrubbing=False;self.last_mouse=None;self.saved_size=None
         self.last_follow_mtime=0.;self.capture_request=None;self.first_seek=None;self.loaded_frames=0
+        self.last_live_poll=0.;self.last_live_stamp=0.
 
     def tell(self,message):self.state.message=str(message);self.state.message_until=time.monotonic()+6
 
     def open(self,path):
+        self.state.live_environment=None
         self.state.library.request(path);self.tell('Loading completed replay in background…')
 
     def load_metrics(self,path):
@@ -111,7 +114,7 @@ class Application:
                 if getattr(self,'initial_selected',None) in ids:app.selected=self.initial_selected;self.initial_selected=None
                 if getattr(self,'initial_tab',None):app.tab=self.initial_tab;self.initial_tab=None
                 self.tell('Recorded replay loaded. Private neural data stays selected-actor only.')
-        if changed and app.mode=='follow_latest' and app.library.entries:
+        if changed and app.mode=='follow_latest' and app.library.entries and app.live_environment is None:
             latest=max(app.library.entries.values(),key=lambda e:e['mtime'])
             if latest['mtime']>self.last_follow_mtime and latest['path']!=app.current_path:
                 self.last_follow_mtime=latest['mtime'];self.open(latest['path'])
@@ -119,6 +122,20 @@ class Application:
             path=self.neighbor(1)
             if path:self.open(path);app.auto_wait=False
         if app.message and time.monotonic()>app.message_until:app.message=''
+        if app.live_environment is not None and time.monotonic()-self.last_live_poll>=.5:
+            self.last_live_poll=time.monotonic()
+            streams=app.status.get('environment_progress',{}).get('streams',[])
+            stream=next((s for s in streams if s['environment']==app.live_environment),None)
+            if stream and stream.get('snapshot'):
+                try:
+                    path=Path(stream['snapshot']);data=json.loads(path.read_text())
+                    if data.get('updated_unix',0)>self.last_live_stamp and data.get('ticks'):
+                        previous=app.selected;app.index=ReplayIndex(data);app.current_path=str(path)
+                        app.index.player.seek_to_time(app.index.player.duration)
+                        ids=list(app.index.frame().players)
+                        app.selected=previous if previous in ids else next((p for p in ids if app.index.header.get('controller_types',{}).get(p)=='patrick-jane-ppo'),ids[0])
+                        app.playing=False;self.last_live_stamp=data['updated_unix']
+                except (OSError,ValueError,TypeError,KeyError):pass
 
     def set_pref(self,key,value):
         app=self.state
@@ -162,6 +179,20 @@ class Application:
         elif command=='toggle':self.set_pref(args[0],not app.prefs[args[0]])
         elif command=='set_pref':self.set_pref(args[0],args[1])
         elif command=='load':self.open(args[0]);app.scene='Match'
+        elif command=='live_environment':
+            app.live_environment=int(args[0]);app.scene='Match';app.playing=False
+            self.last_live_stamp=0.
+            directory=app.status.get('monitor_dir')
+            if directory:
+                try:
+                    path=Path(directory)/'focus.json';temporary=path.with_suffix('.tmp')
+                    temporary.write_text(json.dumps(dict(environment=app.live_environment)));temporary.replace(path)
+                    self.tell('Watching real throttled snapshots · bounded history · no simulation control')
+                except OSError as exc:self.tell('Live selection unavailable: '+str(exc))
+        elif command=='live_menu':
+            streams=app.status.get('environment_progress',{}).get('streams',[])
+            app.dropdown=dict(pos=pos or pygame.mouse.get_pos(),options=[
+                (f"Env {s['environment']:02d} · {s.get('phase','unknown')} · {s['simulation_seconds']:.1f}s",('live_environment',s['environment'])) for s in streams])
         elif command=='favorite':app.prefs.favorite(args[0])
         elif command=='bookmark' and player:
             app.prefs.bookmark(app.current_path,player.current_sim_time,app.selected);self.tell('Local decision/time bookmark saved.')
@@ -315,7 +346,7 @@ class Application:
 
     def advance(self,dt):
         app=self.state
-        if app.index and app.playing and app.scene=='Match':
+        if app.index and app.playing and app.scene=='Match' and app.live_environment is None:
             if app.index.player.advance_sim_time(max(0,min(.25,dt))*app.speed):app.playing=False;app.auto_wait=app.mode=='auto_next'
 
     def draw(self):
@@ -335,6 +366,7 @@ def parse_args(argv=None):
     p.add_argument('--width',type=int,default=0);p.add_argument('--height',type=int,default=0)
     p.add_argument('--speed',type=float);p.add_argument('--mode',choices=['manual','auto_next','follow_latest'])
     p.add_argument('--seek',type=float);p.add_argument('--paused',action='store_true');p.add_argument('--selected')
+    p.add_argument('--live-environment',type=int,help='Follow genuine throttled snapshots of this instance')
     p.add_argument('--page',choices=['Match','Library','Study','Settings'],default='Match');p.add_argument('--tab')
     p.add_argument('--omniscient',action='store_true');p.add_argument('--reveal-ballots',action='store_true')
     p.add_argument('--fullscreen',action='store_true');p.add_argument('--capture',type=Path);p.add_argument('--max-frames',type=int)
@@ -374,10 +406,13 @@ def main(argv=None):
                 last_status=now
                 try:app.state.status=json.loads(status_file.read_text())
                 except (OSError,ValueError):pass
+                if args.live_environment is not None and app.state.status.get('monitor_dir'):
+                    app.dispatch(('live_environment',args.live_environment));args.live_environment=None
             if args.state_file and now-last_state>=1:
                 last_state=now;args.state_file.parent.mkdir(parents=True,exist_ok=True)
                 record=dict(pid=os.getpid(),updated_unix=time.time(),scene=app.state.scene,replay=app.state.current_path,
                     selected=app.state.selected,tab=app.state.tab,sim_time=app.state.index.player.current_sim_time if app.state.index else None,
+                    live_environment=app.state.live_environment,
                     playing=app.state.playing,speed=app.state.speed,fullscreen=app.state.fullscreen,window=list(app.screen.get_size()),
                     indexed=len(app.state.library.entries),indexing=app.state.library.busy,omniscient=prefs['omniscient'],reveal_ballots=prefs['reveal_ballots'],
                     controls=[dict(key=c.key,rect=list(c.rect)) for c in app.ui.controls],fps=app.state.fps)

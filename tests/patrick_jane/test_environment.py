@@ -4,7 +4,7 @@ from social_deduction.actor import Role,Phase
 from social_deduction.phase3_api import Intent,IntentKind
 from navigation_service import NavigationPlanner
 from among_us_map import get_map
-from patrick_jane.config import Experiment,Population
+from patrick_jane.config import Experiment,Population,ClassicLobby
 from patrick_jane.environment import PatrickJaneGame
 from patrick_jane.api import Action,Event
 from patrick_jane.rewards import RewardLedger,COEFFICIENTS
@@ -54,10 +54,53 @@ class EnvironmentTests(unittest.TestCase):
         g=self.game();g._begin_sabotage('reactor');crew=[p for p in g.players.values() if p.role is Role.CREWMATE]
         keys=g.utilities['reactor']
         for p,key in zip(crew,keys):p.motion.spawn(g.planner.destinations[key].standing)
-        g._invalidate();g.step({crew[0].player_id:Action('repair',keys[0])});g.step({crew[1].player_id:Action('repair',keys[1])})
+        g._invalidate();g.step({crew[0].player_id:Action('repair',keys[0])})
         self.assertEqual(g.sabotage,'reactor')
-        g.step({p.player_id:Action('repair',key) for p,key in zip(crew,keys)})
+        self.assertEqual(g.observe_pj(crew[0].player_id).own_repair_hold,keys[0])
+        g.step({});g.step({crew[1].player_id:Action('repair',keys[1])})
         self.assertIsNone(g.sabotage)
+
+    def test_reactor_hold_cancelled_by_movement_or_death(self):
+        for cancellation in ('move','death'):
+            g=self.game();g._begin_sabotage('reactor');crew=[p for p in g.players.values() if p.role is Role.CREWMATE]
+            keys=g.utilities['reactor']
+            for p,key in zip(crew,keys):p.motion.spawn(g.planner.destinations[key].standing)
+            g._invalidate();g.step({crew[0].player_id:Action('repair',keys[0])})
+            if cancellation=='move':g.step({crew[0].player_id:Intent(IntentKind.CANCEL_NAVIGATION)})
+            else:g._eliminate(next(p for p in g.players.values() if p.role is Role.IMPOSTOR),crew[0])
+            g.step({crew[1].player_id:Action('repair',keys[1])})
+            self.assertEqual(g.sabotage,'reactor');self.assertNotIn(crew[0].player_id,g.repair_holds)
+
+    def test_classic_timers_and_meeting_reset(self):
+        g=self.game();self.assertEqual(g.lobby.emergency_cooldown,15)
+        self.assertEqual(g.sabotage_ready,10)
+        imps=[p for p in g.players.values() if p.role is Role.IMPOSTOR]
+        self.assertTrue(all(p.cooldown==10 for p in imps))
+        g._start_meeting(next(iter(g.players.values())))
+        g.phase=Phase.VOTING;g._invalidate()
+        for pid in g.participants:g._vote(pid,None)
+        g._resolve_meeting()
+        self.assertTrue(all(p.cooldown==45 for p in imps))
+        self.assertAlmostEqual(g.emergency_ready-g.time,15)
+        self.assertTrue(all(-6<p.position[1]<0 for p in g.players.values() if p.active))
+        self.assertFalse(any(a.kind is IntentKind.CALL_MEETING for a in g.observe(imps[0].player_id).actions))
+        self.assertEqual(g.observe_pj(imps[0].player_id).emergency_ready_in,15)
+
+    def test_emergency_blocked_by_every_supported_sabotage(self):
+        for kind in ('lights','oxygen','reactor'):
+            g=self.game();g._begin_sabotage(kind)
+            p=next(iter(g.players.values()))
+            self.assertFalse(any(a.kind is IntentKind.CALL_MEETING for a in g.observe(p.player_id).actions))
+            button=next(d.id for d in g.map.destinations if d.name=='EmergencyConsole')
+            p.motion.spawn(g.planner.destinations[button].standing);g._invalidate()
+            g.step({p.player_id:Intent(IntentKind.CALL_MEETING,button)})
+            self.assertIs(g.phase,Phase.ROAMING)
+
+    def test_classic_profile_does_not_modify_historical_v2(self):
+        from crewmate_v2.config import LobbySettings
+        self.assertEqual(LobbySettings().emergency_cooldown,0)
+        self.assertEqual(LobbySettings().engine_config(.2).initial_kill_cooldown,45)
+        self.assertEqual(ClassicLobby().engine_config(.2).initial_kill_cooldown,10)
 
     def test_critical_failure_and_last_tick_repair_order(self):
         for kind in ('oxygen','reactor'):
@@ -124,6 +167,22 @@ class EnvironmentTests(unittest.TestCase):
             g._resolve_meeting();rewards=ledger.collect(g)
             key='innocent_ejection' if role is Role.CREWMATE else 'impostor_ejection'
             self.assertTrue(all(r[key]==expected for r in rewards.values()))
+
+    def test_ghost_work_and_incubation_pause_in_both_meeting_phases(self):
+        g=self.game();crew=next(p for p in g.players.values() if p.role is Role.CREWMATE)
+        imp=next(p for p in g.players.values() if p.role is Role.IMPOSTOR)
+        g._eliminate(imp,crew)
+        delayed=crew.tasks[0];delayed.ready_at=g.time+30
+        reporter=next(p for p in g.players.values() if p.active);g._start_meeting(reporter)
+        before_position=g.ghosts[crew.player_id].position;before_progress=[t.progress for t in crew.tasks]
+        for phase in (Phase.DISCUSSION,Phase.VOTING):
+            g.phase=phase;g.phase_started_tick=g.tick;g._invalidate()
+            remaining=delayed.ready_at-g.time
+            for _ in range(5):g.step({})
+            self.assertEqual(before_position,g.ghosts[crew.player_id].position)
+            self.assertEqual(before_progress,[t.progress for t in crew.tasks])
+            self.assertAlmostEqual(delayed.ready_at-g.time,remaining)
+        self.assertEqual(delayed.owner_id,crew.player_id)
 
     def test_task_report_ghost_rewards_unique_and_no_vote_reward(self):
         g=self.game();ledger=RewardLedger(g);crew=next(p for p in g.players.values() if p.role is Role.CREWMATE)

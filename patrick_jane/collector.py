@@ -27,7 +27,8 @@ class Pool:
         if self.processes:
             for i,command in commands.items():self.connections[i].send(command)
             for i in commands:
-                if not self.connections[i].poll(self.timeout):raise TimeoutError('Simulation worker exceeded bounded RPC deadline')
+                timeout=min(self.timeout,max(0.,getattr(self,'deadline',float('inf'))-perf_counter()))
+                if not self.connections[i].poll(timeout):raise TimeoutError('Simulation worker exceeded bounded RPC deadline')
                 status,value=self.connections[i].recv()
                 if status!='ok':raise RuntimeError(value)
                 result[i]=value
@@ -70,10 +71,12 @@ class Transition:
 
 
 def collect(policy,pool,experiment,seeds,*,device='cpu',update=0,training_step=0,replay_dir=None,
-            record_every=0,held_out=False,wall_limit=180.,status_callback=None,checkpoint=None):
-    if len(seeds)!=pool.count:raise ValueError('One independent seed per worker required')
+            record_every=0,held_out=False,wall_limit=180.,status_callback=None,checkpoint=None,monitor_dir=None):
+    if not 0<len(seeds)<=pool.count:raise ValueError('One independent seed per active worker required')
     began=perf_counter();simulation_started=perf_counter()
+    pool.deadline=began+wall_limit
     responses=pool.call({i:('reset',dict(seed=seed,experiment=experiment,held_out=held_out,
+        live_dir=str(monitor_dir) if monitor_dir else None,
         replay=str(Path(replay_dir)/f'env-{i:02d}-seed-{seed}-update-{update}.jsonl') if replay_dir and record_every and i%record_every==0 else None,
         metadata=dict(session='patrick-jane',environment=i,update=update,checkpoint=checkpoint or f'fresh-initialization-seed17/update-{update}',
                       training_step=training_step))) for i,seed in enumerate(seeds)})
@@ -100,7 +103,7 @@ def collect(policy,pool,experiment,seeds,*,device='cpu',update=0,training_step=0
                         tr=pending.pop(key);tr.done=True;tr.duration=r['time']-tr.time;trajectories[key].append(tr)
                 continue
             for pid,packet in r['packets'].items():keys.append((i,pid));packets.append(packet)
-        if len(completed)==pool.count:break
+        if len(completed)==len(seeds):break
         commands={i:{} for i in responses if i not in completed}
         if packets:
             started=perf_counter()
@@ -123,18 +126,20 @@ def collect(policy,pool,experiment,seeds,*,device='cpu',update=0,training_step=0
                 pending[key].reward+=initial_rewards.pop(key,0.)
                 hidden[key]=new_hidden[j].detach();counts+=1
                 commands[i][pid]=dict(choice=choice,logp=float(lp),value=float(out['value']),entropy=float(en),
-                    probabilities=probs if replay_dir and record_every and i%record_every==0 else {},
+                    probabilities=probs if (replay_dir and record_every and i%record_every==0 or responses[i].get('monitoring')) else {},
                     update=update,training_step=training_step+counts)
             inference_seconds+=perf_counter()-started
         started=perf_counter();responses=pool.call({i:('advance',decisions) for i,decisions in commands.items()});simulation_seconds+=perf_counter()-started
         if status_callback and perf_counter()-last_notice>10:
-            status_callback(dict(decisions=counts,complete=len(completed),environments=pool.count,
+            status_callback(dict(decisions=counts,complete=len(completed),environments=len(seeds),
                 elapsed=perf_counter()-began,update=update,streams=[dict(environment=i,seed=seeds[i],
                     simulation_seconds=completed[i]['simulation_seconds'] if i in completed else responses.get(i,{}).get('time',0),
                     complete=i in completed,
+                    phase='finished' if i in completed else responses.get(i,{}).get('phase'),
+                    snapshot=str(Path(monitor_dir)/f'env-{i:02d}.json') if monitor_dir else None,
                     replay=str(Path(replay_dir)/f'env-{i:02d}-seed-{seeds[i]}-update-{update}.jsonl')
-                    if replay_dir and record_every and i%record_every==0 else None) for i in range(pool.count)]));last_notice=perf_counter()
-    summaries=[completed[i] for i in range(pool.count)]
+                    if replay_dir and record_every and i%record_every==0 else None) for i in range(len(seeds))]));last_notice=perf_counter()
+    summaries=[completed[i] for i in range(len(seeds))]
     elapsed=perf_counter()-began
     return dict(trajectories=dict(trajectories),matches=summaries,individual_decisions=counts,
         elapsed=elapsed,decisions_per_second=counts/elapsed,games_per_second=len(summaries)/elapsed,

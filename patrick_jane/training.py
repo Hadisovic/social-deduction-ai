@@ -1,24 +1,29 @@
-"""Registered full-run infrastructure. Invocation requires explicit owner approval."""
+"""Registered complete-match training; explicit approval and a wall ceiling required."""
 import json
 from pathlib import Path
 from time import perf_counter
 import random
+import os
+os.environ.setdefault('CUBLAS_WORKSPACE_CONFIG',':4096:8')
 import numpy as np
 import torch
 from .network import PatrickJane
 from .config import Experiment,DEV_TRAIN,DEV_VALIDATION
 from .collector import Pool,collect
 from .ppo import update
-from .checkpoint import save,load,select_champion,source_lock
+from .checkpoint import save,load,select_champion,source_lock,freeze_sources
+from .telemetry import Resources
+from .progress import Progress,atomic_json
+from .health import audit_rollout,severe_paired_regression,severe_speed_regression
 
 
 def train(output,*,target_decisions,owner_approved=False,environments=16,device='cuda',
-          experiment=None,resume=None,hard_wall_seconds=None,record_every=16):
+          experiment=None,resume=None,hard_wall_seconds=None,record_every=8,status_mirror=None):
     if owner_approved is not True:raise PermissionError('Full Patrick Jane training requires separate owner authorization')
     if not isinstance(target_decisions,int) or target_decisions<=0 or not 1<=environments<=32:
         raise ValueError('Register a positive individual-actor decision budget and valid worker count')
     if hard_wall_seconds is None or hard_wall_seconds<=0:raise ValueError('Register a measured wall-clock ceiling')
-    folder=Path(output);folder.mkdir(parents=True,exist_ok=False)
+    folder=Path(output).resolve();folder.mkdir(parents=True,exist_ok=False)
     experiment=experiment or Experiment();torch.set_num_threads(1);torch.manual_seed(17);random.seed(17)
     torch.use_deterministic_algorithms(True);rng=np.random.default_rng(17)
     policy=PatrickJane().to(device);optimizer=torch.optim.Adam(policy.parameters(),lr=experiment.learning_rate)
@@ -26,48 +31,115 @@ def train(output,*,target_decisions,owner_approved=False,environments=16,device=
     if resume:
         record=load(resume,policy,optimizer,rng=rng)
         if record['experiment']!=experiment.to_dict():raise ValueError('Cannot resume into a changed protocol')
-        counters=record['counters']
-    configuration=dict(experiment=experiment.to_dict(),sources=source_lock(),target_decisions=target_decisions,
-        workers=environments,device=device,hard_wall_seconds=hard_wall_seconds,resume=str(resume) if resume else None)
-    (folder/'registration.json').write_text(json.dumps(configuration,indent=2)+'\n')
-    began=perf_counter();history=[]
-    current_checkpoint=resume
-    def status(extra):
-        record=dict(schema='patrick-jane-progress-v1',counters=counters,workers=environments,
-                    elapsed=perf_counter()-began,target_decisions=target_decisions,**extra)
-        temporary=folder/'status.json.tmp';temporary.write_text(json.dumps(record,indent=2)+'\n');temporary.replace(folder/'status.json')
-    with Pool(environments) as pool:
-        while counters['individual_decisions']<target_decisions:
-            remaining=hard_wall_seconds-(perf_counter()-began)
-            if remaining<=0:raise TimeoutError('Registered wall ceiling reached; no protocol reduction')
-            first=counters['next_seed'];seeds=DEV_TRAIN[first:first+environments]
-            if len(seeds)!=environments:raise RuntimeError('Registered training seeds exhausted; request protocol extension')
-            rollout=collect(policy,pool,experiment,seeds,device=device,update=counters['update'],
-                training_step=counters['individual_decisions'],replay_dir=folder/'replays',record_every=record_every,
-                wall_limit=remaining,status_callback=status,checkpoint=str(current_checkpoint) if current_checkpoint else None)
-            if perf_counter()-began>=hard_wall_seconds:raise TimeoutError('No PPO update after wall ceiling')
-            learning=update(policy,optimizer,rollout.pop('trajectories'),experiment,rng=rng,device=device)
-            counters['individual_decisions']+=rollout['individual_decisions'];counters['complete_matches']+=len(seeds)
-            counters['next_seed']+=len(seeds);counters['update']+=1
-            checkpoint=folder/f'checkpoints/update-{counters["update"]:06d}.pt'
-            should_evaluate=counters['individual_decisions']>=counters['next_evaluation']
-            if should_evaluate:counters['next_evaluation']+=experiment.evaluation_interval
-            save(checkpoint,policy,optimizer,experiment,counters.copy(),rng=rng)
-            current_checkpoint=checkpoint
-            record=dict(counters=counters.copy(),rollout=rollout,ppo=learning)
-            if should_evaluate:
-                # Preserve exact coverage: serial batches of held-out matches, no silent reduction.
-                matches=[]
-                for offset in range(0,experiment.evaluation_matches,environments):
-                    seeds=DEV_VALIDATION[offset:offset+min(environments,experiment.evaluation_matches-offset)]
-                    if not seeds:raise ValueError('Held-out evaluation registration exhausted')
-                    remaining=hard_wall_seconds-(perf_counter()-began)
-                    if remaining<=0:raise TimeoutError('Wall ceiling before complete registered evaluation')
-                    with Pool(len(seeds)) as evaluation_pool:
-                        evaluation=collect(policy,evaluation_pool,experiment,seeds,device=device,held_out=True,wall_limit=remaining)
-                    matches.extend(evaluation['matches'])
-                record['evaluation']=matches;record['new_champion']=select_champion(checkpoint,matches,folder/'champions')
-            history.append(record);(folder/'history.json').write_text(json.dumps(history,indent=2)+'\n')
-            status(dict(last_complete_batch=record))
-    status(dict(complete=True,overshoot_decisions=counters['individual_decisions']-target_decisions))
+        counters=dict(record['counters'])
+    configuration=dict(experiment=experiment.to_dict(),sources=source_lock(),source_snapshot=freeze_sources(folder),target_decisions=target_decisions,
+        training_seeds=list(DEV_TRAIN),validation_seeds=list(DEV_VALIDATION),initialization_seed=17,
+        workers=environments,device=device,hard_wall_seconds=hard_wall_seconds,resume=str(resume) if resume else None,
+        evaluation_schedule='frozen zero-update, each 100000 decisions, final selected state; all 100 development validation scenarios',
+        budget_unit='individual living learner decisions; complete-match batches may overshoot',
+        checkpoint_selection='held-out crew wins, then task wins, then correct minus innocent ejections',
+        final_test_partitions='unopened',acceptance='pending')
+    atomic_json(folder/'registration.json',configuration)
+    began=perf_counter();deadline=began+hard_wall_seconds;history=[];evaluated=set();reference_matches=None
+    if resume:
+        baseline=Path(resume).resolve().parent.parent/'evaluations/update-000000-zero.json'
+        if not baseline.is_file():raise ValueError('Resume requires its preserved zero-update validation reference')
+        reference_matches=json.loads(baseline.read_text())['matches']
+    current_checkpoint=Path(resume) if resume else folder/'checkpoints/update-000000.pt'
+    if not resume:save(current_checkpoint,policy,optimizer,experiment,counters.copy(),rng=rng,metadata=dict(zero_update_reference=True))
+
+    def remaining():
+        seconds=deadline-perf_counter()
+        if seconds<=0:raise TimeoutError('Registered wall ceiling reached; retain complete checkpoints and exact coverage')
+        if source_lock()!=configuration['sources']:raise RuntimeError('Source changed during frozen experiment')
+        return seconds
+
+    with Resources() as resources:
+        progress=Progress(folder,environments,resources,target=target_decisions,mirror=status_mirror)
+        progress.counters=counters;progress.checkpoint=current_checkpoint
+        def evaluate(pool,label):
+            nonlocal current_checkpoint,reference_matches
+            progress.stage='validation-'+label;matches=[];eval_decisions=0
+            for offset in range(0,experiment.evaluation_matches,environments):
+                seeds=DEV_VALIDATION[offset:offset+min(environments,experiment.evaluation_matches-offset)]
+                if not seeds:raise ValueError('Held-out coverage exhausted')
+                result=collect(policy,pool,experiment,seeds,device=device,held_out=True,wall_limit=remaining(),
+                    replay_dir=folder/'replays',record_every=record_every,monitor_dir=progress.monitor_dir,
+                    update=counters['update'],training_step=counters['individual_decisions'],checkpoint=str(current_checkpoint),
+                    status_callback=lambda active:progress.publish(active,validation_complete=len(matches),validation_target=experiment.evaluation_matches))
+                result.pop('trajectories');audit_rollout(result)
+                matches.extend(result['matches']);eval_decisions+=result['individual_decisions']
+            remaining()
+            record=dict(label=label,update=counters['update'],checkpoint=str(current_checkpoint),matches=matches,
+                        individual_decisions=eval_decisions,new_champion=select_champion(current_checkpoint,matches,folder/'champions'))
+            if label=='zero':reference_matches=matches
+            elif reference_matches:record['regression_check']=severe_paired_regression(reference_matches,matches)
+            atomic_json(folder/f'evaluations/update-{counters["update"]:06d}-{label}.json',record)
+            evaluated.add(counters['update']);progress.active={}
+            progress.history.append(dict(decisions=counters['individual_decisions'],validation_wins=sum(m['winner']=='crewmate' for m in matches),
+                validation_games=len(matches),tasks=sum(m['metrics']['task_completions'] for m in matches),
+                correct_ejections=sum(m['correct_ejections'] for m in matches),innocent_ejections=sum(m['innocent_ejections'] for m in matches)))
+            progress.publish(validation_complete=len(matches),validation_target=experiment.evaluation_matches)
+            if any(m['metrics']['illegal_actions'] or m['monitor_error'] for m in matches):
+                raise RuntimeError('Validation legality/observer regression')
+            if record.get('regression_check',{}).get('stop'):raise RuntimeError('Severe paired validation win regression; owner review required')
+            return record
+        try:
+            with Pool(environments) as pool:
+                if not resume:evaluate(pool,'zero')
+                while counters['individual_decisions']<target_decisions:
+                    if counters['individual_decisions']>=counters['next_evaluation']:
+                        evaluate(pool,'interval')
+                        while counters['next_evaluation']<=counters['individual_decisions']:counters['next_evaluation']+=experiment.evaluation_interval
+                        current_checkpoint=folder/f'checkpoints/update-{counters["update"]:06d}-evaluated.pt'
+                        save(current_checkpoint,policy,optimizer,experiment,counters.copy(),rng=rng)
+                        progress.checkpoint=current_checkpoint
+                    first=counters['next_seed'];seeds=DEV_TRAIN[first:first+environments]
+                    if len(seeds)!=environments:raise RuntimeError('Registered training seeds exhausted')
+                    progress.stage='collecting';progress.publish({})
+                    rollout=collect(policy,pool,experiment,seeds,device=device,update=counters['update'],
+                        training_step=counters['individual_decisions'],replay_dir=folder/'replays',record_every=record_every,
+                        wall_limit=remaining(),status_callback=progress.publish,checkpoint=str(current_checkpoint),monitor_dir=progress.monitor_dir)
+                    progress.stage='PPO';progress.publish(progress.final_streams(rollout['matches'],counters['update'],record_every))
+                    audit_rollout(rollout)
+                    remaining()
+                    learning=update(policy,optimizer,rollout.pop('trajectories'),experiment,rng=rng,device=device,deadline=deadline)
+                    remaining()
+                    if any(m['metrics']['illegal_actions'] or m['monitor_error'] for m in rollout['matches']):
+                        raise RuntimeError('Illegal actions or observer error: readiness regression; withhold checkpoint')
+                    counters['individual_decisions']+=rollout['individual_decisions'];counters['complete_matches']+=len(seeds)
+                    counters['next_seed']+=len(seeds);counters['update']+=1
+                    current_checkpoint=folder/f'checkpoints/update-{counters["update"]:06d}.pt'
+                    digest=save(current_checkpoint,policy,optimizer,experiment,counters.copy(),rng=rng)
+                    record=dict(counters=counters.copy(),rollout=rollout,ppo=learning,sha256=digest)
+                    history.append(record);atomic_json(folder/'history.json',history)
+                    atomic_json(folder/'latest.json',dict(checkpoint=str(current_checkpoint),sha256=digest,counters=counters.copy()))
+                    progress.settle(rollout);progress.ppo=learning;progress.checkpoint=current_checkpoint
+                    progress.stage='checkpoint';progress.publish(progress.final_streams(rollout['matches'],counters['update']-1,record_every))
+                    print(json.dumps(dict(event='checkpoint',**counters,ppo_seconds=learning['elapsed'],wall_seconds=perf_counter()-began)),flush=True)
+                    if severe_speed_regression(history):raise RuntimeError('Three sustained throughput regressions below 40 percent of initial median')
+                if counters['update'] not in evaluated:evaluate(pool,'final')
+                remaining();progress.stage='complete';progress.publish(complete=True,overshoot_decisions=counters['individual_decisions']-target_decisions)
+                atomic_json(folder/'completion.json',dict(counters=counters,elapsed=perf_counter()-began,sources=configuration['sources'],acceptance='pending'))
+        except BaseException as exc:
+            progress.stage='stopped';progress.publish(error=repr(exc),complete=False)
+            atomic_json(folder/'failure.json',dict(error=repr(exc),elapsed=perf_counter()-began,last_complete_checkpoint=str(current_checkpoint),counters=counters))
+            raise
     return counters
+
+
+def main():
+    import argparse
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output',required=True);parser.add_argument('--decisions',type=int,default=250_000)
+    parser.add_argument('--workers',type=int,required=True);parser.add_argument('--wall-seconds',type=float,required=True)
+    parser.add_argument('--status-mirror');parser.add_argument('--resume')
+    parser.add_argument('--owner-approved',action='store_true')
+    args=parser.parse_args()
+    if not args.owner_approved:parser.error('Explicit owner authorization required')
+    result=train(args.output,target_decisions=args.decisions,environments=args.workers,hard_wall_seconds=args.wall_seconds,
+        status_mirror=args.status_mirror,resume=args.resume,owner_approved=True)
+    print(json.dumps(dict(event='complete',**result)),flush=True)
+
+
+if __name__=='__main__':main()

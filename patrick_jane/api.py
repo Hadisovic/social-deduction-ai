@@ -32,6 +32,8 @@ class Observation:
     can_sabotage: bool = False  # own impostor ability only
     teammates: tuple[str, ...] = ()  # legitimate impostor-only team knowledge
     own_route: tuple[tuple[float,float], ...] = ()
+    emergency_ready_in: float = 0.
+    own_repair_hold: str | None = None
 
 
 @dataclass(frozen=True)

@@ -224,13 +224,39 @@ class Pages:
         for name,value in status.get('resources',{}).items():
             text(surface,name+' · mean / peak',r.x,y,13,MUTED)
             text(surface,f"{value['mean']:.1f} / {value['peak']:.1f}",r.x+330,y,13,TEXT);y+=26
-        y+=18;text(surface,'PARALLEL ENVIRONMENTS · COMPLETED REPLAYS ONLY',r.x,y,13,LIME,True);y+=30
+        counters=status.get('counters',{});active=status.get('environment_progress',{})
+        total=status.get('overall_decisions',counters.get('individual_decisions',0)+active.get('decisions',0))
+        target=status.get('target_decisions',0)
+        if target:
+            progress(surface,pygame.Rect(r.x,y,min(850,r.w),10),total/target);y+=24
+            text(surface,f"{total:,} / {target:,} decisions · {status.get('throughput',0):.1f}/s · ETA {status.get('eta_seconds',0)/60:.1f} min",r.x,y,14,CYAN);y+=30
+        outcomes=status.get('outcomes',{})
+        text(surface,f"Complete games {outcomes.get('games',0)} · crew wins {outcomes.get('wins',0)} · losses {outcomes.get('losses',0)} · draws {outcomes.get('draws',0)}",r.x,y,14,TEXT);y+=30
+        text(surface,'Latest checkpoint: '+str(status.get('checkpoint','unavailable')),r.x,y,12,MUTED,width=r.w);y+=28
+        for name,value in status.get('reward_components',{}).items():
+            text(surface,f'{name}: {value:.3f}',r.x,y,12,MUTED);y+=21
+        for name,value in status.get('ppo',{}).items():
+            if isinstance(value,(int,float)):text(surface,f'PPO {name}: {value:.5g}',r.x,y,12,MUTED);y+=21
+        curve=status.get('learning_curve',[])
+        if curve:
+            chart=pygame.Rect(r.x,y,min(850,r.w),120);box(surface,chart,CARD,LINE,8)
+            text(surface,'HELD-OUT CREW WIN RATE · FIXED DEVELOPMENT SCENARIOS',chart.x+12,chart.y+8,11,CYAN)
+            xmax=max(1,max(v['decisions'] for v in curve))
+            points=[(chart.x+14+v['decisions']/xmax*(chart.w-28),chart.bottom-16-v['validation_wins']/max(1,v['validation_games'])*(chart.h-48)) for v in curve]
+            if len(points)>1:pygame.draw.lines(surface,LIME,False,points,2)
+            for point in points:pygame.draw.circle(surface,LIME,point,3)
+            y=chart.bottom+18
+        y+=18;text(surface,'PARALLEL ENVIRONMENTS · SELECT LIVE INSTANCE OR COMPLETE REPLAY',r.x,y,13,LIME,True);y+=30
         for stream in status.get('environment_progress',{}).get('streams',[]):
             label=f"Env {stream['environment']:02d} · seed {stream['seed']} · {stream['simulation_seconds']:.1f}s · {'complete' if stream['complete'] else 'simulating'}"
             path=stream.get('replay')
-            if path and stream['complete'] and Path(path).is_file():
+            if stream.get('snapshot') and status.get('monitor_dir'):
+                ui.button(surface,'pj-live-'+str(stream['environment']),label+' · LIVE',pygame.Rect(r.x,y,min(650,r.w),32),('live_environment',stream['environment']))
+                if path and stream['complete'] and Path(path).is_file():
+                    ui.button(surface,'pj-env-'+str(stream['environment']),'Replay',pygame.Rect(r.x+660,y,95,32),('load',str(Path(path).resolve())))
+            elif path and stream['complete'] and Path(path).is_file():
                 ui.button(surface,'pj-env-'+str(stream['environment']),label+' · inspect',pygame.Rect(r.x,y,min(850,r.w),32),('load',str(Path(path).resolve())))
             else:text(surface,label+(' · recording selected' if path else ' · not recorded'),r.x,y+7,13,MUTED,width=r.w)
             y+=40
-        wrap(surface,'This read-only view never drives simulation. Partial recordings remain unavailable until their real match result is written. Action-head probabilities are not impostor beliefs. Engineering smoke is not evidence of learning.',pygame.Rect(r.x,y+12,r.w,110),14,AMBER)
+        wrap(surface,'Live snapshots show genuine selected-instance activity with bounded history. Complete replays contain actual results and full playback controls. Action-head probabilities are not impostor beliefs. Engineering smoke is not evidence of learning.',pygame.Rect(r.x,y+12,r.w,110),14,AMBER)
         return y-r.y+130
