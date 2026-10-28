@@ -52,3 +52,6 @@ artifacts/phase4/quick/
 
 # Regenerable strategic training runs. Keep config and small chosen smoke artifacts explicit.
 artifacts/phase5/runs/
+
+# Handoff executions, private replays and fresh verification environments
+local-runs/

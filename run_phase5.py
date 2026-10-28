@@ -3,7 +3,7 @@ import argparse
 from pathlib import Path
 
 
-def main(argv=None):
+def main(argv=None, *, environment_factory=None, display_label=None):
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--checkpoint',type=Path,default=Path(__file__).resolve().parent/'artifacts/phase5/release/policy.pt')
     parser.add_argument('--seed',type=int,default=620000)
@@ -24,12 +24,12 @@ def main(argv=None):
     from spectator_display import fitted_window_size
     torch.set_num_threads(1)
     policy,metadata=StrategicPolicy.load(args.checkpoint)
-    env=checked_environment(metadata,ablation=metadata.get('ablation',False),render_trace=True);env.reset(seed=args.seed)
+    env=(environment_factory or checked_environment)(metadata,ablation=metadata.get('ablation',False),render_trace=True);env.reset(seed=args.seed)
     pygame.init()
     try:size=fitted_window_size(pygame.display.get_desktop_sizes(),args.display,args.window_scale)
     except ValueError as error:parser.error(str(error))
     screen=pygame.display.set_mode(size,pygame.RESIZABLE,display=args.display)
-    pygame.display.set_caption('Phase 5 | learned focal crew | '+('SMOKE MODEL' if metadata.get('quick') else 'trained policy'))
+    pygame.display.set_caption(display_label or 'Phase 5 | learned focal crew | '+('SMOKE MODEL' if metadata.get('quick') else 'trained policy'))
     renderer=Phase3Renderer(env.planner.map);panel=PolicyPanel();hud=AvatarHUD()
     options=ViewOptions(routes=True);clock=pygame.time.Clock();running=True;paused=False;acc=0.;frames=0;segment_duration=.6
     toggles={pygame.K_TAB:'hud',pygame.K_v:'visibility',pygame.K_t:'tasks',pygame.K_l:'labels',pygame.K_e:'events',pygame.K_b:'bodies'}
@@ -72,7 +72,8 @@ def main(argv=None):
             canvas.blit(panel.draw_policy(env,policy,metadata),(1440,0));hud.draw(canvas,env.observation)
             # Replace the inherited phase label; all remaining renderer geometry is shared.
             pygame.draw.rect(canvas,(12,20,33),(16,41,327,22))
-            canvas.blit(renderer.small.render('LEARNED FOCAL CREW / PHASE 5',True,(139,163,184)),(23,46))
+            renderer.text(canvas, display_label or 'LEARNED FOCAL CREW / PHASE 5', (23,46),
+                          (139,163,184), renderer.small, max_width=315)
             factor=min(size[0]/1800,size[1]/900)
             scaled=pygame.transform.smoothscale(canvas,(round(1800*factor),round(900*factor)))
             screen.fill((8,13,22));screen.blit(scaled,((size[0]-scaled.get_width())//2,(size[1]-scaled.get_height())//2));pygame.display.flip()

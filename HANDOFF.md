@@ -360,3 +360,8 @@ players, one impostor, structured claims, a static map, no sabotage/vents/free-f
 language, and narrow scripted opponents. Near-perfect late meeting accuracy is a
 property of this controlled script distribution, not evidence of robust human
 deception reasoning.
+
+
+## Frozen crewmate / impostor collaboration handoff
+
+See [the verified five-player environment, Model A/B and Spectator V2 handoff](docs/collaboration/impostor-training-handoff/README.md). This is an isolated draft integration; existing research acceptance and roadmap status are unchanged.

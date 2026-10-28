@@ -15,6 +15,8 @@ def canonical(value):
     """JSON-compatible values with stable ordering; never used as policy input."""
     if isinstance(value, Enum):
         return value.value
+    if type(value) is GameConfig:
+        return canonical(value.to_dict())
     if is_dataclass(value):
         return {field.name: canonical(getattr(value, field.name)) for field in fields(value)}
     if isinstance(value, dict):
@@ -121,7 +123,7 @@ class ScriptedMatch:
 
     def replay_document(self):
         return {
-            "schema": "phase3-replay-v1", "seed": self.seed,
+            "schema": "phase3-replay-v1" if self.game.config.rules_version == 1 else "phase6-replay-v1", "seed": self.seed,
             "config": canonical(self.game.config), "result": canonical(self.game.result),
             "actor_trace_hash": self.actor_trace_hash, "truth_trace_hash": self.truth_trace_hash,
             "trajectory_hash": self.trajectory_hash,
