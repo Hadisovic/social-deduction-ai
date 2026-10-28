@@ -1,0 +1,12 @@
+{
+  "original_pilot_wall_ceiling_seconds": 14400,
+  "original_window_start_utc": "2026-10-28T19:56:04.873992+00:00",
+  "original_deadline_utc": "2026-10-28T23:56:04.873992+00:00",
+  "completion_utc": "2026-10-28T23:35:08.134110+00:00",
+  "overall_elapsed_seconds_including_failed_attempts_and_recovery": 13143.260118484497,
+  "successful_v3_seconds": 9580.118153699965,
+  "failed_attempt_recovery_and_startup_window_seconds": 3563.1419647845323,
+  "remaining_at_completion_seconds": 1256.739881515503,
+  "matched_benchmark_seconds": 1975.4070398000185,
+  "method": "Overall wall time from the registered original deadline minus four hours to completion.json filesystem timestamp; includes startup/recovery, not a sum of GPU-active time"
+}

@@ -111,3 +111,11 @@ Compare each learned state to zero on paired scenarios. Reporter-role imbalance,
 scripted opponent patterns, shared-match correlation, one initialization, short
 training and scripted ghost work remain limitations. Increasing reward without
 gameplay improvement is a negative or inconclusive result, not proof of deduction.
+
+## Execution record — 2026-10-29
+
+The registered rules above were not revised in response to learning results.
+The pilot completed at 255,083 decisions across 192 complete matches, with all
+400 scheduled validation executions and the original overall four-hour deadline
+preserved. [Measured report and review boundary](results/pilot-250k-seed17-2026-10-29/REPORT.md).
+Phase 6.1 acceptance remains pending. No one-million stage was launched.

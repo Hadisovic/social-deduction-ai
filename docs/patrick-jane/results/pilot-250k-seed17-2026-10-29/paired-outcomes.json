@@ -1,0 +1,410 @@
+{
+  "development_only": true,
+  "acceptance": "pending",
+  "unit": "whole paired scenario; actors and votes within a game are correlated",
+  "scenarios": 100,
+  "replicates": 10000,
+  "bootstrap_seed": 293017,
+  "limitations": [
+    "One initialization, fixed script mixture, repeated development evaluation, no correction for multiple exploratory metrics",
+    "A zero-width bootstrap interval when all observed outcomes agree is degenerate; it does not establish a precisely zero population effect"
+  ],
+  "comparisons": [
+    {
+      "update": 3,
+      "metrics": {
+        "win_rate": {
+          "reference": 0.0,
+          "current": 0.0,
+          "difference": 0.0,
+          "paired_scenario_bootstrap95": [
+            0.0,
+            0.0
+          ]
+        },
+        "living_task_fraction": {
+          "reference": 0.0005,
+          "current": 0.0005,
+          "difference": 0.0,
+          "paired_scenario_bootstrap95": [
+            -0.001,
+            0.001
+          ]
+        },
+        "all_task_fraction": {
+          "reference": 0.13675,
+          "current": 0.15975,
+          "difference": 0.022999999999999993,
+          "paired_scenario_bootstrap95": [
+            -0.018250000000000016,
+            0.06500624999999992
+          ]
+        },
+        "vote_accuracy": {
+          "reference": 0.19346938775510203,
+          "current": 0.20564149226569609,
+          "difference": 0.012172104510594056,
+          "paired_scenario_bootstrap95": [
+            -0.017175958038435583,
+            0.04141432781496616
+          ]
+        },
+        "vote_participation": {
+          "reference": 0.9053954175905395,
+          "current": 0.9196652719665271,
+          "difference": 0.0142698543759876,
+          "paired_scenario_bootstrap95": [
+            -0.00774419220497817,
+            0.035925946105929245
+          ]
+        },
+        "accusation_accuracy": {
+          "reference": 0.25769230769230766,
+          "current": 0.2125,
+          "difference": -0.04519230769230767,
+          "paired_scenario_bootstrap95": [
+            -0.11827105189114993,
+            0.029705780771898203
+          ]
+        },
+        "report_selection_per_legal_decision": {
+          "reference": 0.49214659685863876,
+          "current": 0.3941908713692946,
+          "difference": -0.09795572548934417,
+          "paired_scenario_bootstrap95": [
+            -0.19134833583992902,
+            -0.014588855225440586
+          ]
+        },
+        "repair_selection_per_legal_decision": {
+          "reference": 0.5696969696969697,
+          "current": 0.5375722543352601,
+          "difference": -0.03212471536170958,
+          "paired_scenario_bootstrap95": [
+            -0.16254791163777338,
+            0.08300293220736553
+          ]
+        },
+        "critical_failure_rate": {
+          "reference": 0.98,
+          "current": 0.95,
+          "difference": -0.030000000000000027,
+          "paired_scenario_bootstrap95": [
+            -0.07999999999999996,
+            0.020000000000000018
+          ]
+        },
+        "innocent_ejections_per_game": {
+          "reference": 0.62,
+          "current": 0.69,
+          "difference": 0.06999999999999995,
+          "paired_scenario_bootstrap95": [
+            -0.10000000000000009,
+            0.24
+          ]
+        },
+        "correct_ejections_per_game": {
+          "reference": 0.07,
+          "current": 0.07,
+          "difference": 0.0,
+          "paired_scenario_bootstrap95": [
+            -0.07,
+            0.07
+          ]
+        },
+        "wrong_accusations_per_game": {
+          "reference": 1.93,
+          "current": 2.52,
+          "difference": 0.5900000000000001,
+          "paired_scenario_bootstrap95": [
+            0.0900000000000003,
+            1.07
+          ]
+        },
+        "crew_reports_per_game": {
+          "reference": 0.93,
+          "current": 0.92,
+          "difference": -0.010000000000000009,
+          "paired_scenario_bootstrap95": [
+            -0.2500000000000001,
+            0.2300000000000001
+          ]
+        }
+      },
+      "paired_win_discordance": {
+        "gained": 0,
+        "lost": 0,
+        "one_sided_exact_p_for_improvement": 1.0
+      }
+    },
+    {
+      "update": 5,
+      "metrics": {
+        "win_rate": {
+          "reference": 0.0,
+          "current": 0.0,
+          "difference": 0.0,
+          "paired_scenario_bootstrap95": [
+            0.0,
+            0.0
+          ]
+        },
+        "living_task_fraction": {
+          "reference": 0.0005,
+          "current": 0.00225,
+          "difference": 0.0017499999999999998,
+          "paired_scenario_bootstrap95": [
+            0.00025,
+            0.0034999999999999996
+          ]
+        },
+        "all_task_fraction": {
+          "reference": 0.13675,
+          "current": 0.17475,
+          "difference": 0.03799999999999998,
+          "paired_scenario_bootstrap95": [
+            -0.0010062499999999952,
+            0.07775
+          ]
+        },
+        "vote_accuracy": {
+          "reference": 0.19346938775510203,
+          "current": 0.20729537366548043,
+          "difference": 0.013825985910378397,
+          "paired_scenario_bootstrap95": [
+            -0.012917639626555615,
+            0.04193009680744065
+          ]
+        },
+        "vote_participation": {
+          "reference": 0.9053954175905395,
+          "current": 0.8502269288956127,
+          "difference": -0.055168488694926854,
+          "paired_scenario_bootstrap95": [
+            -0.08496027997466983,
+            -0.026521233067393672
+          ]
+        },
+        "accusation_accuracy": {
+          "reference": 0.25769230769230766,
+          "current": 0.20795107033639143,
+          "difference": -0.049741237355916235,
+          "paired_scenario_bootstrap95": [
+            -0.12056541844968054,
+            0.020129327263172996
+          ]
+        },
+        "report_selection_per_legal_decision": {
+          "reference": 0.49214659685863876,
+          "current": 0.6305418719211823,
+          "difference": 0.1383952750625435,
+          "paired_scenario_bootstrap95": [
+            0.02857086589729064,
+            0.24430184222404258
+          ]
+        },
+        "repair_selection_per_legal_decision": {
+          "reference": 0.5696969696969697,
+          "current": 0.5808080808080808,
+          "difference": 0.011111111111111072,
+          "paired_scenario_bootstrap95": [
+            -0.1274559074898996,
+            0.13795151726543428
+          ]
+        },
+        "critical_failure_rate": {
+          "reference": 0.98,
+          "current": 0.93,
+          "difference": -0.04999999999999993,
+          "paired_scenario_bootstrap95": [
+            -0.09999999999999998,
+            0.0
+          ]
+        },
+        "innocent_ejections_per_game": {
+          "reference": 0.62,
+          "current": 0.54,
+          "difference": -0.07999999999999996,
+          "paired_scenario_bootstrap95": [
+            -0.27,
+            0.12
+          ]
+        },
+        "correct_ejections_per_game": {
+          "reference": 0.07,
+          "current": 0.06,
+          "difference": -0.010000000000000009,
+          "paired_scenario_bootstrap95": [
+            -0.08,
+            0.06
+          ]
+        },
+        "wrong_accusations_per_game": {
+          "reference": 1.93,
+          "current": 2.59,
+          "difference": 0.6599999999999999,
+          "paired_scenario_bootstrap95": [
+            0.18000000000000016,
+            1.1199999999999999
+          ]
+        },
+        "crew_reports_per_game": {
+          "reference": 0.93,
+          "current": 1.2,
+          "difference": 0.2699999999999999,
+          "paired_scenario_bootstrap95": [
+            0.050000000000000044,
+            0.49
+          ]
+        }
+      },
+      "paired_win_discordance": {
+        "gained": 0,
+        "lost": 0,
+        "one_sided_exact_p_for_improvement": 1.0
+      }
+    },
+    {
+      "update": 6,
+      "metrics": {
+        "win_rate": {
+          "reference": 0.0,
+          "current": 0.01,
+          "difference": 0.01,
+          "paired_scenario_bootstrap95": [
+            0.0,
+            0.03
+          ]
+        },
+        "living_task_fraction": {
+          "reference": 0.0005,
+          "current": 0.0025,
+          "difference": 0.002,
+          "paired_scenario_bootstrap95": [
+            0.00025,
+            0.0037500000000000003
+          ]
+        },
+        "all_task_fraction": {
+          "reference": 0.13675,
+          "current": 0.1445,
+          "difference": 0.007749999999999979,
+          "paired_scenario_bootstrap95": [
+            -0.031499999999999986,
+            0.046749999999999986
+          ]
+        },
+        "vote_accuracy": {
+          "reference": 0.19346938775510203,
+          "current": 0.2343297974927676,
+          "difference": 0.04086040973766558,
+          "paired_scenario_bootstrap95": [
+            0.006381346776593222,
+            0.07580303787316156
+          ]
+        },
+        "vote_participation": {
+          "reference": 0.9053954175905395,
+          "current": 0.8038759689922481,
+          "difference": -0.10151944859829143,
+          "paired_scenario_bootstrap95": [
+            -0.12734471135575093,
+            -0.07570571800389458
+          ]
+        },
+        "accusation_accuracy": {
+          "reference": 0.25769230769230766,
+          "current": 0.18466898954703834,
+          "difference": -0.07302331814526933,
+          "paired_scenario_bootstrap95": [
+            -0.13444097700910826,
+            -0.0127801623153603
+          ]
+        },
+        "report_selection_per_legal_decision": {
+          "reference": 0.49214659685863876,
+          "current": 0.6789473684210526,
+          "difference": 0.18680077156241387,
+          "paired_scenario_bootstrap95": [
+            0.07743852035267758,
+            0.2908956202583529
+          ]
+        },
+        "repair_selection_per_legal_decision": {
+          "reference": 0.5696969696969697,
+          "current": 0.5688888888888889,
+          "difference": -0.0008080808080808133,
+          "paired_scenario_bootstrap95": [
+            -0.13153813146905835,
+            0.11124875674907621
+          ]
+        },
+        "critical_failure_rate": {
+          "reference": 0.98,
+          "current": 0.98,
+          "difference": 0.0,
+          "paired_scenario_bootstrap95": [
+            -0.040000000000000036,
+            0.040000000000000036
+          ]
+        },
+        "innocent_ejections_per_game": {
+          "reference": 0.62,
+          "current": 0.37,
+          "difference": -0.25,
+          "paired_scenario_bootstrap95": [
+            -0.43,
+            -0.07
+          ]
+        },
+        "correct_ejections_per_game": {
+          "reference": 0.07,
+          "current": 0.14,
+          "difference": 0.07,
+          "paired_scenario_bootstrap95": [
+            -0.009999999999999995,
+            0.15000000000000002
+          ]
+        },
+        "wrong_accusations_per_game": {
+          "reference": 1.93,
+          "current": 2.34,
+          "difference": 0.4099999999999999,
+          "paired_scenario_bootstrap95": [
+            -0.06000000000000005,
+            0.8800000000000001
+          ]
+        },
+        "crew_reports_per_game": {
+          "reference": 0.93,
+          "current": 1.2,
+          "difference": 0.2699999999999999,
+          "paired_scenario_bootstrap95": [
+            0.040000000000000036,
+            0.5000000000000001
+          ]
+        }
+      },
+      "paired_win_discordance": {
+        "gained": 1,
+        "lost": 0,
+        "one_sided_exact_p_for_improvement": 0.5
+      }
+    }
+  ],
+  "metric_definitions": {
+    "win_rate": "crew wins / games",
+    "living_task_fraction": "(task completions - ghost completions) / assigned tasks",
+    "all_task_fraction": "all completed tasks / assigned tasks",
+    "vote_accuracy": "correct neural votes / all non-skip neural votes",
+    "vote_participation": "non-skip neural votes / (votes + skips)",
+    "accusation_accuracy": "correct neural accusations / all neural accusations",
+    "report_selection_per_legal_decision": "neural report intentions / legal reporting actor decision points",
+    "repair_selection_per_legal_decision": "neural repair intentions / legal repair actor decision points",
+    "critical_failure_rate": "reactor or oxygen terminal failures / games",
+    "innocent_ejections_per_game": "innocent ejections / games",
+    "correct_ejections_per_game": "impostor ejections / games",
+    "wrong_accusations_per_game": "wrong neural accusations / games",
+    "crew_reports_per_game": "accepted crew reports / games"
+  }
+}

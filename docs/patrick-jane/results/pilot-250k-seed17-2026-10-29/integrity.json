@@ -1,0 +1,130 @@
+{
+  "development_only": true,
+  "core_source_commit": "dbbf9ae4073fd81a89725c8b4be4d25f21903eee",
+  "sources_verified": 50,
+  "source_archive_sha256": "645c7a8d3cf78eedc1315479fd722470298a60974edd6641e69bc7f9ba467460",
+  "strict_checkpoint_loads": [
+    {
+      "file": "update-000000.pt",
+      "sha256": "c88a0ca91494fbbe8fcc2f3700a3361c2b244ffc43aa931560b1141757f309f2",
+      "update": 0,
+      "decisions": 0
+    },
+    {
+      "file": "update-000001.pt",
+      "sha256": "821db44f50ee992397bbdbd179b752b56e328be33b0c8d1a26ecdfbe942c82eb",
+      "update": 1,
+      "decisions": 40314
+    },
+    {
+      "file": "update-000002.pt",
+      "sha256": "c98c07d49f256a4ef50e417e3e5c8753be0001561ccfeb71599fb11f34a74149",
+      "update": 2,
+      "decisions": 81296
+    },
+    {
+      "file": "update-000003-evaluated.pt",
+      "sha256": "105be4356b388face12539e8240478aaec8f7bcb6ef1891fda9c03039d8ba838",
+      "update": 3,
+      "decisions": 121279
+    },
+    {
+      "file": "update-000003.pt",
+      "sha256": "291b609120fd5561ef985eafabdb9dc33a12094b22c50f1d3070c87c010078d6",
+      "update": 3,
+      "decisions": 121279
+    },
+    {
+      "file": "update-000004.pt",
+      "sha256": "f6602b362f3c255e44bbd1d137fb5c3983bba333f7a5c3335390464cece73dd6",
+      "update": 4,
+      "decisions": 166508
+    },
+    {
+      "file": "update-000005-evaluated.pt",
+      "sha256": "d2995ae0a629476567a54467dc34910d1710f34cbccc3eb0f901780cf6f5b54e",
+      "update": 5,
+      "decisions": 208994
+    },
+    {
+      "file": "update-000005.pt",
+      "sha256": "4d79f3c1189f1672d578e04c6d0017e2be192fadf7d43f238bc99df3b860cfc8",
+      "update": 5,
+      "decisions": 208994
+    },
+    {
+      "file": "update-000006.pt",
+      "sha256": "d8b81ef06788a0139822a5677801f34069aef116286cc079cb12de8c39538ab8",
+      "update": 6,
+      "decisions": 255083
+    }
+  ],
+  "champion": {
+    "checkpoint": "update-000006.pt",
+    "sha256": "d8b81ef06788a0139822a5677801f34069aef116286cc079cb12de8c39538ab8",
+    "score": {
+      "wins": 1,
+      "games": 100,
+      "task_wins": 0,
+      "correct_ejections": 14,
+      "innocent_ejections": 37
+    }
+  },
+  "latest": {
+    "checkpoint": "update-000006.pt",
+    "sha256": "d8b81ef06788a0139822a5677801f34069aef116286cc079cb12de8c39538ab8",
+    "counters": {
+      "individual_decisions": 255083,
+      "complete_matches": 192,
+      "update": 6,
+      "next_seed": 192,
+      "next_evaluation": 300000
+    }
+  },
+  "changed_weight_tensors": 52,
+  "state_tensors": 52,
+  "max_absolute_weight_change": 0.198246568441391,
+  "historical_preservation": {
+    "base_files_checked": 1077,
+    "approved_changed_base_files": [
+      "docs/research/ISSUES.md"
+    ],
+    "protected_external_files_checked": 206,
+    "changed_protected_files": 0
+  },
+  "games_audited": 592,
+  "illegal_actions": 0,
+  "navigation_failures": 0,
+  "fatal_observer_errors": 0,
+  "transient_snapshot_write_failures": 146,
+  "training_seed_range": [
+    2900000,
+    2900191
+  ],
+  "validation_seed_range": [
+    2910000,
+    2910099
+  ],
+  "distinct_validation_scenarios": 100,
+  "validation_executions": 400,
+  "final_test_partitions": "unopened",
+  "initialization_preservation": {
+    "v1_sha256": "097f9316178be7d1b8a5de2772ad699e8955d66b197827a1ac31ef07b4919e00",
+    "v2_sha256": "097f9316178be7d1b8a5de2772ad699e8955d66b197827a1ac31ef07b4919e00",
+    "v3_sha256": "c88a0ca91494fbbe8fcc2f3700a3361c2b244ffc43aa931560b1141757f309f2",
+    "v1_v2_byte_identical": true,
+    "v2_v3_all_weights_and_rng_identical": true,
+    "source_metadata_revision_preserved": true
+  },
+  "documentation_checks": {
+    "new_missing_links": [],
+    "preexisting_missing_links_retained": [
+      {
+        "document": "docs/research/ISSUES.md",
+        "target": "../spectator-v2/DESIGN.md"
+      }
+    ],
+    "strict_json_files": 4,
+    "report_local_path_scan": "passed"
+  }
+}

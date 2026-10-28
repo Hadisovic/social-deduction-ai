@@ -1,0 +1,506 @@
+{
+  "status": "complete",
+  "source_commit": "dbbf9ae4073fd81a89725c8b4be4d25f21903eee",
+  "acceptance": "pending",
+  "development_only": true,
+  "workers": 32,
+  "target": 250000,
+  "training": {
+    "totals": {
+      "games": 192,
+      "wins": 1,
+      "losses": 191,
+      "draws": 0,
+      "decisions": 255083,
+      "simulation_seconds": 23104.800000000017,
+      "tasks": 1145,
+      "ghost_tasks": 1135,
+      "task_total": 7680,
+      "meetings": 325,
+      "reports": 220,
+      "crew_reports": 187,
+      "impostor_reports": 33,
+      "repairs": 145,
+      "kills": 328,
+      "correct_ejections": 26,
+      "innocent_ejections": 107,
+      "illegal_actions": 0,
+      "navigation_failures": 0,
+      "critical_cancellations": 91
+    },
+    "win_rate": 0.005208333333333333,
+    "win_rate_wilson95": [
+      0.0009199911384848523,
+      0.02890749715674057
+    ],
+    "task_fraction": 0.14908854166666666,
+    "living_tasks": 10,
+    "vote_accuracy": 0.2143456375838926,
+    "actions": {
+      "travel": 247108,
+      "accuse": 614,
+      "incorrect_accusation": 483,
+      "vote": 2384,
+      "correct_vote": 511,
+      "defend": 608,
+      "incorrect_vote": 1873,
+      "silent": 549,
+      "question": 365,
+      "strategic_claim": 476,
+      "emergency": 107,
+      "task": 1622,
+      "share_evidence": 562,
+      "skip": 285,
+      "report": 195,
+      "repair": 208,
+      "correct_accusation": 131
+    },
+    "exposure": {
+      "decisions": 255083,
+      "roaming": 249240,
+      "discussion": 3174,
+      "voting": 2669,
+      "during_reactor": 44819,
+      "body_visible": 1200,
+      "legal_report": 352,
+      "during_lights": 68566,
+      "during_oxygen": 44955,
+      "legal_repair": 370
+    },
+    "reasons": {
+      "REACTOR_FAILURE": 91,
+      "OXYGEN_FAILURE": 89,
+      "IMPOSTOR_EJECTED": 1,
+      "PARITY": 11
+    },
+    "sabotages": {
+      "reactor": 135,
+      "lights": 152,
+      "oxygen": 137
+    },
+    "repairs": {
+      "lights": 144,
+      "oxygen": 1
+    }
+  },
+  "reward_components": {
+    "exploration": 570.8200000000046,
+    "new_player": 1055.9999999999625,
+    "innocent_ejection": -2140.0,
+    "loss": -19100.0,
+    "ghost_task": 1135.0,
+    "report": 205.69999999999942,
+    "death": -328.0,
+    "repair": 435.0,
+    "impostor_ejection": 1040.0,
+    "win": 100.0,
+    "task": 10.0
+  },
+  "validation": [
+    {
+      "label": "zero",
+      "update": 0,
+      "elapsed": 1691.1296546999947,
+      "metrics": {
+        "totals": {
+          "games": 100,
+          "wins": 0,
+          "losses": 100,
+          "draws": 0,
+          "decisions": 129137,
+          "simulation_seconds": 11579.199999999999,
+          "tasks": 547,
+          "ghost_tasks": 545,
+          "task_total": 4000,
+          "meetings": 162,
+          "reports": 104,
+          "crew_reports": 93,
+          "impostor_reports": 11,
+          "repairs": 67,
+          "kills": 148,
+          "correct_ejections": 7,
+          "innocent_ejections": 62,
+          "illegal_actions": 0,
+          "navigation_failures": 0,
+          "critical_cancellations": 49
+        },
+        "win_rate": 0.0,
+        "win_rate_wilson95": [
+          3.469446951953614e-18,
+          0.03699349820698568
+        ],
+        "task_fraction": 0.13675,
+        "living_tasks": 2,
+        "vote_accuracy": 0.19346938775510203,
+        "actions": {
+          "travel": 124930,
+          "accuse": 260,
+          "correct_accusation": 67,
+          "vote": 1225,
+          "incorrect_vote": 988,
+          "share_evidence": 253,
+          "strategic_claim": 277,
+          "task": 983,
+          "defend": 269,
+          "correct_vote": 237,
+          "repair": 94,
+          "silent": 295,
+          "incorrect_accusation": 193,
+          "question": 269,
+          "emergency": 60,
+          "skip": 128,
+          "report": 94
+        },
+        "exposure": {
+          "decisions": 129137,
+          "roaming": 126161,
+          "discussion": 1623,
+          "voting": 1353,
+          "during_reactor": 19138,
+          "legal_repair": 165,
+          "during_oxygen": 27193,
+          "body_visible": 651,
+          "legal_report": 191,
+          "during_lights": 35567
+        },
+        "reasons": {
+          "REACTOR_FAILURE": 41,
+          "OXYGEN_FAILURE": 57,
+          "PARITY": 2
+        },
+        "sabotages": {
+          "reactor": 58,
+          "oxygen": 89,
+          "lights": 68
+        },
+        "repairs": {
+          "lights": 67
+        }
+      },
+      "paired_vs_zero": {
+        "scenarios": 100,
+        "win_rate_difference": 0.0,
+        "scenario_bootstrap95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_seed": 293017,
+        "replicates": 10000
+      }
+    },
+    {
+      "label": "interval",
+      "update": 3,
+      "elapsed": 1488.2072574999765,
+      "metrics": {
+        "totals": {
+          "games": 100,
+          "wins": 0,
+          "losses": 100,
+          "draws": 0,
+          "decisions": 126107,
+          "simulation_seconds": 11408.800000000003,
+          "tasks": 639,
+          "ghost_tasks": 637,
+          "task_total": 4000,
+          "meetings": 148,
+          "reports": 107,
+          "crew_reports": 92,
+          "impostor_reports": 15,
+          "repairs": 68,
+          "kills": 174,
+          "correct_ejections": 7,
+          "innocent_ejections": 69,
+          "illegal_actions": 0,
+          "navigation_failures": 0,
+          "critical_cancellations": 51
+        },
+        "win_rate": 0.0,
+        "win_rate_wilson95": [
+          3.469446951953614e-18,
+          0.03699349820698568
+        ],
+        "task_fraction": 0.15975,
+        "living_tasks": 2,
+        "vote_accuracy": 0.20564149226569609,
+        "actions": {
+          "travel": 122358,
+          "defend": 285,
+          "vote": 1099,
+          "incorrect_vote": 873,
+          "report": 95,
+          "question": 139,
+          "repair": 93,
+          "accuse": 320,
+          "incorrect_accusation": 252,
+          "skip": 96,
+          "correct_vote": 226,
+          "silent": 289,
+          "share_evidence": 258,
+          "strategic_claim": 167,
+          "task": 865,
+          "emergency": 43,
+          "correct_accusation": 68
+        },
+        "exposure": {
+          "decisions": 126107,
+          "roaming": 123454,
+          "body_visible": 905,
+          "legal_report": 241,
+          "legal_repair": 173,
+          "during_lights": 30697,
+          "discussion": 1458,
+          "voting": 1195,
+          "during_oxygen": 27417,
+          "during_reactor": 19927
+        },
+        "reasons": {
+          "PARITY": 5,
+          "OXYGEN_FAILURE": 52,
+          "REACTOR_FAILURE": 43
+        },
+        "sabotages": {
+          "lights": 71,
+          "oxygen": 84,
+          "reactor": 62
+        },
+        "repairs": {
+          "lights": 68
+        }
+      },
+      "paired_vs_zero": {
+        "scenarios": 100,
+        "win_rate_difference": 0.0,
+        "scenario_bootstrap95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_seed": 293017,
+        "replicates": 10000
+      }
+    },
+    {
+      "label": "interval",
+      "update": 5,
+      "elapsed": 1672.4580238999915,
+      "metrics": {
+        "totals": {
+          "games": 100,
+          "wins": 0,
+          "losses": 100,
+          "draws": 0,
+          "decisions": 141146,
+          "simulation_seconds": 12779.199999999997,
+          "tasks": 699,
+          "ghost_tasks": 690,
+          "task_total": 4000,
+          "meetings": 167,
+          "reports": 140,
+          "crew_reports": 120,
+          "impostor_reports": 20,
+          "repairs": 88,
+          "kills": 205,
+          "correct_ejections": 6,
+          "innocent_ejections": 54,
+          "illegal_actions": 0,
+          "navigation_failures": 0,
+          "critical_cancellations": 69
+        },
+        "win_rate": 0.0,
+        "win_rate_wilson95": [
+          3.469446951953614e-18,
+          0.03699349820698568
+        ],
+        "task_fraction": 0.17475,
+        "living_tasks": 9,
+        "vote_accuracy": 0.20729537366548043,
+        "actions": {
+          "travel": 136646,
+          "silent": 245,
+          "accuse": 327,
+          "incorrect_accusation": 259,
+          "vote": 1124,
+          "incorrect_vote": 891,
+          "task": 1355,
+          "strategic_claim": 188,
+          "skip": 198,
+          "question": 154,
+          "report": 128,
+          "share_evidence": 278,
+          "correct_vote": 233,
+          "defend": 361,
+          "repair": 115,
+          "emergency": 27,
+          "correct_accusation": 68
+        },
+        "exposure": {
+          "decisions": 141146,
+          "roaming": 138271,
+          "during_lights": 30685,
+          "discussion": 1553,
+          "voting": 1322,
+          "during_oxygen": 27000,
+          "body_visible": 812,
+          "legal_report": 203,
+          "legal_repair": 198,
+          "during_reactor": 21905
+        },
+        "reasons": {
+          "OXYGEN_FAILURE": 47,
+          "REACTOR_FAILURE": 46,
+          "PARITY": 7
+        },
+        "sabotages": {
+          "lights": 90,
+          "oxygen": 94,
+          "reactor": 68
+        },
+        "repairs": {
+          "lights": 88
+        }
+      },
+      "paired_vs_zero": {
+        "scenarios": 100,
+        "win_rate_difference": 0.0,
+        "scenario_bootstrap95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_seed": 293017,
+        "replicates": 10000
+      }
+    },
+    {
+      "label": "final",
+      "update": 6,
+      "elapsed": 1363.2092233999865,
+      "metrics": {
+        "totals": {
+          "games": 100,
+          "wins": 1,
+          "losses": 99,
+          "draws": 0,
+          "decisions": 139917,
+          "simulation_seconds": 11944.000000000004,
+          "tasks": 578,
+          "ghost_tasks": 568,
+          "task_total": 4000,
+          "meetings": 156,
+          "reports": 129,
+          "crew_reports": 120,
+          "impostor_reports": 9,
+          "repairs": 81,
+          "kills": 182,
+          "correct_ejections": 14,
+          "innocent_ejections": 37,
+          "illegal_actions": 0,
+          "navigation_failures": 0,
+          "critical_cancellations": 70
+        },
+        "win_rate": 0.01,
+        "win_rate_wilson95": [
+          0.0017674320641406505,
+          0.054486196178705315
+        ],
+        "task_fraction": 0.1445,
+        "living_tasks": 10,
+        "vote_accuracy": 0.2343297974927676,
+        "actions": {
+          "travel": 135738,
+          "silent": 162,
+          "accuse": 287,
+          "incorrect_accusation": 234,
+          "vote": 1037,
+          "incorrect_vote": 794,
+          "task": 1163,
+          "repair": 128,
+          "skip": 253,
+          "question": 150,
+          "share_evidence": 264,
+          "correct_vote": 243,
+          "defend": 421,
+          "report": 129,
+          "correct_accusation": 53,
+          "strategic_claim": 158,
+          "emergency": 27
+        },
+        "exposure": {
+          "decisions": 139917,
+          "roaming": 137185,
+          "legal_repair": 225,
+          "during_lights": 26613,
+          "discussion": 1442,
+          "voting": 1290,
+          "during_reactor": 23412,
+          "body_visible": 778,
+          "legal_report": 190,
+          "during_oxygen": 28562
+        },
+        "reasons": {
+          "REACTOR_FAILURE": 49,
+          "OXYGEN_FAILURE": 49,
+          "IMPOSTOR_EJECTED": 1,
+          "PARITY": 1
+        },
+        "sabotages": {
+          "lights": 81,
+          "reactor": 75,
+          "oxygen": 93
+        },
+        "repairs": {
+          "lights": 81
+        }
+      },
+      "paired_vs_zero": {
+        "scenarios": 100,
+        "win_rate_difference": 0.01,
+        "scenario_bootstrap95": [
+          0.0,
+          0.03
+        ],
+        "bootstrap_seed": 293017,
+        "replicates": 10000
+      }
+    }
+  ],
+  "runtime": {
+    "wall_seconds": 9580.118153699965,
+    "collection_seconds": 2979.1698232998606,
+    "ppo_seconds": 376.0349897000706,
+    "validation_and_other_overhead_seconds": 6224.913340700034,
+    "validation_seconds": 6215.004159499949,
+    "other_overhead_seconds": 9.909181200084276,
+    "training_decisions_per_second": 76.0260592771167,
+    "pilot_decisions_per_total_second": 26.62628956214738
+  },
+  "larger_estimate": {
+    "one_million_training_seconds": 13153.384635588929,
+    "estimated_validation_and_overhead_seconds": 18641.273091536128,
+    "total_seconds": 31794.657727125057,
+    "basis": "Observed pilot training throughput plus 1100 development validation games at the slowest observed evaluation cost, with scaled miscellaneous overhead; extrapolation, not a started run"
+  },
+  "benchmark": [
+    {
+      "workers": 8,
+      "training_rate": 45.21029108619879,
+      "collection_rate": 48.33612711358969,
+      "collection_seconds": 792.0990424000192,
+      "ppo_seconds": 54.76566650002496
+    },
+    {
+      "workers": 16,
+      "training_rate": 63.499291659077244,
+      "collection_rate": 69.72301833772252,
+      "collection_seconds": 549.1299847999471,
+      "ppo_seconds": 53.82162300002528
+    },
+    {
+      "workers": 32,
+      "training_rate": 79.7085015608453,
+      "collection_rate": 92.5987955758186,
+      "collection_seconds": 413.47190059995046,
+      "ppo_seconds": 66.86582060001092
+    }
+  ],
+  "failure": null
+}

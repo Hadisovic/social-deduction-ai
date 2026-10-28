@@ -49,3 +49,27 @@ No old checkpoint, canonical historical simulator source, partner branch or
 final-test partition was changed or evaluated. These are engineering results,
 not evidence that Patrick Jane has learned gameplay. The learning pilot is a
 separate fresh run with its own registration, checkpoints and report.
+
+## Final qualification and completed pilot — 2026-10-29
+
+The subsequent observer-only robustness/diagnostics revision is frozen at
+`dbbf9ae`. Latest qualification: 48 PJ tests (117.502 seconds), plus the earlier
+46 historical checks. Full-game GPU verification collected 1,109 decisions,
+ran four PPO epochs in 4.344 seconds and strictly reloaded identical weights;
+105.144 seconds total under concurrent correctness checks, not a performance
+measurement. R035/R036 retain Windows startup and transient snapshot failures.
+The corrected worker comparison above measures `451e075`; the later changes
+did not alter architecture, rewards, sampling or PPO math, but its timings must
+not be mislabeled as a fresh benchmark of `dbbf9ae`.
+
+The actual 32-worker pilot completed 255,083 training decisions in 2,979.170
+seconds collection plus 376.035 seconds PPO: **76.026 decisions/s**. All 192
+training matches and all 400 validation executions passed the run's audits.
+Validation dominates total cost: 6,215.004 seconds; successful run 9,580.118
+seconds, or 26.626 training decisions per total wall second. Including failed
+zero-update attempts/recovery, the original four-hour window used 3 h 39 min.
+No checkpoint was overwritten. [Results, limitations and larger-run estimate](results/pilot-250k-seed17-2026-10-29/REPORT.md).
+
+The one-million stage has not started. Runtime estimates do not establish a
+scientific reason to scale; the pilot still has severe task and critical-repair
+limitations and Phase 6.1 acceptance remains pending.

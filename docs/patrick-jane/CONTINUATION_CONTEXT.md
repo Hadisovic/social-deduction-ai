@@ -50,4 +50,34 @@ No architecture/reward change, production deployment, publication, final-test
 access, or partner-branch modification is included. New mechanics need a new
 source lock. Current 2026 numerical preset defaults remain uncertain; the owner
 supplied historical baseline is explicit rather than represented as verified
-retail defaults. Full pilot readiness is pending, not established by short tests.
+retail defaults. Readiness was qualified with corrected matched benchmarks,
+48 PJ correctness checks, 46 historical compatibility checks and complete-game
+GPU/checkpoint verification. The bounded pilot is now complete; scientific
+acceptance remains pending.
+
+## Completed pilot and next review — 2026-10-29
+
+Frozen core `dbbf9ae4073fd81a89725c8b4be4d25f21903eee`; local run
+`local-runs/patrick-jane/pilot-250k-seed17-v3`. Six updates, 255,083 individual
+decisions, 192 complete training matches, 400 full development validation
+executions on 100 distinct paired scenarios. Thirty-two workers was fastest
+in the matched 8/16/32 comparison; actual pilot training rate 76.026 decisions/s.
+
+Final validation won 1/100 versus 0/100 initially; 98 critical sabotage losses,
+zero critical repairs, only ten living-crew tasks. Voting became more selective,
+reports increased, and accusations remained poor. This is partial behavioral
+change with major competence limits, not Phase 6.1 acceptance.
+
+[Measured report, paired uncertainty and provenance](results/pilot-250k-seed17-2026-10-29/REPORT.md).
+All checkpoints and raw records remain local and unchanged. Latest and selected
+champion are `update-000006.pt`, SHA256
+`d8b81ef06788a0139822a5677801f34069aef116286cc079cb12de8c39538ab8`.
+Keep the frozen source archive: strict loading intentionally rejects source
+changes. R035/R036 preserve failed attempts; R037 records results; R038 explains
+the replay collection-counter/empty-input-trace limitation.
+
+Next proposed work is a small registered task-persistence, critical-repair and
+witness-to-vote diagnostic. No implementation or new training has started.
+One million extrapolates to 8.83 hours before contingency and requires owner
+review/authorization. The larger stage, final partitions, production, partner
+branch and existing PRs remain untouched.
