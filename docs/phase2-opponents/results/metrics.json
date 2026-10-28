@@ -1,0 +1,1426 @@
+{
+  "status": "exploratory_development_only",
+  "acceptance": "pending",
+  "historical_groups": {
+    "training_sample/original/body": {
+      "games": 12,
+      "counters": {
+        "different_agent_later_vote_links": 5,
+        "same_actor_same_meeting_defense_vote": 1,
+        "defended_impostor_then_voted_impostor": 0,
+        "defended_innocent_then_voted_innocent": 1,
+        "belief_unchanged_within_1e6": 1,
+        "no_intervening_public_events": 0,
+        "no_intervening_public_claims": 1,
+        "defense_argmax": 0,
+        "target_suspected_at_defense_80pct": 0
+      },
+      "belief_action": {
+        "selected_accusations": 19,
+        "accuse_target_suspicion_at_most_20pct": 16,
+        "selected_defenses": 14,
+        "defend_target_suspicion_at_least_80pct": 2
+      },
+      "reports": {
+        "crewmate": 2,
+        "impostor": 13,
+        "self_reports": 13
+      },
+      "prefix_reports": {},
+      "kills": 27
+    },
+    "validation/original/body": {
+      "games": 4,
+      "counters": {},
+      "belief_action": {},
+      "reports": {
+        "impostor": 4,
+        "self_reports": 4
+      },
+      "prefix_reports": {},
+      "kills": 12
+    },
+    "validation/original/meeting_crew": {
+      "games": 2,
+      "counters": {},
+      "belief_action": {},
+      "reports": {
+        "crewmate": 2,
+        "impostor": 1,
+        "self_reports": 1
+      },
+      "prefix_reports": {
+        "crewmate": 2
+      },
+      "kills": 6
+    },
+    "validation/original/meeting_impostor": {
+      "games": 2,
+      "counters": {},
+      "belief_action": {},
+      "reports": {
+        "impostor": 3,
+        "self_reports": 3
+      },
+      "prefix_reports": {
+        "impostor": 2
+      },
+      "kills": 6
+    },
+    "training_sample/original/ordinary": {
+      "games": 12,
+      "counters": {
+        "different_agent_later_vote_links": 10,
+        "same_actor_same_meeting_defense_vote": 3,
+        "defended_impostor_then_voted_impostor": 2,
+        "defended_innocent_then_voted_innocent": 1,
+        "belief_unchanged_within_1e6": 0,
+        "no_intervening_public_events": 0,
+        "no_intervening_public_claims": 2,
+        "defense_argmax": 0,
+        "target_suspected_at_defense_80pct": 2
+      },
+      "belief_action": {
+        "selected_defenses": 15,
+        "selected_accusations": 17,
+        "accuse_target_suspicion_at_most_20pct": 14,
+        "defend_target_suspicion_at_least_80pct": 7
+      },
+      "reports": {
+        "impostor": 12,
+        "self_reports": 12,
+        "crewmate": 1
+      },
+      "prefix_reports": {},
+      "kills": 27
+    },
+    "validation/original/ordinary": {
+      "games": 8,
+      "counters": {},
+      "belief_action": {},
+      "reports": {
+        "impostor": 6,
+        "self_reports": 6
+      },
+      "prefix_reports": {},
+      "kills": 12
+    },
+    "training_sample/shaped_v2/body": {
+      "games": 12,
+      "counters": {
+        "different_agent_later_vote_links": 5,
+        "same_actor_same_meeting_defense_vote": 2,
+        "defended_impostor_then_voted_impostor": 1,
+        "defended_innocent_then_voted_innocent": 1,
+        "belief_unchanged_within_1e6": 2,
+        "no_intervening_public_events": 0,
+        "no_intervening_public_claims": 1,
+        "defense_argmax": 1,
+        "target_suspected_at_defense_80pct": 1,
+        "same_agent_later_meeting_links": 1
+      },
+      "belief_action": {
+        "selected_accusations": 20,
+        "accuse_target_suspicion_at_most_20pct": 17,
+        "selected_defenses": 14,
+        "defend_target_suspicion_at_least_80pct": 2
+      },
+      "reports": {
+        "crewmate": 2,
+        "impostor": 13,
+        "self_reports": 13
+      },
+      "prefix_reports": {},
+      "kills": 28
+    },
+    "validation/shaped_v2/body": {
+      "games": 4,
+      "counters": {
+        "same_actor_same_meeting_defense_vote": 11,
+        "defended_impostor_then_voted_impostor": 10,
+        "defended_innocent_then_voted_innocent": 1,
+        "belief_unchanged_within_1e6": 0,
+        "no_intervening_public_events": 0,
+        "no_intervening_public_claims": 2,
+        "defense_argmax": 11,
+        "target_suspected_at_defense_80pct": 10,
+        "different_agent_later_vote_links": 18
+      },
+      "belief_action": {
+        "selected_defenses": 12,
+        "defend_target_suspicion_at_least_80pct": 10
+      },
+      "reports": {
+        "crewmate": 4
+      },
+      "prefix_reports": {},
+      "kills": 4
+    },
+    "validation/shaped_v2/meeting_crew": {
+      "games": 2,
+      "counters": {
+        "same_actor_same_meeting_defense_vote": 6,
+        "defended_impostor_then_voted_impostor": 6,
+        "defended_innocent_then_voted_innocent": 0,
+        "belief_unchanged_within_1e6": 1,
+        "no_intervening_public_events": 0,
+        "no_intervening_public_claims": 1,
+        "defense_argmax": 6,
+        "target_suspected_at_defense_80pct": 4,
+        "different_agent_later_vote_links": 12
+      },
+      "belief_action": {
+        "selected_defenses": 6,
+        "defend_target_suspicion_at_least_80pct": 4
+      },
+      "reports": {
+        "crewmate": 2
+      },
+      "prefix_reports": {
+        "crewmate": 2
+      },
+      "kills": 2
+    },
+    "validation/shaped_v2/meeting_impostor": {
+      "games": 2,
+      "counters": {
+        "same_actor_same_meeting_defense_vote": 6,
+        "defended_impostor_then_voted_impostor": 6,
+        "defended_innocent_then_voted_innocent": 0,
+        "belief_unchanged_within_1e6": 0,
+        "no_intervening_public_events": 0,
+        "no_intervening_public_claims": 1,
+        "defense_argmax": 6,
+        "target_suspected_at_defense_80pct": 6,
+        "different_agent_later_vote_links": 12
+      },
+      "belief_action": {
+        "selected_defenses": 6,
+        "defend_target_suspicion_at_least_80pct": 6
+      },
+      "reports": {
+        "impostor": 2,
+        "self_reports": 2
+      },
+      "prefix_reports": {
+        "impostor": 2
+      },
+      "kills": 2
+    },
+    "training_sample/shaped_v2/ordinary": {
+      "games": 12,
+      "counters": {
+        "different_agent_later_vote_links": 11,
+        "same_actor_same_meeting_defense_vote": 4,
+        "defended_impostor_then_voted_impostor": 2,
+        "defended_innocent_then_voted_innocent": 2,
+        "belief_unchanged_within_1e6": 0,
+        "no_intervening_public_events": 0,
+        "no_intervening_public_claims": 2,
+        "defense_argmax": 2,
+        "target_suspected_at_defense_80pct": 2
+      },
+      "belief_action": {
+        "selected_defenses": 16,
+        "selected_accusations": 17,
+        "accuse_target_suspicion_at_most_20pct": 14,
+        "defend_target_suspicion_at_least_80pct": 7
+      },
+      "reports": {
+        "impostor": 12,
+        "self_reports": 12,
+        "crewmate": 1
+      },
+      "prefix_reports": {},
+      "kills": 27
+    },
+    "validation/shaped_v2/ordinary": {
+      "games": 8,
+      "counters": {
+        "same_actor_same_meeting_defense_vote": 21,
+        "defended_impostor_then_voted_impostor": 12,
+        "defended_innocent_then_voted_innocent": 9,
+        "belief_unchanged_within_1e6": 2,
+        "no_intervening_public_events": 0,
+        "no_intervening_public_claims": 3,
+        "defense_argmax": 21,
+        "target_suspected_at_defense_80pct": 19,
+        "different_agent_later_vote_links": 26
+      },
+      "belief_action": {
+        "selected_defenses": 21,
+        "defend_target_suspicion_at_least_80pct": 19
+      },
+      "reports": {
+        "impostor": 3,
+        "self_reports": 3,
+        "crewmate": 4
+      },
+      "prefix_reports": {},
+      "kills": 13
+    },
+    "validation/zero/body": {
+      "games": 4,
+      "counters": {},
+      "belief_action": {},
+      "reports": {
+        "impostor": 2,
+        "self_reports": 2
+      },
+      "prefix_reports": {},
+      "kills": 9
+    },
+    "validation/zero/meeting_crew": {
+      "games": 2,
+      "counters": {},
+      "belief_action": {},
+      "reports": {
+        "crewmate": 2
+      },
+      "prefix_reports": {
+        "crewmate": 2
+      },
+      "kills": 4
+    },
+    "validation/zero/meeting_impostor": {
+      "games": 2,
+      "counters": {},
+      "belief_action": {},
+      "reports": {
+        "impostor": 2,
+        "self_reports": 2
+      },
+      "prefix_reports": {
+        "impostor": 2
+      },
+      "kills": 2
+    },
+    "validation/zero/ordinary": {
+      "games": 8,
+      "counters": {},
+      "belief_action": {},
+      "reports": {
+        "impostor": 4,
+        "self_reports": 4
+      },
+      "prefix_reports": {},
+      "kills": 18
+    }
+  },
+  "social_consistency": {
+    "validation_matches": 48,
+    "same_agent_same_meeting_links": 44,
+    "defended_impostor_then_voted_impostor": 34,
+    "defended_innocent_then_voted_innocent": 10,
+    "defenses_argmax": 44,
+    "target_suspicion_at_least_80pct": 39,
+    "target_top_ranked_suspicion": 41,
+    "no_new_public_claims": 7,
+    "belief_unchanged_within_1e6": 3,
+    "defense_probability_min": 0.06734572350978851,
+    "defense_probability_max": 0.07238343358039856,
+    "median_same_target_defend_minus_accuse_probability": 0.000654660165309906,
+    "private_memory_available": false
+  },
+  "opponent_comparison": {
+    "status": "engineering_complete",
+    "seconds": 827.682959400001,
+    "games": 16,
+    "distinct_scenarios": 8,
+    "groups": {
+      "baseline": {
+        "ordinary": {
+          "games": 4,
+          "crew_wins": 2,
+          "endings": {
+            "PARITY": 2,
+            "IMPOSTOR_EJECTED": 2
+          },
+          "by_role": {
+            "crewmate": {
+              "visible_actor_body_pairs": 2,
+              "range_actor_body_pairs": 2,
+              "legal_actor_body_pairs": 2,
+              "decision_actor_body_pairs": 2,
+              "visible_ticks": 14,
+              "range_ticks": 2,
+              "legal_ticks": 2,
+              "accepted_reports": 2,
+              "self_reports": 0,
+              "accepted_kills": 0,
+              "counts": {
+                "decision_windows": 1204,
+                "report_legal_decision_windows": 2,
+                "kill_legal_decision_windows": 0,
+                "emergency_legal_decision_windows": 0,
+                "action_go_to_task": 53,
+                "active_ticks": 9616,
+                "action_wait": 16,
+                "action_cancel_navigation": 1108,
+                "action_claim": 12,
+                "action_vote": 12,
+                "action_report": 2,
+                "action_interact": 1
+              },
+              "accepted_report_pair_conversion": 1.0,
+              "submitted_report_window_conversion": 1.0,
+              "kill_window_conversion": null,
+              "median_report_delay": 0.0
+            },
+            "impostor": {
+              "visible_actor_body_pairs": 4,
+              "range_actor_body_pairs": 4,
+              "legal_actor_body_pairs": 4,
+              "decision_actor_body_pairs": 4,
+              "visible_ticks": 91,
+              "range_ticks": 90,
+              "legal_ticks": 90,
+              "accepted_reports": 2,
+              "self_reports": 2,
+              "accepted_kills": 6,
+              "counts": {
+                "decision_windows": 1046,
+                "report_legal_decision_windows": 29,
+                "kill_legal_decision_windows": 6,
+                "emergency_legal_decision_windows": 3,
+                "action_go_to_task": 38,
+                "active_ticks": 3409,
+                "action_wait": 929,
+                "action_fake_task": 48,
+                "action_go_to_location": 14,
+                "action_kill": 6,
+                "action_claim": 4,
+                "action_skip": 3,
+                "action_vote": 1,
+                "action_report": 2,
+                "action_go_to_body": 1
+              },
+              "accepted_report_pair_conversion": 0.5,
+              "submitted_report_window_conversion": 0.06896551724137931,
+              "kill_window_conversion": 1.0,
+              "median_report_delay": 6.400000000000002
+            }
+          },
+          "meetings": 4,
+          "discovered_bodies": 4,
+          "unreported_kills": 2,
+          "correct_crew_ballots": 7,
+          "wrong_crew_ballots": 5,
+          "skips": 0,
+          "impostor_claim_types": {
+            "suspect_player": 2,
+            "was_in_region": 1,
+            "saw_player": 1
+          },
+          "mode_visits": {},
+          "reporter_only": {
+            "actor_excluded_meetings": 4,
+            "macro_accuracy": 0.5,
+            "uniform_macro": 0.3333333333333333,
+            "by_reporter_role": {
+              "crewmate": {
+                "meetings": 2,
+                "macro_accuracy": 0.0
+              },
+              "impostor": {
+                "meetings": 2,
+                "macro_accuracy": 1.0
+              }
+            }
+          },
+          "navigation_summary": {
+            "total_commands": 53,
+            "distinct_command_labels": 29
+          },
+          "victim_summary": {
+            "accepted_kills": 6,
+            "distinct_recorded_ids": 4,
+            "limitation": "IDs are not stable identities across seeds; legal per-candidate kill ranks were not retained in this assay."
+          }
+        },
+        "deduction_natural": {
+          "games": 2,
+          "crew_wins": 1,
+          "endings": {
+            "PARITY": 1,
+            "IMPOSTOR_EJECTED": 1
+          },
+          "by_role": {
+            "crewmate": {
+              "visible_actor_body_pairs": 1,
+              "range_actor_body_pairs": 1,
+              "legal_actor_body_pairs": 1,
+              "decision_actor_body_pairs": 1,
+              "visible_ticks": 5,
+              "range_ticks": 1,
+              "legal_ticks": 1,
+              "accepted_reports": 1,
+              "self_reports": 0,
+              "accepted_kills": 0,
+              "counts": {
+                "decision_windows": 480,
+                "report_legal_decision_windows": 1,
+                "kill_legal_decision_windows": 0,
+                "emergency_legal_decision_windows": 0,
+                "action_go_to_task": 27,
+                "active_ticks": 4565,
+                "action_wait": 9,
+                "action_report": 1,
+                "action_claim": 6,
+                "action_vote": 6,
+                "action_cancel_navigation": 431
+              },
+              "accepted_report_pair_conversion": 1.0,
+              "submitted_report_window_conversion": 1.0,
+              "kill_window_conversion": null,
+              "median_report_delay": 0.0
+            },
+            "impostor": {
+              "visible_actor_body_pairs": 2,
+              "range_actor_body_pairs": 2,
+              "legal_actor_body_pairs": 2,
+              "decision_actor_body_pairs": 2,
+              "visible_ticks": 44,
+              "range_ticks": 39,
+              "legal_ticks": 39,
+              "accepted_reports": 1,
+              "self_reports": 1,
+              "accepted_kills": 3,
+              "counts": {
+                "decision_windows": 386,
+                "report_legal_decision_windows": 12,
+                "kill_legal_decision_windows": 3,
+                "emergency_legal_decision_windows": 0,
+                "action_go_to_task": 12,
+                "active_ticks": 1295,
+                "action_wait": 319,
+                "action_fake_task": 28,
+                "action_go_to_location": 19,
+                "action_kill": 3,
+                "action_claim": 2,
+                "action_skip": 2,
+                "action_report": 1
+              },
+              "accepted_report_pair_conversion": 0.5,
+              "submitted_report_window_conversion": 0.08333333333333333,
+              "kill_window_conversion": 1.0,
+              "median_report_delay": 6.3999999999999915
+            }
+          },
+          "meetings": 2,
+          "discovered_bodies": 2,
+          "unreported_kills": 1,
+          "correct_crew_ballots": 3,
+          "wrong_crew_ballots": 3,
+          "skips": 0,
+          "impostor_claim_types": {
+            "saw_elimination": 1,
+            "saw_player": 1
+          },
+          "mode_visits": {},
+          "reporter_only": {
+            "actor_excluded_meetings": 2,
+            "macro_accuracy": 0.5,
+            "uniform_macro": 0.3333333333333333,
+            "by_reporter_role": {
+              "crewmate": {
+                "meetings": 1,
+                "macro_accuracy": 0.0
+              },
+              "impostor": {
+                "meetings": 1,
+                "macro_accuracy": 1.0
+              }
+            }
+          },
+          "navigation_summary": {
+            "total_commands": 31,
+            "distinct_command_labels": 13
+          },
+          "victim_summary": {
+            "accepted_kills": 3,
+            "distinct_recorded_ids": 3,
+            "limitation": "IDs are not stable identities across seeds; legal per-candidate kill ranks were not retained in this assay."
+          }
+        },
+        "body": {
+          "games": 2,
+          "crew_wins": 2,
+          "endings": {
+            "IMPOSTOR_EJECTED": 2
+          },
+          "by_role": {
+            "crewmate": {
+              "visible_actor_body_pairs": 6,
+              "range_actor_body_pairs": 6,
+              "legal_actor_body_pairs": 6,
+              "decision_actor_body_pairs": 6,
+              "visible_ticks": 6,
+              "range_ticks": 6,
+              "legal_ticks": 6,
+              "accepted_reports": 2,
+              "self_reports": 0,
+              "accepted_kills": 0,
+              "counts": {
+                "decision_windows": 18,
+                "report_legal_decision_windows": 6,
+                "kill_legal_decision_windows": 0,
+                "emergency_legal_decision_windows": 6,
+                "action_report": 6,
+                "active_ticks": 456,
+                "action_claim": 6,
+                "action_vote": 6
+              },
+              "accepted_report_pair_conversion": 0.3333333333333333,
+              "submitted_report_window_conversion": 1.0,
+              "kill_window_conversion": null,
+              "median_report_delay": 0.0
+            },
+            "impostor": {
+              "visible_actor_body_pairs": 2,
+              "range_actor_body_pairs": 2,
+              "legal_actor_body_pairs": 2,
+              "decision_actor_body_pairs": 2,
+              "visible_ticks": 2,
+              "range_ticks": 2,
+              "legal_ticks": 2,
+              "accepted_reports": 0,
+              "self_reports": 0,
+              "accepted_kills": 0,
+              "counts": {
+                "decision_windows": 6,
+                "report_legal_decision_windows": 2,
+                "kill_legal_decision_windows": 0,
+                "emergency_legal_decision_windows": 2,
+                "action_wait": 1,
+                "active_ticks": 152,
+                "action_claim": 2,
+                "action_skip": 2,
+                "action_report": 1
+              },
+              "accepted_report_pair_conversion": 0.0,
+              "submitted_report_window_conversion": 0.5,
+              "kill_window_conversion": null,
+              "median_report_delay": null
+            }
+          },
+          "meetings": 2,
+          "discovered_bodies": 2,
+          "unreported_kills": 0,
+          "correct_crew_ballots": 6,
+          "wrong_crew_ballots": 0,
+          "skips": 0,
+          "impostor_claim_types": {
+            "saw_player": 1,
+            "was_in_region": 1
+          },
+          "mode_visits": {},
+          "reporter_only": {
+            "actor_excluded_meetings": 2,
+            "macro_accuracy": 0.0,
+            "uniform_macro": 0.3333333333333333,
+            "by_reporter_role": {
+              "crewmate": {
+                "meetings": 2,
+                "macro_accuracy": 0.0
+              }
+            }
+          },
+          "navigation_summary": {
+            "total_commands": 0,
+            "distinct_command_labels": 0
+          },
+          "victim_summary": {
+            "accepted_kills": 0,
+            "distinct_recorded_ids": 0,
+            "limitation": "IDs are not stable identities across seeds; legal per-candidate kill ranks were not retained in this assay."
+          }
+        }
+      },
+      "mixture": {
+        "ordinary": {
+          "games": 4,
+          "crew_wins": 1,
+          "endings": {
+            "PARITY": 2,
+            "IMPOSTOR_EJECTED": 1,
+            "TIMEOUT": 1
+          },
+          "by_role": {
+            "crewmate": {
+              "visible_actor_body_pairs": 2,
+              "range_actor_body_pairs": 2,
+              "legal_actor_body_pairs": 2,
+              "decision_actor_body_pairs": 2,
+              "visible_ticks": 16,
+              "range_ticks": 2,
+              "legal_ticks": 2,
+              "accepted_reports": 2,
+              "self_reports": 0,
+              "accepted_kills": 0,
+              "counts": {
+                "decision_windows": 4632,
+                "report_legal_decision_windows": 2,
+                "kill_legal_decision_windows": 0,
+                "emergency_legal_decision_windows": 0,
+                "action_go_to_task": 57,
+                "active_ticks": 19907,
+                "action_wait": 13,
+                "action_cancel_navigation": 4542,
+                "action_claim": 9,
+                "action_vote": 9,
+                "action_report": 2
+              },
+              "accepted_report_pair_conversion": 1.0,
+              "submitted_report_window_conversion": 1.0,
+              "kill_window_conversion": null,
+              "median_report_delay": 0.0
+            },
+            "impostor": {
+              "visible_actor_body_pairs": 5,
+              "range_actor_body_pairs": 5,
+              "legal_actor_body_pairs": 5,
+              "decision_actor_body_pairs": 5,
+              "visible_ticks": 355,
+              "range_ticks": 100,
+              "legal_ticks": 100,
+              "accepted_reports": 1,
+              "self_reports": 1,
+              "accepted_kills": 7,
+              "counts": {
+                "decision_windows": 2353,
+                "report_legal_decision_windows": 31,
+                "kill_legal_decision_windows": 11,
+                "emergency_legal_decision_windows": 10,
+                "action_go_to_room": 104,
+                "active_ticks": 7263,
+                "action_wait": 1864,
+                "action_go_to_task": 297,
+                "action_fake_task": 69,
+                "action_kill": 7,
+                "action_claim": 3,
+                "action_vote": 2,
+                "action_go_to_location": 5,
+                "action_report": 1,
+                "action_skip": 1
+              },
+              "accepted_report_pair_conversion": 0.2,
+              "submitted_report_window_conversion": 0.03225806451612903,
+              "kill_window_conversion": 0.6363636363636364,
+              "median_report_delay": 40.0
+            }
+          },
+          "meetings": 3,
+          "discovered_bodies": 3,
+          "unreported_kills": 4,
+          "correct_crew_ballots": 3,
+          "wrong_crew_ballots": 6,
+          "skips": 0,
+          "impostor_claim_types": {
+            "defend_player": 1,
+            "suspect_player": 2
+          },
+          "mode_visits": {
+            "self_report": 19,
+            "evasive": 17,
+            "stealthy": 15,
+            "aggressive": 18,
+            "social": 15
+          },
+          "reporter_only": {
+            "actor_excluded_meetings": 3,
+            "macro_accuracy": 0.3333333333333333,
+            "uniform_macro": 0.3333333333333333,
+            "by_reporter_role": {
+              "crewmate": {
+                "meetings": 2,
+                "macro_accuracy": 0.0
+              },
+              "impostor": {
+                "meetings": 1,
+                "macro_accuracy": 1.0
+              }
+            }
+          },
+          "navigation_summary": {
+            "total_commands": 406,
+            "distinct_command_labels": 84
+          },
+          "victim_summary": {
+            "accepted_kills": 7,
+            "distinct_recorded_ids": 5,
+            "limitation": "IDs are not stable identities across seeds; legal per-candidate kill ranks were not retained in this assay."
+          }
+        },
+        "deduction_natural": {
+          "games": 2,
+          "crew_wins": 1,
+          "endings": {
+            "TIMEOUT": 1,
+            "IMPOSTOR_EJECTED": 1
+          },
+          "by_role": {
+            "crewmate": {
+              "visible_actor_body_pairs": 0,
+              "range_actor_body_pairs": 0,
+              "legal_actor_body_pairs": 0,
+              "decision_actor_body_pairs": 0,
+              "visible_ticks": 0,
+              "range_ticks": 0,
+              "legal_ticks": 0,
+              "accepted_reports": 0,
+              "self_reports": 0,
+              "accepted_kills": 0,
+              "counts": {
+                "decision_windows": 5859,
+                "report_legal_decision_windows": 0,
+                "kill_legal_decision_windows": 0,
+                "emergency_legal_decision_windows": 0,
+                "action_go_to_task": 29,
+                "active_ticks": 20735,
+                "action_wait": 8,
+                "action_cancel_navigation": 5816,
+                "action_claim": 3,
+                "action_vote": 3
+              },
+              "accepted_report_pair_conversion": null,
+              "submitted_report_window_conversion": null,
+              "kill_window_conversion": null,
+              "median_report_delay": null
+            },
+            "impostor": {
+              "visible_actor_body_pairs": 2,
+              "range_actor_body_pairs": 2,
+              "legal_actor_body_pairs": 2,
+              "decision_actor_body_pairs": 2,
+              "visible_ticks": 23,
+              "range_ticks": 23,
+              "legal_ticks": 23,
+              "accepted_reports": 1,
+              "self_reports": 1,
+              "accepted_kills": 2,
+              "counts": {
+                "decision_windows": 1752,
+                "report_legal_decision_windows": 7,
+                "kill_legal_decision_windows": 7,
+                "emergency_legal_decision_windows": 7,
+                "action_go_to_room": 78,
+                "active_ticks": 5323,
+                "action_wait": 1393,
+                "action_go_to_task": 224,
+                "action_fake_task": 51,
+                "action_kill": 2,
+                "action_go_to_location": 1,
+                "action_report": 1,
+                "action_claim": 1,
+                "action_skip": 1
+              },
+              "accepted_report_pair_conversion": 0.5,
+              "submitted_report_window_conversion": 0.14285714285714285,
+              "kill_window_conversion": 0.2857142857142857,
+              "median_report_delay": 3.4000000000000057
+            }
+          },
+          "meetings": 1,
+          "discovered_bodies": 1,
+          "unreported_kills": 1,
+          "correct_crew_ballots": 3,
+          "wrong_crew_ballots": 0,
+          "skips": 0,
+          "impostor_claim_types": {
+            "was_in_region": 1
+          },
+          "mode_visits": {
+            "self_report": 11,
+            "aggressive": 13,
+            "stealthy": 14,
+            "evasive": 11,
+            "social": 10
+          },
+          "reporter_only": {
+            "actor_excluded_meetings": 1,
+            "macro_accuracy": 1.0,
+            "uniform_macro": 0.3333333333333333,
+            "by_reporter_role": {
+              "impostor": {
+                "meetings": 1,
+                "macro_accuracy": 1.0
+              }
+            }
+          },
+          "navigation_summary": {
+            "total_commands": 303,
+            "distinct_command_labels": 83
+          },
+          "victim_summary": {
+            "accepted_kills": 2,
+            "distinct_recorded_ids": 2,
+            "limitation": "IDs are not stable identities across seeds; legal per-candidate kill ranks were not retained in this assay."
+          }
+        },
+        "body": {
+          "games": 2,
+          "crew_wins": 2,
+          "endings": {
+            "IMPOSTOR_EJECTED": 2
+          },
+          "by_role": {
+            "crewmate": {
+              "visible_actor_body_pairs": 6,
+              "range_actor_body_pairs": 6,
+              "legal_actor_body_pairs": 6,
+              "decision_actor_body_pairs": 6,
+              "visible_ticks": 6,
+              "range_ticks": 6,
+              "legal_ticks": 6,
+              "accepted_reports": 2,
+              "self_reports": 0,
+              "accepted_kills": 0,
+              "counts": {
+                "decision_windows": 18,
+                "report_legal_decision_windows": 6,
+                "kill_legal_decision_windows": 0,
+                "emergency_legal_decision_windows": 6,
+                "action_report": 6,
+                "active_ticks": 456,
+                "action_claim": 6,
+                "action_vote": 6
+              },
+              "accepted_report_pair_conversion": 0.3333333333333333,
+              "submitted_report_window_conversion": 1.0,
+              "kill_window_conversion": null,
+              "median_report_delay": 0.0
+            },
+            "impostor": {
+              "visible_actor_body_pairs": 2,
+              "range_actor_body_pairs": 2,
+              "legal_actor_body_pairs": 2,
+              "decision_actor_body_pairs": 2,
+              "visible_ticks": 2,
+              "range_ticks": 2,
+              "legal_ticks": 2,
+              "accepted_reports": 0,
+              "self_reports": 0,
+              "accepted_kills": 0,
+              "counts": {
+                "decision_windows": 6,
+                "report_legal_decision_windows": 2,
+                "kill_legal_decision_windows": 0,
+                "emergency_legal_decision_windows": 2,
+                "action_go_to_task": 1,
+                "active_ticks": 152,
+                "action_claim": 2,
+                "action_vote": 2,
+                "action_go_to_room": 1
+              },
+              "accepted_report_pair_conversion": 0.0,
+              "submitted_report_window_conversion": 0.0,
+              "kill_window_conversion": null,
+              "median_report_delay": null
+            }
+          },
+          "meetings": 2,
+          "discovered_bodies": 2,
+          "unreported_kills": 0,
+          "correct_crew_ballots": 6,
+          "wrong_crew_ballots": 0,
+          "skips": 0,
+          "impostor_claim_types": {
+            "was_in_region": 2
+          },
+          "mode_visits": {
+            "self_report": 2,
+            "evasive": 1
+          },
+          "reporter_only": {
+            "actor_excluded_meetings": 2,
+            "macro_accuracy": 0.0,
+            "uniform_macro": 0.3333333333333333,
+            "by_reporter_role": {
+              "crewmate": {
+                "meetings": 2,
+                "macro_accuracy": 0.0
+              }
+            }
+          },
+          "navigation_summary": {
+            "total_commands": 2,
+            "distinct_command_labels": 2
+          },
+          "victim_summary": {
+            "accepted_kills": 0,
+            "distinct_recorded_ids": 0,
+            "limitation": "IDs are not stable identities across seeds; legal per-candidate kill ranks were not retained in this assay."
+          }
+        }
+      }
+    },
+    "failure": null,
+    "reproducibility": {
+      "event_hash_equal": true,
+      "actions_equal": true,
+      "decisions_equal": true,
+      "seconds": 46.20147959998576
+    },
+    "checkpoints_unchanged": true,
+    "final_test_opened": false,
+    "training_updates": 0,
+    "acceptance": "pending",
+    "limits": [
+      "Eight paired engineering scenarios and one frozen shaped policy; no learning/generalization claim.",
+      "Natural ordinary/deduction and legal body prefixes remain separate. Tiny event denominators.",
+      "Actor/body pairs, decision windows and reporter-only actor forecasts are correlated.",
+      "Reporter identity alone may remain exploitable; strategy diversity is not evidence of robustness.",
+      "Mode history is internal script metadata, never a neural feature. No sabotage support."
+    ]
+  },
+  "public_shortcuts": {
+    "all": {
+      "baseline": {
+        "scenario_clusters": 8,
+        "held_out_actor_meetings": 32,
+        "impostor_recall": 1.0,
+        "crew_specificity": 1.0,
+        "balanced_accuracy": 1.0,
+        "meeting_macro_top1": 1.0,
+        "meetings": 8,
+        "limits": "Exploratory public-behavior classifier; correlated actor/meeting rows, tiny seed folds, same frozen crew policy. Fit is not a trained game agent or proof of legitimate general deduction."
+      },
+      "mixture": {
+        "scenario_clusters": 6,
+        "held_out_actor_meetings": 24,
+        "impostor_recall": 0.8333333333333334,
+        "crew_specificity": 1.0,
+        "balanced_accuracy": 0.9166666666666667,
+        "meeting_macro_top1": 0.8333333333333334,
+        "meetings": 6,
+        "limits": "Exploratory public-behavior classifier; correlated actor/meeting rows, tiny seed folds, same frozen crew policy. Fit is not a trained game agent or proof of legitimate general deduction."
+      }
+    },
+    "natural_only": {
+      "baseline": {
+        "scenario_clusters": 6,
+        "held_out_actor_meetings": 24,
+        "impostor_recall": 0.8333333333333334,
+        "crew_specificity": 1.0,
+        "balanced_accuracy": 0.9166666666666667,
+        "meeting_macro_top1": 1.0,
+        "meetings": 6,
+        "limits": "Exploratory public-behavior classifier; correlated actor/meeting rows, tiny seed folds, same frozen crew policy. Fit is not a trained game agent or proof of legitimate general deduction."
+      },
+      "mixture": {
+        "scenario_clusters": 4,
+        "held_out_actor_meetings": 16,
+        "impostor_recall": 0.75,
+        "crew_specificity": 0.9166666666666666,
+        "balanced_accuracy": 0.8333333333333333,
+        "meeting_macro_top1": 0.75,
+        "meetings": 4,
+        "limits": "Exploratory public-behavior classifier; correlated actor/meeting rows, tiny seed folds, same frozen crew policy. Fit is not a trained game agent or proof of legitimate general deduction."
+      }
+    },
+    "body_only": {
+      "baseline": {
+        "scenario_clusters": 2,
+        "held_out_actor_meetings": 8,
+        "impostor_recall": 1.0,
+        "crew_specificity": 1.0,
+        "balanced_accuracy": 1.0,
+        "meeting_macro_top1": 1.0,
+        "meetings": 2,
+        "limits": "Exploratory public-behavior classifier; correlated actor/meeting rows, tiny seed folds, same frozen crew policy. Fit is not a trained game agent or proof of legitimate general deduction."
+      },
+      "mixture": {
+        "scenario_clusters": 2,
+        "held_out_actor_meetings": 8,
+        "impostor_recall": 1.0,
+        "crew_specificity": 1.0,
+        "balanced_accuracy": 1.0,
+        "meeting_macro_top1": 1.0,
+        "meetings": 2,
+        "limits": "Exploratory public-behavior classifier; correlated actor/meeting rows, tiny seed folds, same frozen crew policy. Fit is not a trained game agent or proof of legitimate general deduction."
+      }
+    }
+  },
+  "evidence_probes": {
+    "status": "engineering_inference_only",
+    "seed": 2760074,
+    "seconds": 33.39700509997783,
+    "probes": [
+      {
+        "case": "weak_evidence",
+        "phase": "discussion",
+        "policy": "original",
+        "direct_witness": false,
+        "belief_impostor_scored_offline": 0.24206587186762196,
+        "argmax_kind": "claim_location",
+        "argmax_target_correct_offline": false,
+        "argmax_probability": 0.07171663641929626,
+        "entropy": 2.639054298400879,
+        "value": -3.0189616680145264,
+        "candidate_count": 14,
+        "family_mass": {
+          "claim_defend": 0.2859901115298271,
+          "claim_location": 0.07171663641929626,
+          "claim_sighting": 0.2847728431224823,
+          "claim_suspect": 0.28619538992643356,
+          "continue": 0.07132500410079956
+        }
+      },
+      {
+        "case": "weak_evidence",
+        "phase": "discussion",
+        "policy": "shaped_v2",
+        "direct_witness": false,
+        "belief_impostor_scored_offline": 0.24206587186762196,
+        "argmax_kind": "claim_defend",
+        "argmax_target_correct_offline": false,
+        "argmax_probability": 0.07198548316955566,
+        "entropy": 2.639035940170288,
+        "value": -2.567661762237549,
+        "candidate_count": 14,
+        "family_mass": {
+          "claim_defend": 0.28792407363653183,
+          "claim_location": 0.0704457238316536,
+          "claim_sighting": 0.2858481928706169,
+          "claim_suspect": 0.28526411950588226,
+          "continue": 0.0705178827047348
+        }
+      },
+      {
+        "case": "weak_evidence",
+        "phase": "discussion",
+        "policy": "zero",
+        "direct_witness": false,
+        "belief_impostor_scored_offline": 0.24206587186762196,
+        "argmax_kind": "claim_location",
+        "argmax_target_correct_offline": false,
+        "argmax_probability": 0.07145687937736511,
+        "entropy": 2.6390573978424072,
+        "value": -0.14027008414268494,
+        "candidate_count": 14,
+        "family_mass": {
+          "claim_defend": 0.2856409102678299,
+          "claim_location": 0.07145687937736511,
+          "claim_sighting": 0.28577328473329544,
+          "claim_suspect": 0.2857162207365036,
+          "continue": 0.07141276448965073
+        }
+      },
+      {
+        "case": "weak_evidence",
+        "phase": "voting",
+        "policy": "original",
+        "direct_witness": false,
+        "belief_impostor_scored_offline": 0.23427932191455117,
+        "argmax_kind": "skip",
+        "argmax_target_correct_offline": false,
+        "argmax_probability": 0.14434242248535156,
+        "entropy": 1.9458863735198975,
+        "value": -3.4403598308563232,
+        "candidate_count": 7,
+        "family_mass": {
+          "continue": 0.143531933426857,
+          "skip": 0.14434242248535156,
+          "vote": 0.712125688791275
+        }
+      },
+      {
+        "case": "weak_evidence",
+        "phase": "voting",
+        "policy": "shaped_v2",
+        "direct_witness": false,
+        "belief_impostor_scored_offline": 0.23427932191455117,
+        "argmax_kind": "skip",
+        "argmax_target_correct_offline": false,
+        "argmax_probability": 0.1437620222568512,
+        "entropy": 1.9458422660827637,
+        "value": -2.9818105697631836,
+        "candidate_count": 7,
+        "family_mass": {
+          "continue": 0.14242437481880188,
+          "skip": 0.1437620222568512,
+          "vote": 0.7138135731220245
+        }
+      },
+      {
+        "case": "weak_evidence",
+        "phase": "voting",
+        "policy": "zero",
+        "direct_witness": false,
+        "belief_impostor_scored_offline": 0.23427932191455117,
+        "argmax_kind": "vote",
+        "argmax_target_correct_offline": false,
+        "argmax_probability": 0.14287124574184418,
+        "entropy": 1.9459102153778076,
+        "value": -0.1435360163450241,
+        "candidate_count": 7,
+        "family_mass": {
+          "continue": 0.14283305406570435,
+          "skip": 0.14283698797225952,
+          "vote": 0.7143299579620361
+        }
+      },
+      {
+        "case": "innocent_report",
+        "phase": "discussion",
+        "policy": "original",
+        "direct_witness": false,
+        "belief_impostor_scored_offline": 0.9998261762406969,
+        "argmax_kind": "claim_location",
+        "argmax_target_correct_offline": false,
+        "argmax_probability": 0.07176293432712555,
+        "entropy": 2.6390540599823,
+        "value": -3.4897942543029785,
+        "candidate_count": 14,
+        "family_mass": {
+          "claim_defend": 0.28595830500125885,
+          "claim_location": 0.07176293432712555,
+          "claim_sighting": 0.28475241363048553,
+          "claim_suspect": 0.2861541584134102,
+          "continue": 0.07137219607830048
+        }
+      },
+      {
+        "case": "innocent_report",
+        "phase": "discussion",
+        "policy": "shaped_v2",
+        "direct_witness": false,
+        "belief_impostor_scored_offline": 0.9998261762406969,
+        "argmax_kind": "claim_defend",
+        "argmax_target_correct_offline": true,
+        "argmax_probability": 0.07224731892347336,
+        "entropy": 2.639033555984497,
+        "value": -2.9359793663024902,
+        "candidate_count": 14,
+        "family_mass": {
+          "claim_defend": 0.2879133000969887,
+          "claim_location": 0.07043849676847458,
+          "claim_sighting": 0.28585196286439896,
+          "claim_suspect": 0.285285584628582,
+          "continue": 0.07051064074039459
+        }
+      },
+      {
+        "case": "innocent_report",
+        "phase": "discussion",
+        "policy": "zero",
+        "direct_witness": false,
+        "belief_impostor_scored_offline": 0.9998261762406969,
+        "argmax_kind": "claim_location",
+        "argmax_target_correct_offline": false,
+        "argmax_probability": 0.07145626097917557,
+        "entropy": 2.6390576362609863,
+        "value": -0.13940881192684174,
+        "candidate_count": 14,
+        "family_mass": {
+          "claim_defend": 0.28563669323921204,
+          "claim_location": 0.07145626097917557,
+          "claim_sighting": 0.28577494621276855,
+          "claim_suspect": 0.285720594227314,
+          "continue": 0.07141150534152985
+        }
+      },
+      {
+        "case": "innocent_report",
+        "phase": "voting",
+        "policy": "original",
+        "direct_witness": false,
+        "belief_impostor_scored_offline": 0.9997986211356261,
+        "argmax_kind": "skip",
+        "argmax_target_correct_offline": false,
+        "argmax_probability": 0.16842296719551086,
+        "entropy": 1.7917314767837524,
+        "value": -3.921706199645996,
+        "candidate_count": 6,
+        "family_mass": {
+          "continue": 0.16747726500034332,
+          "skip": 0.16842296719551086,
+          "vote": 0.6640997529029846
+        }
+      },
+      {
+        "case": "innocent_report",
+        "phase": "voting",
+        "policy": "shaped_v2",
+        "direct_witness": false,
+        "belief_impostor_scored_offline": 0.9997986211356261,
+        "argmax_kind": "vote",
+        "argmax_target_correct_offline": true,
+        "argmax_probability": 0.168458953499794,
+        "entropy": 1.7916804552078247,
+        "value": -3.3625259399414062,
+        "candidate_count": 6,
+        "family_mass": {
+          "continue": 0.16628900170326233,
+          "skip": 0.1678507775068283,
+          "vote": 0.6658601611852646
+        }
+      },
+      {
+        "case": "innocent_report",
+        "phase": "voting",
+        "policy": "zero",
+        "direct_witness": false,
+        "belief_impostor_scored_offline": 0.9997986211356261,
+        "argmax_kind": "vote",
+        "argmax_target_correct_offline": false,
+        "argmax_probability": 0.16668613255023956,
+        "entropy": 1.7917594909667969,
+        "value": -0.14359718561172485,
+        "candidate_count": 6,
+        "family_mass": {
+          "continue": 0.16664087772369385,
+          "skip": 0.16664670407772064,
+          "vote": 0.6667124181985855
+        }
+      },
+      {
+        "case": "strong_evidence",
+        "phase": "discussion",
+        "policy": "original",
+        "direct_witness": true,
+        "belief_impostor_scored_offline": 0.9999999332065472,
+        "argmax_kind": "claim_location",
+        "argmax_target_correct_offline": false,
+        "argmax_probability": 0.06701068580150604,
+        "entropy": 2.7080469131469727,
+        "value": -3.6244475841522217,
+        "candidate_count": 15,
+        "family_mass": {
+          "claim_defend": 0.266937717795372,
+          "claim_kill": 0.06647414714097977,
+          "claim_location": 0.06701068580150604,
+          "claim_sighting": 0.2658132165670395,
+          "claim_suspect": 0.267118439078331,
+          "continue": 0.06664582341909409
+        }
+      },
+      {
+        "case": "strong_evidence",
+        "phase": "discussion",
+        "policy": "shaped_v2",
+        "direct_witness": true,
+        "belief_impostor_scored_offline": 0.9999999332065472,
+        "argmax_kind": "claim_defend",
+        "argmax_target_correct_offline": true,
+        "argmax_probability": 0.06744889169931412,
+        "entropy": 2.7080278396606445,
+        "value": -3.0357916355133057,
+        "candidate_count": 15,
+        "family_mass": {
+          "claim_defend": 0.2687053680419922,
+          "claim_kill": 0.06670299172401428,
+          "claim_location": 0.06574422866106033,
+          "claim_sighting": 0.2667795941233635,
+          "claim_suspect": 0.26625631004571915,
+          "continue": 0.06581156700849533
+        }
+      },
+      {
+        "case": "strong_evidence",
+        "phase": "discussion",
+        "policy": "zero",
+        "direct_witness": true,
+        "belief_impostor_scored_offline": 0.9999999332065472,
+        "argmax_kind": "claim_location",
+        "argmax_target_correct_offline": false,
+        "argmax_probability": 0.06669244170188904,
+        "entropy": 2.70805025100708,
+        "value": -0.13917982578277588,
+        "candidate_count": 15,
+        "family_mass": {
+          "claim_defend": 0.2665943428874016,
+          "claim_kill": 0.06666300445795059,
+          "claim_location": 0.06669244170188904,
+          "claim_sighting": 0.2667250484228134,
+          "claim_suspect": 0.26667454838752747,
+          "continue": 0.06665068119764328
+        }
+      },
+      {
+        "case": "strong_evidence",
+        "phase": "voting",
+        "policy": "original",
+        "direct_witness": true,
+        "belief_impostor_scored_offline": 0.9999999378058003,
+        "argmax_kind": "skip",
+        "argmax_target_correct_offline": false,
+        "argmax_probability": 0.16844753921031952,
+        "entropy": 1.7917314767837524,
+        "value": -4.062776565551758,
+        "candidate_count": 6,
+        "family_mass": {
+          "continue": 0.16750170290470123,
+          "skip": 0.16844753921031952,
+          "vote": 0.6640507727861404
+        }
+      },
+      {
+        "case": "strong_evidence",
+        "phase": "voting",
+        "policy": "shaped_v2",
+        "direct_witness": true,
+        "belief_impostor_scored_offline": 0.9999999378058003,
+        "argmax_kind": "vote",
+        "argmax_target_correct_offline": true,
+        "argmax_probability": 0.1685200184583664,
+        "entropy": 1.7916810512542725,
+        "value": -3.4662013053894043,
+        "candidate_count": 6,
+        "family_mass": {
+          "continue": 0.16630715131759644,
+          "skip": 0.16786910593509674,
+          "vote": 0.665823757648468
+        }
+      },
+      {
+        "case": "strong_evidence",
+        "phase": "voting",
+        "policy": "zero",
+        "direct_witness": true,
+        "belief_impostor_scored_offline": 0.9999999378058003,
+        "argmax_kind": "vote",
+        "argmax_target_correct_offline": true,
+        "argmax_probability": 0.16668649017810822,
+        "entropy": 1.7917594909667969,
+        "value": -0.1436946988105774,
+        "candidate_count": 6,
+        "family_mass": {
+          "continue": 0.1666417270898819,
+          "skip": 0.16664740443229675,
+          "vote": 0.6667109131813049
+        }
+      }
+    ],
+    "checkpoints_unchanged": true,
+    "training_updates": 0,
+    "limits": "Three engineered histories at one seed: empty emergency, unwitnessed body report, witnessed body report. No selected neural action or outcome/causal learning claim. Shared belief predictor. Participant/action sets differ. Unwitnessed does not imply weak evidence."
+  },
+  "preservation": {
+    "baseline_source_files_checked": 1031,
+    "baseline_mismatches": [],
+    "historical_artifacts": {
+      "files": 155,
+      "mismatches": []
+    },
+    "spectator_pinned_sources_artwork": {
+      "files": 145,
+      "mismatches": []
+    },
+    "spectator_v2": {
+      "files": 13,
+      "mismatches": []
+    },
+    "run_sources_preserved_at_91f7692": true,
+    "other_branch_mismatches": [],
+    "R001_R020_preserved": true
+  },
+  "provenance": {
+    "actor_base": "fab5c70",
+    "comparison_code_snapshot": "91f7692",
+    "exact_local_source_hashes": "local protocol.json; benchmark source recoverable at comparison_code_snapshot",
+    "final_actor_sources_unchanged": true,
+    "raw_observation_records_included": false
+  }
+}

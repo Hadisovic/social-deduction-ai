@@ -20,6 +20,7 @@ def public_rows(folder):
             if e['record']=='header':header=e;continue
             if e['record']!='event':continue
             if e['kind']=='report':reporter=e['reporter_id']
+            if e['kind']=='emergency_called':reporter=None
             if e['kind']=='meeting_started':
                 meeting=e['meeting_id'];participants=e['participants'];claims={}
             if e['kind']=='claim' and e.get('channel')=='public':claims[e['speaker_id']]=e.get('claim_kind','none')
@@ -30,7 +31,7 @@ def public_rows(folder):
                         context=header['config']['context'],meeting=meeting,actor=pid,
                         features=(str(pid==reporter),claims.get(pid,'none')),
                         label=header['agent_roles'][pid]))
-            if e['kind']=='meeting_ended':reporter=None;meeting=None
+            if e['kind'] in ('meeting_ended','exploration_resumed'):reporter=None;meeting=None
     return rows
 
 

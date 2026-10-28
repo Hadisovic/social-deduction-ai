@@ -33,3 +33,7 @@ Dependencies remain unchanged: `FourCrewMatch`, `ScenarioMatch`, `ActorView`, `F
 ## Review
 
 The brief resolves scope and approval: implement all three objectives and stop for review. No additional design decision needs owner input. Self-review: context separation, offline truth boundary, immutable outputs and bounded execution are explicit. Missing historical impostor opportunities cannot be recovered from map snapshots or guessed from cooldown; the new observational assay supplies those denominators prospectively. Social inconsistency is a diagnostic label, not strategic deception or a causal attribution. Future sabotage requires separate versioned legal actions, state, observations, cooldowns, physics, rewards review, replay fields and tests; none is implemented here.
+
+## Evidence-probe clarification before the second probe
+
+The first no-witness body probe produced 0.99983 impostor suspicion, so its absence of a direct witness does not establish weak evidence. Preserve that run as `evidence-probe-v1`. Before any further inference, define a third context: a legal emergency meeting with no kill, body, report or claim. No confidence-based scenario rejection or outcome selection. The second probe records all three histories (empty emergency, unwitnessed report, direct witness), including differing participants/legal candidates. This clarification does not change the completed sixteen-game opponent comparison, any opponent parameter or frozen actor source.

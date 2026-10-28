@@ -63,8 +63,10 @@ class OpportunityAudit:
 
     @staticmethod
     def _reporter(obs):
-        from social_deduction.actor import Report
-        reports=[e.payload for e in obs.evidence if type(e.payload) is Report]
+        from social_deduction.actor import Report, Meeting
+        meetings=[e for e in obs.evidence if type(e.payload) is Meeting and e.payload.meeting_id==obs.context.meeting_id]
+        if not meetings:return None
+        reports=[e.payload for e in obs.evidence if type(e.payload) is Report and e.tick==meetings[-1].tick]
         return reports[-1].reporter_id if reports else None
 
     def before_step(self,game,actions):

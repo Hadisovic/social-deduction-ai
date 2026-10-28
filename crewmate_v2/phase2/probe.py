@@ -21,7 +21,7 @@ def run(study,output):
     selected=json.loads((study/'study.json').read_text())['selected_checkpoints'];selected['zero']='reference-zero.pt'
     models={name:FourCrewPolicy.load(study/path)[0].requires_grad_(False) for name,path in selected.items()}
     before={name:state_hash(model) for name,model in models.items()};results=[]
-    for case in ('weak_evidence','strong_evidence'):
+    for case in ('weak_evidence','innocent_report','strong_evidence'):
         match,_,ids=evidence_fixture(2760074,case);actor=ids['observer'];game=match.game
         while game.phase is Phase.DISCUSSION and not any(a.kind is IntentKind.CLAIM for a in game.observe(actor).actions):match._prefix_tick()
         for phase in ('discussion','voting'):
@@ -47,7 +47,7 @@ def run(study,output):
     unchanged=all(state_hash(model)==before[name] for name,model in models.items())
     report=dict(status='engineering_inference_only',seed=2760074,seconds=perf_counter()-started,
         probes=results,checkpoints_unchanged=unchanged,training_updates=0,
-        limits='Two engineered histories at one seed; no selected neural action, no outcome/causal learning claim. Shared belief predictor. Direct witness adds a legal claim candidate.')
+        limits='Three engineered histories at one seed: empty emergency, unwitnessed body report, witnessed body report. No selected neural action or outcome/causal learning claim. Shared belief predictor. Participant/action sets differ. Unwitnessed does not imply weak evidence.')
     write_json(output/'private-probes.json',report)
     write_json(output/'aggregate.json',{**report,'probes':[{k:v for k,v in r.items() if k not in ('options','actor','legitimate_actor_packet_sha256')} for r in results]})
     print(json.dumps({k:v for k,v in report.items() if k!='probes'},indent=2))

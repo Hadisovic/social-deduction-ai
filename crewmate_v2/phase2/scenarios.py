@@ -14,6 +14,7 @@ CASES=('self_report','leave_unreported','innocent_report','frame_innocent','unwi
 
 def evidence_fixture(seed,case,*,recorder_factory=None):
     if case not in CASES:raise ValueError('Unknown engineering case')
+    if case=='weak_evidence':return weak_meeting_fixture(seed,recorder_factory=recorder_factory)
     match=ScenarioMatch(seed,context='ordinary',lobby=LobbySettings(),mixture=MatchMixture(1.),deadline=perf_counter()+90)
     recorder=recorder_factory(match) if recorder_factory else None
     match._prefix_record=recorder
@@ -40,6 +41,20 @@ def evidence_fixture(seed,case,*,recorder_factory=None):
         match._prefix_tick({reporter:report})
     match.prefix=dict(version='phase2-legal-engineering-v1',context=case,handoff_tick=game.tick,prefix_reports=int(game.phase is not Phase.ROAMING),prefix_deaths=1)
     return match,recorder,dict(victim=victim,observer=observer,witness=witness,impostor=match.impostor,innocent=others[1])
+
+
+def weak_meeting_fixture(seed,*,recorder_factory=None):
+    """No kill, body, claim or direct-elimination signal; legal emergency only."""
+    match=ScenarioMatch(seed,context='ordinary',lobby=LobbySettings(),mixture=MatchMixture(1.),deadline=perf_counter()+90)
+    recorder=recorder_factory(match) if recorder_factory else None;match._prefix_record=recorder
+    if recorder:recorder.after_step()
+    game=match.game;caller=match.crew[0];observer=match.crew[1]
+    site=tuple(map(float,next(d.standing for d in game.map.destinations if d.name=='EmergencyConsole')))
+    match._drive({caller:site},100)
+    call=next(a for a in game.observe(caller).actions if a.kind is IntentKind.CALL_MEETING)
+    match._prefix_tick({caller:call})
+    match.prefix=dict(version='phase2-empty-emergency-v1',context='weak_evidence',handoff_tick=game.tick,prefix_reports=0,prefix_deaths=0)
+    return match,recorder,dict(victim=None,observer=observer,witness=observer,impostor=match.impostor,innocent=match.crew[2])
 
 
 def discussion_messages(match,messages,recorder=None):

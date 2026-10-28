@@ -66,6 +66,11 @@ def test_twelve_legal_engineering_situations(case):
     m,_,ids=evidence_fixture(2760072,case)
     g=m.game
     assert g.metrics['illegal_actions']==0
+    if case=='weak_evidence':
+        assert not g.bodies and all(p.active for p in g.players.values())
+        assert any(e['kind']=='emergency_called' for e in g.event_log)
+        assert not any(e['kind'] in ('report','elimination','claim') for e in g.event_log)
+        return
     assert not g.players[ids['victim']].active
     obs=g.observe(ids['observer'])
     witnesses=[e for e in g.observe(ids['witness']).evidence if type(e.payload) is WitnessedElimination]
@@ -93,6 +98,10 @@ def test_twelve_legal_engineering_situations(case):
             claim=next(e for e in observer.evidence if type(e.payload) is StructuredClaim and e.payload.kind is ClaimKind.SAW_ELIMINATION)
             assert claim.provenance is Provenance.CLAIM
             assert not any(type(e.payload) is WitnessedElimination for e in observer.evidence)
+    if case=='multiple_suspects':
+        accepted=discussion_messages(m,{ids['observer']:(ClaimKind.SUSPECT_PLAYER,ids['impostor']),
+            ids['innocent']:(ClaimKind.SUSPECT_PLAYER,ids['observer'])})
+        assert len({e['subject_id'] for e in accepted})==2
     if g.phase is not Phase.ROAMING:
         assert ids['victim'] not in obs.context.participants
         assert all(a.kind not in (IntentKind.VOTE,IntentKind.SKIP) for a in g.observe(ids['victim']).actions)

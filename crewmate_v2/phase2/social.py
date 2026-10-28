@@ -18,7 +18,7 @@ def event_scope(events):
     for event in events:
         if event.get('kind')=='meeting_started':meeting=event.get('meeting_id')
         e=dict(event);e['_meeting']=e.get('meeting_id',meeting);result.append(e)
-        if event.get('kind') in ('meeting_ended','meeting_resolved'):meeting=None
+        if event.get('kind') in ('meeting_ended','meeting_resolved','exploration_resumed'):meeting=None
     return result
 
 
@@ -70,23 +70,26 @@ def audit_replay(path):
             counter['defended_innocent_then_voted_innocent']+=not case['target_is_impostor']
             counter['belief_unchanged_within_1e6']+=delta is not None and delta<1e-6
             counter['no_intervening_public_events']+=not between
+            counter['no_intervening_public_claims']+=not any(e['kind']=='claim' for e in between)
             counter['defense_argmax']+=case['defense_was_argmax'] is True
             counter['target_suspected_at_defense_80pct']+=(b1.get(target,0)>=.8)
     # Historical opportunity denominators for the impostor are absent. Don't infer them from truth frames.
     reports=[e for e in events if e.get('kind')=='report']
     kills={e.get('victim_id'):e.get('killer_id') for e in events if e.get('kind') in ('elimination','kill')}
-    report_counts=Counter()
+    report_counts=Counter();prefix_reports=Counter()
     for e in reports:
         role=roles.get(e.get('reporter_id'),'unknown');report_counts[role]+=1
         if kills.get(e.get('victim_id'))==e.get('reporter_id'):report_counts['self_reports']+=1
+        if when(e)<cfg.get('prefix_handoff_seconds',0)-1e-8:
+            prefix_reports[role]+=1
     return dict(file=Path(path).name,condition=cfg.get('training_condition'),context=cfg.get('context'),
                 training=bool(cfg.get('is_training',False) or 'training' in Path(path).stem),
                 seed=header.get('scenario_seed'),cases=cases,counters=dict(counter),belief_action=dict(belief_action),
-                reports=dict(report_counts),total_kills=len(kills),events=events)
+                reports=dict(report_counts),prefix_reports=dict(prefix_reports),total_kills=len(kills),events=events)
 
 
 def audit_library(folder):
-    groups=defaultdict(lambda:dict(games=0,counters=Counter(),belief_action=Counter(),reports=Counter(),kills=0))
+    groups=defaultdict(lambda:dict(games=0,counters=Counter(),belief_action=Counter(),reports=Counter(),prefix_reports=Counter(),kills=0))
     raw=[]
     for path in sorted(Path(folder).rglob('*.jsonl')):
         game=audit_replay(path);raw.append(game)
@@ -95,6 +98,6 @@ def audit_library(folder):
         split=('training_sample' if 2780000<=seed<=2780063 else
                'validation' if 2790000<=seed<=2790007 else 'engineering')
         key=f"{split}/{game['condition']}/{game['context']}";g=groups[key];g['games']+=1
-        for field in ('counters','belief_action','reports'):g[field].update(game[field])
+        for field in ('counters','belief_action','reports','prefix_reports'):g[field].update(game[field])
         g['kills']+=game['total_kills']
     return {k:{f:dict(v) if isinstance(v,Counter) else v for f,v in g.items()} for k,g in groups.items()},raw
