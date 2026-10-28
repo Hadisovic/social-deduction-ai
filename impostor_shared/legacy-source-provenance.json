@@ -1,0 +1,19 @@
+{
+  "original_branch": "codex/impostor-environment-v2",
+  "original_commit": "eee7ee608edb952c4b17c8d8d1b0f6303431c1a0",
+  "pure_component_copies": {
+    "impostor_research/features.py": "ba0057e52c962ff95707aa4aa9a934886baaa9a8077a90b9e0ccb5340d2a8700",
+    "impostor_research/memory.py": "6a910cd1bb605b70c34353ace93e24ff027b1ccd3e3001022591a0adf16e405c",
+    "impostor_options_v4/config.py": "83a2b11480284686c18ac9b1b4a48d84a602850f220cf7d9ec469edba3498886",
+    "impostor_training_math.py": "d59780b8aed9c894a1c51367bf7b0038787bcc3f80ae3b4e98dcba594847edfc",
+    "impostor_research/strategic_v2.py": "f969dec678f39afa111ef6e527063c29ba32e27870f33ea3246bf701fdefa8a4",
+    "impostor_options_v4/shaping.py": "32b239f7f2d61a23871c2fe366a658522486af2c23fad68dd7d7defcd03e2b5c",
+    "impostor_options_v41/shaping.py": "a6d2c1288aa6501d8d751a71de5d35fa3cdcf906679f0019eee9ce01b3860b70"
+  },
+  "modifications": [
+    "Remove historical match/env import from pure neural architecture.",
+    "Combine original and corrected potential classes without behavior changes.",
+    "Resolve public value-type imports against the pinned shared environment."
+  ],
+  "unchanged_original_loaders": true
+}

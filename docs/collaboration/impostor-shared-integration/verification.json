@@ -1,0 +1,294 @@
+{
+  "status": "engineering_complete_zero_rl_training",
+  "publication": "c3320583f7d562bc69ea527580a91ddc5db54f18",
+  "tests": {
+    "combined": {
+      "tests": 89,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 5,
+      "time": 54.793
+    },
+    "final_focused": {
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time": 12.141
+    },
+    "distinct_passed": 86,
+    "private_fixture_skips": 5,
+    "note": "Final11 overlap9 from combined84 and add2 checkpoint tests; do not sum84+11."
+  },
+  "matches": {
+    "scripted_B": {
+      "seed": 2760000,
+      "reason": "PARITY",
+      "simulated_seconds": 168.0,
+      "illegal_actions": 0,
+      "model": "B",
+      "seconds": 33.687811799987685,
+      "winner": "impostor",
+      "weights_unchanged": true,
+      "event_sha256": "b935b8b8d18be5b38166474b3dec86d38531b2a6351cad3c6ab9abffbb9555bd",
+      "independent_actor_memories": true,
+      "independent_public_memories": true,
+      "shared_frozen_belief": true
+    },
+    "learned_B": {
+      "seed": 2760002,
+      "reason": "IMPOSTOR_EJECTED",
+      "simulated_seconds": 84.2,
+      "illegal_actions": 0,
+      "status": "complete_engineering_zero_updates",
+      "model": "B",
+      "adapter_sources": {
+        "__init__.py": "41a4877693f2eb31d77cdfd716f65870e5291737f40bca41eee354b03b622d50",
+        "controller.py": "2d0483ad40349ff9494a0547fcac90074167fa4fc61f3dcfeaa107fb797049c1",
+        "coordinator.py": "063a2c3c832cc4ad649b765aaa82568e55ed8ad952af4675d2131f0679d293c3",
+        "features.py": "ba0057e52c962ff95707aa4aa9a934886baaa9a8077a90b9e0ccb5340d2a8700",
+        "memory.py": "6a910cd1bb605b70c34353ace93e24ff027b1ccd3e3001022591a0adf16e405c",
+        "migrate.py": "b3d99f9f1ed1280e555ec9753238daeba78095070dd4a2e361bd289f5dd74362",
+        "model.py": "5c0421bd6ad5a4c736012495b590b459291bc979857b9e74cb3148b88c1451aa",
+        "pursuit.py": "58145296ca9b419fde40eab90ad499cd4a20c2299a9121d5d5c18f92e351b38d",
+        "rewards.py": "83a2b11480284686c18ac9b1b4a48d84a602850f220cf7d9ec469edba3498886",
+        "run.py": "e50175b6bb85fdd0ac37183561cc5d00196b2b1457dd7636879e57b3eb9c791a",
+        "time_math.py": "d59780b8aed9c894a1c51367bf7b0038787bcc3f80ae3b4e98dcba594847edfc",
+        "weights.py": "e0a561199de402f0c92f6bfcd4f12d80e52d521e41df1c2dc42c7c3479992262"
+      },
+      "credit": {
+        "transitions": 105,
+        "terminal_bootstrap": 0.0,
+        "finite_advantages": true,
+        "zero_duration_terminal_transitions": 0,
+        "reward_sum": -13.443999999999999,
+        "components": {
+          "terminal": -10.0,
+          "kill": 3.0,
+          "ejection": -6.0,
+          "cooldown_ready": -0.44400000000000006,
+          "pursuit": 0.0
+        },
+        "elapsed_seconds": 84.2,
+        "cooldown_ready_seconds": 22.200000000000006,
+        "objective": {
+          "version": "impostor-rewards-v4",
+          "win": 10.0,
+          "loss": -10.0,
+          "timeout": -12.0,
+          "successful_kill": 3.0,
+          "own_ejection": -6.0,
+          "cooldown_ready_per_second": -0.02,
+          "pursuit_scale": 0.05,
+          "pursuit_min_progress": 0.05
+        },
+        "math": "impostor-terminal-time-gae-v2",
+        "optimizer_updates": 0
+      },
+      "winner": "crewmate",
+      "seconds": 31.99708049997571,
+      "event_sha256": "8d854b3ed28fdb41d00051c44dc0f495474ec5a6a043ee8bd5f61c3e14e59bce",
+      "impostor_actions": {
+        "go_to_room": 101,
+        "kill": 1,
+        "report": 1,
+        "claim_was_in_region": 1,
+        "vote": 1
+      },
+      "impostor_neural_decisions": 105,
+      "held_callbacks": 11,
+      "weights_unchanged": true,
+      "independent_actor_memories": true,
+      "independent_public_memories": true,
+      "shared_frozen_belief": true
+    },
+    "learned_B_repeat": {
+      "seed": 2760002,
+      "reason": "IMPOSTOR_EJECTED",
+      "simulated_seconds": 84.2,
+      "illegal_actions": 0,
+      "status": "complete_engineering_zero_updates",
+      "model": "B",
+      "adapter_sources": {
+        "__init__.py": "41a4877693f2eb31d77cdfd716f65870e5291737f40bca41eee354b03b622d50",
+        "controller.py": "2d0483ad40349ff9494a0547fcac90074167fa4fc61f3dcfeaa107fb797049c1",
+        "coordinator.py": "063a2c3c832cc4ad649b765aaa82568e55ed8ad952af4675d2131f0679d293c3",
+        "features.py": "ba0057e52c962ff95707aa4aa9a934886baaa9a8077a90b9e0ccb5340d2a8700",
+        "memory.py": "6a910cd1bb605b70c34353ace93e24ff027b1ccd3e3001022591a0adf16e405c",
+        "migrate.py": "b3d99f9f1ed1280e555ec9753238daeba78095070dd4a2e361bd289f5dd74362",
+        "model.py": "5c0421bd6ad5a4c736012495b590b459291bc979857b9e74cb3148b88c1451aa",
+        "pursuit.py": "58145296ca9b419fde40eab90ad499cd4a20c2299a9121d5d5c18f92e351b38d",
+        "rewards.py": "83a2b11480284686c18ac9b1b4a48d84a602850f220cf7d9ec469edba3498886",
+        "run.py": "e50175b6bb85fdd0ac37183561cc5d00196b2b1457dd7636879e57b3eb9c791a",
+        "time_math.py": "d59780b8aed9c894a1c51367bf7b0038787bcc3f80ae3b4e98dcba594847edfc",
+        "weights.py": "e0a561199de402f0c92f6bfcd4f12d80e52d521e41df1c2dc42c7c3479992262"
+      },
+      "credit": {
+        "transitions": 105,
+        "terminal_bootstrap": 0.0,
+        "finite_advantages": true,
+        "zero_duration_terminal_transitions": 0,
+        "reward_sum": -13.443999999999999,
+        "components": {
+          "terminal": -10.0,
+          "kill": 3.0,
+          "ejection": -6.0,
+          "cooldown_ready": -0.44400000000000006,
+          "pursuit": 0.0
+        },
+        "elapsed_seconds": 84.2,
+        "cooldown_ready_seconds": 22.200000000000006,
+        "objective": {
+          "version": "impostor-rewards-v4",
+          "win": 10.0,
+          "loss": -10.0,
+          "timeout": -12.0,
+          "successful_kill": 3.0,
+          "own_ejection": -6.0,
+          "cooldown_ready_per_second": -0.02,
+          "pursuit_scale": 0.05,
+          "pursuit_min_progress": 0.05
+        },
+        "math": "impostor-terminal-time-gae-v2",
+        "optimizer_updates": 0
+      },
+      "winner": "crewmate",
+      "seconds": 31.622429600014584,
+      "event_sha256": "8d854b3ed28fdb41d00051c44dc0f495474ec5a6a043ee8bd5f61c3e14e59bce",
+      "impostor_actions": {
+        "go_to_room": 101,
+        "kill": 1,
+        "report": 1,
+        "claim_was_in_region": 1,
+        "vote": 1
+      },
+      "impostor_neural_decisions": 105,
+      "held_callbacks": 11,
+      "weights_unchanged": true,
+      "independent_actor_memories": true,
+      "independent_public_memories": true,
+      "shared_frozen_belief": true
+    },
+    "learned_A": {
+      "seed": 2760002,
+      "reason": "IMPOSTOR_EJECTED",
+      "simulated_seconds": 84.2,
+      "illegal_actions": 0,
+      "status": "complete_engineering_zero_updates",
+      "model": "A",
+      "adapter_sources": {
+        "__init__.py": "41a4877693f2eb31d77cdfd716f65870e5291737f40bca41eee354b03b622d50",
+        "controller.py": "2d0483ad40349ff9494a0547fcac90074167fa4fc61f3dcfeaa107fb797049c1",
+        "coordinator.py": "063a2c3c832cc4ad649b765aaa82568e55ed8ad952af4675d2131f0679d293c3",
+        "features.py": "ba0057e52c962ff95707aa4aa9a934886baaa9a8077a90b9e0ccb5340d2a8700",
+        "memory.py": "6a910cd1bb605b70c34353ace93e24ff027b1ccd3e3001022591a0adf16e405c",
+        "migrate.py": "b3d99f9f1ed1280e555ec9753238daeba78095070dd4a2e361bd289f5dd74362",
+        "model.py": "5c0421bd6ad5a4c736012495b590b459291bc979857b9e74cb3148b88c1451aa",
+        "pursuit.py": "58145296ca9b419fde40eab90ad499cd4a20c2299a9121d5d5c18f92e351b38d",
+        "rewards.py": "83a2b11480284686c18ac9b1b4a48d84a602850f220cf7d9ec469edba3498886",
+        "run.py": "e50175b6bb85fdd0ac37183561cc5d00196b2b1457dd7636879e57b3eb9c791a",
+        "time_math.py": "d59780b8aed9c894a1c51367bf7b0038787bcc3f80ae3b4e98dcba594847edfc",
+        "weights.py": "e0a561199de402f0c92f6bfcd4f12d80e52d521e41df1c2dc42c7c3479992262"
+      },
+      "credit": {
+        "transitions": 105,
+        "terminal_bootstrap": 0.0,
+        "finite_advantages": true,
+        "zero_duration_terminal_transitions": 0,
+        "reward_sum": -13.443999999999999,
+        "components": {
+          "terminal": -10.0,
+          "kill": 3.0,
+          "ejection": -6.0,
+          "cooldown_ready": -0.44400000000000006,
+          "pursuit": 0.0
+        },
+        "elapsed_seconds": 84.2,
+        "cooldown_ready_seconds": 22.200000000000006,
+        "objective": {
+          "version": "impostor-rewards-v4",
+          "win": 10.0,
+          "loss": -10.0,
+          "timeout": -12.0,
+          "successful_kill": 3.0,
+          "own_ejection": -6.0,
+          "cooldown_ready_per_second": -0.02,
+          "pursuit_scale": 0.05,
+          "pursuit_min_progress": 0.05
+        },
+        "math": "impostor-terminal-time-gae-v2",
+        "optimizer_updates": 0
+      },
+      "winner": "crewmate",
+      "seconds": 68.02574679997633,
+      "event_sha256": "8d854b3ed28fdb41d00051c44dc0f495474ec5a6a043ee8bd5f61c3e14e59bce",
+      "impostor_actions": {
+        "go_to_room": 101,
+        "kill": 1,
+        "report": 1,
+        "claim_was_in_region": 1,
+        "vote": 1
+      },
+      "impostor_neural_decisions": 105,
+      "held_callbacks": 11,
+      "weights_unchanged": true,
+      "independent_actor_memories": true,
+      "independent_public_memories": true,
+      "shared_frozen_belief": true
+    }
+  },
+  "recording_noninterference": {
+    "event_hash": true,
+    "impostor_actions": true,
+    "credit": true
+  },
+  "replay": {
+    "completed": true,
+    "record_types": {
+      "header": 1,
+      "event": 167,
+      "tick": 422,
+      "neural": 139,
+      "reward": 148,
+      "result": 1
+    },
+    "neural_player_ids": [
+      "p0",
+      "p1",
+      "p2",
+      "p3",
+      "p4"
+    ],
+    "reward_player_ids": [
+      "p0",
+      "p1",
+      "p2",
+      "p3",
+      "p4"
+    ],
+    "maximum_probability_sum_error": 1.5133991837501526e-07,
+    "impostor_reward_sum": -13.444,
+    "model_identity_metadata": {
+      "p0": "artifacts/crew-handoff/shaped_v2/checkpoint-batch-23-choices-2092.pt",
+      "p1": "artifacts/crew-handoff/shaped_v2/checkpoint-batch-23-choices-2092.pt",
+      "p2": "impostor_shared/assets-v1/policy-transfer.pt",
+      "p3": "artifacts/crew-handoff/shaped_v2/checkpoint-batch-23-choices-2092.pt",
+      "p4": "artifacts/crew-handoff/shaped_v2/checkpoint-batch-23-choices-2092.pt"
+    }
+  },
+  "preview": {
+    "local_path": "local-runs/shared-integration/preview.png",
+    "sha256": "58e9cbb347595a9da4f934761fcfb09a53165ecb620d2de62f7a6f10f9992d6f",
+    "actual_spectator_v2": true,
+    "default_selects_learned_impostor": true,
+    "desktop_computer_use": false
+  },
+  "caveats": [
+    "Only2distinct engineering scenario seeds, with a B record-off repeat.",
+    "A/B share one paired case with identical world events; not an estimate of model equivalence.",
+    "A/B20tensors differ; strict-loader state hashes are recorded in README/analysis.",
+    "Recorded matches predate only the added already-terminal idempotence guard; it is covered by final11tests and does not execute during preterminal steps.",
+    "Toy checkpoint optimizer tests are synthetic, not game-based PPO updates.",
+    "No full training, reserved final tests, push or merge."
+  ]
+}
