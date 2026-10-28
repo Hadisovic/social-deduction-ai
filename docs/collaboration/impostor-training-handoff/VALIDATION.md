@@ -41,6 +41,11 @@ clean-clone viewer/mechanics subset passed 29 tests, with five private-fixture s
 in 13.31 seconds. These are engineering correctness checks, not trained performance.
 Private-fixture skips are disclosed rather than publishing those recordings.
 
+The final combined suite in the independent clean clone passed **75 tests**, with
+the same **five private-recording skips**, in **39.87 seconds**. Its strict verifier
+also passed on the committed source at `06456da6bf9fe5bb67f6615581debd10ca296820`.
+The subsequent publication-evidence commit changes documentation only.
+
 ## Complete matches — frozen policies, zero updates
 
 | Configuration | Seed | Outcome | Crew choices | Simulated seconds | Initial local wall seconds |
