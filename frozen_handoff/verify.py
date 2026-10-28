@@ -15,7 +15,8 @@ MANIFEST=ROOT/'docs/collaboration/impostor-training-handoff/manifest.json'
 
 def publication_hash(path):
     data=path.read_bytes()
-    if path.suffix in ('.py','.json','.txt','.md'):data=data.replace(b'\r\n',b'\n')
+    if path.suffix in ('.py','.json','.txt','.md','.yml','.yaml') or path.name in ('.gitattributes','.gitignore'):
+        data=data.replace(b'\r\n',b'\n')
     return hashlib.sha256(data).hexdigest()
 
 

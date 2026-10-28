@@ -42,7 +42,8 @@ temp_*
 # Root-level transient render snapshots (curated images are in docs/images/)
 snapshot_*.png
 
-# Optional user-requested commercial artwork; never included in public commits.
+# Optional original artwork. The owner-approved handoff's selected files are
+# explicitly tracked; newly generated/unreviewed local artwork remains ignored.
 assets/phase3_local/
 
 # Regenerable Phase 4 experiments; compact release checkpoint is tracked separately.

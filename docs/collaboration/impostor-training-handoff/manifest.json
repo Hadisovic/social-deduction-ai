@@ -54,7 +54,9 @@
     }
   },
   "files": {
-    ".gitattributes": "4d14e53e35ab93d2bdfb73ec05dd5bab575f4a499801a55f890f9ba99d5301f5",
+    ".gitattributes": "4a1f7e02c16cba4c39d2c3c9c82bd88d4304b236e604b225c61647429d287d22",
+    ".github/workflows/handoff-checks.yml": "be1ec9964e51fa6666ead0250c256880ae82ba0ab92f195b4558ef61516d3169",
+    ".gitignore": "3e7a53a76fe16c79d6bb8b807c3440e8069f55cbb1565a973e1446f36fd251a3",
     "among_us_map.py": "67b40bdd03bba566b641be48e2c5f78fb81dab954113596adebc1387e40ed303",
     "among_us_map_simulation.py": "6dba865da797ef7536c654512798b21daccb4040400c35d9694d97401441d24a",
     "among_us_renderer.py": "dd416532cc3afc67f969ac78b7727cb0c69a6c2779994a0b7ff942c2782c264f",
@@ -261,7 +263,7 @@
     "frozen_handoff/match.py": "8eb6909165321d4d9d395e53c331e4157e7d964e7c2424551284c9304b23ac2b",
     "frozen_handoff/models.py": "e9a6fc0cc9c2ced9e0dfc38f0e2d37ab13a62ec4908240c94585d101e6243a2b",
     "frozen_handoff/run.py": "57a86422f07b01543cfe2143a075a80c715802a573915b33d6e7f71137065113",
-    "frozen_handoff/verify.py": "646369d17d3f61b43597cd35183e1e6ca82082404f265a5df2f735ba1c569fed",
+    "frozen_handoff/verify.py": "0481e77510bb25e7d72832162dce4eed36aeab38bad9abc96562735fe51d36cf",
     "navigation_service.py": "3a1af1e6d7eb143144293e75704e60f29fcb2741bd3fdbeca33ad969d9af406d",
     "phase3_assets.py": "7d0457b2a2597192fc7bbb809d529db1dc44c5703b5e8970355b90c3de10f97d",
     "phase3_bots.py": "dac423d42c94c9abdd12df9020a995ede9d32817cc1a26614f7ce693a1d5ca33",
@@ -326,6 +328,8 @@
     "spectator/v2/renderer.py": "1c25c65d7a5c43d23fb0c825d5f1e9f5f3180224a8329570f7633192d66ede59",
     "spectator/v2/widgets.py": "20b256df22648ce7b764d7a2937067d73704bb5cf9ce0d4bce2590540250809b",
     "spectator/watcher.py": "251c0375e2b663933557b651dcb600e67aa1dc69f12d5736441ba50d27dc118b",
+    "tests/test_crewmate_v2.py": "8a3e7b78523be014beb2017448cd5be51712b24edfcfeaa298162de796b40ec6",
+    "tests/test_crewmate_v2_privacy.py": "cd1837d32206789888e16b2059c0aafd5f00f9cf2062f7dc813bf24f2432f241",
     "tests/test_frozen_handoff.py": "aef0f92073369cd728d544cdedc829cb4d8d7d6340f5e2bd130c3cd313bbcb7c",
     "tests/test_spectator_v2_data.py": "7e9b757726a102372af49769f51980cd81b769d5c8da415f961a228f201cd7c8",
     "tests/test_spectator_v2_ui.py": "c203e3d86881aff96092801f0ed5c7af3dc98c3e3a75615891ecbdeba3165667",
