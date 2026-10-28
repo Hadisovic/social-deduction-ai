@@ -5,8 +5,9 @@ EXECUTION_STATUS.md. Those describe this task; inherited root HANDOFF.md is
 historical and left unchanged to preserve the published handoff.
 
 Own local branch `codex/impostor-shared-integration`, isolated managed worktree,
-based on developer-pinned c3320583f7d562bc69ea527580a91ddc5db54f18. No automatic push,
-merge, full PPO training or reserved final access. Stop for owner review of
+based on developer-pinned c3320583f7d562bc69ea527580a91ddc5db54f18. Owner explicitly
+requested "finish and push" on28October; publication is authorized. This does NOT
+approve merging, full PPO training or reserved final access. Stop for review of
 STUDY_PROPOSAL.md. Current engineering CLI performs no PPO updates.
 
 Five neural actors: four sampled frozen A/B crew (B default), transferred V4.1
@@ -29,4 +30,5 @@ completed B replay and automatically selects its learned impostor.
 Published map/assets/viewer/source unchanged. Functional sabotage is NOT included.
 Opponent-pool assessment, proposed60–90min/90min-cap pilot and limitations are in
 the report. Budget is NOT approved. Full training requires owner approval and a
-frozen dedicated PPO experiment runner/registration preflight. No automatic push.
+frozen dedicated PPO experiment runner/registration preflight. Publish only the
+integration branch; keep raw replays, private preferences and local runtimes out.

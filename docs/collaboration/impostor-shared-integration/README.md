@@ -31,6 +31,15 @@ match and then watch it:
 .\.venv\Scripts\python.exe run_impostor_shared.py --replay local-runs/shared-integration/demo-2760007/replay.jsonl
 ```
 
+For a **fresh clone**, first follow the pinned-runtime setup in the
+[published handoff](../impostor-training-handoff/README.md), then generate the
+default local demo once before launching the viewer:
+
+```powershell
+.\.venv\Scripts\python.exe -m impostor_shared.run --seed 2760002 --crew B --output local-runs/shared-integration/learned-b-2760002-v2
+.\.venv\Scripts\python.exe run_impostor_shared.py
+```
+
 Use a new output directory each time. The runner rejects existing output folders.
 Allowed engineering seeds are 2760000–2760099. Do not use reserved old final sets.
 The actor is the transferred learned model; this command never starts PPO.
@@ -47,7 +56,7 @@ was fabricated. Map/characters/viewer source remain unchanged.
 |---|---|
 | Published branch | `codex/crew-impostor-training-handoff` |
 | Developer-pinned publication, confirmed in draft PR12 and Git | `c3320583f7d562bc69ea527580a91ddc5db54f18` |
-| Integration branch | `codex/impostor-shared-integration`, isolated checkout; not pushed |
+| Integration branch | `codex/impostor-shared-integration`; owner authorized publication; no merge |
 | Shared engine | `crewmate-environment-v2.2`; compatible source `4bac4cdb099e81a5c6c7de982f423136f24213c5` |
 | Crew model registration | `fab5c70e63e54d4d071d3343b1e0463fa4fbb6b6` |
 | Frozen A | `artifacts/crew-handoff/original/checkpoint-batch-23-choices-2058.pt` |
@@ -195,6 +204,7 @@ sabotage may change the problem but is not identified as the cause of losses.
 
 The proposed bounded adaptation study needs owner approval, a frozen experiment
 registration and a dedicated PPO loop using this collector/checkpoint interface.
-The engineering CLI is inference-only. No full study, reserved final access,
-automatic push, merge or deployment occurred. Published PR12 and the original
-impostor branch remain untouched.
+The engineering CLI is inference-only. The owner subsequently requested publishing
+the completed integration branch. No full study, reserved final access, merge or
+deployment is authorized by that instruction. Published PR12 and the original
+impostor branch remain untouched. Raw recordings/preferences/runtimes stay local.

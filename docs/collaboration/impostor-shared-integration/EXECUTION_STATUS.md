@@ -1,7 +1,8 @@
 # Current execution status
 
-Engineering COMPLETE; no active jobs. Stop for owner review. Do not start full
-PPO, push or merge automatically. Read README.md, CHECKLIST.md, STUDY_PROPOSAL.md,
+Engineering COMPLETE; no active jobs. Owner now requested "finish and push":
+publish this integration branch only. Full PPO and merging remain unapproved.
+Read README.md, CHECKLIST.md, STUDY_PROPOSAL.md,
 verification.json and publication-verification.json.
 
 Worktree: managed `impostor-shared-integration/stealth-rl-navigation`.

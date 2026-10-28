@@ -1,7 +1,7 @@
 # Shared crew / impostor integration — live checklist
 
 28 October 2026, Asia/Amman. **Engineering complete; ready for owner review.**
-**No full PPO training, automatic push, merge or reserved final tests.**
+**Owner approved publication. Full PPO, merge and reserved final tests remain unapproved.**
 
 ## Starting point
 
@@ -66,6 +66,9 @@
 - [x] Propose a small matched study, zero-update reference, fixed selection rule,
   separate ordinary/evidence scenarios, metrics and measured compute budget.
 - [x] Record remaining gates/limitations and stop before full training approval.
+- [x] Record owner's explicit "finish and push" instruction; publish the integration
+  branch while keeping raw replays/preferences/runtimes private. Training approval
+  is separate and remains pending.
 - [ ] Owner approval of the proposed study/budget, then frozen PPO runner/registration
   preflight. Full training is not authorized by completion of this checklist.
 
