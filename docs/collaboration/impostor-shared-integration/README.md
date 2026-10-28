@@ -1,5 +1,9 @@
 # Shared crewmate / impostor integration — review summary
 
+**29 October update:** the owner approved the bounded pilot. Follow
+[training progress](TRAINING_STATUS.md) for the runner, budget and live files.
+The review findings below describe the verified zero-update engineering baseline.
+
 28 October 2026. **Engineering integration works. No full PPO study is running.**
 The existing impostor can play through an explicit, checked transfer adapter.
 It is not a drop-in historical checkpoint load, and competent play is not proven.

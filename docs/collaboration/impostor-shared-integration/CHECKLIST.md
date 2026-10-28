@@ -1,5 +1,9 @@
 # Shared crew / impostor integration — live checklist
 
+**29 October update:** the owner approved the bounded pilot with "start training".
+See [training progress](TRAINING_STATUS.md). The integration was pushed as
+commit `357f889` and draft PR #13. Engineering history below is dated 28 October.
+
 28 October 2026, Asia/Amman. **Engineering complete; ready for owner review.**
 **Owner approved publication. Full PPO, merge and reserved final tests remain unapproved.**
 
@@ -69,8 +73,9 @@
 - [x] Record owner's explicit "finish and push" instruction; publish the integration
   branch while keeping raw replays/preferences/runtimes private. Training approval
   is separate and remains pending.
-- [ ] Owner approval of the proposed study/budget, then frozen PPO runner/registration
-  preflight. Full training is not authorized by completion of this checklist.
+- [x] Owner approval of the bounded proposed study/budget on 29 October.
+- [ ] Complete frozen PPO runner/registration preflight, then execute the pilot.
+  No automatic extension beyond the approved pilot.
 
 The handoff contains five players and **no functional sabotage by default**.
 The latest prompt requests these published historical A/B opponents. Do not imply

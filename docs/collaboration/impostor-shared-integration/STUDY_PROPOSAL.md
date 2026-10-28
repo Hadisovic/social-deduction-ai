@@ -1,4 +1,9 @@
-# Proposed first shared-environment impostor pilot — NOT APPROVED / NOT RUNNING
+# First shared-environment impostor pilot — approved 29 October 2026
+
+The owner said "start training" on 29 October. This approves the bounded pilot
+below. Current preparation/execution is recorded in TRAINING_STATUS.md. Earlier
+approval-pending wording below is retained as the proposal history; the owner's
+new instruction supersedes it. It does not approve extension, merging or final tests.
 
 Use the verified engineering adapter before scaling. The present transferred
 impostor lost the paired A/B smoke by ejection; that is one scenario, not an

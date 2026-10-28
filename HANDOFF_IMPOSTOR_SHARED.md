@@ -1,4 +1,13 @@
-# CURRENT — shared-environment impostor engineering complete
+# CURRENT — owner approved shared pilot on 29 October 2026
+
+Read `docs/collaboration/impostor-shared-integration/TRAINING_STATUS.md` first.
+The owner explicitly said "start training". The bounded 90-minute pilot is now
+authorized. Two eight-episode warm-start streams, fixed B selection, locked A/B
+development confirmation. Preserve historical checkpoints and reserved final
+sets. No merge or deployment. Never restart healthy workers or edit their source.
+The engineering history below predates this approval.
+
+# Engineering handoff — 28 October 2026
 
 Read `docs/collaboration/impostor-shared-integration/README.md`, CHECKLIST.md and
 EXECUTION_STATUS.md. Those describe this task; inherited root HANDOFF.md is

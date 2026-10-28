@@ -1,5 +1,9 @@
 # Current execution status
 
+29 October: owner approved starting the bounded shared pilot. Follow
+TRAINING_STATUS.md and the private run status/journals. The engineering-only
+status below is historical. Never restart a healthy job or change loaded source.
+
 Engineering COMPLETE; no active jobs. Owner now requested "finish and push":
 publish this integration branch only. Full PPO and merging remain unapproved.
 Read README.md, CHECKLIST.md, STUDY_PROPOSAL.md,
