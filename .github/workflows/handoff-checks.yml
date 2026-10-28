@@ -1,0 +1,38 @@
+name: Frozen crew handoff checks
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'frozen_handoff/**'
+      - 'crewmate_v2/**'
+      - 'spectator/**'
+      - 'artifacts/crew-handoff/**'
+      - 'requirements-handoff*.txt'
+      - 'docs/collaboration/impostor-training-handoff/**'
+      - '.github/workflows/handoff-checks.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: windows-latest
+    env:
+      SDL_VIDEODRIVER: dummy
+      SDL_AUDIODRIVER: dummy
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12.10'
+      - name: Install the pinned historical CPU runtime
+        run: |
+          python -m pip install --extra-index-url https://download.pytorch.org/whl/cpu -r requirements-handoff-lock.txt
+          python -m pip install pytest==8.3.5
+      - name: Verify exact models, sources and original assets
+        run: python -m frozen_handoff.verify
+      - name: Check controller boundary, original equivalence and versioned accounting
+        run: python -m unittest discover -s tests -p test_frozen_handoff.py -v
+      - name: Check mechanics, privacy and existing spectator controls
+        run: python -m pytest tests/test_v2_mechanics_repairs.py tests/test_spectator_v2_data.py tests/test_spectator_v2_ui.py -q

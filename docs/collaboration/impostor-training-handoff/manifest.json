@@ -54,7 +54,7 @@
     }
   },
   "files": {
-    ".gitattributes": "a8196d3fe82415022e426fefa0592517650ea320976f595b6b25d9c0f5e25c04",
+    ".gitattributes": "4d14e53e35ab93d2bdfb73ec05dd5bab575f4a499801a55f890f9ba99d5301f5",
     "among_us_map.py": "67b40bdd03bba566b641be48e2c5f78fb81dab954113596adebc1387e40ed303",
     "among_us_map_simulation.py": "6dba865da797ef7536c654512798b21daccb4040400c35d9694d97401441d24a",
     "among_us_renderer.py": "dd416532cc3afc67f969ac78b7727cb0c69a6c2779994a0b7ff942c2782c264f",
