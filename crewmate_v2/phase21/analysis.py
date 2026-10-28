@@ -47,7 +47,7 @@ def analyze_file(path):
             counts['ghost_task_events' if e['player_id'] in dead else 'living_task_events']+=1;task_events+=1
     nav=[e for e in events if e['kind']=='navigate' and roles.get(e.get('player_id'))=='crewmate' and e['time']>=handoff]
     common=sum(a['player_id']!=b['player_id'] and a['target']==b['target'] and abs(a['time']-b['time'])<=2 for i,a in enumerate(nav) for b in nav[i+1:])
-    return dict(seed=header['scenario_seed'],condition=cfg.get('training_condition'),context=cfg.get('context'),
+    return dict(seed=header['scenario_seed'],condition=cfg.get('training_condition'),opponent=cfg.get('opponent'),context=cfg.get('context'),
         counts=dict(counts),grouped_actor_seconds=dict(grouped),roaming_alive_actor_seconds=alive_seconds,
         roaming_crew_distance=travel,same_target_request_pairs_within_2s=common,witnesses=witnesses)
 
@@ -58,7 +58,8 @@ def analyze_library(folder):
     for path in sorted(Path(folder).rglob('*.jsonl')):
         row=analyze_file(path);raw.append(row);seed=row['seed']
         split='registered_validation' if 2790000<=seed<=2790007 else 'sampled_training' if 2780000<=seed<=2780063 else 'phase2_engineering'
-        key=f"{split}/{row['condition']}/{row['context']}";g=groups[key];g['games']+=1
+        condition=str(row['condition'])+('/'+row['opponent'] if row.get('opponent') else '')
+        key=f"{split}/{condition}/{row['context']}";g=groups[key];g['games']+=1
         for name in ('counts','grouped_actor_seconds'):g[name].update(row[name])
         for name in ('roaming_alive_actor_seconds','roaming_crew_distance','same_target_request_pairs_within_2s'):g[name]+=row[name]
         for w in row['witnesses']:

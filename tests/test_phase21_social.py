@@ -75,3 +75,18 @@ def test_guard_prevents_defense_of_high_suspicion_without_forcing_accusation():
     # Legitimate later belief reversal changes which targets can be defended.
     later,_,_=decision_rules(observation(),SimpleNamespace(events=[]),options,{'b':.1,'c':.9},Features(social_guard=True))
     assert later[1] and not later[3]
+
+
+def test_ten_point_hearsay_can_cross_a_vote_threshold_while_three_points_do_not():
+    # Synthetic boundary stress test, not a fabricated frozen-policy prediction.
+    raw={'b':.20,'c':.65,'d':.15};mem=SimpleNamespace(events=[]);obs=observation(claims=[claim()]);obs.context.phase=Phase.VOTING
+    options=[SimpleNamespace(kind='skip',target_player=None),SimpleNamespace(kind='vote',target_player='c')]
+    outcomes=[]
+    for magnitude in (0,.03,.10):
+        config=Features(social_guard=True,influence=magnitude)
+        suspicion=ListenerState('a',config).update(obs,mem,raw)
+        allowed,_,_=decision_rules(obs,mem,options,suspicion,config)
+        outcomes.append((suspicion['c'],bool(allowed[1])))
+        assert allowed[0]  # threshold crossing never forces a vote
+    assert outcomes[0][0]==pytest.approx(.65) and outcomes[1][0]==pytest.approx(.68) and outcomes[2][0]==pytest.approx(.75)
+    assert [x[1] for x in outcomes]==[False,False,True]

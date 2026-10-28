@@ -95,9 +95,14 @@ def decision_rules(obs,memory,options,suspicion,features):
             if approach:
                 allowed[:]=False;allowed[approach]=True;reasons.append('forced_fresh_witness_approach')
         else:
+            eligible_killers=killers&set(obs.context.participants)
             for i,c in enumerate(options):
                 if c.kind=='claim_defend' and c.target_player in killers:allowed[i]=False
-                if c.kind=='claim_kill' and c.target_player in killers or c.kind=='vote' and c.target_player in killers:
+                # Authenticated own direct evidence outranks an erroneous model
+                # threshold. This is a labelled intervention, not a new belief.
+                if eligible_killers and c.kind in ('vote','claim_suspect') and c.target_player not in eligible_killers:allowed[i]=False
+                if (c.kind=='claim_kill' or c.kind=='vote') and c.target_player in eligible_killers:
+                    allowed[i]=True
                     boost[i]=features.witness_logit_bonus;reasons.append('direct_evidence_priority')
     if not allowed.any():raise ValueError('Experimental adapter removed all actions')
     return allowed,boost,sorted(set(reasons))
