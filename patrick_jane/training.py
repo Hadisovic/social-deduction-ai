@@ -4,6 +4,8 @@ from pathlib import Path
 from time import perf_counter
 import random
 import os
+import math
+import platform
 os.environ.setdefault('CUBLAS_WORKSPACE_CONFIG',':4096:8')
 import numpy as np
 import torch
@@ -37,6 +39,13 @@ def train(output,*,target_decisions,owner_approved=False,environments=16,device=
         workers=environments,device=device,hard_wall_seconds=hard_wall_seconds,resume=str(resume) if resume else None,
         evaluation_schedule='frozen zero-update, each 100000 decisions, final selected state; all 100 development validation scenarios',
         budget_unit='individual living learner decisions; complete-match batches may overshoot',
+        tail_batch_rule='ceil(remaining target / empirical mean decisions per completed training match), clamped to 1..workers',
+        absolute_decision_ceiling=math.ceil(target_decisions*1.10),
+        runtime=dict(python=platform.python_version(),numpy=np.__version__,torch=str(torch.__version__),cuda=torch.version.cuda,worker_python_hash_seed=0),
+        stop_rules=dict(nonfinite=True,source_mismatch=True,legality=True,reward_attribution=True,
+            novelty_task_death_report_duplication=True,wall_ceiling=True,
+            speed='three consecutive collection rates below 40% of first-three median',
+            validation='paired crew-win decline at least 25 percentage points and one-sided exact p<0.01 versus zero'),
         checkpoint_selection='held-out crew wins, then task wins, then correct minus innocent ejections',
         final_test_partitions='unopened',acceptance='pending')
     atomic_json(folder/'registration.json',configuration)
@@ -59,6 +68,7 @@ def train(output,*,target_decisions,owner_approved=False,environments=16,device=
         progress.counters=counters;progress.checkpoint=current_checkpoint
         def evaluate(pool,label):
             nonlocal current_checkpoint,reference_matches
+            evaluation_began=perf_counter()
             progress.stage='validation-'+label;matches=[];eval_decisions=0
             for offset in range(0,experiment.evaluation_matches,environments):
                 seeds=DEV_VALIDATION[offset:offset+min(environments,experiment.evaluation_matches-offset)]
@@ -71,7 +81,8 @@ def train(output,*,target_decisions,owner_approved=False,environments=16,device=
                 matches.extend(result['matches']);eval_decisions+=result['individual_decisions']
             remaining()
             record=dict(label=label,update=counters['update'],checkpoint=str(current_checkpoint),matches=matches,
-                        individual_decisions=eval_decisions,new_champion=select_champion(current_checkpoint,matches,folder/'champions'))
+                        elapsed=perf_counter()-evaluation_began,individual_decisions=eval_decisions,
+                        new_champion=select_champion(current_checkpoint,matches,folder/'champions'))
             if label=='zero':reference_matches=matches
             elif reference_matches:record['regression_check']=severe_paired_regression(reference_matches,matches)
             atomic_json(folder/f'evaluations/update-{counters["update"]:06d}-{label}.json',record)
@@ -94,13 +105,18 @@ def train(output,*,target_decisions,owner_approved=False,environments=16,device=
                         current_checkpoint=folder/f'checkpoints/update-{counters["update"]:06d}-evaluated.pt'
                         save(current_checkpoint,policy,optimizer,experiment,counters.copy(),rng=rng)
                         progress.checkpoint=current_checkpoint
-                    first=counters['next_seed'];seeds=DEV_TRAIN[first:first+environments]
-                    if len(seeds)!=environments:raise RuntimeError('Registered training seeds exhausted')
+                    active=environments
+                    if counters['complete_matches']:
+                        mean=counters['individual_decisions']/counters['complete_matches']
+                        active=min(environments,max(1,math.ceil((target_decisions-counters['individual_decisions'])/mean)))
+                    first=counters['next_seed'];seeds=DEV_TRAIN[first:first+active]
+                    if len(seeds)!=active:raise RuntimeError('Registered training seeds exhausted')
                     progress.stage='collecting';progress.publish({})
                     rollout=collect(policy,pool,experiment,seeds,device=device,update=counters['update'],
                         training_step=counters['individual_decisions'],replay_dir=folder/'replays',record_every=record_every,
-                        wall_limit=remaining(),status_callback=progress.publish,checkpoint=str(current_checkpoint),monitor_dir=progress.monitor_dir)
-                    progress.stage='PPO';progress.publish(progress.final_streams(rollout['matches'],counters['update'],record_every))
+                        wall_limit=remaining(),status_callback=progress.publish,checkpoint=str(current_checkpoint),monitor_dir=progress.monitor_dir,
+                        decision_limit=configuration['absolute_decision_ceiling']-counters['individual_decisions'])
+                    progress.stage='PPO';progress.publish(dict(progress.final_streams(rollout['matches'],counters['update'],record_every),decisions=rollout['individual_decisions']))
                     audit_rollout(rollout)
                     remaining()
                     learning=update(policy,optimizer,rollout.pop('trajectories'),experiment,rng=rng,device=device,deadline=deadline)
@@ -111,13 +127,15 @@ def train(output,*,target_decisions,owner_approved=False,environments=16,device=
                     counters['next_seed']+=len(seeds);counters['update']+=1
                     current_checkpoint=folder/f'checkpoints/update-{counters["update"]:06d}.pt'
                     digest=save(current_checkpoint,policy,optimizer,experiment,counters.copy(),rng=rng)
-                    record=dict(counters=counters.copy(),rollout=rollout,ppo=learning,sha256=digest)
+                    record=dict(counters=counters.copy(),rollout=rollout,ppo=learning,sha256=digest,wall_seconds=perf_counter()-began)
                     history.append(record);atomic_json(folder/'history.json',history)
                     atomic_json(folder/'latest.json',dict(checkpoint=str(current_checkpoint),sha256=digest,counters=counters.copy()))
                     progress.settle(rollout);progress.ppo=learning;progress.checkpoint=current_checkpoint
                     progress.stage='checkpoint';progress.publish(progress.final_streams(rollout['matches'],counters['update']-1,record_every))
                     print(json.dumps(dict(event='checkpoint',**counters,ppo_seconds=learning['elapsed'],wall_seconds=perf_counter()-began)),flush=True)
-                    if severe_speed_regression(history):raise RuntimeError('Three sustained throughput regressions below 40 percent of initial median')
+                    full_batches=[row for row in history if len(row['rollout']['matches'])==environments]
+                    if active==environments and severe_speed_regression(full_batches):
+                        raise RuntimeError('Three sustained throughput regressions below 40 percent of initial median')
                 if counters['update'] not in evaluated:evaluate(pool,'final')
                 remaining();progress.stage='complete';progress.publish(complete=True,overshoot_decisions=counters['individual_decisions']-target_decisions)
                 atomic_json(folder/'completion.json',dict(counters=counters,elapsed=perf_counter()-began,sources=configuration['sources'],acceptance='pending'))

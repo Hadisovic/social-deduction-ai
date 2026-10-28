@@ -85,6 +85,16 @@ class NetworkMemoryTests(unittest.TestCase):
         for (name,a),(_,b) in zip(reference.named_parameters(),batched.named_parameters()):
             if a.grad is not None:self.assertTrue(torch.allclose(a.grad,b.grad,atol=2e-5,rtol=3e-4),name)
 
+    def test_simultaneous_lost_sight_events_use_stable_public_id_order(self):
+        from patrick_jane.memory import LastSeen
+        _,pid,obs,m,nav,p=self.setup_actor()
+        identities=('p7','p3','p1','p9')
+        m._visible={key:None for key in identities}
+        for key in identities:m.last_seen[key]=LastSeen((0.,0.),'Cafeteria',0.,(0.,0.),False)
+        m.update(replace(obs,actor=replace(obs.actor,visible_players=())))
+        lost=[event.subject for event in m.events if event.kind=='lost_sight']
+        self.assertEqual(lost,sorted(identities))
+
     def test_vectorized_conditional_likelihood_matches_scalar(self):
         _,_,_,_,_,p=self.setup_actor();packets=[model_packet(p) for _ in range(3)]
         for phase,packet in enumerate(packets):packet.phase=phase

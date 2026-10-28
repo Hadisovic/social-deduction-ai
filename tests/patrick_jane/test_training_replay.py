@@ -75,7 +75,7 @@ class TrainingReplayTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(dir=Path.cwd()/"local-runs") as folder:
             output=Path(folder)/'registered'
             experiment=replace(self.experiment,evaluation_matches=2)
-            result=train(output,target_decisions=1,owner_approved=True,environments=1,device='cpu',
+            result=train(output,target_decisions=30,owner_approved=True,environments=1,device='cpu',
                 experiment=experiment,hard_wall_seconds=90,record_every=1)
             self.assertEqual(result['update'],1);self.assertGreater(result['individual_decisions'],1)
             self.assertTrue((output/'completion.json').is_file());self.assertTrue((output/'latest.json').is_file())
@@ -106,6 +106,9 @@ class TrainingReplayTests(unittest.TestCase):
             self.assertEqual(len(index.frame().players),12);self.assertTrue(data['neural'])
             self.assertTrue(data['complete']);self.assertTrue(data['live_snapshot']);self.assertFalse(index.issues)
             self.assertEqual(data['result']['reason'],live['matches'][0]['reason'])
+            for record in data['rewards']:
+                expected=sum(live['reward_components'].get('0/'+record['player_id'],{}).values())
+                self.assertAlmostEqual(record['cumulative_reward'],expected)
 
 
 if __name__=='__main__':unittest.main()

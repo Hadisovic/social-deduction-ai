@@ -22,7 +22,7 @@ class Progress:
     def publish(self,active=None,**extra):
         if active is not None:self.active=active
         elapsed=perf_counter()-self.started
-        decisions=self.counters['individual_decisions']+(self.active.get('decisions',0) if self.stage in ('collecting','benchmark') else 0)
+        decisions=self.counters['individual_decisions']+(self.active.get('decisions',0) if self.stage in ('collecting','benchmark','PPO','PPO benchmark') else 0)
         rate=decisions/max(1,elapsed)
         record=dict(schema='patrick-jane-progress-v1',stage=self.stage,counters=dict(self.counters),
             workers=self.workers,elapsed=elapsed,target_decisions=self.target,overall_decisions=decisions,

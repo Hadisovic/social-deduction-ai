@@ -51,7 +51,7 @@ class Memory:
             self.last_seen[pid]=LastSeen(position,p.room,now,(p.velocity.x,p.velocity.y),p.interacting)
         # Meetings remove local sight by design; avoid inventing a physical departure.
         if a.context.phase is Phase.ROAMING:
-            for pid in self._visible.keys()-current.keys():
+            for pid in sorted(self._visible.keys()-current.keys()):
                 old=self.last_seen[pid]
                 self.append(Event('lost_sight',pid,room=old.room,position=old.position,
                                   observed=now,delivered=now,source=self.owner,provenance='direct'))

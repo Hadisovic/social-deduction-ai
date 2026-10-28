@@ -13,7 +13,10 @@ from .decoder import execute
 
 def categorical(logits,mask,selected=None,generator=None):
     valid=torch.as_tensor(mask,dtype=torch.bool,device=logits.device)
-    if len(valid)<len(logits):valid=torch.cat((valid,torch.zeros(len(logits)-len(valid),dtype=torch.bool,device=logits.device)))
+    if len(valid)>len(logits):raise ValueError('Action mask exceeds head width')
+    # Padded targets belong to the batch, not this actor. Multinomial consumes
+    # width-dependent random draws even for zero-probability entries.
+    logits=logits[:len(valid)]
     if not valid.any():raise ValueError('Empty conditional action mask')
     lp=torch.log_softmax(logits.masked_fill(~valid,-torch.inf),-1)
     probs=lp.exp()

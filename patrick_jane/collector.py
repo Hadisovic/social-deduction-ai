@@ -2,6 +2,7 @@
 from dataclasses import dataclass
 from collections import defaultdict
 import multiprocessing as mp
+import os
 from pathlib import Path
 from time import perf_counter
 import numpy as np
@@ -17,6 +18,7 @@ class Pool:
         self.count=count;self.processes=processes;self.connections=[];self.children=[];self.matches={}
         self.sync_seconds=0.;self.worker_critical_seconds=0.;self.worker_cpu_seconds=0.;self.timeout=180.
         if processes:
+            os.environ['PYTHONHASHSEED']='0'  # Stable process-level tie ordering; never actor input.
             ctx=mp.get_context('spawn')
             for _ in range(count):
                 parent,child=ctx.Pipe();p=ctx.Process(target=serve,args=(child,),daemon=True);p.start();child.close()
@@ -71,9 +73,10 @@ class Transition:
 
 
 def collect(policy,pool,experiment,seeds,*,device='cpu',update=0,training_step=0,replay_dir=None,
-            record_every=0,held_out=False,wall_limit=180.,status_callback=None,checkpoint=None,monitor_dir=None):
+            record_every=0,held_out=False,wall_limit=180.,status_callback=None,checkpoint=None,monitor_dir=None,decision_limit=None):
     if not 0<len(seeds)<=pool.count:raise ValueError('One independent seed per active worker required')
     began=perf_counter();simulation_started=perf_counter()
+    initial_cpu=pool.worker_cpu_seconds;initial_critical=pool.worker_critical_seconds;initial_sync=pool.sync_seconds
     pool.deadline=began+wall_limit
     responses=pool.call({i:('reset',dict(seed=seed,experiment=experiment,held_out=held_out,
         live_dir=str(monitor_dir) if monitor_dir else None,
@@ -125,6 +128,8 @@ def collect(policy,pool,experiment,seeds,*,device='cpu',update=0,training_step=0
                 pending[key]=Transition(packet,choice,hidden[key].detach().cpu().numpy().copy(),float(lp),float(out['value']),responses[i]['time'])
                 pending[key].reward+=initial_rewards.pop(key,0.)
                 hidden[key]=new_hidden[j].detach();counts+=1
+                if decision_limit is not None and counts>decision_limit:
+                    raise RuntimeError('Absolute decision ceiling reached; partial matches withheld from PPO')
                 commands[i][pid]=dict(choice=choice,logp=float(lp),value=float(out['value']),entropy=float(en),
                     probabilities=probs if (replay_dir and record_every and i%record_every==0 or responses[i].get('monitoring')) else {},
                     update=update,training_step=training_step+counts)
@@ -145,6 +150,6 @@ def collect(policy,pool,experiment,seeds,*,device='cpu',update=0,training_step=0
         elapsed=elapsed,decisions_per_second=counts/elapsed,games_per_second=len(summaries)/elapsed,
         inference_seconds=inference_seconds,environment_and_sync_seconds=simulation_seconds,
         recording_seconds=sum(m['recording_seconds'] for m in summaries),
-        worker_cpu_seconds=pool.worker_cpu_seconds,worker_critical_seconds=pool.worker_critical_seconds,
-        rpc_sync_overhead_seconds=max(0.,pool.sync_seconds-pool.worker_critical_seconds),
+        worker_cpu_seconds=pool.worker_cpu_seconds-initial_cpu,worker_critical_seconds=pool.worker_critical_seconds-initial_critical,
+        rpc_sync_overhead_seconds=max(0.,pool.sync_seconds-initial_sync-(pool.worker_critical_seconds-initial_critical)),
         reward_components={f'{i}/{p}':dict(v) for (i,p),v in reward_components.items()})

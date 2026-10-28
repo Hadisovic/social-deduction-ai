@@ -233,6 +233,8 @@ class Pages:
         outcomes=status.get('outcomes',{})
         text(surface,f"Complete games {outcomes.get('games',0)} · crew wins {outcomes.get('wins',0)} · losses {outcomes.get('losses',0)} · draws {outcomes.get('draws',0)}",r.x,y,14,TEXT);y+=30
         text(surface,'Latest checkpoint: '+str(status.get('checkpoint','unavailable')),r.x,y,12,MUTED,width=r.w);y+=28
+        if str(status.get('stage','')).startswith('validation'):
+            text(surface,f"Development validation: {status.get('validation_complete',0)} / {status.get('validation_target',0)} complete",r.x,y,14,CYAN);y+=30
         for name,value in status.get('reward_components',{}).items():
             text(surface,f'{name}: {value:.3f}',r.x,y,12,MUTED);y+=21
         for name,value in status.get('ppo',{}).items():
@@ -250,7 +252,7 @@ class Pages:
         for stream in status.get('environment_progress',{}).get('streams',[]):
             label=f"Env {stream['environment']:02d} · seed {stream['seed']} · {stream['simulation_seconds']:.1f}s · {'complete' if stream['complete'] else 'simulating'}"
             path=stream.get('replay')
-            if stream.get('snapshot') and status.get('monitor_dir'):
+            if stream.get('snapshot') and status.get('monitor_dir') and not stream['complete']:
                 ui.button(surface,'pj-live-'+str(stream['environment']),label+' · LIVE',pygame.Rect(r.x,y,min(650,r.w),32),('live_environment',stream['environment']))
                 if path and stream['complete'] and Path(path).is_file():
                     ui.button(surface,'pj-env-'+str(stream['environment']),'Replay',pygame.Rect(r.x+660,y,95,32),('load',str(Path(path).resolve())))

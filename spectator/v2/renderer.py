@@ -98,6 +98,10 @@ class Renderer:
 
     def map_toolbar(self,surface,r,app,ui):
         text(surface,'THE SKELD',r.x+16,r.y+13,13,MUTED,True,width=105)
+        sabotage=app.index.sabotage() if app.index else None
+        if sabotage:
+            label=sabotage['kind'].upper()+ (f" {sabotage['remaining']:.1f}s" if sabotage['remaining'] is not None else ' ACTIVE')
+            text(surface,label,r.x+126,r.y+14,12,RED,True,width=max(0,r.w-620))
         x=r.right-480
         if r.w<650:x=r.x+126
         for label,key,action,width in [('−','zoom-out',('zoom',.8),30),('+','zoom-in',('zoom',1.25),30),('Fit','fit',('fit',),42),('Focus','focus',('focus_player',),58),('Follow','follow',('toggle','follow'),64),('Layers','layers',('layers',),64),('Meeting','meeting',('meeting',),79)]:

@@ -30,7 +30,7 @@ def main():
     policy=PatrickJane().cuda();experiment=Experiment();sources=source_lock();began=perf_counter();results={}
     atomic_json(folder/'registration.json',dict(workers=args.counts,seeds=list(ENGINEERING[:args.games]),
         sources=sources,source_snapshot=freeze_sources(folder),experiment=experiment.to_dict(),initialization_seed=17,device='cuda',
-        engineering_only=True,wall_seconds=args.wall_seconds,record_every=8,
+        engineering_only=True,wall_seconds=args.wall_seconds,record_every=8,worker_python_hash_seed=0,
         note='Same paired scenarios; policy sampling streams are independent per scenario/actor. Floating-point batching may alter rare sampled ties; report actual trace agreement.'))
     try:
         for count in args.counts:
@@ -51,7 +51,7 @@ def main():
                         measured={};states={}
                         for batched,label in ((False,'serial_sequences'),(True,'batched_sequences')):
                             candidate=copy.deepcopy(policy);optimizer=torch.optim.Adam(candidate.parameters(),lr=experiment.learning_rate)
-                            progress.stage='PPO benchmark';progress.publish()
+                            progress.stage='PPO benchmark';progress.publish(dict(progress.final_streams(rollout['matches'],0,8),decisions=rollout['individual_decisions']))
                             measured[label]=update(candidate,optimizer,trajectories,experiment,rng=np.random.default_rng(17),device='cuda',batched=batched,deadline=began+args.wall_seconds)
                             states[label]={k:v.detach().cpu().clone() for k,v in candidate.state_dict().items()}
                             del optimizer,candidate
@@ -61,7 +61,7 @@ def main():
                         rollout['ppo']=measured['batched_sequences']
                     else:
                         candidate=copy.deepcopy(policy);optimizer=torch.optim.Adam(candidate.parameters(),lr=experiment.learning_rate)
-                        progress.stage='PPO benchmark';progress.publish()
+                        progress.stage='PPO benchmark';progress.publish(dict(progress.final_streams(rollout['matches'],0,8),decisions=rollout['individual_decisions']))
                         rollout['ppo']=update(candidate,optimizer,trajectories,experiment,rng=np.random.default_rng(17),device='cuda',deadline=began+args.wall_seconds)
                         del optimizer,candidate;progress.stage='benchmark'
                     del trajectories

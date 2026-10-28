@@ -134,6 +134,17 @@ class ReplayIndex:
         if not isinstance(done,(int,float)) or not isinstance(total,(int,float)) or total<=0:return None
         return dict(completed=done,total=total,fraction=max(0.,min(1.,done/total)),stage=r.get('task_progress'),active=r.get('interaction_task'))
 
+    def sabotage(self):
+        state=None
+        for event in self.events_until():
+            kind=event.get('kind')
+            if kind in ('sabotage_repaired','sabotage_cancelled'):state=None
+            elif kind in ('sabotage_started','live_sabotage'):
+                name=event.get('sabotage')
+                deadline=event.get('deadline')
+                state=dict(kind=name,remaining=max(0,deadline-self.frame().sim_time) if isinstance(deadline,(int,float)) else None) if name else None
+        return state
+
     def team_tasks(self):
         ids=[p for p in self.frame().players if self.role(p)=='crewmate']
         values=[self.task_progress(p) for p in ids]

@@ -129,7 +129,12 @@ class Application:
             if stream and stream.get('snapshot'):
                 try:
                     path=Path(stream['snapshot']);data=json.loads(path.read_text())
-                    if data.get('updated_unix',0)>self.last_live_stamp and data.get('ticks'):
+                    same_seed=data.get('header',{}).get('scenario_seed')==stream['seed']
+                    expected_update=app.status.get('environment_progress',{}).get('update')
+                    same_update=expected_update is None or data.get('header',{}).get('config',{}).get('update')==expected_update
+                    if not same_seed or not same_update:
+                        app.index=None;app.current_path=None
+                    elif data.get('updated_unix',0)>self.last_live_stamp and data.get('ticks'):
                         previous=app.selected;app.index=ReplayIndex(data);app.current_path=str(path)
                         app.index.player.seek_to_time(app.index.player.duration)
                         ids=list(app.index.frame().players)
@@ -141,7 +146,9 @@ class Application:
         app=self.state
         if not app.prefs.set(key,value):return
         if key=='speed':app.speed=app.prefs['speed']
-        if key=='mode':app.mode=app.prefs['mode'];app.auto_wait=bool(app.index and app.index.player.at_end and app.mode=='auto_next')
+        if key=='mode':
+            app.mode=app.prefs['mode'];app.live_environment=None
+            app.auto_wait=bool(app.index and app.index.player.at_end and app.mode=='auto_next')
         if key in ('roster','inspector') and value and self.screen:
             w=self.screen.get_width();needed=(app.prefs['left_width']+app.prefs['right_width'])*app.prefs['scale']+470
             if w<needed:app.prefs.set('inspector' if key=='roster' else 'roster',False)
@@ -181,6 +188,7 @@ class Application:
         elif command=='load':self.open(args[0]);app.scene='Match'
         elif command=='live_environment':
             app.live_environment=int(args[0]);app.scene='Match';app.playing=False
+            app.index=None;app.current_path=None;app.auto_wait=False
             self.last_live_stamp=0.
             directory=app.status.get('monitor_dir')
             if directory:

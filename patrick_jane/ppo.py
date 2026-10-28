@@ -28,6 +28,7 @@ def prepare(trajectories,experiment):
 
 def update(policy,optimizer,trajectories,experiment,*,rng=None,device='cpu',sequences_per_batch=4,batched=True,deadline=None):
     started=perf_counter();rng=rng or np.random.default_rng(17)
+    policy.gru.flatten_parameters()  # Once after cloning/loading, not each recurrent call.
     sequences=prepare(trajectories,experiment)
     if not sequences:raise ValueError('No actor experience for PPO')
     metrics=[]
