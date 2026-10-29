@@ -115,8 +115,10 @@ class MapView:
             label='MEETING · '+frame.phase.upper()+' · movement frozen'
             text(surface,label,rect.x+18,rect.y+14,14,AMBER,True,width=rect.w-40)
         if frame.result:
-            label=frame.result.get('reason','Match ended').replace('_',' ')
+            from spectator.outcomes import outcome_label
+            label=outcome_label(frame.result)
             pill=pygame.Rect(rect.centerx-180,rect.bottom-55,360,38)
             pygame.draw.rect(surface,(19,38,32),pill,border_radius=8)
-            text(surface,label,pill.x+15,pill.y+9,16,LIME,True,width=pill.w-25)
+            color=LIME if frame.result.get('winner')=='crewmate' else RED if frame.result.get('winner')=='impostor' else AMBER
+            text(surface,label,pill.x+15,pill.y+9,16,color,True,width=pill.w-25)
         surface.set_clip(old)

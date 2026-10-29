@@ -24,13 +24,31 @@ in its own process. Rendering speed does not control simulation time or PPO.
   and wall-clock delays do not affect it. All other coefficients are unchanged.
 - **32 workers**, same architecture and PPO hyperparameters/batching. No new
   worker comparison or curriculum.
+- New profile **`patrick-jane-lights-learning-v2`** disables the former normal
+  900-second game-ending rule. Legitimate crew/impostor victory conditions remain.
+  The legacy lobby `timeout: 900` field is retained for source compatibility but
+  is inactive in this profile; preflight prints the effective normal timeout as
+  `null`. Historical profiles/replays keep their original semantics.
+- Technical safeguards cut a simulation at 1,800 simulated seconds or after
+  300 seconds stationary without progress. Bounded meeting phases finish before
+  a cut; a genuine victory takes precedence. A cut is **TRUNCATED**, with no
+  fabricated win/loss reward, and is excluded from win/loss/draw rates. Its cause,
+  progress diagnostics and final critic values are saved. Living actors bootstrap
+  from legitimate final roaming observations and private recurrent states;
+  genuine terminal outcomes bootstrap zero. Dead/ejected actors stay terminated:
+  actually observed delayed credits are retained, but future ghost work and team
+  outcomes beyond a cut are censored. Frequent truncations would limit conclusions.
+  A validation checkpoint is eligible for the existing champion rule only if
+  every registered evaluation outcome is legitimate; cuts withhold selection.
+  Latest checkpoints and raw evaluations remain available in either case.
 - Continue the original pilot's `update-000006.pt`: 255,083 individual decisions,
   SHA256 `d8b81ef06788a0139822a5677801f34069aef116286cc079cb12de8c39538ab8`.
   The policy, Adam state and RNG are imported after verifying the historical
   archive and checkpoint. This is an explicit new training regime. The original
   model and champion remain untouched; engineering-test models are not used.
 - **1,000,000 additional individual living-crewmate decisions**, giving at
-  least 1,255,083 lifetime decisions. Complete-match batches can overshoot;
+  least 1,255,083 lifetime decisions. Batches finish through genuine outcomes or
+  explicit bootstrapped technical boundaries and can overshoot;
   the absolute guard is 1,100,000 additional decisions. No ghost neural calls.
 - **Eight paired ordinary development games at entry and eight at the end**,
   using 2910000–2910007. Training continues at the next unused development
@@ -74,9 +92,19 @@ competence. The paired comparison has only eight scenarios and is exploratory.
 
 ## Completion and safe resume
 
+The terminal and viewer display actual additional learning-agent decisions and
+their percentage of the registered target, capped at 100%. Validation actions,
+scripted impostors, ghosts, ticks and bootstrap-only critic calls do not advance
+this counter. Periodic updates include measured decisions/second, ETA, cumulative
+active elapsed time, legitimate games, separate truncations, PPO updates, latest
+checkpoint and training state. ETA initially says `measuring`. Resume restores
+the saved count/time; a withheld partial batch can roll back to the last committed
+checkpoint. Reaching 100% during collection is not completion until the update,
+final validation and all outputs have successfully saved.
+
 Successful completion prints the large terminal message:
 
-**PATRICK JANE — TRAINING COMPLETE**
+**PATRICK JANE — TRAINING COMPLETE (100%)**
 
 It then prints additional decisions, matches, training time, PPO updates,
 the final checkpoint and the report path. The status JSON has `state: complete`
@@ -90,7 +118,7 @@ complete checkpoint. Failures print **TRAINING FAILED**. Neither is success.
 To resume, run **the same command above**. It acquires an exclusive writer lock,
 verifies checkpoint hashes/source/runtime/settings, restores optimizer/RNG and
 starts a new attempt folder. It does not repeat already checkpointed updates.
-An interrupted partial batch is withheld from PPO and may be collected again
+An operator-interrupted partial batch is withheld from PPO and may be collected again
 from the last complete boundary. Corrupt pointers are rejected; registered
 history/origin candidates are checked before any fallback. It never silently
 starts from fresh random weights. Do not edit source/rewards while it is running.

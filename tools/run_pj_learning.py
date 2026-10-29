@@ -27,10 +27,12 @@ def main():
         if not folder.exists():return 1
         with run_lock(folder):
             if read(folder/'completion-status.json',{}).get('state')=='complete':return 0
-            status=read(folder/'status.json',{});elapsed=status.get('elapsed',0)+status.get('active_seconds_before_attempt',0)
+            # Progress.elapsed already includes earlier attempts. Do not add
+            # active_seconds_before_attempt again after a resumed hard exit.
+            status=read(folder/'status.json',{});elapsed=status.get('elapsed',0)
             result=generate(folder,args.finalize,active_seconds=elapsed,error='Foreground process exited without a completed finalizer')
             atomic_json(folder/'completion-status.json',dict(state=args.finalize,success=False,additional_decisions=result['additional_decisions'],active_seconds=elapsed,report=str(folder/'TRAINING_REPORT.md')))
-            status.update(stage=args.finalize,complete=False);atomic_json(folder/'status.json',status)
+            status.update(stage=args.finalize,training_state=args.finalize,complete=False);atomic_json(folder/'status.json',status)
             print('TRAINING '+args.finalize.upper());print('REPORT: '+str(folder/'TRAINING_REPORT.md'))
         return 1
     from patrick_jane.learning_run import inspect,train
@@ -40,7 +42,8 @@ def main():
     if args.check_only:
         info=inspect();info.update(additional_target=args.additional_decisions,workers=args.workers,
             wall_hours=args.wall_hours,run_folder=str(folder),engineering_check=args.engineering)
-        if args.engineering:info['profile']['lobby']['timeout']=12.;info['profile']['evaluation_matches']=2
+        info['effective_normal_match_timeout_seconds']=None
+        if args.engineering:info['profile']['technical_max_seconds']=12.;info['profile']['evaluation_matches']=2
         print(json.dumps(info,indent=2));return 0
     folder.mkdir(parents=True,exist_ok=True)
     with (folder/'console.log').open('a',encoding='utf-8',buffering=1) as log:

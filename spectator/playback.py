@@ -296,7 +296,8 @@ class ReplayPlayer:
         if self._result:
             t = self._result.get("sim_time", self._max_sim_time)
             winner = self._result.get("winner", "")
-            label = f"{winner.upper()} WIN" if winner else "DRAW"
+            from spectator.outcomes import outcome_label
+            label = outcome_label(self._result)
             color = (100, 255, 140) if winner == "crewmate" else (255, 100, 100) if winner == "impostor" else (200, 200, 200)
             markers.append(EventMarker(t, self._max_tick, "result", label, color))
         return sorted(markers, key=lambda m: m.sim_time)

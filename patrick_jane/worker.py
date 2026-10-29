@@ -24,14 +24,14 @@ class Match:
         self.nav={p:NavigationMemory(self.game.map,stream_seed(seed,'pj:nav:'+p)) for p in self.crew}
         self.opponents={p:Opponent(stream_seed(seed,'pj:script:'+p),held_out,
             getattr(experiment,'allowed_sabotages',('lights','oxygen','reactor'))) for p in self.game.players if p not in self.crew}
-        if getattr(experiment,'profile',None)=='patrick-jane-lights-learning-v1':
+        if str(getattr(experiment,'profile','')).startswith('patrick-jane-lights-learning-'):
             from .lights_setup import LightsLedger
             self.ledger=LightsLedger(self.game)
         else:self.ledger=RewardLedger(self.game)
         self.packets={};self.rewards=[];self.recorder=None;self.trace=hashlib.sha256()
         self.decisions=0;self.all_decisions=defaultdict(int);self.last_phase=self.game.phase
         self.last_direct={p:0 for p in self.crew};self.recording_seconds=0.
-        self.live=None;self.cumulative=defaultdict(float)
+        self.live=None;self.cumulative=defaultdict(float);self.bootstrap_packets={}
         self.exposure={p:Counter() for p in self.crew};self.selected={p:Counter() for p in self.crew}
         if live_dir:
             from .live import LiveBridge
@@ -73,7 +73,8 @@ class Match:
             packets={p:model_packet(x) for p,x in self.packets.items()},rewards=self.rewards,
             result=self.summary() if self.game.is_terminal else None,
             monitoring=bool(self.live and self.live.active),phase=self.game.phase.value,
-            live_error=self.live.error if self.live else None)
+            live_error=self.live.error if self.live else None,
+            bootstrap_packets=self.bootstrap_packets)
         if self.recorder:
             for time,pid,components in self.rewards:self.recorder.reward(time,pid,components)
         for time,pid,components in self.rewards:
@@ -123,6 +124,15 @@ class Match:
                             self.game.learning_diagnostics['task_interruptions_navigation']+=1
             for pid,components in self.ledger.collect(self.game).items():
                 if components:self.rewards.append((self.game.time,pid,components))
+            if self.game.truncation_pending and not self.game.is_terminal:
+                # Only the same legitimate private roaming packets as ordinary
+                # inference. No action, RNG sample, ghost observation or budget
+                # decision is fabricated for the critic bootstrap.
+                for pid in self.crew:
+                    if not self.game.players[pid].active:continue
+                    obs=self.game.observe_pj(pid);self._bonus(pid,obs)
+                    self.bootstrap_packets[pid]=model_packet(encode(obs,self.memory[pid],self.nav[pid]))
+                self.game.finalize_truncation()
             for pid in decisions:
                 p=self.game.players[pid];packet=self.packets[pid]
                 waiting_tasks=[t for t,d in zip(packet.observation.actor.own.tasks,packet.observation.own_tasks)
@@ -165,7 +175,8 @@ class Match:
         return dict(seed=g.seed,players=len(g.players),crew=len(self.crew),impostors=len(g.players)-len(self.crew),
             winner=result.winner.value if result and result.winner else None,reason=result.reason if result else None,
             simulation_seconds=g.time,individual_decisions=self.decisions,per_actor=dict(self.all_decisions),
-            metrics=g.metrics,correct_ejections=sum(g.players[e['player_id']].role is Role.IMPOSTOR for e in ejections),
+            metrics=g.metrics,truncated=g.truncation_details is not None,truncation=g.truncation_details,
+            correct_ejections=sum(g.players[e['player_id']].role is Role.IMPOSTOR for e in ejections),
             innocent_ejections=sum(g.players[e['player_id']].role is Role.CREWMATE for e in ejections),
             skips=sum(e['kind']=='vote_submitted' and e.get('target_id') is None for e in g.event_log),
             mean_coverage=sum(float((n.seen_at>=0).mean()) for n in self.nav.values())/len(self.nav),

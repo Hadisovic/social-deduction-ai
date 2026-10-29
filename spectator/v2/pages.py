@@ -47,7 +47,7 @@ class Pages:
             task=f"{entry['tasks_completed']}/{entry['tasks_total']} tasks" if entry['tasks_total'] else 'Tasks not recorded'
             details=f"{entry['kills']} kills   {entry['reports']} reports ({entry['neural_reports']} neural, {entry['prefix_reports']} setup)   {entry['meetings']} meetings   {task}   {entry['neural_count']} neural records"
             text(surface,details,card.x+18,card.y+65,13,MUTED,width=card.w-265)
-            text(surface,entry['reason'].replace('_',' '),card.right-245,card.y+17,13,LIME if entry['winner']=='crewmate' else RED,width=175)
+            text(surface,entry['reason'].replace('_',' '),card.right-245,card.y+17,13,LIME if entry['winner']=='crewmate' else RED if entry['winner']=='impostor' else AMBER,width=175)
             fav=entry['path'] in app.prefs['favorites']
             ui.button(surface,'favorite-'+entry['path'],'*' if fav else '+',pygame.Rect(card.right-58,card.y+14,38,30),('favorite',entry['path']),fav,tooltip='Toggle local favorite')
             if rowh>120:text(surface,' · '.join(entry['tags']) or 'No indexed review flags',card.x+18,card.y+92,12,AMBER,width=card.w-50)
@@ -219,7 +219,7 @@ class Pages:
         text(surface,'PATRICK JANE · CENTRAL RECURRENT PPO',r.x,y,18,CYAN,True);y+=38
         completion=status.get('completion_status',{})
         if completion:
-            label='TRAINING COMPLETE' if completion.get('success') else 'TRAINING '+str(completion.get('state','stopped')).upper()
+            label='PATRICK JANE — TRAINING COMPLETE (100%)' if completion.get('success') else 'TRAINING '+str(completion.get('state','stopped')).upper()
             text(surface,label,r.x,y,18,LIME if completion.get('success') else AMBER,True);y+=32
         for label,value in [('Stage',status.get('stage','Registered training')),('Update',counters.get('update',0)),
             ('Individual crew decisions',counters.get('individual_decisions',0)),('Worker environments',status.get('workers',0)),
@@ -233,9 +233,10 @@ class Pages:
         target=status.get('target_decisions',0)
         if target:
             progress(surface,pygame.Rect(r.x,y,min(850,r.w),10),total/target);y+=24
-            text(surface,f"{total:,} / {target:,} decisions · {status.get('throughput',0):.1f}/s · ETA {status.get('eta_seconds',0)/60:.1f} min",r.x,y,14,CYAN);y+=30
+            from patrick_jane.progress import progress_line
+            text(surface,progress_line(status),r.x,y,13,CYAN,width=r.w);y+=30
         outcomes=status.get('outcomes',{})
-        text(surface,f"Complete games {outcomes.get('games',0)} · crew wins {outcomes.get('wins',0)} · losses {outcomes.get('losses',0)} · draws {outcomes.get('draws',0)}",r.x,y,14,TEXT);y+=30
+        text(surface,f"Legitimate games {outcomes.get('legitimate_games',outcomes.get('games',0))} · wins {outcomes.get('wins',0)} · losses {outcomes.get('losses',0)} · TRUNCATED {outcomes.get('truncations',0)}",r.x,y,14,TEXT);y+=30
         text(surface,'Latest checkpoint: '+str(status.get('checkpoint','unavailable')),r.x,y,12,MUTED,width=r.w);y+=28
         if str(status.get('stage','')).startswith('validation'):
             text(surface,f"Development validation: {status.get('validation_complete',0)} / {status.get('validation_target',0)} complete",r.x,y,14,CYAN);y+=30
@@ -243,7 +244,7 @@ class Pages:
             text(surface,f'{name}: {value:.3f}',r.x,y,12,MUTED);y+=21
         for name,value in status.get('ppo',{}).items():
             if isinstance(value,(int,float)):text(surface,f'PPO {name}: {value:.5g}',r.x,y,12,MUTED);y+=21
-        curve=status.get('learning_curve',[])
+        curve=[v for v in status.get('learning_curve',[]) if v.get('validation_games',0)>0]
         if curve:
             chart=pygame.Rect(r.x,y,min(850,r.w),120);box(surface,chart,CARD,LINE,8)
             text(surface,'HELD-OUT CREW WIN RATE · FIXED DEVELOPMENT SCENARIOS',chart.x+12,chart.y+8,11,CYAN)

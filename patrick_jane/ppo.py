@@ -11,7 +11,7 @@ def prepare(trajectories,experiment):
     sequences=[];all_adv=[]
     for key,trajectory in trajectories.items():
         if not trajectory:continue
-        if not trajectory[-1].done:raise ValueError('PPO requires complete match settlement')
+        if not (trajectory[-1].done or trajectory[-1].truncated):raise ValueError('PPO requires a terminal or bootstrapped technical boundary')
         values=np.asarray([t.value for t in trajectory],np.float32)
         durations=np.asarray([t.duration for t in trajectory],np.float32)
         # GAE helper uses a .6-second reference, identical to the locked lobby default.

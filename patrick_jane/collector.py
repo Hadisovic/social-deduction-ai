@@ -70,6 +70,7 @@ class Transition:
     duration:float=0.
     next_value:float=0.
     done:bool=False
+    truncated:bool=False
 
 
 def collect(policy,pool,experiment,seeds,*,device='cpu',update=0,training_step=0,replay_dir=None,
@@ -82,7 +83,9 @@ def collect(policy,pool,experiment,seeds,*,device='cpu',update=0,training_step=0
         live_dir=str(monitor_dir) if monitor_dir else None,
         replay=str(Path(replay_dir)/f'env-{i:02d}-seed-{seed}-update-{update}.jsonl') if replay_dir and record_every and i%record_every==0 else None,
         metadata=dict(session='patrick-jane',environment=i,update=update,checkpoint=checkpoint or f'fresh-initialization-seed17/update-{update}',
-                      training_step=training_step))) for i,seed in enumerate(seeds)})
+                      training_step=training_step,
+                      timeout=None if getattr(experiment,'normal_match_timeout',True) is False else experiment.lobby.timeout,
+                      technical_max_seconds=getattr(experiment,'technical_max_seconds',None)))) for i,seed in enumerate(seeds)})
     simulation_seconds=perf_counter()-simulation_started
     trajectories=defaultdict(list);pending={};hidden={};generators={};completed={};counts=0
     initial_rewards=defaultdict(float)
@@ -98,12 +101,27 @@ def collect(policy,pool,experiment,seeds,*,device='cpu',update=0,training_step=0
         if perf_counter()-began>wall_limit:raise TimeoutError('Bounded development collector reached wall limit; no partial match used for PPO')
         for i,r in responses.items():pay(r,i)
         keys=[];packets=[]
+        bootstrap_keys=[];bootstrap_packets=[]
+        for i,r in responses.items():
+            if r['terminal']:
+                for pid,packet in r.get('bootstrap_packets',{}).items():
+                    bootstrap_keys.append((i,pid));bootstrap_packets.append(packet)
+        bootstrap_values={}
+        if bootstrap_packets:
+            with torch.no_grad():
+                out,_=policy(collate(bootstrap_packets,device),torch.stack([hidden[k] for k in bootstrap_keys]).to(device))
+            values=out['value'].cpu()
+            if not torch.isfinite(values).all():raise FloatingPointError('Nonfinite truncation bootstrap value')
+            bootstrap_values={k:float(v) for k,v in zip(bootstrap_keys,values)}
         for i,r in responses.items():
             if r['terminal']:
                 completed[i]=r['result']
+                if r['result'].get('truncated'):
+                    completed[i]['bootstrap_values']={pid:value for (index,pid),value in bootstrap_values.items() if index==i}
                 for key in tuple(pending):
                     if key[0]==i:
-                        tr=pending.pop(key);tr.done=True;tr.duration=r['time']-tr.time;trajectories[key].append(tr)
+                        tr=pending.pop(key);tr.truncated=key in bootstrap_values;tr.done=not tr.truncated
+                        tr.next_value=bootstrap_values.get(key,0.);tr.duration=r['time']-tr.time;trajectories[key].append(tr)
                 continue
             for pid,packet in r['packets'].items():keys.append((i,pid));packets.append(packet)
         if len(completed)==len(seeds):break

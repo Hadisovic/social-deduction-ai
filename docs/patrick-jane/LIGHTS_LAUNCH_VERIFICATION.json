@@ -1,37 +1,197 @@
 {
+  "prepared_date": "2026-10-29",
+  "profile": "patrick-jane-lights-learning-v2",
   "long_run_started": false,
-  "protected_external_files_checked": 206,
-  "protected_changed": [],
-  "original_pilot_checkpoints_unchanged": 9,
-  "pilot_champion_unchanged": true,
-  "engineering_repeat_scenarios": 32,
-  "engineering_repeat_action_hashes_identical": 32,
-  "engineering_repeat_weights_identical": true,
-  "engineering_resumed_additional_decisions": 12153,
-  "engineering_resumed_updates": 2,
-  "engineering_finalcheck_additional_decisions": 6306,
-  "warning": "Twelve-second engineering matches verify plumbing and reproducibility, not learning or normal-match throughput",
+  "default_run_folder_exists": false,
+  "previous_launch_verification_preserved": {
+    "long_run_started": false,
+    "protected_external_files_checked": 206,
+    "protected_changed": [],
+    "original_pilot_checkpoints_unchanged": 9,
+    "pilot_champion_unchanged": true,
+    "engineering_repeat_scenarios": 32,
+    "engineering_repeat_action_hashes_identical": 32,
+    "engineering_repeat_weights_identical": true,
+    "engineering_resumed_additional_decisions": 12153,
+    "engineering_resumed_updates": 2,
+    "engineering_finalcheck_additional_decisions": 6306,
+    "warning": "Twelve-second engineering matches verify plumbing and reproducibility, not learning or normal-match throughput",
+    "full_pj_suite": {
+      "passed": 56,
+      "seconds": 41.852
+    },
+    "final_focused_suite": {
+      "passed": 11,
+      "seconds": 8.203
+    },
+    "historical_compatibility": {
+      "passed": 18,
+      "seconds": 33.99
+    },
+    "default_command_preflight": "passed; no long-run folder created",
+    "negative_reward_report_fix": "verified with unit fixture and unchanged raw engineering batches",
+    "final_report_source_sha256": "250fa586ba55f62d8ead33bc090c1df446a19971caa3214b63f9c4f405e7a945",
+    "frozen_actor_source_files": 55,
+    "default_warm_start": "pilot-250k-seed17-v3/checkpoints/update-000006.pt",
+    "default_warm_start_sha256": "d8b81ef06788a0139822a5677801f34069aef116286cc079cb12de8c39538ab8",
+    "manual_run_configuration": {
+      "workers": 32,
+      "additional_decisions": 1000000,
+      "allowed_sabotages": [
+        "lights"
+      ],
+      "lights_cost_per_living_actor_simulated_second": 0.005,
+      "entry_validation_games": 8,
+      "final_validation_games": 8,
+      "active_wall_ceiling_hours": 12
+    },
+    "report_fix_preservation": "Original engineering report versions retained under report-history; raw batches/checkpoints unchanged",
+    "final_source_manifest_sha256": "fc369f53bb09e5ad783a2a7ad478c431e09e1b61bfcb66569751d8e16cb09579"
+  },
+  "timeout_investigation": {
+    "lights-launch-check-v1": {
+      "training_games": 61,
+      "validation_games": 4,
+      "training_reasons": {
+        "TIMEOUT": 61
+      },
+      "validation_reasons": {
+        "TIMEOUT": 4
+      },
+      "maximum_sim_seconds": 12.0
+    },
+    "lights-launch-finalcheck-v1": {
+      "training_games": 32,
+      "validation_games": 4,
+      "training_reasons": {
+        "TIMEOUT": 32
+      },
+      "validation_reasons": {
+        "TIMEOUT": 4
+      },
+      "maximum_sim_seconds": 12.0
+    },
+    "pilot-250k-seed17-v3": {
+      "training_games": 192,
+      "validation_games": 400,
+      "training_reasons": {
+        "REACTOR_FAILURE": 91,
+        "OXYGEN_FAILURE": 89,
+        "IMPOSTOR_EJECTED": 1,
+        "PARITY": 11
+      },
+      "validation_reasons": {
+        "REACTOR_FAILURE": 179,
+        "OXYGEN_FAILURE": 205,
+        "PARITY": 15,
+        "IMPOSTOR_EJECTED": 1
+      },
+      "maximum_sim_seconds": 472.2
+    }
+  },
+  "effective_normal_match_timeout_seconds": null,
+  "technical_max_simulated_seconds": 1800,
+  "technical_stationary_no_progress_seconds": 300,
+  "technical_boundary": "roaming after bounded meeting; real victory has precedence; no winner/outcome reward",
+  "ppo_verification": "Only accept terminal or explicit bootstrapped technical boundary; exact archived PPO comparison permits that single assertion replacement; original GAE kernel/coefficients/hyperparameters unchanged",
+  "bootstrap_limitation": "Living agents use their own legitimate observation/private GRU state; dead actors retain observed delayed credit only; future ghost/team credit is censored",
   "full_pj_suite": {
-    "passed": 56,
-    "seconds": 41.852
+    "passed": 66,
+    "seconds": 78.739
   },
   "final_focused_suite": {
+    "passed": 9,
+    "seconds": 8.014
+  },
+  "reporting_recovery_suite": {
     "passed": 11,
-    "seconds": 8.203
+    "seconds": 9.879
   },
   "historical_compatibility": {
     "passed": 18,
-    "seconds": 33.99
+    "seconds": 62.38
   },
-  "default_command_preflight": "passed; no long-run folder created",
-  "negative_reward_report_fix": "verified with unit fixture and unchanged raw engineering batches",
-  "final_report_source_sha256": "250fa586ba55f62d8ead33bc090c1df446a19971caa3214b63f9c4f405e7a945",
+  "engineering_verification": {
+    "interrupted": {
+      "state": "interrupted",
+      "success": false,
+      "additional_decisions": 6375,
+      "active_seconds": 103.77252960001351,
+      "checkpoint": "checkpoints/attempt-0001-update-000007.pt",
+      "report": "C:\\Files\\RL\\_patrick_jane\\local-runs\\patrick-jane\\lights-truncation-check-v1\\TRAINING_REPORT.md",
+      "error": "Bounded engineering interruption test",
+      "progress_percent": 53.125,
+      "technical_truncations": 32
+    },
+    "completed": {
+      "state": "complete",
+      "success": true,
+      "additional_decisions": 12245,
+      "active_seconds": 189.84456180001143,
+      "checkpoint": "checkpoints/attempt-0002-update-000008.pt",
+      "report": "C:\\Files\\RL\\_patrick_jane\\local-runs\\patrick-jane\\lights-truncation-check-v1\\TRAINING_REPORT.md",
+      "error": null,
+      "progress_percent": 100.0,
+      "technical_truncations": 61
+    },
+    "checkpoint_1_preserved": true,
+    "resume_used_checkpoint": {
+      "selected": "checkpoints/attempt-0001-update-000007.pt",
+      "rejected": []
+    },
+    "resume_first_progress_53_1_percent": true,
+    "legitimate_training_games": 0,
+    "truncated_training_segments": 61,
+    "validation_truncations": 4,
+    "bootstrap_actors": 592,
+    "indexed_completed_replays": 10,
+    "complete_banner_count": 1,
+    "all_raw_rewards_preserved": true,
+    "selected_live_snapshot_files": 1,
+    "concurrent_workers": 32,
+    "first_completed_batch_instances": 32
+  },
+  "engineering_source_snapshot_sha256": "48c165de5e156e9f8b9cef749a71b3b1f75d67a4cd46279a075b65e3347e11c6",
+  "engineering_caveat": "Separate 12-second technical-bound matches. 61 training and 4 validation cuts verify plumbing only; not evidence of competence, a worker benchmark or a normal-match runtime estimate.",
+  "post_engineering_review": "Final report labels undefined all-cut curves and includes conditional-outcome limitations; viewer completion text/amber labels verified in renders. Emergency hard-exit finalizer cumulative elapsed no longer double-counts prior attempts, regression-tested. Frozen engineering source/launchers retained; these completed test folders are not the default warm start. Final uncensored-candidate gate tested separately; preserves frozen engineering records.",
+  "native_spectator": {
+    "display_driver": "windows",
+    "heartbeat_verified": true,
+    "completed_replays_indexed": 10,
+    "selected_instance_neural_telemetry": true,
+    "rendered_monitor_completion_verified": true,
+    "actual_monitor_capture": "local-runs/patrick-jane/lights-truncation-check-v1/verification-monitor.png"
+  },
+  "preservation": {
+    "external_checked": 206,
+    "external_changed": [],
+    "pilot_checkpoints": {
+      "update-000000.pt": true,
+      "update-000001.pt": true,
+      "update-000002.pt": true,
+      "update-000003-evaluated.pt": true,
+      "update-000003.pt": true,
+      "update-000004.pt": true,
+      "update-000005-evaluated.pt": true,
+      "update-000005.pt": true,
+      "update-000006.pt": true
+    },
+    "champion_unchanged": true,
+    "source_archive_unchanged": true,
+    "base_changed": [
+      "docs/research/ISSUES.md"
+    ],
+    "long_run_folder_exists": false,
+    "base_hash_mode": "raw bytes as in original preservation manifest"
+  },
+  "final_report_source_sha256": "001dba40c6e6279f9b803ffd678f87ad8289187897894d3281dca2a4b94ad4af",
+  "final_cli_source_sha256": "ab36b98320eeb0d1d098fbfa160ac04a7c05e04c7036ae22d2ee91b3adaa591f",
   "frozen_actor_source_files": 55,
-  "default_warm_start": "pilot-250k-seed17-v3/checkpoints/update-000006.pt",
-  "default_warm_start_sha256": "d8b81ef06788a0139822a5677801f34069aef116286cc079cb12de8c39538ab8",
+  "final_source_manifest_sha256": "ba2323f14d98258f74d991393bc260a3be69c89e125a3c6ec10393734a2cd800",
   "manual_run_configuration": {
     "workers": 32,
     "additional_decisions": 1000000,
+    "base_decisions": 255083,
     "allowed_sabotages": [
       "lights"
     ],
@@ -40,6 +200,18 @@
     "final_validation_games": 8,
     "active_wall_ceiling_hours": 12
   },
-  "report_fix_preservation": "Original engineering report versions retained under report-history; raw batches/checkpoints unchanged",
-  "final_source_manifest_sha256": "fc369f53bb09e5ad783a2a7ad478c431e09e1b61bfcb66569751d8e16cb09579"
+  "default_warm_start": "pilot-250k-seed17-v3/checkpoints/update-000006.pt",
+  "default_warm_start_sha256": "d8b81ef06788a0139822a5677801f34069aef116286cc079cb12de8c39538ab8",
+  "acceptance": "pending",
+  "reserved_final_partitions": "unopened",
+  "earlier_boundary_finalizer_suite": {
+    "passed": 8,
+    "seconds": 7.381
+  },
+  "final_reporting_recovery_suite": {
+    "passed": 11,
+    "seconds": 11.881
+  },
+  "default_command_preflight": "passed from C:/Files/RL on final source; no default run folder created",
+  "censored_champion_candidate_gate": "withhold selection if any registered validation outcome is cut; existing rule unchanged for wholly legitimate paired evaluations; targeted test passed"
 }

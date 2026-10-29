@@ -70,6 +70,8 @@ def inspect_file(path):
     if counts['impostor_reports']:tags.append('Impostor reports')
     if counts['position_changes']:tags.append('Position changes')
     if result.get('reason')=='TASKS_COMPLETED':tags.append('Task victory')
+    if result.get('reason')=='TRUNCATED':tags.append('Technical truncation (no victory)')
+    if result.get('reason')=='TIMEOUT':tags.append('Historical time limit (no victory)')
     if neural_count==0:tags.append('No neural telemetry')
     return dict(path=str(path.resolve()),name=path.stem,header=header,condition=cfg.get('training_condition','Patrick Jane' if cfg.get('patrick_jane_schema') else 'Historical / scripted'),
         context=cfg.get('context','Unspecified'),seed=header.get('scenario_seed'),session=header.get('training_session',''),

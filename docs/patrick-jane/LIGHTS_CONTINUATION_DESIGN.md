@@ -50,3 +50,24 @@ actual launcher with separate, bounded engineering outputs, 32 workers and
 short matches; check interrupted/resumed completion and failure labeling.
 These plumbing checks do not establish learned improvement. Do not launch the
 long run or keep an agent waiting for it.
+
+## Approved timeout and progress correction — 2026-10-29
+
+The owner's subsequent review approves the existing design but removes the
+normal duration-based game ending before manual launch. New profile v2 disables
+the inherited 900-second rule; historical profiles/source archives remain intact.
+Technical bounds (1,800 simulated seconds or 300 stationary seconds without
+progress) produce TRUNCATED with no winner/outcome reward. A bounded meeting
+finishes before the final roaming observation; genuine victory takes precedence.
+Living actors bootstrap from that private observation and their independent
+GRU state. Dead/ejected actors retain only observed delayed credits; future ghost
+credit is censored. The PPO change is exactly the terminal-or-truncated assertion;
+GAE, architecture, coefficients and all hyperparameters are unchanged.
+
+Terminal/viewer percentages use additional actual neural actor decisions, exclude
+validation and critic-only calls, and restore saved counters/active time on resume.
+They are capped at 100%; successful completion also requires final evaluation and
+all outputs. Truncation diagnostics and counts remain separate from wins/losses.
+No worker-count benchmarks or long training are authorized in this preparation
+pass. [Investigation and limits](TIMEOUT_INVESTIGATION.md); R041/R042 retain the
+measured verification and negative findings. Default command/folder are unchanged.

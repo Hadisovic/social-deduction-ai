@@ -61,6 +61,13 @@ def audit_lights(rollout):
         if not math.isclose(actual,expected,abs_tol=1e-6):raise RuntimeError('Lights time penalty attribution mismatch')
 
 
+def select_uncensored_champion(checkpoint,matches,folder):
+    # Keep the existing matched-scenario selection rule only when every
+    # outcome is legitimate; a technical cut is not a non-winning result.
+    if any(m.get('truncated') or m.get('reason')=='TRUNCATED' for m in matches):return False
+    return select_champion(checkpoint,matches,folder)
+
+
 def inspect():
     torch.set_num_threads(1);p=PatrickJane();o=torch.optim.Adam(p.parameters(),lr=.0003);rng=np.random.default_rng(17)
     if not torch.cuda.is_available():raise RuntimeError('Registered CUDA training device unavailable; no silent CPU fallback')
@@ -77,7 +84,7 @@ def train(folder,*,additional_target=1000000,workers=32,wall_seconds=43200,devic
     folder=Path(folder).resolve();folder.mkdir(parents=True,exist_ok=True)
     with run_lock(folder):
         if read(folder/'completion-status.json',{}).get('state')=='complete':
-            print('PATRICK JANE — TRAINING COMPLETE (existing run; no additional training launched)',flush=True)
+            print('PATRICK JANE — TRAINING COMPLETE (100%) — existing run; no additional training launched',flush=True)
             print('REPORT: '+str(folder/'TRAINING_REPORT.md'),flush=True);return 0
         return _train(folder,additional_target,workers,wall_seconds,device,engineering,stop_after_updates)
 
@@ -85,7 +92,7 @@ def train(folder,*,additional_target=1000000,workers=32,wall_seconds=43200,devic
 def _train(folder,target,workers,wall_seconds,device,engineering,stop_after_updates):
     began=perf_counter();torch.set_num_threads(1);torch.use_deterministic_algorithms(True)
     experiment=LightsExperiment()
-    if engineering:experiment=replace(experiment,lobby=replace(experiment.lobby,timeout=12.),evaluation_matches=2)
+    if engineering:experiment=replace(experiment,technical_max_seconds=12.,evaluation_matches=2)
     policy=PatrickJane().to(device);optimizer=torch.optim.Adam(policy.parameters(),lr=experiment.learning_rate)
     rng=np.random.default_rng(17);history=read(folder/'history.json',[])
     reg=read(folder/'registration.json');attempts=folder/'attempts';attempts.mkdir(exist_ok=True)
@@ -144,6 +151,7 @@ def _train(folder,target,workers,wall_seconds,device,engineering,stop_after_upda
         with Resources() as resources:
             progress=Progress(attempt,workers,resources,target=target,mirror=folder/'status.json')
             progress.started=began-previous_seconds
+            progress.console=True
             progress.matches=[m for row in history for m in row['rollout']['matches']]
             for row in history:
                 for v in row['rollout']['reward_components'].values():progress.components.update(v)
@@ -158,7 +166,7 @@ def _train(folder,target,workers,wall_seconds,device,engineering,stop_after_upda
                 if saved:
                     if saved.get('checkpoint_sha256')==expected_sha:
                         if label=='entry':
-                            progress.history.append(dict(decisions=0,validation_wins=sum(m['winner']=='crewmate' for m in saved['matches']),validation_games=len(saved['matches'])))
+                            progress.history.append(dict(decisions=0,validation_wins=sum(m['winner']=='crewmate' for m in saved['matches']),validation_games=sum(not m.get('truncated') for m in saved['matches'])))
                         return saved
                     atomic_json(attempt/f'previous-{label}-evaluation.json',saved)
                     if label=='entry':raise ValueError('Entry evaluation does not match the frozen origin policy')
@@ -174,8 +182,8 @@ def _train(folder,target,workers,wall_seconds,device,engineering,stop_after_upda
                     result.pop('trajectories');atomic_json(attempt/f'batches/{label}-{offset}.json',result);audit_lights(result);matches.extend(result['matches'])
                 record=dict(label=label,matches=matches,elapsed=perf_counter()-start,update=counters['update'],
                     checkpoint=str(current),checkpoint_sha256=digest(current))
-                atomic_json(folder/f'evaluations/{label}.json',record);select_champion(current,matches,folder/'champions')
-                progress.history.append(dict(decisions=counters['run_decisions'],validation_wins=sum(m['winner']=='crewmate' for m in matches),validation_games=len(matches)))
+                atomic_json(folder/f'evaluations/{label}.json',record);select_uncensored_champion(current,matches,folder/'champions')
+                progress.history.append(dict(decisions=counters['run_decisions'],validation_wins=sum(m['winner']=='crewmate' for m in matches),validation_games=sum(not m.get('truncated') for m in matches)))
                 publish({},validation_complete=len(matches),validation_target=len(seeds));return record
             generate(folder,'running',active_seconds=previous_seconds+perf_counter()-began,plots=False)
             with Pool(workers) as pool:
@@ -230,6 +238,8 @@ def _train(folder,target,workers,wall_seconds,device,engineering,stop_after_upda
         completion=dict(state=state,success=success,additional_decisions=result['additional_decisions'],
             active_seconds=total,checkpoint=read(folder/'latest.json',{}).get('checkpoint'),
             report=str(folder/'TRAINING_REPORT.md'),error=error)
+        completion['progress_percent']=min(100.,100*result['additional_decisions']/target)
+        completion['technical_truncations']=result.get('training',{}).get('totals',{}).get('truncations',0)
         atomic_json(folder/'completion-status.json',completion)
         if progress:
             progress.stage='complete' if success else state
@@ -241,9 +251,11 @@ def _train(folder,target,workers,wall_seconds,device,engineering,stop_after_upda
                 overall_decisions=saved.get('run_decisions',0),target_decisions=target,complete=success,
                 completion_status=completion,error=error))
         print('\n'+'='*72,flush=True)
-        print('PATRICK JANE — TRAINING COMPLETE' if success else 'TRAINING INTERRUPTED' if state=='interrupted' else 'TRAINING FAILED',flush=True)
+        print('PATRICK JANE — TRAINING COMPLETE (100%)' if success else 'TRAINING INTERRUPTED' if state=='interrupted' else 'TRAINING FAILED',flush=True)
         print(f"Additional decisions: {result['additional_decisions']:,}; active time: {total/3600:.3f} h",flush=True)
+        print(f"Progress: {completion['progress_percent']:.1f}%"+(' — stopped before 100% target' if not success and completion['progress_percent']<100 else ''),flush=True)
         print(f"Matches: {result.get('completed_training_matches',0)}; PPO updates: {result.get('ppo_updates',0)}",flush=True)
+        print(f"Technical TRUNCATED: {result.get('technical_truncations',0)}; collected segments: {result.get('collected_training_segments',0)}",flush=True)
         print('Final/latest checkpoint: '+str(completion['checkpoint']),flush=True)
         print('REPORT: '+completion['report'],flush=True)
         if error:print('Reason: '+error,flush=True)

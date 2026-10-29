@@ -88,7 +88,8 @@ class Renderer:
             if app.status.get('schema')=='patrick-jane-progress-v1':
                 c=app.status.get('counters',{});p=app.status.get('environment_progress',{})
                 decisions=app.status.get('overall_decisions',c.get('individual_decisions',0)+p.get('decisions',0))
-                label=f"PJ · {decisions:,} decisions · update {c.get('update',0)} · {app.status.get('throughput',0):.1f}/s"
+                target=app.status.get('target_decisions',0);percent=min(100.,100*decisions/target) if target else 0.
+                label=f"PJ · {percent:.1f}% · {decisions:,} decisions · PPO {c.get('update',0)} · {app.status.get('training_state',app.status.get('stage','running'))}"
                 text(surface,label,r.w-440,51,11,CYAN,width=410)
                 return
             d=app.status.get('decisions',{});v=app.status.get('validation_games');target=app.status.get('validation_target')

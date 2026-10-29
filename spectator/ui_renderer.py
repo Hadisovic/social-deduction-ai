@@ -466,7 +466,8 @@ class SpectatorRenderer:
         draw_rect_aa(surf, bg_color, panel, radius=14, alpha=240)
         accent = ACCENT_GREEN if winner == "crewmate" else ACCENT_RED if winner == "impostor" else ACCENT_AMBER
         pygame.draw.rect(surf, accent, panel, 2, border_radius=14)
-        title = f"{winner.upper() if winner else 'DRAW'} VICTORY" if winner else "DRAW  /  TIME LIMIT"
+        from spectator.outcomes import outcome_label
+        title = outcome_label(result)
         draw_text(surf, title, (panel.centerx, panel.y + 22), accent, self.fonts.title, align="center")
         draw_text(surf, reason.upper(), (panel.centerx, panel.y + 64), TEXT_PRIMARY,
                   self.fonts.medium, align="center")

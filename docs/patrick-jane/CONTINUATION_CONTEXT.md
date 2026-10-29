@@ -104,3 +104,26 @@ evidence of improved learning. Historical pilot/champion and all raw data remain
 unchanged. **Do not start the long run from the agent session.** The owner launches
 it manually and later asks the agent to inspect `lights-learning-v1` reports.
 See research R039/R040 for measured checks, limitations and negative findings.
+
+## Final manual-launch preparation — timeout review
+
+The owner explicitly requested removal of normal TIMEOUT endings, technical
+TRUNCATED handling, correct PPO bootstrap, visible percent/resume and a verified
+single command. New lights profile v2 disables the inherited 900-second ending;
+legacy records/code remain reproducible. Technical limits are 1,800 simulated
+seconds or 300 stationary/no-progress seconds, deferred through a bounded meeting
+to a legitimate roaming observation. Living critics bootstrap without a sampled
+action; dead/ejected actors retain observed credits but future ghost work is
+censored. The archived PPO code is verified except one boundary assertion.
+
+[Timeout investigation](TIMEOUT_INVESTIGATION.md) distinguishes 101 old
+12-second engineering TIMEOUTs from zero TIMEOUTs among the pilot's 592 games.
+The viewer/report now distinguishes technical cuts from victories and historical
+timeouts. Terminal/viewer percent is actual additional learning-agent decisions;
+successful completion requires final outputs and prints `(100%)`.
+
+Follow the unchanged command in [RUN_LIGHTS_TRAINING.md](RUN_LIGHTS_TRAINING.md).
+The owner runs it manually. **No million-decision run has started.** Preserve the
+pilot checkpoint, all negative findings and historical reports. New source/run
+registration is required; do not resume old engineering folders with changed
+source. R041/R042 and `LIGHTS_LAUNCH_VERIFICATION.json` hold final bounded checks.

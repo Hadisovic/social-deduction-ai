@@ -33,6 +33,7 @@ class PatrickJaneGame(CrewmateV2Game):
         self.phase_started_tick = 0; self.result = None
         self.players = {}; self.bodies = {}; self.tasks = {}
         self.learning_diagnostics=Counter();self.lights_actor_seconds=defaultdict(float)
+        self.truncation_pending=None;self.truncation_details=None;self._safety_progress_time=0.;self._safety_progress_signature=None
         self.publications = []; self.event_log = []; self._observation_cache = {}; self._snapshot_cache = None
         self._meeting_number = 0; self.meeting_id = None; self.participants = ()
         self.votes = {}; self.claimed = set()
@@ -313,10 +314,42 @@ class PatrickJaneGame(CrewmateV2Game):
                 if pid not in self.votes:self._vote(pid,None)
             self._resolve_meeting()
         if not self.is_terminal:self._check_win()
-        if not self.is_terminal and self.time>=self.config.timeout:self._finish(None,'TIMEOUT')
+        if getattr(self.experiment,'normal_match_timeout',True):
+            # Legacy profile only, retained for historical reproduction. New lights
+            # training has no timer-based game ending; technical cuts are separate.
+            if not self.is_terminal and self.time>=self.config.timeout:self._finish(None,'TIMEOUT')
+        elif not self.is_terminal:self._check_technical_safety()
         self._invalidate()
         if self.config.check_invariants:self.assert_invariants()
         return self.result
+
+    def _check_technical_safety(self):
+        signature=tuple(self.metrics[k] for k in ('eliminations','task_completions','reports','meetings','repairs'))
+        active=[p for p in self.players.values() if p.active]
+        moving=any(any(abs(v)>1e-8 for v in p.velocity) for p in active) if self.phase is Phase.ROAMING else False
+        working=any(p.interaction_task is not None for p in active) if self.phase is Phase.ROAMING else False
+        if signature!=self._safety_progress_signature or moving or working:
+            self._safety_progress_time=self.time;self._safety_progress_signature=signature
+        cause=('max_simulated_duration' if self.time>=self.experiment.technical_max_seconds else
+               'stationary_without_progress' if self.time-self._safety_progress_time>=self.experiment.technical_stall_seconds else None)
+        # Cut only at a roaming observation boundary, after checking genuine wins.
+        # Fixed meeting phases finish first, so living critics receive ordinary
+        # decision-state packets rather than untrained non-speaker ghost states.
+        if cause and self.phase is Phase.ROAMING:
+            self.truncation_pending=dict(cause=cause,simulation_seconds=self.time,
+                seconds_without_motion_or_progress=self.time-self._safety_progress_time,
+                max_simulated_seconds=self.experiment.technical_max_seconds,
+                stationary_guard_seconds=self.experiment.technical_stall_seconds,phase=self.phase.value,
+                living_crewmates=sum(p.role is Role.CREWMATE for p in active),
+                living_impostors=sum(p.role is Role.IMPOSTOR for p in active),
+                task_completions=self.metrics['task_completions'],reports=self.metrics['reports'],kills=self.metrics['eliminations'])
+
+    def finalize_truncation(self):
+        if self.is_terminal or not self.truncation_pending:raise ValueError('No technical truncation pending')
+        self.truncation_details=dict(self.truncation_pending)
+        self.metrics['technical_truncation']=self.truncation_details
+        self._record('technical_truncation',channel='spectator',**self.truncation_details)
+        self._finish(None,'TRUNCATED')
 
     def assert_invariants(self):
         if not getattr(self,'_v2_ready',False):return
