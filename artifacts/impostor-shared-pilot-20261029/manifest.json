@@ -1,0 +1,41 @@
+{
+  "schema": "shared-pilot-candidates-v1",
+  "status": "unselected",
+  "source_commit": "7bb6616",
+  "registration_sha256": "99758bc6ee17955ade768d4241da29290af51c9c3444b810602d3c48f97c1b08",
+  "candidates": [
+    {
+      "stream": 101,
+      "episode": 4,
+      "path": "artifacts/impostor-shared-pilot-20261029/stream-101-episode-04.pt",
+      "sha256": "1f8c1dffccb8747e78a8b4921a339f3cf7ff5a065df93e0dbd64e3a3da44bdaa",
+      "tensor_hash": "f2a70823437829df546ea9beb60ce9834b41dd075c988ed6c0dd229dcafa3a15",
+      "strict_load_passed": true
+    },
+    {
+      "stream": 101,
+      "episode": 8,
+      "path": "artifacts/impostor-shared-pilot-20261029/stream-101-episode-08.pt",
+      "sha256": "5fd25e5f67930834ef498bab607cbb240311bad89d85694bdf55c7f8e0c7cd08",
+      "tensor_hash": "09615fc8b8d135d913482650c4d99cd1df743ed01bc159f9fe23e6397744883b",
+      "strict_load_passed": true
+    },
+    {
+      "stream": 202,
+      "episode": 4,
+      "path": "artifacts/impostor-shared-pilot-20261029/stream-202-episode-04.pt",
+      "sha256": "2ecf3c0e1550ce838a7acf7bff85603279948d1df41148d91c304b02950b0c3d",
+      "tensor_hash": "c5e22c4dbd39420a514e5e18622ec37a17bec4743a20cc43a87b89c3b5038204",
+      "strict_load_passed": true
+    },
+    {
+      "stream": 202,
+      "episode": 8,
+      "path": "artifacts/impostor-shared-pilot-20261029/stream-202-episode-08.pt",
+      "sha256": "09c370b93de989745651ca626e4c833df417a5ed00639e8fe49310a9c184a170",
+      "tensor_hash": "503f9a2a4836cdf11cd6286db353442fd0b2be6b26fff2a6eb43710dbb879c18",
+      "strict_load_passed": true
+    }
+  ],
+  "checkpoint_loading": "impostor_shared.checkpoints.load; exact original frozen source/runtime contract required"
+}

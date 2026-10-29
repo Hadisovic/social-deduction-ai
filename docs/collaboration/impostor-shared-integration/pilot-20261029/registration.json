@@ -1,0 +1,151 @@
+{
+  "schema": "impostor-shared-pilot-v1",
+  "created_utc": "2026-10-28T23:24:33.389393+00:00",
+  "owner_approval": "2026-10-29: start training",
+  "budget_minutes": 90,
+  "sources": {
+    "__init__.py": "41a4877693f2eb31d77cdfd716f65870e5291737f40bca41eee354b03b622d50",
+    "checkpoints.py": "38c802659bac61448a1abb0923c59bd0a6fa2b5f38190d2ed820deedf7948c72",
+    "controller.py": "2d0483ad40349ff9494a0547fcac90074167fa4fc61f3dcfeaa107fb797049c1",
+    "coordinator.py": "1105bd81f6be3dfa05215c7dc02c537a8816f017866d362482255f1bc9607e9a",
+    "features.py": "ba0057e52c962ff95707aa4aa9a934886baaa9a8077a90b9e0ccb5340d2a8700",
+    "memory.py": "6a910cd1bb605b70c34353ace93e24ff027b1ccd3e3001022591a0adf16e405c",
+    "migrate.py": "b3d99f9f1ed1280e555ec9753238daeba78095070dd4a2e361bd289f5dd74362",
+    "model.py": "9374b42c861494a64cbec22e0daac8f827a5c6660016614a0863808f8560a085",
+    "pursuit.py": "58145296ca9b419fde40eab90ad499cd4a20c2299a9121d5d5c18f92e351b38d",
+    "report.py": "f4c1abccf46af8d76f79e278d1fd8e7fef2b529068377f604feb0de48ec5d153",
+    "rewards.py": "83a2b11480284686c18ac9b1b4a48d84a602850f220cf7d9ec469edba3498886",
+    "run.py": "e50175b6bb85fdd0ac37183561cc5d00196b2b1457dd7636879e57b3eb9c791a",
+    "study.py": "e5c51500e328b2033971c22d211c0cd8a586b67968fdfa2a670acb5bba7e8508",
+    "time_math.py": "d59780b8aed9c894a1c51367bf7b0038787bcc3f80ae3b4e98dcba594847edfc",
+    "training.py": "882099bccd96f4a300f26190a80c684e50abd489eae0ef0d6dcc57123fcac721",
+    "weights.py": "e0a561199de402f0c92f6bfcd4f12d80e52d521e41df1c2dc42c7c3479992262"
+  },
+  "checkpoint_contract": {
+    "publication_manifest_sha256": "5312abe3a7b4cc924b0c90051544e887e089d01485be7e5cd7489bf6a1402a92",
+    "runtime": {
+      "python": "3.12.10",
+      "numpy": "2.5.3",
+      "torch": "2.6.0+cpu"
+    },
+    "adapter": {
+      "__init__.py": "41a4877693f2eb31d77cdfd716f65870e5291737f40bca41eee354b03b622d50",
+      "checkpoints.py": "38c802659bac61448a1abb0923c59bd0a6fa2b5f38190d2ed820deedf7948c72",
+      "controller.py": "2d0483ad40349ff9494a0547fcac90074167fa4fc61f3dcfeaa107fb797049c1",
+      "coordinator.py": "1105bd81f6be3dfa05215c7dc02c537a8816f017866d362482255f1bc9607e9a",
+      "features.py": "ba0057e52c962ff95707aa4aa9a934886baaa9a8077a90b9e0ccb5340d2a8700",
+      "memory.py": "6a910cd1bb605b70c34353ace93e24ff027b1ccd3e3001022591a0adf16e405c",
+      "migrate.py": "b3d99f9f1ed1280e555ec9753238daeba78095070dd4a2e361bd289f5dd74362",
+      "model.py": "9374b42c861494a64cbec22e0daac8f827a5c6660016614a0863808f8560a085",
+      "pursuit.py": "58145296ca9b419fde40eab90ad499cd4a20c2299a9121d5d5c18f92e351b38d",
+      "report.py": "f4c1abccf46af8d76f79e278d1fd8e7fef2b529068377f604feb0de48ec5d153",
+      "rewards.py": "83a2b11480284686c18ac9b1b4a48d84a602850f220cf7d9ec469edba3498886",
+      "run.py": "e50175b6bb85fdd0ac37183561cc5d00196b2b1457dd7636879e57b3eb9c791a",
+      "study.py": "e5c51500e328b2033971c22d211c0cd8a586b67968fdfa2a670acb5bba7e8508",
+      "time_math.py": "d59780b8aed9c894a1c51367bf7b0038787bcc3f80ae3b4e98dcba594847edfc",
+      "training.py": "882099bccd96f4a300f26190a80c684e50abd489eae0ef0d6dcc57123fcac721",
+      "weights.py": "e0a561199de402f0c92f6bfcd4f12d80e52d521e41df1c2dc42c7c3479992262"
+    },
+    "frozen_checkpoints": {
+      "A": "3b843996c5b9189da06888c89b42bc03c40479c629a01d060ad8ff4099162f7c",
+      "B": "88103ee9bab248c7be4bbc64d39173300ffc7c8cbbbc40c7e95182a2c38355aa"
+    },
+    "collection": "complete-episodes-only",
+    "gamma_per_second": 1.0,
+    "lambda_per_second": 0.995,
+    "crew_accounting": "eligible-v1"
+  },
+  "initial_tensor_hash": "ebb59ec4cb1589a5b3e96d805085d2bec7ea35c7619be96c64a81c0ce1c94287",
+  "original_transfer_sha256": "48255932c6a154397efb2785569da5af7a215d1292489033ec33d9529f41eb80",
+  "parity": {
+    "cases": 3,
+    "synthetic_only": true,
+    "maximum_candidate_probability_error": 0.0,
+    "original_tensor_hash": "ebb59ec4cb1589a5b3e96d805085d2bec7ea35c7619be96c64a81c0ce1c94287",
+    "no_optimizer_updates": true
+  },
+  "ppo": {
+    "epochs": 4,
+    "minibatch": 64,
+    "learning_rate": 0.0003,
+    "clip": 0.2,
+    "value_coefficient": 0.5,
+    "family_entropy_start": 0.02,
+    "family_entropy_end": 0.005,
+    "conditional_entropy": 0.001,
+    "actor_grad_norm": 0.5,
+    "critic_grad_norm": 1.0,
+    "lambda_per_second": 0.995,
+    "gamma_per_second": 1.0
+  },
+  "streams": [
+    101,
+    202
+  ],
+  "episodes_per_stream": 8,
+  "initial_weights_shared": true,
+  "training_seeds": [
+    3600000,
+    3600001,
+    3600002,
+    3600003,
+    3600004,
+    3600005,
+    3600006,
+    3600007
+  ],
+  "selection_seeds": [
+    3610000,
+    3610001,
+    3610002,
+    3610003,
+    3610004,
+    3610005,
+    3610006,
+    3610007
+  ],
+  "confirmation_seeds": [
+    3610020,
+    3610021,
+    3610022,
+    3610023,
+    3610024,
+    3610025,
+    3610026,
+    3610027,
+    3610028,
+    3610029,
+    3610030,
+    3610031,
+    3610032,
+    3610033,
+    3610034,
+    3610035
+  ],
+  "candidate_episodes": [
+    4,
+    8
+  ],
+  "crew_training": "B",
+  "crew_confirmation": [
+    "A",
+    "B"
+  ],
+  "crew_sampling_initialization": 17,
+  "selection_rule": "wins, kills, fewer own ejections, earlier episode, lower stream",
+  "reference": "untouched transferred V4.1",
+  "all_partitions": "ordinary development; historical final sets sealed",
+  "complete_episodes_only": true,
+  "training_cutoff_minutes": 45,
+  "abort_policy": "No automatic extension, no tuning using confirmation, retain incomplete report",
+  "hardware": {
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "logical_cpus": 32,
+    "workers": 2,
+    "torch_threads_per_worker": 1,
+    "device": "cpu"
+  },
+  "metrics_limits": "Witness counts are retrospective; claims do not prove deception. No causal escape or deception claim.",
+  "started_utc": "2026-10-28T23:24:33.635709+00:00",
+  "deadline_unix": 1793235273.6357095
+}

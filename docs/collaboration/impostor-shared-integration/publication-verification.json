@@ -1,0 +1,49 @@
+{
+  "status": "verified",
+  "models": {
+    "A": {
+      "strict_load": true,
+      "sha256": "3b843996c5b9189da06888c89b42bc03c40479c629a01d060ad8ff4099162f7c",
+      "parameters": 51778,
+      "arm": "original",
+      "actor_decisions": 2058,
+      "gradients_enabled": false
+    },
+    "B": {
+      "strict_load": true,
+      "sha256": "88103ee9bab248c7be4bbc64d39173300ffc7c8cbbbc40c7e95182a2c38355aa",
+      "parameters": 51778,
+      "arm": "shaped_v2",
+      "actor_decisions": 2092,
+      "gradients_enabled": false
+    }
+  },
+  "hashed_files": 282,
+  "unique_artwork_files": 119,
+  "frozen_belief_sha256": "e931b1fa8a421d9a329a29280d676bf52f793cc8f07c02b8da61f2b3e5e537d1",
+  "python": "3.12.10",
+  "torch": "2.6.0+cpu",
+  "lobby": {
+    "schema": "crewmate-environment-v2.2",
+    "player_speed": 1.0,
+    "confirm_ejects": true,
+    "anonymous_votes": false,
+    "task_bar_updates": "always",
+    "emergency_meetings": 1,
+    "emergency_cooldown": 0.0,
+    "discussion_seconds": 15.0,
+    "voting_seconds": 120.0,
+    "crewmate_vision": 1.0,
+    "impostor_vision": 1.5,
+    "common_tasks": 1,
+    "long_tasks": 1,
+    "short_tasks": 2,
+    "visual_tasks": true,
+    "kill_cooldown": 45.0,
+    "kill_distance_character_widths": 2.0,
+    "dt": 0.2,
+    "decision_interval": 0.6,
+    "timeout": 900.0
+  },
+  "safe_spectator_defaults": true
+}
