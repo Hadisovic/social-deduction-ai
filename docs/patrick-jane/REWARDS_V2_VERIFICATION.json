@@ -1,0 +1,44 @@
+{
+  "development_only": true,
+  "acceptance": "pending",
+  "full_tests": {
+    "passed": 71,
+    "seconds": 73.667
+  },
+  "final_transition_tests": {
+    "passed": 3,
+    "seconds": 6.823
+  },
+  "old_run_preserved_files": 61,
+  "old_run_changed": [],
+  "external_protected_files": 206,
+  "historical_checkpoint_sha256": "86eb2b968fd6453cf842c0c3fffd304f6224b76ea88ba0e3675f0e91f6e8e753",
+  "weight_tensors_equal": 52,
+  "optimizer_state": "fresh Adam, weights and RNG inherited; subsequent resumes restore new Adam",
+  "old_phase_decisions": 509577,
+  "new_phase_target": 490423,
+  "new_phase_decisions": 0,
+  "lifetime_decisions": 764660,
+  "next_training_seed": 2900352,
+  "strict_new_source_recovery_verified": true,
+  "new_phase_wall_seconds": 35295.92321020006,
+  "old_phase_wall_seconds": 7904.076789799961,
+  "engineering_completion": {
+    "state": "complete",
+    "success": true,
+    "additional_decisions": 7152,
+    "active_seconds": 162.6026276999619,
+    "checkpoint": "checkpoints/attempt-0001-update-000013.pt",
+    "report": "C:\\Files\\RL\\_patrick_jane\\local-runs\\patrick-jane\\rewards-v2-launch-check\\TRAINING_REPORT.md",
+    "error": null,
+    "progress_percent": 100.0,
+    "technical_truncations": 36
+  },
+  "engineering_updates": 2,
+  "engineering_caveat": "12-second technical guard, isolated weights; not learning evidence or normal-match timing",
+  "native_viewer_pid": 2704,
+  "native_viewer_driver": "windows",
+  "indexed_replays": 7,
+  "long_training_started": false,
+  "new_origin_checkpoint_sha256": "9c5d4c426581866c6e0f4f2de8f389196b7cb38e5cabdde7399facebf1892511"
+}

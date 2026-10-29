@@ -19,6 +19,7 @@ def main():
     p.add_argument('--workers',type=int,default=32);p.add_argument('--wall-hours',type=float,default=12.)
     p.add_argument('--check-only',action='store_true');p.add_argument('--engineering',action='store_true')
     p.add_argument('--stop-after-updates',type=int);p.add_argument('--finalize',choices=('failed','interrupted'))
+    p.add_argument('--reward-v2',action='store_true');p.add_argument('--prepare-only',action='store_true')
     args=p.parse_args();folder=Path(args.folder).resolve()
     if args.finalize:
         from patrick_jane.learning_report import read,generate
@@ -40,7 +41,7 @@ def main():
     if existing.exists() and json.loads(existing.read_text()).get('schema')!='patrick-jane-lights-run-v1':
         print('TRAINING FAILED — refusing to write into a different historical experiment folder');return 1
     if args.check_only:
-        info=inspect();info.update(additional_target=args.additional_decisions,workers=args.workers,
+        info=inspect(reward_v2=args.reward_v2);info.update(additional_target=args.additional_decisions,workers=args.workers,
             wall_hours=args.wall_hours,run_folder=str(folder),engineering_check=args.engineering)
         info['effective_normal_match_timeout_seconds']=None
         if args.engineering:info['profile']['technical_max_seconds']=12.;info['profile']['evaluation_matches']=2
@@ -51,7 +52,7 @@ def main():
         try:
             print('RUN FOLDER: '+str(folder),flush=True)
             return train(folder,additional_target=args.additional_decisions,workers=args.workers,
-                wall_seconds=args.wall_hours*3600,engineering=args.engineering,stop_after_updates=args.stop_after_updates)
+                wall_seconds=args.wall_hours*3600,engineering=args.engineering,stop_after_updates=args.stop_after_updates,reward_v2=args.reward_v2,prepare_only=args.prepare_only)
         except BaseException:
             traceback.print_exc();print('TRAINING FAILED — no successful completion recorded',flush=True);return 1
         finally:sys.stdout=out;sys.stderr=err

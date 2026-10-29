@@ -54,6 +54,9 @@ def generate(folder,state,*,active_seconds=0.,error=None,plots=True):
     collection=sum(r['rollout']['elapsed'] for r in history);ppo=sum(r['ppo']['elapsed'] for r in history)
     result=dict(schema='patrick-jane-learning-results-v1',state=state,success=state=='complete',
         development_only=True,acceptance='pending',configuration=reg,additional_decisions=c.get('run_decisions',0),
+        previous_regime_additional_decisions=reg.get('previous_regime_additional_decisions',0),
+        combined_post_pilot_decisions=reg.get('previous_regime_additional_decisions',0)+c.get('run_decisions',0),
+        reward_regime=reg.get('reward_regime','lights-v1'),reward_coefficients=reg.get('reward_coefficients',{}),
         lifetime_decisions=c.get('individual_decisions',reg.get('base_decisions',255083)),
         completed_training_matches=training['totals']['legitimate_games'],
         collected_training_segments=c.get('run_matches',0),technical_truncations=training['totals']['truncations'],ppo_updates=c.get('run_updates',0),
@@ -65,8 +68,9 @@ def generate(folder,state,*,active_seconds=0.,error=None,plots=True):
             batch_reward_components=component_totals(r['rollout']['reward_components'].values())) for r in history],
         latest=latest,error=error,limitations=['Warm-start changed regime, not directly comparable to the original pilot',
             'Eight paired development scenarios: exploratory, one initialization and scripted opponents',
+            'Reward regimes are separate experiments; inherited decisions do not constitute new-regime training',
             'On-policy training curves change scenarios and policy together; reward alone is not improvement',
-            'Automatic ghost work and reporter/script patterns remain confounds',
+            'Automatic ghost work and reporter/script patterns remain confounds; rewards-v2 ghost work earns zero direct reward',
             'Technical cuts censor future ghost/team credits; win rates and paired comparisons condition on uncensored outcomes',
             'No reserved final-test partition used'])
     atomic_json(folder/'training_results.json',result)
@@ -75,7 +79,8 @@ def generate(folder,state,*,active_seconds=0.,error=None,plots=True):
         f"Additional trained decisions: **{result['additional_decisions']:,}** / {reg.get('additional_target',0):,}. Lifetime decisions: {result['lifetime_decisions']:,}.",
         f"Legitimate complete training matches: {result['completed_training_matches']}; technical cuts: {result['technical_truncations']}; collected segments: {result['collected_training_segments']}; PPO updates: {result['ppo_updates']}; active wall time: {active_seconds/3600:.3f} hours.",
         f"Collection + PPO: {collection:.3f} + {ppo:.3f} seconds; throughput: {result['training_decisions_per_second']:.2f} individual decisions/s.",'',
-        'Ten independent-memory crewmates share the unchanged network. Two scripted impostors can kill; only lights sabotage is enabled. The new penalty is -0.005 per living crew per simulated second in darkness, including meetings; all other rewards are unchanged.','',
+        f"Reward regime: {reg.get('reward_regime','lights-v1')}. Coefficients: `{reg.get('reward_coefficients',{})}`. Earlier phase decisions: {reg.get('previous_regime_additional_decisions',0):,}; combined post-pilot decisions: {result['combined_post_pilot_decisions']:,}. These regimes must not be pooled as one homogeneous experiment.",'',
+        'Ten independent-memory crewmates share the unchanged network. Two scripted impostors can kill; only lights sabotage is enabled. The new penalty is -0.005 per living crew per simulated second in darkness, including meetings; exact coefficients are registered above.','',
         '## Training outcomes (changing policies and scenarios)','',
         f"Legitimate wins/losses: {t.get('wins',0)} / {t.get('losses',0)}. Technical TRUNCATED segments: {t.get('truncations',0)} (not wins, losses or draws). Living / ghost task completions: {training['living_tasks']} / {t.get('ghost_tasks',0)}.",
         f"Kills (crew deaths): {t.get('kills',0)}; innocent / impostor ejections: {t.get('innocent_ejections',0)} / {t.get('correct_ejections',0)}.",
@@ -88,7 +93,7 @@ def generate(folder,state,*,active_seconds=0.,error=None,plots=True):
     lines+=['','Movement time counts physics ticks with actual movement; task work counts active interaction ticks. These are actor-seconds, not wall time. Meetings pause tasks/ghost work; darkness penalties continue only for living crew while lights remain unresolved. Task stages may start repeatedly and are not the same as complete owned tasks. Navigation interruptions are measured from actual submitted navigation intents.','',
         '## Reward components (raw totals)','', '| Component | Total |','|---|---:|']
     lines += [f'| {k} | {v:.5f} |' for k,v in sorted(components.items())]
-    lines+=['','Reward accumulation is not proof of learning. In particular, automatic ghost rewards and repeated script patterns can obscure weak living-task execution or deduction. Use matched entry/final behavior and opportunity denominators.','',
+    lines+=['','Reward accumulation is not proof of learning. In particular, automatic ghost game progress and repeated script patterns can obscure weak living-task execution or deduction. Use matched entry/final behavior and opportunity denominators.','',
         '## Paired lightweight development checks','','| State | Wins / legitimate games | TRUNCATED | Living tasks | Ghost tasks | Vote accuracy |','|---|---:|---:|---:|---:|---:|']
     for e in evaluations:
         m=e['metrics'];lines.append(f"| {e['label']} | {m['totals']['wins']}/{m['totals']['legitimate_games']} | {m['totals']['truncations']} | {m['living_tasks']} | {m['totals']['ghost_tasks']} | {m['vote_accuracy']:.1%} |")

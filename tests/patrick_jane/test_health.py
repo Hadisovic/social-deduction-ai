@@ -19,7 +19,7 @@ class HealthTests(unittest.TestCase):
 
     def test_reward_audit_detects_duplicate_bonuses_and_wrong_owner_settlement(self):
         rollout=dict(matches=[dict(individual_decisions=1,neural_actions={'travel':1},metrics={'illegal_actions':0},winner='impostor',crew_reports=0)],
-            reward_components={'0/p0':{'loss':-10.,'exploration':.3,'ghost_task':4.}})
+            reward_components={'0/p0':{'loss':-10.,'exploration':.3,'ghost_task':0.}})
         audit_rollout(rollout)
         for key,value in (('exploration',.32),('ghost_task',5.),('loss',0.)):
             bad=deepcopy(rollout);bad['reward_components']['0/p0'][key]=value

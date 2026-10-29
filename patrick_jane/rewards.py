@@ -2,8 +2,8 @@
 from collections import defaultdict
 from social_deduction.actor import Role
 
-COEFFICIENTS=dict(win=10.,loss=-10.,task=1.,ghost_task=1.,repair=3.,impostor_ejection=4.,
-                  innocent_ejection=-2.,report=1.1,exploration=.02,new_player=.05,death=-1.,idle=-.01,
+COEFFICIENTS=dict(win=10.,loss=-10.,task=1.,ghost_task=0.,repair=3.,impostor_ejection=4.,
+                  innocent_ejection=-2.,report=1.25,exploration=.02,new_player=.05,death=-2.,idle=-.01,
                   invalid=0.,vote=0.,accuse=0.,defend=0.)
 
 

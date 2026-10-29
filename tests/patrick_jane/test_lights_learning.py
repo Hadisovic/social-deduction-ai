@@ -136,7 +136,7 @@ class LightsLearningTests(unittest.TestCase):
                 def __exit__(self,*a):pass
             self_case=self
             with patch('patrick_jane.learning_run.Pool',InterruptedPool):
-                self.assertEqual(train(folder,additional_target=100,workers=1,device='cpu',wall_seconds=30),130)
+                self.assertEqual(train(folder,additional_target=100,workers=1,device='cpu',wall_seconds=30,reward_v2=True),130)
             self.assertEqual(json.loads((folder/'completion-status.json').read_text())['state'],'interrupted')
 
 

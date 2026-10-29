@@ -189,7 +189,7 @@ class EnvironmentTests(unittest.TestCase):
         for kind,key in (('task_completed','task'),('report','report')):
             data=dict(player_id=crew.player_id,task_id='one',ghost=True) if kind=='task_completed' else dict(reporter_id=crew.player_id,victim_id='body')
             g._record(kind,**data);g._record(kind,**data)
-        r=ledger.collect(g)[crew.player_id];self.assertEqual(r['ghost_task'],1.);self.assertNotIn('task',r);self.assertEqual(r['report'],1.1)
+        r=ledger.collect(g)[crew.player_id];self.assertEqual(r['ghost_task'],0.);self.assertNotIn('task',r);self.assertEqual(r['report'],1.25)
         self.assertEqual(COEFFICIENTS['vote'],0.)
 
 

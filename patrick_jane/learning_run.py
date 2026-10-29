@@ -68,16 +68,19 @@ def select_uncensored_champion(checkpoint,matches,folder):
     return select_champion(checkpoint,matches,folder)
 
 
-def inspect():
+def inspect(reward_v2=False):
     torch.set_num_threads(1);p=PatrickJane();o=torch.optim.Adam(p.parameters(),lr=.0003);rng=np.random.default_rng(17)
     if not torch.cuda.is_available():raise RuntimeError('Registered CUDA training device unavailable; no silent CPU fallback')
-    c,provenance=import_pilot(PILOT/'checkpoints/update-000006.pt',PILOT/'source-snapshot.zip',p,o,rng)
-    return dict(workers=32,additional_target=1000000,base_decisions=c['individual_decisions'],
+    if reward_v2:
+        from .reward_transition import import_update11
+        c,provenance=import_update11(p,o,rng)
+    else:c,provenance=import_pilot(PILOT/'checkpoints/update-000006.pt',PILOT/'source-snapshot.zip',p,o,rng)
+    return dict(workers=32,additional_target=490423 if reward_v2 else 1000000,base_decisions=c['individual_decisions'],
         device=torch.cuda.get_device_name(0),policy_parameters=sum(x.numel() for x in p.parameters()),profile=LightsExperiment().to_dict(),import_provenance=provenance)
 
 
 def train(folder,*,additional_target=1000000,workers=32,wall_seconds=43200,device='cuda',
-          engineering=False,stop_after_updates=None):
+          engineering=False,stop_after_updates=None,reward_v2=False,prepare_only=False):
     if not 1<=workers<=32 or type(additional_target) is not int or additional_target<=0 or wall_seconds<=0:
         raise ValueError('Positive budget/wall limit and 1..32 workers required')
     if not engineering and stop_after_updates is not None:raise ValueError('Test interruption flag is engineering-only')
@@ -86,12 +89,13 @@ def train(folder,*,additional_target=1000000,workers=32,wall_seconds=43200,devic
         if read(folder/'completion-status.json',{}).get('state')=='complete':
             print('PATRICK JANE — TRAINING COMPLETE (100%) — existing run; no additional training launched',flush=True)
             print('REPORT: '+str(folder/'TRAINING_REPORT.md'),flush=True);return 0
-        return _train(folder,additional_target,workers,wall_seconds,device,engineering,stop_after_updates)
+        return _train(folder,additional_target,workers,wall_seconds,device,engineering,stop_after_updates,reward_v2,prepare_only)
 
 
-def _train(folder,target,workers,wall_seconds,device,engineering,stop_after_updates):
+def _train(folder,target,workers,wall_seconds,device,engineering,stop_after_updates,reward_v2=False,prepare_only=False):
     began=perf_counter();torch.set_num_threads(1);torch.use_deterministic_algorithms(True)
     experiment=LightsExperiment()
+    base_decisions=764660 if reward_v2 else 255083
     if engineering:experiment=replace(experiment,technical_max_seconds=12.,evaluation_matches=2)
     policy=PatrickJane().to(device);optimizer=torch.optim.Adam(policy.parameters(),lr=experiment.learning_rate)
     rng=np.random.default_rng(17);history=read(folder/'history.json',[])
@@ -106,6 +110,7 @@ def _train(folder,target,workers,wall_seconds,device,engineering,stop_after_upda
     state='failed';error=None;current=None;progress=None;import_provenance=None
     try:
         if reg:
+            if reg.get('reward_regime','lights-v1')!=('rewards-v2' if reward_v2 else 'lights-v1'):raise ValueError('Reward regime mismatch')
             if reg['experiment']!=json.loads(json.dumps(experiment.to_dict())) or reg['workers']!=workers or reg['additional_target']!=target or reg['wall_seconds']!=wall_seconds:
                 raise ValueError('Run already registered with different settings; use a separate run folder')
             if reg['sources']!=source_lock():raise ValueError('Frozen run source changed; restore the registered source before resuming')
@@ -115,12 +120,16 @@ def _train(folder,target,workers,wall_seconds,device,engineering,stop_after_upda
             if history!=prior_history:atomic_json(attempt/'previous-history.json',prior_history)
             atomic_json(folder/'history.json',history);atomic_json(folder/'latest.json',pointer)
         else:
-            counters,import_provenance=import_pilot(PILOT/'checkpoints/update-000006.pt',PILOT/'source-snapshot.zip',policy,optimizer,rng)
+            if reward_v2:
+                from .reward_transition import import_update11
+                counters,import_provenance=import_update11(policy,optimizer,rng)
+            else:counters,import_provenance=import_pilot(PILOT/'checkpoints/update-000006.pt',PILOT/'source-snapshot.zip',policy,optimizer,rng)
             counters.update(run_decisions=0,run_matches=0,run_updates=0)
             if engineering:counters['next_seed']=0
             reg=dict(schema='patrick-jane-lights-run-v1',engineering=engineering,experiment=json.loads(json.dumps(experiment.to_dict())),
                 workers=workers,additional_target=target,absolute_additional_ceiling=math.ceil(target*1.10),wall_seconds=wall_seconds,
-                base_decisions=255083,base_update=6,base_matches=192,training_seeds=list(ENGINEERING[:80] if engineering else DEV_TRAIN),
+                base_decisions=base_decisions,base_update=counters['update'],base_matches=counters['complete_matches'],
+                reward_regime='rewards-v2' if reward_v2 else 'lights-v1',reward_coefficients=dict(__import__('patrick_jane.rewards',fromlist=['COEFFICIENTS']).COEFFICIENTS),previous_regime_additional_decisions=509577 if reward_v2 else 0,training_seeds=list(ENGINEERING[:80] if engineering else DEV_TRAIN),
                 validation_seeds=list((ENGINEERING[80:80+experiment.evaluation_matches]) if engineering else DEV_VALIDATION[:experiment.evaluation_matches]),
                 source_snapshot=freeze_sources(folder),sources=source_lock(),import_provenance=import_provenance,
                 evaluation='paired entry and final only; no large per-checkpoint evaluations',
@@ -129,7 +138,7 @@ def _train(folder,target,workers,wall_seconds,device,engineering,stop_after_upda
                     cuda=torch.version.cuda,device=torch.cuda.get_device_name(0) if device=='cuda' else device,worker_hash_seed=0),
                 final_partitions='unopened',acceptance='pending')
             launchers={}
-            for name in ('Start-PatrickJaneLights.ps1','tools/run_pj_learning.py','tools/report_patrick_jane_pilot.py'):
+            for name in ('Start-PatrickJaneLights.ps1','tools/run_pj_learning.py','tools/report_patrick_jane_pilot.py','Start-PatrickJaneRewardsV2.ps1'):
                 source=ROOT/name;dest=folder/'launchers'/Path(name).name;dest.parent.mkdir(exist_ok=True)
                 dest.write_bytes(source.read_bytes());launchers[name]=digest(dest)
             reg['launcher_sha256']=launchers
@@ -138,6 +147,8 @@ def _train(folder,target,workers,wall_seconds,device,engineering,stop_after_upda
             sha=save(current,policy,optimizer,experiment,counters.copy(),rng=rng,metadata=dict(import_provenance=import_provenance))
             pointer=dict(checkpoint=current.relative_to(folder).as_posix(),sha256=sha,counters=counters.copy())
             atomic_json(folder/'origin.json',pointer);atomic_json(folder/'latest.json',pointer)
+        if prepare_only:
+            state='prepared';return 0
         deadline=perf_counter()+wall_seconds-previous_seconds-(perf_counter()-began)
         atomic_json(folder/'completion-status.json',dict(state='running',success=False,
             additional_decisions=counters['run_decisions'],checkpoint=current.relative_to(folder).as_posix(),
@@ -158,7 +169,7 @@ def _train(folder,target,workers,wall_seconds,device,engineering,stop_after_upda
             def publish(active=None,**extra):
                 progress.counters=dict(individual_decisions=counters['run_decisions'],complete_matches=counters['run_matches'],update=counters['run_updates'])
                 progress.checkpoint=current
-                progress.publish(active,lifetime_decisions=counters['individual_decisions'],base_decisions=255083,
+                progress.publish(active,lifetime_decisions=counters['individual_decisions'],base_decisions=base_decisions,
                     trainer_pid=os.getpid(),active_seconds_before_attempt=previous_seconds,report_path=str(folder/'TRAINING_REPORT.md'),**extra)
             def evaluate(pool,label):
                 saved=read(folder/f'evaluations/{label}.json')
@@ -251,7 +262,7 @@ def _train(folder,target,workers,wall_seconds,device,engineering,stop_after_upda
                 overall_decisions=saved.get('run_decisions',0),target_decisions=target,complete=success,
                 completion_status=completion,error=error))
         print('\n'+'='*72,flush=True)
-        print('PATRICK JANE — TRAINING COMPLETE (100%)' if success else 'TRAINING INTERRUPTED' if state=='interrupted' else 'TRAINING FAILED',flush=True)
+        print('PATRICK JANE — TRAINING COMPLETE (100%)' if success else 'TRAINING INTERRUPTED' if state=='interrupted' else 'TRAINING PREPARED' if state=='prepared' else 'TRAINING FAILED',flush=True)
         print(f"Additional decisions: {result['additional_decisions']:,}; active time: {total/3600:.3f} h",flush=True)
         print(f"Progress: {completion['progress_percent']:.1f}%"+(' — stopped before 100% target' if not success and completion['progress_percent']<100 else ''),flush=True)
         print(f"Matches: {result.get('completed_training_matches',0)}; PPO updates: {result.get('ppo_updates',0)}",flush=True)

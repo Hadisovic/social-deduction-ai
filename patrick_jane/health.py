@@ -1,6 +1,7 @@
 """Audits and registered stop criteria; no policy actions or reward adjustments."""
 from math import comb,isclose
 from statistics import median
+from .rewards import COEFFICIENTS as C
 
 
 def audit_rollout(rollout):
@@ -15,8 +16,9 @@ def audit_rollout(rollout):
             raise RuntimeError('Repeated novelty reward exploit')
         if components.get('task',0)+components.get('ghost_task',0)>4+1e-7:
             raise RuntimeError('Duplicated task reward exploit')
-        if components.get('death',0)<-1-1e-7 or components.get('report',0)>1.1*match['crew_reports']+1e-7:
+        if not any(isclose(components.get('death',0),v,abs_tol=1e-7) for v in (0,C['death'])) or components.get('report',0)>C['report']*match['crew_reports']+1e-7:
             raise RuntimeError('Duplicated death/report accounting')
+        if C['ghost_task']==0 and abs(components.get('ghost_task',0))>1e-7:raise RuntimeError('Ghost task direct reward must be zero')
         expected=10 if match['winner']=='crewmate' else -10 if match['winner']=='impostor' else 0
         if not isclose(components.get('win',0)+components.get('loss',0),expected,abs_tol=1e-7):
             raise RuntimeError('Terminal owner reward attribution mismatch')

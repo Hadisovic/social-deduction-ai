@@ -127,3 +127,22 @@ The owner runs it manually. **No million-decision run has started.** Preserve th
 pilot checkpoint, all negative findings and historical reports. New source/run
 registration is required; do not resume old engineering folders with changed
 source. R041/R042 and `LIGHTS_LAUNCH_VERIFICATION.json` hold final bounded checks.
+
+## Current owner-approved reward transition
+
+The lights run reached 509,577 additional decisions (764,660 lifetime) at update
+11 and stopped when the owner intentionally edited rewards; its failure was the
+source-integrity guard. Keep the new values: ghost_task 0, report 1.25, death -2,
+other coefficients unchanged, lights -0.005/living simulated second retained.
+Do not revert or mutate the historical registration. Use the new
+[Rewards V2 continuation guide](REWARDS_V2_CONTINUATION.md) and
+`Start-PatrickJaneRewardsV2.ps1`, not the original run folder/launcher defaults.
+
+Update-11 policy weights are pinned and verified; reset Adam moments explicitly
+for the changed reward targets, preserve every policy/critic tensor and RNG.
+New `lights-rewards-v2` is registered at zero new decisions, target 490,423,
+training resumes at seed 2900352. Subsequent resume restores this regime's own
+optimizer. Reports keep regimes separate. Old phase time is carried forward
+into the combined 12-hour ceiling. No long run started by the agent; owner uses
+the one command in the guide. Phase 6.1 acceptance remains pending; R043 and
+`REWARDS_V2_VERIFICATION.json` preserve tests and qualification.
