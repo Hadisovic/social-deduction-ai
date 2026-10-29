@@ -1,7 +1,9 @@
 # Shared crewmate / impostor integration — review summary
 
-**29 October update:** the owner approved the bounded pilot. Follow
-[training progress](TRAINING_STATUS.md) for the runner, budget and live files.
+**29 October update:** training completed; validation stopped incomplete after
+a computational timeout. No selected model or paired A/B confirmation.
+Read [the pilot results and graphs](pilot-20261029/README.md) and
+[training status](TRAINING_STATUS.md) for the saved models, timings and next step.
 The review findings below describe the verified zero-update engineering baseline.
 
 28 October 2026. **Engineering integration works. No full PPO study is running.**

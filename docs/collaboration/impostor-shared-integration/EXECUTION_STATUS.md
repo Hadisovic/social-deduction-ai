@@ -1,8 +1,13 @@
 # Current execution status
 
-29 October: owner approved starting the bounded shared pilot. Follow
-TRAINING_STATUS.md and the private run status/journals. The engineering-only
-status below is historical. Never restart a healthy job or change loaded source.
+29 October: the approved pilot stopped after 39.17 minutes. No active jobs.
+Training completed (two streams x eight episodes, 14 wins total). Validation
+completed 30/32 cases; stream 101/episode 4/seed 3610006 hit the 600-second wall
+execution ceiling and the next case was unstarted. No lock or confirmation.
+Read TRAINING_STATUS.md and pilot-20261029/README.md for four graphs, exact
+counts, timings, candidate hashes and limitations. All checkpoints are preserved.
+Do not automatically restart/extend. No model was selected or promoted. The
+engineering-only status below is historical, not current execution guidance.
 
 Engineering COMPLETE; no active jobs. Owner now requested "finish and push":
 publish this integration branch only. Full PPO and merging remain unapproved.

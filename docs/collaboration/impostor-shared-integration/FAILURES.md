@@ -30,4 +30,19 @@
    WinError5/PermissionError on temporary files and are rerun outside that sandbox.
    No simulator/viewer source was changed to make restricted fixtures pass.
 
-These are engineering failures, not training outcomes. No PPO run has started.
+Items 1–5 describe engineering failures before the shared PPO pilot.
+
+6. The approved 29 October shared pilot completed all 16 training episodes and
+   saved all checkpoints. During validation, stream 101/episode 4/seed 3610006
+   exceeded the 600-second wall execution ceiling. Its next case was unstarted;
+   the other three blocks completed, leaving 30/32 validation outcomes. Parent
+   session 50872 exited 1 after 39.17 minutes, including waiting for other queued
+   validation work. This is not a game TIMEOUT or model loss. No checkpoint was
+   selected/promoted; the 64 planned paired A/B confirmation executions did not
+   start. No automatic retry or deadline extension was performed. Root cause of
+   the slow case remains unestablished; no simulation-step trace was persisted
+   for that non-first evaluation case. An offline curator outside the frozen
+   learner namespace generated partial graphs/report and strict-reloaded the
+   four candidate checkpoints without altering their source locks. See
+   pilot-20261029/README.md. Future evaluation should persist per-case start,
+   simulation progress and timings, and distinguish a wall abort from TIMEOUT.

@@ -1,0 +1,15 @@
+{
+  "status": "incomplete",
+  "elapsed_wall_seconds": 2350.3292932510376,
+  "failure": {
+    "stream": 101,
+    "episode": 4,
+    "seed": 3610006,
+    "failure": "600-second wall execution ceiling",
+    "game_outcome": null,
+    "next_case_not_started": 3610007
+  },
+  "type": "TimeoutError",
+  "message": "Engineering match wall ceiling",
+  "traceback_preserved_locally": true
+}

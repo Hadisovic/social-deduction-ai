@@ -1,11 +1,18 @@
-# CURRENT — owner approved shared pilot on 29 October 2026
+# CURRENT — shared pilot stopped at incomplete validation
 
 Read `docs/collaboration/impostor-shared-integration/TRAINING_STATUS.md` first.
-The owner explicitly said "start training". The bounded 90-minute pilot is now
-authorized. Two eight-episode warm-start streams, fixed B selection, locked A/B
-development confirmation. Preserve historical checkpoints and reserved final
-sets. No merge or deployment. Never restart healthy workers or edit their source.
-The engineering history below predates this approval.
+Read its linked pilot-20261029/README.md for graphs, timing and results. The owner
+approved training on 29 October. Both eight-episode streams completed, 14/16
+training wins total. Validation stopped at 30/32 after a 600-second computational
+abort on stream 101/episode 4/seed 3610006; next seed was not started. Stream
+101/episode 8 won 8/8 B validation cases, but no selection lock, promotion or
+paired A/B confirmation occurred. Improvement over the reference is unestablished.
+The run ended after 39.17 minutes; parent session 50872 exited 1; no active jobs.
+All 16 local checkpoints and four curated strict-load candidates are preserved.
+Do not restart this study or alter its frozen source/registration/checkpoints.
+Next requires a documented evaluation-only continuation/profiling plan, not
+automatic extra PPO. Keep historical final sets sealed. No merge or deployment.
+The engineering history below predates the training approval.
 
 # Engineering handoff — 28 October 2026
 

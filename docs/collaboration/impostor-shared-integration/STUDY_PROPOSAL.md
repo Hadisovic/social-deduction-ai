@@ -5,6 +5,10 @@ below. Current preparation/execution is recorded in TRAINING_STATUS.md. Earlier
 approval-pending wording below is retained as the proposal history; the owner's
 new instruction supersedes it. It does not approve extension, merging or final tests.
 
+**Execution outcome:** training completed, validation stopped after a 600-second
+computational abort. See pilot-20261029/README.md. No selection lock or A/B
+confirmation occurred; the approved attempt is preserved as incomplete.
+
 Use the verified engineering adapter before scaling. The present transferred
 impostor lost the paired A/B smoke by ejection; that is one scenario, not an
 accuracy estimate. This proposal changes neither architecture nor reward weights.

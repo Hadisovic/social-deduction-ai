@@ -1,0 +1,313 @@
+{
+  "status": "incomplete_validation",
+  "started_utc": "2026-10-28T23:24:33.637714+00:00",
+  "stopped_utc": "2026-10-29T00:03:43.965002+00:00",
+  "wall_seconds": 2350.3292932510376,
+  "training": {
+    "101": {
+      "completed": 8,
+      "planned": 8,
+      "wins": 7,
+      "outcomes": {
+        "PARITY": 7,
+        "IMPOSTOR_EJECTED": 1
+      },
+      "behavior": {
+        "kills": 19,
+        "accepted_reports": 12,
+        "accepted_self_reports": 12,
+        "witnessed_kill_events": 41,
+        "fake_task_starts": 31,
+        "fake_task_completions": 0
+      },
+      "illegal_actions": 0,
+      "simulated_seconds": 1594.8,
+      "collection_wall_seconds_sum": 678.3370754999924,
+      "completed_collection_cpu_seconds": 453.734375,
+      "reward_sum": 101.08400000000013,
+      "cooldown_ready_seconds": 495.80000000000007,
+      "wilson95_completed_cases": [
+        0.5291051942301386,
+        0.9775830911367038
+      ],
+      "warning": "Completed-case fractions are conditional on completion; missing cases are not losses or game timeouts.",
+      "decisions": 1066,
+      "optimizer_updates": 84,
+      "optimization_wall_seconds": 7.965563200006727,
+      "optimization_cpu_seconds": 5.46875,
+      "completed_utc": "2026-10-28T23:36:11.494568+00:00"
+    },
+    "202": {
+      "completed": 8,
+      "planned": 8,
+      "wins": 7,
+      "outcomes": {
+        "PARITY": 7,
+        "IMPOSTOR_EJECTED": 1
+      },
+      "behavior": {
+        "kills": 16,
+        "accepted_reports": 8,
+        "accepted_self_reports": 8,
+        "witnessed_kill_events": 33,
+        "fake_task_starts": 20,
+        "fake_task_completions": 0
+      },
+      "illegal_actions": 0,
+      "simulated_seconds": 1382.8,
+      "collection_wall_seconds_sum": 620.6801967999199,
+      "completed_collection_cpu_seconds": 402.546875,
+      "reward_sum": 91.94800000000005,
+      "cooldown_ready_seconds": 502.6,
+      "wilson95_completed_cases": [
+        0.5291051942301386,
+        0.9775830911367038
+      ],
+      "warning": "Completed-case fractions are conditional on completion; missing cases are not losses or game timeouts.",
+      "decisions": 770,
+      "optimizer_updates": 60,
+      "optimization_wall_seconds": 7.432854400016367,
+      "optimization_cpu_seconds": 4.359375,
+      "completed_utc": "2026-10-28T23:35:18.097020+00:00"
+    }
+  },
+  "validation": [
+    {
+      "completed": 6,
+      "planned": 8,
+      "wins": 3,
+      "outcomes": {
+        "PARITY": 3,
+        "TASKS_COMPLETED": 2,
+        "TIMEOUT": 1
+      },
+      "behavior": {
+        "kills": 7,
+        "accepted_reports": 6,
+        "accepted_self_reports": 6,
+        "witnessed_kill_events": 14,
+        "fake_task_starts": 0,
+        "fake_task_completions": 0
+      },
+      "illegal_actions": 0,
+      "simulated_seconds": 2617.6,
+      "collection_wall_seconds_sum": 843.29130240003,
+      "completed_collection_cpu_seconds": 667.125,
+      "reward_sum": -21.90399999999957,
+      "cooldown_ready_seconds": 2045.2,
+      "wilson95_completed_cases": [
+        0.18761280689940868,
+        0.8123871931005913
+      ],
+      "warning": "Completed-case fractions are conditional on completion; missing cases are not losses or game timeouts.",
+      "stream": 101,
+      "episode": 4,
+      "seeds": [
+        3610000,
+        3610001,
+        3610002,
+        3610003,
+        3610004,
+        3610005
+      ],
+      "missing_seeds": [
+        3610006,
+        3610007
+      ]
+    },
+    {
+      "completed": 8,
+      "planned": 8,
+      "wins": 8,
+      "outcomes": {
+        "PARITY": 8
+      },
+      "behavior": {
+        "kills": 15,
+        "accepted_reports": 9,
+        "accepted_self_reports": 9,
+        "witnessed_kill_events": 32,
+        "fake_task_starts": 0,
+        "fake_task_completions": 0
+      },
+      "illegal_actions": 0,
+      "simulated_seconds": 1744.0,
+      "collection_wall_seconds_sum": 372.37511760005145,
+      "completed_collection_cpu_seconds": 363.515625,
+      "reward_sum": 107.28000000000007,
+      "cooldown_ready_seconds": 886.0,
+      "wilson95_completed_cases": [
+        0.6755843804891231,
+        1.0
+      ],
+      "warning": "Completed-case fractions are conditional on completion; missing cases are not losses or game timeouts.",
+      "stream": 101,
+      "episode": 8,
+      "seeds": [
+        3610000,
+        3610001,
+        3610002,
+        3610003,
+        3610004,
+        3610005,
+        3610006,
+        3610007
+      ],
+      "missing_seeds": []
+    },
+    {
+      "completed": 8,
+      "planned": 8,
+      "wins": 3,
+      "outcomes": {
+        "IMPOSTOR_EJECTED": 5,
+        "PARITY": 3
+      },
+      "behavior": {
+        "kills": 13,
+        "accepted_reports": 10,
+        "accepted_self_reports": 10,
+        "witnessed_kill_events": 27,
+        "fake_task_starts": 0,
+        "fake_task_completions": 0
+      },
+      "illegal_actions": 0,
+      "simulated_seconds": 1055.8,
+      "collection_wall_seconds_sum": 594.5711719999963,
+      "completed_collection_cpu_seconds": 376.8125,
+      "reward_sum": -16.363999999999926,
+      "cooldown_ready_seconds": 268.20000000000005,
+      "wilson95_completed_cases": [
+        0.13684175946152105,
+        0.6942621454161981
+      ],
+      "warning": "Completed-case fractions are conditional on completion; missing cases are not losses or game timeouts.",
+      "stream": 202,
+      "episode": 4,
+      "seeds": [
+        3610000,
+        3610001,
+        3610002,
+        3610003,
+        3610004,
+        3610005,
+        3610006,
+        3610007
+      ],
+      "missing_seeds": []
+    },
+    {
+      "completed": 8,
+      "planned": 8,
+      "wins": 5,
+      "outcomes": {
+        "IMPOSTOR_EJECTED": 3,
+        "PARITY": 5
+      },
+      "behavior": {
+        "kills": 13,
+        "accepted_reports": 9,
+        "accepted_self_reports": 9,
+        "witnessed_kill_events": 28,
+        "fake_task_starts": 0,
+        "fake_task_completions": 0
+      },
+      "illegal_actions": 0,
+      "simulated_seconds": 1073.6,
+      "collection_wall_seconds_sum": 667.8949175999733,
+      "completed_collection_cpu_seconds": 439.90625,
+      "reward_sum": 35.22400000000006,
+      "cooldown_ready_seconds": 288.8,
+      "wilson95_completed_cases": [
+        0.30573785458380187,
+        0.863158240538479
+      ],
+      "warning": "Completed-case fractions are conditional on completion; missing cases are not losses or game timeouts.",
+      "stream": 202,
+      "episode": 8,
+      "seeds": [
+        3610000,
+        3610001,
+        3610002,
+        3610003,
+        3610004,
+        3610005,
+        3610006,
+        3610007
+      ],
+      "missing_seeds": []
+    }
+  ],
+  "hardware": {
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "logical_cpus": 32,
+    "workers": 2,
+    "torch_threads_per_worker": 1,
+    "device": "cpu"
+  },
+  "runtime": {
+    "python": "3.12.10",
+    "numpy": "2.5.3",
+    "torch": "2.6.0+cpu"
+  },
+  "registration_sha256": "99758bc6ee17955ade768d4241da29290af51c9c3444b810602d3c48f97c1b08",
+  "candidates": [
+    {
+      "stream": 101,
+      "episode": 4,
+      "path": "artifacts/impostor-shared-pilot-20261029/stream-101-episode-04.pt",
+      "sha256": "1f8c1dffccb8747e78a8b4921a339f3cf7ff5a065df93e0dbd64e3a3da44bdaa",
+      "tensor_hash": "f2a70823437829df546ea9beb60ce9834b41dd075c988ed6c0dd229dcafa3a15",
+      "strict_load_passed": true
+    },
+    {
+      "stream": 101,
+      "episode": 8,
+      "path": "artifacts/impostor-shared-pilot-20261029/stream-101-episode-08.pt",
+      "sha256": "5fd25e5f67930834ef498bab607cbb240311bad89d85694bdf55c7f8e0c7cd08",
+      "tensor_hash": "09615fc8b8d135d913482650c4d99cd1df743ed01bc159f9fe23e6397744883b",
+      "strict_load_passed": true
+    },
+    {
+      "stream": 202,
+      "episode": 4,
+      "path": "artifacts/impostor-shared-pilot-20261029/stream-202-episode-04.pt",
+      "sha256": "2ecf3c0e1550ce838a7acf7bff85603279948d1df41148d91c304b02950b0c3d",
+      "tensor_hash": "c5e22c4dbd39420a514e5e18622ec37a17bec4743a20cc43a87b89c3b5038204",
+      "strict_load_passed": true
+    },
+    {
+      "stream": 202,
+      "episode": 8,
+      "path": "artifacts/impostor-shared-pilot-20261029/stream-202-episode-08.pt",
+      "sha256": "09c370b93de989745651ca626e4c833df417a5ed00639e8fe49310a9c184a170",
+      "tensor_hash": "503f9a2a4836cdf11cd6286db353442fd0b2be6b26fff2a6eb43710dbb879c18",
+      "strict_load_passed": true
+    }
+  ],
+  "completed_training_episodes": 16,
+  "completed_validation_matches": 30,
+  "planned_validation_matches": 32,
+  "confirmation_matches": 0,
+  "selection_locked": false,
+  "reserved_final_tests_opened": false,
+  "failed_case": {
+    "stream": 101,
+    "episode": 4,
+    "seed": 3610006,
+    "failure": "600-second wall execution ceiling",
+    "game_outcome": null,
+    "next_case_not_started": 3610007
+  },
+  "integrity": {
+    "strict_candidate_loads": 4,
+    "all_episode_checkpoints_preserved": 16,
+    "illegal_actions": 0,
+    "frozen_crew_and_belief_hashes_consistent": true,
+    "source_signature_unchanged": true
+  },
+  "completed_matches_cpu_seconds": 2703.640625,
+  "optimization_cpu_seconds": 9.828125,
+  "cpu_accounting": "Lower bound: failed-case, loading, parent and verifier CPU were not fully persisted",
+  "assessment": "Training completed, but validation is incomplete. No selection or paired confirmation. Improvement over the untouched reference is unestablished."
+}

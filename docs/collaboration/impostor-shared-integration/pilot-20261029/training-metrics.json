@@ -1,0 +1,1164 @@
+{
+  "101": [
+    {
+      "episode": 1,
+      "seed": 3600000,
+      "decisions": 108,
+      "optimizer_updates": 8,
+      "ppo": {
+        "minibatch_updates": 8,
+        "decisions": 108,
+        "completed_episode": 1,
+        "policy_loss": 0.0011813733726739883,
+        "value_loss": 252.46739959716797,
+        "actor_gradient_norm": 0.271819151006639,
+        "critic_gradient_norm": 122.0745096206665,
+        "approximate_kl": 0.013783395290374756,
+        "clip_fraction": 0.17592592537403107,
+        "explained_variance": -0.4659442901611328,
+        "family_entropy": 1.0833802223205566,
+        "joint_entropy": 2.89581036567688,
+        "conditional_entropy": 0.42629095911979675,
+        "family_entropy_coefficient": 0.02,
+        "collection_logp_error": 9.5367431640625e-07,
+        "optimization_seconds": 0.4982740000123158,
+        "optimization_cpu_seconds": 0.453125,
+        "policy_hash_before": "ebb59ec4cb1589a5b3e96d805085d2bec7ea35c7619be96c64a81c0ce1c94287",
+        "policy_hash_after": "d1a73ede089f4e0ce4cd5e9a681ac0fe3dee6cd9fa68881317383895bd3377f3"
+      },
+      "reason": "PARITY",
+      "win": true,
+      "credit": {
+        "transitions": 108,
+        "terminal_bootstrap": 0.0,
+        "finite_advantages": true,
+        "zero_duration_terminal_transitions": 1,
+        "reward_sum": 18.696000000000005,
+        "components": {
+          "terminal": 10.0,
+          "kill": 9.0,
+          "ejection": 0.0,
+          "cooldown_ready": -0.30400000000000005,
+          "pursuit": 0.0
+        },
+        "elapsed_seconds": 181.2,
+        "cooldown_ready_seconds": 15.199999999999998,
+        "objective": {
+          "version": "impostor-rewards-v4",
+          "win": 10.0,
+          "loss": -10.0,
+          "timeout": -12.0,
+          "successful_kill": 3.0,
+          "own_ejection": -6.0,
+          "cooldown_ready_per_second": -0.02,
+          "pursuit_scale": 0.05,
+          "pursuit_min_progress": 0.05
+        },
+        "math": "impostor-terminal-time-gae-v2",
+        "optimizer_updates": 0
+      },
+      "behavior": {
+        "kills": 3,
+        "accepted_reports": 2,
+        "accepted_self_reports": 2,
+        "self_report_latencies": [
+          12.600000000000001,
+          0.6000000000000001
+        ],
+        "witnessed_kill_events": 6,
+        "fake_task_starts": 4,
+        "fake_task_completions": 0,
+        "claims": {
+          "was_in_region": 2
+        }
+      }
+    },
+    {
+      "episode": 2,
+      "seed": 3600001,
+      "decisions": 231,
+      "optimizer_updates": 16,
+      "ppo": {
+        "minibatch_updates": 8,
+        "decisions": 123,
+        "completed_episode": 2,
+        "policy_loss": -0.0030262130312621593,
+        "value_loss": 160.82590103149414,
+        "actor_gradient_norm": 0.10742485523223877,
+        "critic_gradient_norm": 99.70989513397217,
+        "approximate_kl": 0.0013057873584330082,
+        "clip_fraction": 0.0,
+        "explained_variance": -0.39166009426116943,
+        "family_entropy": 1.0904420614242554,
+        "joint_entropy": 2.937206983566284,
+        "conditional_entropy": 0.4264833629131317,
+        "family_entropy_coefficient": 0.017857142857142856,
+        "collection_logp_error": 9.5367431640625e-07,
+        "optimization_seconds": 0.5093832999991719,
+        "optimization_cpu_seconds": 0.5,
+        "policy_hash_before": "d1a73ede089f4e0ce4cd5e9a681ac0fe3dee6cd9fa68881317383895bd3377f3",
+        "policy_hash_after": "49458ed6bf005d164c6cec5e09fad9d7db53188e758588b0794ebacda2c009bd"
+      },
+      "reason": "PARITY",
+      "win": true,
+      "credit": {
+        "transitions": 123,
+        "terminal_bootstrap": 0.0,
+        "finite_advantages": true,
+        "zero_duration_terminal_transitions": 0,
+        "reward_sum": 14.347999999999999,
+        "components": {
+          "terminal": 10.0,
+          "kill": 6.0,
+          "ejection": 0.0,
+          "cooldown_ready": -1.652000000000006,
+          "pursuit": 0.0
+        },
+        "elapsed_seconds": 204.2,
+        "cooldown_ready_seconds": 82.60000000000001,
+        "objective": {
+          "version": "impostor-rewards-v4",
+          "win": 10.0,
+          "loss": -10.0,
+          "timeout": -12.0,
+          "successful_kill": 3.0,
+          "own_ejection": -6.0,
+          "cooldown_ready_per_second": -0.02,
+          "pursuit_scale": 0.05,
+          "pursuit_min_progress": 0.05
+        },
+        "math": "impostor-terminal-time-gae-v2",
+        "optimizer_updates": 0
+      },
+      "behavior": {
+        "kills": 2,
+        "accepted_reports": 2,
+        "accepted_self_reports": 2,
+        "self_report_latencies": [
+          0.6000000000000001,
+          0.6000000000000001
+        ],
+        "witnessed_kill_events": 5,
+        "fake_task_starts": 2,
+        "fake_task_completions": 0,
+        "claims": {
+          "was_in_region": 2
+        }
+      }
+    },
+    {
+      "episode": 3,
+      "seed": 3600002,
+      "decisions": 280,
+      "optimizer_updates": 20,
+      "ppo": {
+        "minibatch_updates": 4,
+        "decisions": 49,
+        "completed_episode": 3,
+        "policy_loss": -0.0011211302311382454,
+        "value_loss": 48.039048194885254,
+        "actor_gradient_norm": 0.1619999073445797,
+        "critic_gradient_norm": 57.50413131713867,
+        "approximate_kl": 0.0010730137582868338,
+        "clip_fraction": 0.0,
+        "explained_variance": 0.5332968831062317,
+        "family_entropy": 1.110701084136963,
+        "joint_entropy": 2.835916519165039,
+        "conditional_entropy": 0.4005991220474243,
+        "family_entropy_coefficient": 0.015714285714285715,
+        "collection_logp_error": 9.5367431640625e-07,
+        "optimization_seconds": 0.21022229999653064,
+        "optimization_cpu_seconds": 0.1875,
+        "policy_hash_before": "49458ed6bf005d164c6cec5e09fad9d7db53188e758588b0794ebacda2c009bd",
+        "policy_hash_after": "adfeedbe9ea1443749bab50d79cf6f3f3f7eb471884801e1a641a41a2a25f8f5"
+      },
+      "reason": "IMPOSTOR_EJECTED",
+      "win": false,
+      "credit": {
+        "transitions": 49,
+        "terminal_bootstrap": 0.0,
+        "finite_advantages": true,
+        "zero_duration_terminal_transitions": 0,
+        "reward_sum": -13.072,
+        "components": {
+          "terminal": -10.0,
+          "kill": 3.0,
+          "ejection": -6.0,
+          "cooldown_ready": -0.0720000000000001,
+          "pursuit": 0.0
+        },
+        "elapsed_seconds": 74.0,
+        "cooldown_ready_seconds": 3.600000000000004,
+        "objective": {
+          "version": "impostor-rewards-v4",
+          "win": 10.0,
+          "loss": -10.0,
+          "timeout": -12.0,
+          "successful_kill": 3.0,
+          "own_ejection": -6.0,
+          "cooldown_ready_per_second": -0.02,
+          "pursuit_scale": 0.05,
+          "pursuit_min_progress": 0.05
+        },
+        "math": "impostor-terminal-time-gae-v2",
+        "optimizer_updates": 0
+      },
+      "behavior": {
+        "kills": 1,
+        "accepted_reports": 1,
+        "accepted_self_reports": 1,
+        "self_report_latencies": [
+          10.200000000000001
+        ],
+        "witnessed_kill_events": 2,
+        "fake_task_starts": 1,
+        "fake_task_completions": 0,
+        "claims": {
+          "saw_player": 1
+        }
+      }
+    },
+    {
+      "episode": 4,
+      "seed": 3600003,
+      "decisions": 421,
+      "optimizer_updates": 32,
+      "ppo": {
+        "minibatch_updates": 12,
+        "decisions": 141,
+        "completed_episode": 4,
+        "policy_loss": 0.02210514624797118,
+        "value_loss": 185.46033732096353,
+        "actor_gradient_norm": 0.1547323235621055,
+        "critic_gradient_norm": 104.32924334208171,
+        "approximate_kl": 0.011139624752104282,
+        "clip_fraction": 0.13475176692008972,
+        "explained_variance": -0.6706656217575073,
+        "family_entropy": 1.112077236175537,
+        "joint_entropy": 2.680103302001953,
+        "conditional_entropy": 0.3627122640609741,
+        "family_entropy_coefficient": 0.013571428571428571,
+        "collection_logp_error": 4.76837158203125e-07,
+        "optimization_seconds": 0.508899799984647,
+        "optimization_cpu_seconds": 0.5,
+        "policy_hash_before": "adfeedbe9ea1443749bab50d79cf6f3f3f7eb471884801e1a641a41a2a25f8f5",
+        "policy_hash_after": "f2a70823437829df546ea9beb60ce9834b41dd075c988ed6c0dd229dcafa3a15"
+      },
+      "reason": "PARITY",
+      "win": true,
+      "credit": {
+        "transitions": 141,
+        "terminal_bootstrap": 0.0,
+        "finite_advantages": true,
+        "zero_duration_terminal_transitions": 1,
+        "reward_sum": 17.91600000000001,
+        "components": {
+          "terminal": 10.0,
+          "kill": 9.0,
+          "ejection": 0.0,
+          "cooldown_ready": -1.0839999999999996,
+          "pursuit": 0.0
+        },
+        "elapsed_seconds": 220.2,
+        "cooldown_ready_seconds": 54.2,
+        "objective": {
+          "version": "impostor-rewards-v4",
+          "win": 10.0,
+          "loss": -10.0,
+          "timeout": -12.0,
+          "successful_kill": 3.0,
+          "own_ejection": -6.0,
+          "cooldown_ready_per_second": -0.02,
+          "pursuit_scale": 0.05,
+          "pursuit_min_progress": 0.05
+        },
+        "math": "impostor-terminal-time-gae-v2",
+        "optimizer_updates": 0
+      },
+      "behavior": {
+        "kills": 3,
+        "accepted_reports": 2,
+        "accepted_self_reports": 2,
+        "self_report_latencies": [
+          0.6000000000000001,
+          0.6000000000000001
+        ],
+        "witnessed_kill_events": 6,
+        "fake_task_starts": 3,
+        "fake_task_completions": 0,
+        "claims": {
+          "was_in_region": 1,
+          "saw_player": 1
+        }
+      }
+    },
+    {
+      "episode": 5,
+      "seed": 3600004,
+      "decisions": 623,
+      "optimizer_updates": 48,
+      "ppo": {
+        "minibatch_updates": 16,
+        "decisions": 202,
+        "completed_episode": 5,
+        "policy_loss": -0.034672857727855444,
+        "value_loss": 86.35303235054016,
+        "actor_gradient_norm": 0.18224633391946554,
+        "critic_gradient_norm": 64.07899475097656,
+        "approximate_kl": 0.0002937232202384621,
+        "clip_fraction": 0.0,
+        "explained_variance": -0.14369988441467285,
+        "family_entropy": 1.131951928138733,
+        "joint_entropy": 2.6293132305145264,
+        "conditional_entropy": 0.3445805013179779,
+        "family_entropy_coefficient": 0.011428571428571429,
+        "collection_logp_error": 9.5367431640625e-07,
+        "optimization_seconds": 4.351309199992102,
+        "optimization_cpu_seconds": 2.046875,
+        "policy_hash_before": "f2a70823437829df546ea9beb60ce9834b41dd075c988ed6c0dd229dcafa3a15",
+        "policy_hash_after": "b04a29558391d6945601bf4f05a0d18fa7f39a48e256e48fa8055abb2ed16ea2"
+      },
+      "reason": "PARITY",
+      "win": true,
+      "credit": {
+        "transitions": 202,
+        "terminal_bootstrap": 0.0,
+        "finite_advantages": true,
+        "zero_duration_terminal_transitions": 1,
+        "reward_sum": 16.236000000000075,
+        "components": {
+          "terminal": 10.0,
+          "kill": 9.0,
+          "ejection": 0.0,
+          "cooldown_ready": -2.763999999999977,
+          "pursuit": 0.0
+        },
+        "elapsed_seconds": 304.2,
+        "cooldown_ready_seconds": 138.2,
+        "objective": {
+          "version": "impostor-rewards-v4",
+          "win": 10.0,
+          "loss": -10.0,
+          "timeout": -12.0,
+          "successful_kill": 3.0,
+          "own_ejection": -6.0,
+          "cooldown_ready_per_second": -0.02,
+          "pursuit_scale": 0.05,
+          "pursuit_min_progress": 0.05
+        },
+        "math": "impostor-terminal-time-gae-v2",
+        "optimizer_updates": 0
+      },
+      "behavior": {
+        "kills": 3,
+        "accepted_reports": 2,
+        "accepted_self_reports": 2,
+        "self_report_latencies": [
+          44.400000000000006,
+          1.2000000000000002
+        ],
+        "witnessed_kill_events": 6,
+        "fake_task_starts": 3,
+        "fake_task_completions": 0,
+        "claims": {
+          "was_in_region": 1,
+          "saw_player": 1
+        }
+      }
+    },
+    {
+      "episode": 6,
+      "seed": 3600005,
+      "decisions": 836,
+      "optimizer_updates": 64,
+      "ppo": {
+        "minibatch_updates": 16,
+        "decisions": 213,
+        "completed_episode": 6,
+        "policy_loss": -0.02475209254771471,
+        "value_loss": 92.47427129745483,
+        "actor_gradient_norm": 0.14781847363337874,
+        "critic_gradient_norm": 50.475119829177856,
+        "approximate_kl": 0.0016531440196558833,
+        "clip_fraction": 0.014084506779909134,
+        "explained_variance": -0.10557055473327637,
+        "family_entropy": 1.1623402833938599,
+        "joint_entropy": 2.6666486263275146,
+        "conditional_entropy": 0.34999245405197144,
+        "family_entropy_coefficient": 0.009285714285714286,
+        "collection_logp_error": 9.5367431640625e-07,
+        "optimization_seconds": 0.8880880000069737,
+        "optimization_cpu_seconds": 0.875,
+        "policy_hash_before": "b04a29558391d6945601bf4f05a0d18fa7f39a48e256e48fa8055abb2ed16ea2",
+        "policy_hash_after": "3f698e5f01d7bc0a24d0fcb317af50a8ea7bbb2969db801a5105c9f3e1e593f3"
+      },
+      "reason": "PARITY",
+      "win": true,
+      "credit": {
+        "transitions": 213,
+        "terminal_bootstrap": 0.0,
+        "finite_advantages": true,
+        "zero_duration_terminal_transitions": 1,
+        "reward_sum": 16.980000000000018,
+        "components": {
+          "terminal": 10.0,
+          "kill": 9.0,
+          "ejection": 0.0,
+          "cooldown_ready": -2.0200000000000005,
+          "pursuit": 0.0
+        },
+        "elapsed_seconds": 282.6,
+        "cooldown_ready_seconds": 101.00000000000003,
+        "objective": {
+          "version": "impostor-rewards-v4",
+          "win": 10.0,
+          "loss": -10.0,
+          "timeout": -12.0,
+          "successful_kill": 3.0,
+          "own_ejection": -6.0,
+          "cooldown_ready_per_second": -0.02,
+          "pursuit_scale": 0.05,
+          "pursuit_min_progress": 0.05
+        },
+        "math": "impostor-terminal-time-gae-v2",
+        "optimizer_updates": 0
+      },
+      "behavior": {
+        "kills": 3,
+        "accepted_reports": 1,
+        "accepted_self_reports": 1,
+        "self_report_latencies": [
+          9.600000000000001
+        ],
+        "witnessed_kill_events": 7,
+        "fake_task_starts": 13,
+        "fake_task_completions": 0,
+        "claims": {
+          "was_in_region": 3
+        }
+      }
+    },
+    {
+      "episode": 7,
+      "seed": 3600006,
+      "decisions": 935,
+      "optimizer_updates": 72,
+      "ppo": {
+        "minibatch_updates": 8,
+        "decisions": 99,
+        "completed_episode": 7,
+        "policy_loss": -0.0026136531960219145,
+        "value_loss": 99.12768268585205,
+        "actor_gradient_norm": 0.11492556985467672,
+        "critic_gradient_norm": 40.35126876831055,
+        "approximate_kl": 0.0006057022255845368,
+        "clip_fraction": 0.010101010091602802,
+        "explained_variance": 0.11186331510543823,
+        "family_entropy": 1.1228710412979126,
+        "joint_entropy": 2.6409788131713867,
+        "conditional_entropy": 0.3566898703575134,
+        "family_entropy_coefficient": 0.0071428571428571435,
+        "collection_logp_error": 4.76837158203125e-07,
+        "optimization_seconds": 0.42346489999908954,
+        "optimization_cpu_seconds": 0.40625,
+        "policy_hash_before": "3f698e5f01d7bc0a24d0fcb317af50a8ea7bbb2969db801a5105c9f3e1e593f3",
+        "policy_hash_after": "81f53a1fe7326ed48a723ec38b1a3b5f5c19cf46c708e9eb4dac995465eb2d62"
+      },
+      "reason": "PARITY",
+      "win": true,
+      "credit": {
+        "transitions": 99,
+        "terminal_bootstrap": 0.0,
+        "finite_advantages": true,
+        "zero_duration_terminal_transitions": 0,
+        "reward_sum": 15.452000000000002,
+        "components": {
+          "terminal": 10.0,
+          "kill": 6.0,
+          "ejection": 0.0,
+          "cooldown_ready": -0.5480000000000002,
+          "pursuit": 0.0
+        },
+        "elapsed_seconds": 149.0,
+        "cooldown_ready_seconds": 27.40000000000001,
+        "objective": {
+          "version": "impostor-rewards-v4",
+          "win": 10.0,
+          "loss": -10.0,
+          "timeout": -12.0,
+          "successful_kill": 3.0,
+          "own_ejection": -6.0,
+          "cooldown_ready_per_second": -0.02,
+          "pursuit_scale": 0.05,
+          "pursuit_min_progress": 0.05
+        },
+        "math": "impostor-terminal-time-gae-v2",
+        "optimizer_updates": 0
+      },
+      "behavior": {
+        "kills": 2,
+        "accepted_reports": 1,
+        "accepted_self_reports": 1,
+        "self_report_latencies": [
+          0.6000000000000001
+        ],
+        "witnessed_kill_events": 4,
+        "fake_task_starts": 1,
+        "fake_task_completions": 0,
+        "claims": {
+          "saw_elimination": 2
+        }
+      }
+    },
+    {
+      "episode": 8,
+      "seed": 3600007,
+      "decisions": 1066,
+      "optimizer_updates": 84,
+      "ppo": {
+        "minibatch_updates": 12,
+        "decisions": 131,
+        "completed_episode": 8,
+        "policy_loss": -0.02720027758429448,
+        "value_loss": 65.5359697341919,
+        "actor_gradient_norm": 0.3114808738852541,
+        "critic_gradient_norm": 33.36331748962402,
+        "approximate_kl": 0.0010704771848395467,
+        "clip_fraction": 0.0,
+        "explained_variance": 0.2541540265083313,
+        "family_entropy": 1.132696270942688,
+        "joint_entropy": 2.6079025268554688,
+        "conditional_entropy": 0.33904746174812317,
+        "family_entropy_coefficient": 0.005000000000000001,
+        "collection_logp_error": 4.76837158203125e-07,
+        "optimization_seconds": 0.5759217000158969,
+        "optimization_cpu_seconds": 0.5,
+        "policy_hash_before": "81f53a1fe7326ed48a723ec38b1a3b5f5c19cf46c708e9eb4dac995465eb2d62",
+        "policy_hash_after": "09615fc8b8d135d913482650c4d99cd1df743ed01bc159f9fe23e6397744883b"
+      },
+      "reason": "PARITY",
+      "win": true,
+      "credit": {
+        "transitions": 131,
+        "terminal_bootstrap": 0.0,
+        "finite_advantages": true,
+        "zero_duration_terminal_transitions": 1,
+        "reward_sum": 14.528000000000015,
+        "components": {
+          "terminal": 10.0,
+          "kill": 6.0,
+          "ejection": 0.0,
+          "cooldown_ready": -1.4720000000000066,
+          "pursuit": 0.0
+        },
+        "elapsed_seconds": 179.4,
+        "cooldown_ready_seconds": 73.60000000000001,
+        "objective": {
+          "version": "impostor-rewards-v4",
+          "win": 10.0,
+          "loss": -10.0,
+          "timeout": -12.0,
+          "successful_kill": 3.0,
+          "own_ejection": -6.0,
+          "cooldown_ready_per_second": -0.02,
+          "pursuit_scale": 0.05,
+          "pursuit_min_progress": 0.05
+        },
+        "math": "impostor-terminal-time-gae-v2",
+        "optimizer_updates": 0
+      },
+      "behavior": {
+        "kills": 2,
+        "accepted_reports": 1,
+        "accepted_self_reports": 1,
+        "self_report_latencies": [
+          0.6000000000000001
+        ],
+        "witnessed_kill_events": 5,
+        "fake_task_starts": 4,
+        "fake_task_completions": 0,
+        "claims": {
+          "saw_player": 1
+        }
+      }
+    }
+  ],
+  "202": [
+    {
+      "episode": 1,
+      "seed": 3600000,
+      "decisions": 183,
+      "optimizer_updates": 12,
+      "ppo": {
+        "minibatch_updates": 12,
+        "decisions": 183,
+        "completed_episode": 1,
+        "policy_loss": -0.004496317046384017,
+        "value_loss": 126.28217951456706,
+        "actor_gradient_norm": 0.19455169141292572,
+        "critic_gradient_norm": 78.4822457631429,
+        "approximate_kl": 0.014900158159434795,
+        "clip_fraction": 0.1420765072107315,
+        "explained_variance": -0.16224360466003418,
+        "family_entropy": 1.093184471130371,
+        "joint_entropy": 2.95027494430542,
+        "conditional_entropy": 0.42540961503982544,
+        "family_entropy_coefficient": 0.02,
+        "collection_logp_error": 4.76837158203125e-07,
+        "optimization_seconds": 0.7423231000138912,
+        "optimization_cpu_seconds": 0.703125,
+        "policy_hash_before": "ebb59ec4cb1589a5b3e96d805085d2bec7ea35c7619be96c64a81c0ce1c94287",
+        "policy_hash_after": "c795c75db968c223da7c08c68903db2882bbd833abe8169aec8b9ce11b02c4f6"
+      },
+      "reason": "PARITY",
+      "win": true,
+      "credit": {
+        "transitions": 183,
+        "terminal_bootstrap": 0.0,
+        "finite_advantages": true,
+        "zero_duration_terminal_transitions": 1,
+        "reward_sum": 12.468000000000002,
+        "components": {
+          "terminal": 10.0,
+          "kill": 6.0,
+          "ejection": 0.0,
+          "cooldown_ready": -3.531999999999962,
+          "pursuit": 0.0
+        },
+        "elapsed_seconds": 297.0,
+        "cooldown_ready_seconds": 176.60000000000002,
+        "objective": {
+          "version": "impostor-rewards-v4",
+          "win": 10.0,
+          "loss": -10.0,
+          "timeout": -12.0,
+          "successful_kill": 3.0,
+          "own_ejection": -6.0,
+          "cooldown_ready_per_second": -0.02,
+          "pursuit_scale": 0.05,
+          "pursuit_min_progress": 0.05
+        },
+        "math": "impostor-terminal-time-gae-v2",
+        "optimizer_updates": 0
+      },
+      "behavior": {
+        "kills": 2,
+        "accepted_reports": 1,
+        "accepted_self_reports": 1,
+        "self_report_latencies": [
+          0.6000000000000001
+        ],
+        "witnessed_kill_events": 4,
+        "fake_task_starts": 4,
+        "fake_task_completions": 0,
+        "claims": {
+          "was_in_region": 2
+        }
+      }
+    },
+    {
+      "episode": 2,
+      "seed": 3600001,
+      "decisions": 257,
+      "optimizer_updates": 20,
+      "ppo": {
+        "minibatch_updates": 8,
+        "decisions": 74,
+        "completed_episode": 2,
+        "policy_loss": -0.03765383642166853,
+        "value_loss": 223.13645935058594,
+        "actor_gradient_norm": 0.5140501111745834,
+        "critic_gradient_norm": 121.42872333526611,
+        "approximate_kl": 0.01745409332215786,
+        "clip_fraction": 0.31081080436706543,
+        "explained_variance": -0.6979340314865112,
+        "family_entropy": 0.940615177154541,
+        "joint_entropy": 3.323986768722534,
+        "conditional_entropy": 0.5531659722328186,
+        "family_entropy_coefficient": 0.017857142857142856,
+        "collection_logp_error": 9.5367431640625e-07,
+        "optimization_seconds": 0.33308720000786707,
+        "optimization_cpu_seconds": 0.34375,
+        "policy_hash_before": "c795c75db968c223da7c08c68903db2882bbd833abe8169aec8b9ce11b02c4f6",
+        "policy_hash_after": "aa0055889101826622b66d914c9963a9eabcc18d049689b66ce389f08b2d3dc0"
+      },
+      "reason": "PARITY",
+      "win": true,
+      "credit": {
+        "transitions": 74,
+        "terminal_bootstrap": 0.0,
+        "finite_advantages": true,
+        "zero_duration_terminal_transitions": 1,
+        "reward_sum": 15.560000000000004,
+        "components": {
+          "terminal": 10.0,
+          "kill": 6.0,
+          "ejection": 0.0,
+          "cooldown_ready": -0.4400000000000004,
+          "pursuit": 0.0
+        },
+        "elapsed_seconds": 127.8,
+        "cooldown_ready_seconds": 22.000000000000007,
+        "objective": {
+          "version": "impostor-rewards-v4",
+          "win": 10.0,
+          "loss": -10.0,
+          "timeout": -12.0,
+          "successful_kill": 3.0,
+          "own_ejection": -6.0,
+          "cooldown_ready_per_second": -0.02,
+          "pursuit_scale": 0.05,
+          "pursuit_min_progress": 0.05
+        },
+        "math": "impostor-terminal-time-gae-v2",
+        "optimizer_updates": 0
+      },
+      "behavior": {
+        "kills": 2,
+        "accepted_reports": 1,
+        "accepted_self_reports": 1,
+        "self_report_latencies": [
+          0.6000000000000001
+        ],
+        "witnessed_kill_events": 4,
+        "fake_task_starts": 3,
+        "fake_task_completions": 0,
+        "claims": {
+          "was_in_region": 1
+        }
+      }
+    },
+    {
+      "episode": 3,
+      "seed": 3600002,
+      "decisions": 356,
+      "optimizer_updates": 28,
+      "ppo": {
+        "minibatch_updates": 8,
+        "decisions": 99,
+        "completed_episode": 3,
+        "policy_loss": 0.026436015032231808,
+        "value_loss": 165.98913955688477,
+        "actor_gradient_norm": 0.2564565110951662,
+        "critic_gradient_norm": 101.3744125366211,
+        "approximate_kl": 0.005448800977319479,
+        "clip_fraction": 0.05050504952669144,
+        "explained_variance": -0.7872824668884277,
+        "family_entropy": 0.9858106374740601,
+        "joint_entropy": 3.334259271621704,
+        "conditional_entropy": 0.5431542992591858,
+        "family_entropy_coefficient": 0.015714285714285715,
+        "collection_logp_error": 4.76837158203125e-07,
+        "optimization_seconds": 0.4148581000044942,
+        "optimization_cpu_seconds": 0.421875,
+        "policy_hash_before": "aa0055889101826622b66d914c9963a9eabcc18d049689b66ce389f08b2d3dc0",
+        "policy_hash_after": "3655a158c20ebb81989a8e038ce19933c197a49bdcc3423e44e846f7b128aaa6"
+      },
+      "reason": "PARITY",
+      "win": true,
+      "credit": {
+        "transitions": 99,
+        "terminal_bootstrap": 0.0,
+        "finite_advantages": true,
+        "zero_duration_terminal_transitions": 0,
+        "reward_sum": 15.380000000000013,
+        "components": {
+          "terminal": 10.0,
+          "kill": 6.0,
+          "ejection": 0.0,
+          "cooldown_ready": -0.6200000000000002,
+          "pursuit": 0.0
+        },
+        "elapsed_seconds": 156.2,
+        "cooldown_ready_seconds": 30.999999999999993,
+        "objective": {
+          "version": "impostor-rewards-v4",
+          "win": 10.0,
+          "loss": -10.0,
+          "timeout": -12.0,
+          "successful_kill": 3.0,
+          "own_ejection": -6.0,
+          "cooldown_ready_per_second": -0.02,
+          "pursuit_scale": 0.05,
+          "pursuit_min_progress": 0.05
+        },
+        "math": "impostor-terminal-time-gae-v2",
+        "optimizer_updates": 0
+      },
+      "behavior": {
+        "kills": 2,
+        "accepted_reports": 2,
+        "accepted_self_reports": 2,
+        "self_report_latencies": [
+          1.2000000000000002,
+          4.2
+        ],
+        "witnessed_kill_events": 4,
+        "fake_task_starts": 5,
+        "fake_task_completions": 0,
+        "claims": {
+          "was_in_region": 1,
+          "defend_player": 1
+        }
+      }
+    },
+    {
+      "episode": 4,
+      "seed": 3600003,
+      "decisions": 462,
+      "optimizer_updates": 36,
+      "ppo": {
+        "minibatch_updates": 8,
+        "decisions": 106,
+        "completed_episode": 4,
+        "policy_loss": -0.005388750018028077,
+        "value_loss": 124.44890117645264,
+        "actor_gradient_norm": 0.23499202914536,
+        "critic_gradient_norm": 81.22392272949219,
+        "approximate_kl": 0.0010878053726628423,
+        "clip_fraction": 0.0,
+        "explained_variance": -0.33514297008514404,
+        "family_entropy": 0.9623650312423706,
+        "joint_entropy": 3.4689548015594482,
+        "conditional_entropy": 0.5712714791297913,
+        "family_entropy_coefficient": 0.013571428571428571,
+        "collection_logp_error": 9.5367431640625e-07,
+        "optimization_seconds": 2.690986300003715,
+        "optimization_cpu_seconds": 1.046875,
+        "policy_hash_before": "3655a158c20ebb81989a8e038ce19933c197a49bdcc3423e44e846f7b128aaa6",
+        "policy_hash_after": "c5e22c4dbd39420a514e5e18622ec37a17bec4743a20cc43a87b89c3b5038204"
+      },
+      "reason": "PARITY",
+      "win": true,
+      "credit": {
+        "transitions": 106,
+        "terminal_bootstrap": 0.0,
+        "finite_advantages": true,
+        "zero_duration_terminal_transitions": 1,
+        "reward_sum": 14.011999999999993,
+        "components": {
+          "terminal": 10.0,
+          "kill": 6.0,
+          "ejection": 0.0,
+          "cooldown_ready": -1.9880000000000067,
+          "pursuit": 0.0
+        },
+        "elapsed_seconds": 204.6,
+        "cooldown_ready_seconds": 99.39999999999999,
+        "objective": {
+          "version": "impostor-rewards-v4",
+          "win": 10.0,
+          "loss": -10.0,
+          "timeout": -12.0,
+          "successful_kill": 3.0,
+          "own_ejection": -6.0,
+          "cooldown_ready_per_second": -0.02,
+          "pursuit_scale": 0.05,
+          "pursuit_min_progress": 0.05
+        },
+        "math": "impostor-terminal-time-gae-v2",
+        "optimizer_updates": 0
+      },
+      "behavior": {
+        "kills": 2,
+        "accepted_reports": 1,
+        "accepted_self_reports": 1,
+        "self_report_latencies": [
+          2.4000000000000004
+        ],
+        "witnessed_kill_events": 4,
+        "fake_task_starts": 5,
+        "fake_task_completions": 0,
+        "claims": {
+          "saw_player": 1
+        }
+      }
+    },
+    {
+      "episode": 5,
+      "seed": 3600004,
+      "decisions": 578,
+      "optimizer_updates": 44,
+      "ppo": {
+        "minibatch_updates": 8,
+        "decisions": 116,
+        "completed_episode": 5,
+        "policy_loss": -0.0007697818800806999,
+        "value_loss": 116.06642723083496,
+        "actor_gradient_norm": 0.16114673297852278,
+        "critic_gradient_norm": 73.83346700668335,
+        "approximate_kl": 0.005394226871430874,
+        "clip_fraction": 0.0258620698004961,
+        "explained_variance": -0.3314253091812134,
+        "family_entropy": 0.9170957803726196,
+        "joint_entropy": 3.4629499912261963,
+        "conditional_entropy": 0.5798998475074768,
+        "family_entropy_coefficient": 0.011428571428571429,
+        "collection_logp_error": 4.76837158203125e-07,
+        "optimization_seconds": 1.6554634999774862,
+        "optimization_cpu_seconds": 0.90625,
+        "policy_hash_before": "c5e22c4dbd39420a514e5e18622ec37a17bec4743a20cc43a87b89c3b5038204",
+        "policy_hash_after": "0baa26d7e878e440eb1a24085ae3c1107f14acd351fedfea1aa560bb1f714f55"
+      },
+      "reason": "PARITY",
+      "win": true,
+      "credit": {
+        "transitions": 116,
+        "terminal_bootstrap": 0.0,
+        "finite_advantages": true,
+        "zero_duration_terminal_transitions": 1,
+        "reward_sum": 17.696000000000026,
+        "components": {
+          "terminal": 10.0,
+          "kill": 9.0,
+          "ejection": 0.0,
+          "cooldown_ready": -1.304000000000005,
+          "pursuit": 3.469446951953614e-18
+        },
+        "elapsed_seconds": 215.4,
+        "cooldown_ready_seconds": 65.20000000000002,
+        "objective": {
+          "version": "impostor-rewards-v4",
+          "win": 10.0,
+          "loss": -10.0,
+          "timeout": -12.0,
+          "successful_kill": 3.0,
+          "own_ejection": -6.0,
+          "cooldown_ready_per_second": -0.02,
+          "pursuit_scale": 0.05,
+          "pursuit_min_progress": 0.05
+        },
+        "math": "impostor-terminal-time-gae-v2",
+        "optimizer_updates": 0
+      },
+      "behavior": {
+        "kills": 3,
+        "accepted_reports": 1,
+        "accepted_self_reports": 1,
+        "self_report_latencies": [
+          0.6000000000000001
+        ],
+        "witnessed_kill_events": 6,
+        "fake_task_starts": 1,
+        "fake_task_completions": 0,
+        "claims": {
+          "was_in_region": 1
+        }
+      }
+    },
+    {
+      "episode": 6,
+      "seed": 3600005,
+      "decisions": 615,
+      "optimizer_updates": 48,
+      "ppo": {
+        "minibatch_updates": 4,
+        "decisions": 37,
+        "completed_episode": 6,
+        "policy_loss": -0.0013154950393072795,
+        "value_loss": 107.98826026916504,
+        "actor_gradient_norm": 0.5227086395025253,
+        "critic_gradient_norm": 59.360490798950195,
+        "approximate_kl": 0.00013324839528650045,
+        "clip_fraction": 0.0,
+        "explained_variance": 0.06489682197570801,
+        "family_entropy": 0.850825309753418,
+        "joint_entropy": 3.5430946350097656,
+        "conditional_entropy": 0.6214496493339539,
+        "family_entropy_coefficient": 0.009285714285714286,
+        "collection_logp_error": 4.76837158203125e-07,
+        "optimization_seconds": 0.9167949000257067,
+        "optimization_cpu_seconds": 0.296875,
+        "policy_hash_before": "0baa26d7e878e440eb1a24085ae3c1107f14acd351fedfea1aa560bb1f714f55",
+        "policy_hash_after": "3c4ece7bed0a6a7475423e1a1cdb020ec4efcfcb20963dfbd6f958e9eb713191"
+      },
+      "reason": "IMPOSTOR_EJECTED",
+      "win": false,
+      "credit": {
+        "transitions": 37,
+        "terminal_bootstrap": 0.0,
+        "finite_advantages": true,
+        "zero_duration_terminal_transitions": 0,
+        "reward_sum": -13.264000000000001,
+        "components": {
+          "terminal": -10.0,
+          "kill": 3.0,
+          "ejection": -6.0,
+          "cooldown_ready": -0.26400000000000023,
+          "pursuit": 0.0
+        },
+        "elapsed_seconds": 75.2,
+        "cooldown_ready_seconds": 13.200000000000006,
+        "objective": {
+          "version": "impostor-rewards-v4",
+          "win": 10.0,
+          "loss": -10.0,
+          "timeout": -12.0,
+          "successful_kill": 3.0,
+          "own_ejection": -6.0,
+          "cooldown_ready_per_second": -0.02,
+          "pursuit_scale": 0.05,
+          "pursuit_min_progress": 0.05
+        },
+        "math": "impostor-terminal-time-gae-v2",
+        "optimizer_updates": 0
+      },
+      "behavior": {
+        "kills": 1,
+        "accepted_reports": 1,
+        "accepted_self_reports": 1,
+        "self_report_latencies": [
+          1.2000000000000002
+        ],
+        "witnessed_kill_events": 2,
+        "fake_task_starts": 0,
+        "fake_task_completions": 0,
+        "claims": {
+          "was_in_region": 1
+        }
+      }
+    },
+    {
+      "episode": 7,
+      "seed": 3600006,
+      "decisions": 673,
+      "optimizer_updates": 52,
+      "ppo": {
+        "minibatch_updates": 4,
+        "decisions": 58,
+        "completed_episode": 7,
+        "policy_loss": -0.0021453417530530317,
+        "value_loss": 139.47851943969727,
+        "actor_gradient_norm": 0.21216725185513496,
+        "critic_gradient_norm": 65.30629634857178,
+        "approximate_kl": 0.0012655560858547688,
+        "clip_fraction": 0.0,
+        "explained_variance": -0.30044591426849365,
+        "family_entropy": 0.9003260135650635,
+        "joint_entropy": 3.384760856628418,
+        "conditional_entropy": 0.5702458620071411,
+        "family_entropy_coefficient": 0.0071428571428571435,
+        "collection_logp_error": 4.76837158203125e-07,
+        "optimization_seconds": 0.23827689999598078,
+        "optimization_cpu_seconds": 0.234375,
+        "policy_hash_before": "3c4ece7bed0a6a7475423e1a1cdb020ec4efcfcb20963dfbd6f958e9eb713191",
+        "policy_hash_after": "563f832e291721f60cba6e81bac42b0f9f8872198ce3fef0bfc7c0b65c3fcc24"
+      },
+      "reason": "PARITY",
+      "win": true,
+      "credit": {
+        "transitions": 58,
+        "terminal_bootstrap": 0.0,
+        "finite_advantages": true,
+        "zero_duration_terminal_transitions": 1,
+        "reward_sum": 15.760000000000005,
+        "components": {
+          "terminal": 10.0,
+          "kill": 6.0,
+          "ejection": 0.0,
+          "cooldown_ready": -0.23999999999999996,
+          "pursuit": -1.734723475976807e-18
+        },
+        "elapsed_seconds": 117.6,
+        "cooldown_ready_seconds": 11.999999999999991,
+        "objective": {
+          "version": "impostor-rewards-v4",
+          "win": 10.0,
+          "loss": -10.0,
+          "timeout": -12.0,
+          "successful_kill": 3.0,
+          "own_ejection": -6.0,
+          "cooldown_ready_per_second": -0.02,
+          "pursuit_scale": 0.05,
+          "pursuit_min_progress": 0.05
+        },
+        "math": "impostor-terminal-time-gae-v2",
+        "optimizer_updates": 0
+      },
+      "behavior": {
+        "kills": 2,
+        "accepted_reports": 0,
+        "accepted_self_reports": 0,
+        "self_report_latencies": [],
+        "witnessed_kill_events": 4,
+        "fake_task_starts": 0,
+        "fake_task_completions": 0,
+        "claims": {
+          "was_in_region": 1
+        }
+      }
+    },
+    {
+      "episode": 8,
+      "seed": 3600007,
+      "decisions": 770,
+      "optimizer_updates": 60,
+      "ppo": {
+        "minibatch_updates": 8,
+        "decisions": 97,
+        "completed_episode": 8,
+        "policy_loss": -0.026681693270802498,
+        "value_loss": 83.87815284729004,
+        "actor_gradient_norm": 0.21267826575785875,
+        "critic_gradient_norm": 48.4348521232605,
+        "approximate_kl": 0.01240340992808342,
+        "clip_fraction": 0.0824742242693901,
+        "explained_variance": -0.05103147029876709,
+        "family_entropy": 1.0420703887939453,
+        "joint_entropy": 3.208425998687744,
+        "conditional_entropy": 0.49466198682785034,
+        "family_entropy_coefficient": 0.005000000000000001,
+        "collection_logp_error": 4.76837158203125e-07,
+        "optimization_seconds": 0.44106439998722635,
+        "optimization_cpu_seconds": 0.40625,
+        "policy_hash_before": "563f832e291721f60cba6e81bac42b0f9f8872198ce3fef0bfc7c0b65c3fcc24",
+        "policy_hash_after": "503f9a2a4836cdf11cd6286db353442fd0b2be6b26fff2a6eb43710dbb879c18"
+      },
+      "reason": "PARITY",
+      "win": true,
+      "credit": {
+        "transitions": 97,
+        "terminal_bootstrap": 0.0,
+        "finite_advantages": true,
+        "zero_duration_terminal_transitions": 1,
+        "reward_sum": 14.336000000000013,
+        "components": {
+          "terminal": 10.0,
+          "kill": 6.0,
+          "ejection": 0.0,
+          "cooldown_ready": -1.664000000000009,
+          "pursuit": 0.0
+        },
+        "elapsed_seconds": 189.0,
+        "cooldown_ready_seconds": 83.20000000000002,
+        "objective": {
+          "version": "impostor-rewards-v4",
+          "win": 10.0,
+          "loss": -10.0,
+          "timeout": -12.0,
+          "successful_kill": 3.0,
+          "own_ejection": -6.0,
+          "cooldown_ready_per_second": -0.02,
+          "pursuit_scale": 0.05,
+          "pursuit_min_progress": 0.05
+        },
+        "math": "impostor-terminal-time-gae-v2",
+        "optimizer_updates": 0
+      },
+      "behavior": {
+        "kills": 2,
+        "accepted_reports": 1,
+        "accepted_self_reports": 1,
+        "self_report_latencies": [
+          0.6000000000000001
+        ],
+        "witnessed_kill_events": 5,
+        "fake_task_starts": 2,
+        "fake_task_completions": 0,
+        "claims": {
+          "was_in_region": 1
+        }
+      }
+    }
+  ]
+}
