@@ -8,13 +8,14 @@ from .api import Action
 
 
 class Opponent:
-    def __init__(self,seed,held_out=False):
+    def __init__(self,seed,held_out=False,allowed_sabotages=('lights','oxygen','reactor')):
         weights=dict(aggressive=.5,stealthy=2.,self_report=.5,evasive=2.,social=1.) if held_out else None
         self.script=CoherentMixture(seed,weights=weights)
         self.rng=Random(stream_seed(seed,'pj:sabotage'))
         self.social=Random(stream_seed(seed,'pj:deception'))
         self.sabotage_probability=.65 if held_out else .35
         self.patient_until=0.;self.held_out=held_out
+        self.allowed_sabotages=tuple(allowed_sabotages)
 
     def decide(self,obs):
         a=obs.actor
@@ -23,8 +24,8 @@ class Opponent:
         a=replace(a,visible_players=tuple(p for p in a.visible_players if p.player_id not in obs.teammates),
                   actions=tuple(x for x in a.actions if not (x.kind in (IntentKind.KILL,IntentKind.VOTE) and x.target in obs.teammates)))
         if a.context.phase is Phase.ROAMING:
-            if obs.can_sabotage and self.rng.random()<self.sabotage_probability:
-                return Action('sabotage',self.rng.choice(('lights','oxygen','reactor')))
+            if obs.can_sabotage and self.allowed_sabotages and self.rng.random()<self.sabotage_probability:
+                return Action('sabotage',self.rng.choice(self.allowed_sabotages))
             # Bounded ambush/patient periods, not privileged pursuit through walls.
             if a.time_seconds<self.patient_until:return Intent(IntentKind.WAIT)
             if a.kill_cooldown and a.kill_cooldown>5 and self.rng.random()<.015:

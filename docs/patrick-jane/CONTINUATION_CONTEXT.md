@@ -81,3 +81,26 @@ witness-to-vote diagnostic. No implementation or new training has started.
 One million extrapolates to 8.83 hours before contingency and requires owner
 review/authorization. The larger stage, final partitions, production, partner
 branch and existing PRs remain untouched.
+
+## New owner-approved preparation — lights-only manual run
+
+The next user instruction changes the future regime: keep only lights sabotage
+and add a small unresolved-lights time cost. This overrides the attached
+disable-all-sabotage / preserve-all-coefficients language for those two settings.
+All original coefficient values, network/PPO design, normal kills and private
+actor memories remain unchanged. New cost is -0.005 per living crew per simulated
+dark second, including meetings; no ghost penalty.
+
+[Manual launch and results guide](RUN_LIGHTS_TRAINING.md). The default command
+opens the existing spectator, uses 32 workers and continues the preserved pilot
+checkpoint for one million **additional** decisions. The source-verified bridge
+records the regime change; it does not weaken the old strict loader. Eight
+paired entry/final development games replace extensive per-checkpoint evaluation.
+The new run has a 12-hour cumulative active ceiling and its own results folder.
+
+Preparation was checked with unit/compatibility tests and isolated, short
+32-worker interruption/resume/reporting runs. These are plumbing tests, not
+evidence of improved learning. Historical pilot/champion and all raw data remain
+unchanged. **Do not start the long run from the agent session.** The owner launches
+it manually and later asks the agent to inspect `lights-learning-v1` reports.
+See research R039/R040 for measured checks, limitations and negative findings.

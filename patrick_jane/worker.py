@@ -7,6 +7,7 @@ import traceback
 from pathlib import Path
 from phase3_engine import stream_seed,json_value
 from social_deduction.actor import Role,Phase
+from social_deduction.phase3_api import IntentKind
 from .environment import PatrickJaneGame
 from .memory import Memory
 from .navigation import NavigationMemory
@@ -21,8 +22,13 @@ class Match:
         self.crew=tuple(pid for pid,p in self.game.players.items() if p.role is Role.CREWMATE)
         self.memory={p:Memory(p,experiment.event_capacity) for p in self.crew}
         self.nav={p:NavigationMemory(self.game.map,stream_seed(seed,'pj:nav:'+p)) for p in self.crew}
-        self.opponents={p:Opponent(stream_seed(seed,'pj:script:'+p),held_out) for p in self.game.players if p not in self.crew}
-        self.ledger=RewardLedger(self.game);self.packets={};self.rewards=[];self.recorder=None;self.trace=hashlib.sha256()
+        self.opponents={p:Opponent(stream_seed(seed,'pj:script:'+p),held_out,
+            getattr(experiment,'allowed_sabotages',('lights','oxygen','reactor'))) for p in self.game.players if p not in self.crew}
+        if getattr(experiment,'profile',None)=='patrick-jane-lights-learning-v1':
+            from .lights_setup import LightsLedger
+            self.ledger=LightsLedger(self.game)
+        else:self.ledger=RewardLedger(self.game)
+        self.packets={};self.rewards=[];self.recorder=None;self.trace=hashlib.sha256()
         self.decisions=0;self.all_decisions=defaultdict(int);self.last_phase=self.game.phase
         self.last_direct={p:0 for p in self.crew};self.recording_seconds=0.
         self.live=None;self.cumulative=defaultdict(float)
@@ -105,7 +111,16 @@ class Match:
         while not self.game.is_terminal:
             pre={pid:p.active for pid,p in self.game.players.items()}
             previous_time=self.game.time
+            cursor=len(self.game.event_log)
             self.game.step(actions if first else {})
+            if getattr(self.game.experiment,'record_diagnostics',False):
+                for ev in self.game.event_log[cursor:]:
+                    if ev['kind']=='task_interrupted' and ev.get('reason')=='new_intention' and ev.get('player_id') in self.crew:
+                        action=actions.get(ev['player_id']) if first else None
+                        if action is not None and getattr(action,'kind',None) in (
+                                IntentKind.GO_TO_TASK,IntentKind.GO_TO_ROOM,
+                                IntentKind.GO_TO_LOCATION,IntentKind.GO_TO_BODY):
+                            self.game.learning_diagnostics['task_interruptions_navigation']+=1
             for pid,components in self.ledger.collect(self.game).items():
                 if components:self.rewards.append((self.game.time,pid,components))
             for pid in decisions:
@@ -163,7 +178,13 @@ class Match:
             ghost_tasks=sum(e['kind']=='task_completed' and e.get('ghost',False) for e in g.event_log),
             recording_seconds=self.recorder.seconds if self.recorder else 0.,
             monitor_seconds=self.live.seconds if self.live else 0.,monitor_error=self.live.error if self.live else None,
-            monitor_transient_write_failures=self.live.transient_write_failures if self.live else 0)
+            monitor_transient_write_failures=self.live.transient_write_failures if self.live else 0,
+            learning_diagnostics={**dict(g.learning_diagnostics),
+                'task_starts':sum(e['kind']=='task_start' and e.get('player_id') in self.crew for e in g.event_log),
+                'task_interruptions':sum(e['kind']=='task_interrupted' and e.get('player_id') in self.crew for e in g.event_log),
+                'task_interruptions_new_intention':sum(e['kind']=='task_interrupted' and e.get('player_id') in self.crew and e.get('reason')=='new_intention' for e in g.event_log),
+                'navigation_requests':sum(e['kind']=='navigate' and e.get('player_id') in self.crew for e in g.event_log),
+                'lights_actor_seconds':sum(g.lights_actor_seconds.values())})
 
 
 def serve(connection):

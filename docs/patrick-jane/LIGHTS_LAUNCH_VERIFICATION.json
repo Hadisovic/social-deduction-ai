@@ -1,0 +1,45 @@
+{
+  "long_run_started": false,
+  "protected_external_files_checked": 206,
+  "protected_changed": [],
+  "original_pilot_checkpoints_unchanged": 9,
+  "pilot_champion_unchanged": true,
+  "engineering_repeat_scenarios": 32,
+  "engineering_repeat_action_hashes_identical": 32,
+  "engineering_repeat_weights_identical": true,
+  "engineering_resumed_additional_decisions": 12153,
+  "engineering_resumed_updates": 2,
+  "engineering_finalcheck_additional_decisions": 6306,
+  "warning": "Twelve-second engineering matches verify plumbing and reproducibility, not learning or normal-match throughput",
+  "full_pj_suite": {
+    "passed": 56,
+    "seconds": 41.852
+  },
+  "final_focused_suite": {
+    "passed": 11,
+    "seconds": 8.203
+  },
+  "historical_compatibility": {
+    "passed": 18,
+    "seconds": 33.99
+  },
+  "default_command_preflight": "passed; no long-run folder created",
+  "negative_reward_report_fix": "verified with unit fixture and unchanged raw engineering batches",
+  "final_report_source_sha256": "250fa586ba55f62d8ead33bc090c1df446a19971caa3214b63f9c4f405e7a945",
+  "frozen_actor_source_files": 55,
+  "default_warm_start": "pilot-250k-seed17-v3/checkpoints/update-000006.pt",
+  "default_warm_start_sha256": "d8b81ef06788a0139822a5677801f34069aef116286cc079cb12de8c39538ab8",
+  "manual_run_configuration": {
+    "workers": 32,
+    "additional_decisions": 1000000,
+    "allowed_sabotages": [
+      "lights"
+    ],
+    "lights_cost_per_living_actor_simulated_second": 0.005,
+    "entry_validation_games": 8,
+    "final_validation_games": 8,
+    "active_wall_ceiling_hours": 12
+  },
+  "report_fix_preservation": "Original engineering report versions retained under report-history; raw batches/checkpoints unchanged",
+  "final_source_manifest_sha256": "fc369f53bb09e5ad783a2a7ad478c431e09e1b61bfcb66569751d8e16cb09579"
+}

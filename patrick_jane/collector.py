@@ -132,7 +132,7 @@ def collect(policy,pool,experiment,seeds,*,device='cpu',update=0,training_step=0
                     raise RuntimeError('Absolute decision ceiling reached; partial matches withheld from PPO')
                 commands[i][pid]=dict(choice=choice,logp=float(lp),value=float(out['value']),entropy=float(en),
                     probabilities=probs if (replay_dir and record_every and i%record_every==0 or responses[i].get('monitoring')) else {},
-                    update=update,training_step=training_step+counts)
+                    update=update,training_step=training_step,collection_decisions=counts)
             inference_seconds+=perf_counter()-started
         started=perf_counter();responses=pool.call({i:('advance',decisions) for i,decisions in commands.items()});simulation_seconds+=perf_counter()-started
         if status_callback and perf_counter()-last_notice>10:

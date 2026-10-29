@@ -3,6 +3,7 @@ from dataclasses import replace
 import math
 from random import Random
 from types import MappingProxyType
+from collections import Counter,defaultdict
 from among_us_map import get_map
 from among_us_map_simulation import AmongUsMapEnv
 from navigation_service import NavigationPlanner, NavigationService, ControllerConfig, NavStatus, NavTarget
@@ -31,6 +32,7 @@ class PatrickJaneGame(CrewmateV2Game):
         self.seed = int(seed); self.tick = 0; self.phase = Phase.ROAMING
         self.phase_started_tick = 0; self.result = None
         self.players = {}; self.bodies = {}; self.tasks = {}
+        self.learning_diagnostics=Counter();self.lights_actor_seconds=defaultdict(float)
         self.publications = []; self.event_log = []; self._observation_cache = {}; self._snapshot_cache = None
         self._meeting_number = 0; self.meeting_id = None; self.participants = ()
         self.votes = {}; self.claimed = set()
@@ -111,7 +113,8 @@ class PatrickJaneGame(CrewmateV2Game):
         return Observation(actor,obs.own_tasks,(obs.task_bar.completed,obs.task_bar.total),tuple(public),
             self.sabotage,max(0.,self.sabotage_deadline-self.time) if self.sabotage_deadline is not None else None,
             self.utilities.get(self.sabotage,()),tuple(sorted(self.repaired)),
-            active and actor.own.role is Role.IMPOSTOR and self.sabotage is None and self.time>=self.sabotage_ready,
+            active and actor.own.role is Role.IMPOSTOR and self.sabotage is None and self.time>=self.sabotage_ready
+                and bool(getattr(self.experiment,'allowed_sabotages',('lights','oxygen','reactor'))),
             teammates if actor.own.role is Role.IMPOSTOR else (),
             tuple(self.players[player_id].navigator.route[getattr(self.players[player_id].navigator,'_waypoint',0):]),
             max(0.,self.emergency_ready-self.time),self.repair_holds.get(player_id))
@@ -172,7 +175,8 @@ class PatrickJaneGame(CrewmateV2Game):
     def _extension_allowed(self,pid,action,obs):
         if type(action) is not Action or not obs.actor.own.active: return False
         base=obs.actor
-        if action.kind=='sabotage': return obs.can_sabotage and action.target in self.utilities
+        if action.kind=='sabotage': return (obs.can_sabotage and action.target in self.utilities
+            and action.target in getattr(self.experiment,'allowed_sabotages',('lights','oxygen','reactor')))
         if action.kind=='repair':
             return (base.context.phase is Phase.ROAMING and action.target in obs.repair_locations
                     and action.target not in obs.repaired_locations and action.target in base.interactable_destinations)
@@ -186,6 +190,8 @@ class PatrickJaneGame(CrewmateV2Game):
         return False
 
     def _begin_sabotage(self,kind):
+        if kind not in getattr(self.experiment,'allowed_sabotages',('lights','oxygen','reactor')):
+            raise ValueError('Sabotage disabled by this experiment profile')
         self.repair_holds.clear()
         self.sabotage=kind; self.sabotage_number+=1; self.repaired.clear(); self.repair_contributors.clear()
         seconds=getattr(self.experiment.sabotage,kind+'_seconds',None)
@@ -272,10 +278,27 @@ class PatrickJaneGame(CrewmateV2Game):
         elif self.phase is Phase.VOTING:
             for pid,a in valid.items():
                 if a.kind in (IntentKind.VOTE,IntentKind.SKIP):self._vote(pid,a.target if a.kind is IntentKind.VOTE else None)
-        if self.phase is Phase.ROAMING:self._advance_physics()
+        if self.phase is Phase.ROAMING:
+            previous_status={p.player_id:p.navigator.status for p in self.players.values()}
+            self._advance_physics()
+            if getattr(self.experiment,'record_diagnostics',False):
+                self.learning_diagnostics['navigation_arrivals']+=sum(p.active and p.role is Role.CREWMATE
+                    and previous_status[p.player_id] is NavStatus.MOVING and p.navigator.status is NavStatus.SUCCESS
+                    for p in self.players.values())
         else:
             for t in self.tasks.values():
                 if t.progress<1 and t.ready_at>self.time:t.ready_at+=self.config.dt
+        if getattr(self.experiment,'record_diagnostics',False):
+            dt=self.config.dt;d=self.learning_diagnostics
+            alive=[p for p in self.players.values() if p.active and p.role is Role.CREWMATE]
+            d['alive_actor_seconds']+=dt*len(alive)
+            if self.sabotage=='lights':
+                d['lights_active_seconds']+=dt
+                for p in alive:self.lights_actor_seconds[p.player_id]+=dt
+            if self.phase is Phase.ROAMING:
+                d['moving_actor_seconds']+=dt*sum(any(abs(v)>1e-8 for v in p.velocity) for p in alive)
+                d['task_actor_seconds']+=dt*sum(p.interaction_task is not None for p in alive)
+            else:d['meeting_actor_seconds']+=dt*len(alive)
         self.tick+=1;self._invalidate()
         if self.phase is Phase.ROAMING:
             self._advance_tasks();self._advance_ghosts()

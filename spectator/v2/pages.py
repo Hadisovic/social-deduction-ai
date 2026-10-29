@@ -217,6 +217,10 @@ class Pages:
         from pathlib import Path
         status=app.status;y=r.y;counters=status.get('counters',{})
         text(surface,'PATRICK JANE · CENTRAL RECURRENT PPO',r.x,y,18,CYAN,True);y+=38
+        completion=status.get('completion_status',{})
+        if completion:
+            label='TRAINING COMPLETE' if completion.get('success') else 'TRAINING '+str(completion.get('state','stopped')).upper()
+            text(surface,label,r.x,y,18,LIME if completion.get('success') else AMBER,True);y+=32
         for label,value in [('Stage',status.get('stage','Registered training')),('Update',counters.get('update',0)),
             ('Individual crew decisions',counters.get('individual_decisions',0)),('Worker environments',status.get('workers',0)),
             ('Elapsed seconds',round(status.get('elapsed',0),1))]:
