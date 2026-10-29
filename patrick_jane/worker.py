@@ -22,6 +22,9 @@ class Match:
         self.crew=tuple(pid for pid,p in self.game.players.items() if p.role is Role.CREWMATE)
         self.memory={p:Memory(p,experiment.event_capacity) for p in self.crew}
         self.nav={p:NavigationMemory(self.game.map,stream_seed(seed,'pj:nav:'+p)) for p in self.crew}
+        if getattr(experiment,'task_commitment_mode',False):
+            from .commitment import Commitment
+            for pid in self.crew:self.nav[pid].commitment=Commitment(pid)
         self.opponents={p:Opponent(stream_seed(seed,'pj:script:'+p),held_out,
             getattr(experiment,'allowed_sabotages',('lights','oxygen','reactor'))) for p in self.game.players if p not in self.crew}
         if str(getattr(experiment,'profile','')).startswith('patrick-jane-lights-learning-'):
@@ -54,6 +57,8 @@ class Match:
         for pid in self.crew:
             if pid not in self.observations:continue
             obs=self.observations[pid];a=obs.actor
+            c=self.nav[pid].commitment
+            if c:c.sync(obs,self.nav[pid])
             self._bonus(pid,obs)
             eligible=(a.context.phase is Phase.ROAMING or
                 a.context.phase is Phase.DISCUSSION and a.context.speaker_id==pid or
@@ -88,6 +93,7 @@ class Match:
         actions={}
         for pid,record in decisions.items():
             choice=record['choice'];packet=self.packets[pid]
+            if self.nav[pid].commitment:self.nav[pid].commitment.selected(packet,choice)
             actions[pid]=execute(choice,packet,self.nav[pid]);self.decisions+=1;self.all_decisions[pid]+=1
             counts=self.selected[pid]
             if packet.phase==2:
@@ -112,8 +118,10 @@ class Match:
         while not self.game.is_terminal:
             pre={pid:p.active for pid,p in self.game.players.items()}
             previous_time=self.game.time
+            waiting_before={pid:bool(n.commitment and n.commitment.task and self.game.tasks[n.commitment.task].ready_at>previous_time+1e-9) for pid,n in self.nav.items()}
             cursor=len(self.game.event_log)
             self.game.step(actions if first else {})
+            self._commitment_events(self.game.event_log[cursor:],previous_time,waiting_before)
             if getattr(self.game.experiment,'record_diagnostics',False):
                 for ev in self.game.event_log[cursor:]:
                     if ev['kind']=='task_interrupted' and ev.get('reason')=='new_intention' and ev.get('player_id') in self.crew:
@@ -130,9 +138,12 @@ class Match:
                 # decision is fabricated for the critic bootstrap.
                 for pid in self.crew:
                     if not self.game.players[pid].active:continue
-                    obs=self.game.observe_pj(pid);self._bonus(pid,obs)
+                    obs=self.game.observe_pj(pid)
+                    if self.nav[pid].commitment:self.nav[pid].commitment.sync(obs,self.nav[pid])
+                    self._bonus(pid,obs)
                     self.bootstrap_packets[pid]=model_packet(encode(obs,self.memory[pid],self.nav[pid]))
                 self.game.finalize_truncation()
+                self._commitment_events([],self.game.time)
             for pid in decisions:
                 p=self.game.players[pid];packet=self.packets[pid]
                 waiting_tasks=[t for t,d in zip(packet.observation.actor.own.tasks,packet.observation.own_tasks)
@@ -142,7 +153,7 @@ class Match:
                 # Measure actual elapsed physics time; exclude incubation, interaction,
                 # movement and meetings rather than charging a nominal .6 seconds.
                 avoidable=(pre[pid] and p.active and start_phase is Phase.ROAMING and self.game.phase is Phase.ROAMING and
-                           p.navigator.status.value!='moving' and p.interaction_task is None and pid not in self.game.repair_holds and not incubation_wait and
+                           p.navigator.status.value!='moving' and p.interaction_task is None and pid not in self.game.repair_holds and not incubation_wait and not (self.nav[pid].commitment and self.nav[pid].commitment.task and self.nav[pid].commitment.incubating) and
                            decisions[pid]['choice'].interaction==0 and decisions[pid]['choice'].navigation==0)
                 penalty=self.ledger.waiting(pid,self.game.time-previous_time,avoidable)
                 if penalty:self.rewards.append((self.game.time,pid,penalty))
@@ -159,6 +170,31 @@ class Match:
             if self.recorder:self.recorder.finish()
             return response
         return self.prepare()
+
+    def _commitment_events(self,events,previous_time,waiting_before=None):
+        for pid in self.crew:
+            c=self.nav[pid].commitment
+            if not c:continue
+            for e in events:
+                if e.get('player_id')==pid and e['kind']=='task_start':c.start(e['task_id'],previous_time)
+                if e.get('player_id')==pid and e['kind']=='navigation_failed':c.failed_route()
+                if e.get('player_id')==pid and e['kind']=='task_interrupted' and c.task:
+                    reason=e.get('reason','unknown');c.stats['commitment_interruptions_'+reason]+=1
+                    c.event('interruption',reason=reason,exception=c.pause)
+                    if reason in ('new_intention','cancelled','task_start') and c.pause is None:
+                        c.stats['commitment_unintended_abandonments']+=1;c.fail('unmasked_interruption')
+            if c.task:
+                dt=self.game.time-previous_time
+                c.stats['commitment_actor_seconds']+=dt
+                if self.game.phase is not Phase.ROAMING:c.stats['commitment_meeting_seconds']+=dt
+                if (waiting_before.get(pid,False) if waiting_before is not None else c.incubating) and self.game.phase is Phase.ROAMING:c.stats['commitment_incubation_seconds']+=dt
+                if any(e.get('player_id')==pid and e['kind']=='task_completed' and not e.get('ghost',False) for e in events):c.close('completed',self.game.time)
+                elif not self.game.players[pid].active:c.close('death',self.game.time)
+                elif self.game.is_terminal:c.close('match_finished',self.game.time)
+                elif c.failure and self.game.phase is Phase.ROAMING:
+                    self.game.truncation_pending=dict(cause=c.failure,player_id=pid,task_id=c.task,simulation_seconds=self.game.time,stage=c.stage)
+            for e in c.events:self.game._record(channel='spectator-private',**e)
+            c.events=[]
 
     def summary(self):
         g=self.game;result=g.result
@@ -195,7 +231,8 @@ class Match:
                 'task_interruptions':sum(e['kind']=='task_interrupted' and e.get('player_id') in self.crew for e in g.event_log),
                 'task_interruptions_new_intention':sum(e['kind']=='task_interrupted' and e.get('player_id') in self.crew and e.get('reason')=='new_intention' for e in g.event_log),
                 'navigation_requests':sum(e['kind']=='navigate' and e.get('player_id') in self.crew for e in g.event_log),
-                'lights_actor_seconds':sum(g.lights_actor_seconds.values())})
+                'lights_actor_seconds':sum(g.lights_actor_seconds.values()),
+                **dict(sum((n.commitment.stats for n in self.nav.values() if n.commitment),Counter()))})
 
 
 def serve(connection):

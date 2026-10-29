@@ -39,6 +39,7 @@ class Packet:
     candidates: tuple[Target,...]
     other_ids: tuple[str,...]
     observation: Observation
+    commitment_masks: dict | None = None
 
 
 def encode(obs,memory,nav):
@@ -127,12 +128,19 @@ def encode(obs,memory,nav):
     vm=np.zeros(15,bool)
     for i,pid in enumerate(ids):vm[i]=pid in a.context.participants and pid not in memory.known_dead
     vm[14]=True
-    return Packet(self_features,players,pm,ev,em,tf,types,im,nm,cm,vm,phase,tuple(candidates),ids,obs)
+    packet=Packet(self_features,players,pm,ev,em,tf,types,im,nm,cm,vm,phase,tuple(candidates),ids,obs)
+    commitment=getattr(nav,'commitment',None)
+    if commitment:
+        if len(values)>188:raise ValueError('Commitment observation padding overlaps existing features')
+        self_features[188:]=[float(commitment.task is not None),next((i+1 for i,t in enumerate(own.tasks) if t.task_id==commitment.task),0)/4,float(commitment.pause is not None),float(commitment.incubating)]
+        commitment.constrain(packet)
+    return packet
 
 
 def target_mask(packet,kind,choice):
     """Conditional masks are reproducible from the stored pre-action packet."""
     if hasattr(packet,'conditional_masks'):return packet.conditional_masks[(kind,choice)]
+    if getattr(packet,'commitment_masks',None) is not None and (kind,choice) in packet.commitment_masks:return packet.commitment_masks[kind,choice]
     a=packet.observation.actor
     mask=np.zeros(len(packet.candidates),bool)
     for i,t in enumerate(packet.candidates):

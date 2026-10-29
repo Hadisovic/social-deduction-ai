@@ -12,11 +12,13 @@ from patrick_jane.config import ENGINEERING
 from social_deduction.actor import Role
 
 class RewardTransitionTests(unittest.TestCase):
-    def test_verified_weights_reset_adam_and_correct_counts(self):
+    def test_verified_weights_retain_adam_and_correct_counts(self):
         torch.set_num_threads(1);p=PatrickJane();o=torch.optim.Adam(p.parameters(),lr=.0003)
-        c,info=import_update11(p,o,np.random.default_rng(17))
-        self.assertEqual(c['individual_decisions'],764660);self.assertEqual(c['run_decisions'],509577)
-        self.assertEqual(info['policy_tensors_verified'],52);self.assertEqual(len(o.state),0)
+        from patrick_jane.commitment_transition import import_update16
+        with self.assertRaises(ValueError):import_update11(p,o,np.random.default_rng(17))
+        c,info=import_update16(p,o,np.random.default_rng(17))
+        self.assertEqual(c['individual_decisions'],1266883);self.assertEqual(c['run_decisions'],502223)
+        self.assertEqual(info['policy_tensors_verified'],52);self.assertEqual(len(o.state),52)
         self.assertEqual(COEFFICIENTS,APPROVED)
 
     def test_death_minus_two_valid_duplicate_and_ghost_pay_rejected(self):

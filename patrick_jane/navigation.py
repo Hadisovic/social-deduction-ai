@@ -38,7 +38,7 @@ class Goal:
 class NavigationMemory:
     def __init__(self,geometry,seed):
         self.geometry=geometry;self.rng=Random(seed);self.goal=None;self.original=None
-        self.detour_until=0.;self.last_change=-math.inf;self.cursor=0
+        self.detour_until=0.;self.last_change=-math.inf;self.cursor=0;self.commitment=None
         # Every reachable grid node is eligible, including edges/corners/corridors.
         self.nodes=np.asarray(geometry.nodes,dtype=np.float64)
         shapely.prepare(geometry.ray_barriers)
@@ -72,6 +72,8 @@ class NavigationMemory:
 
     def command(self,mode,goal,now,obs):
         if mode==0:
+            if obs.actor.interaction_task is not None:return Intent(IntentKind.WAIT)
+            if self.commitment and self.commitment.task and self.commitment.incubating and obs.actor.navigation_status!='moving':return Intent(IntentKind.WAIT)
             if self.original is not None and (obs.actor.navigation_status!='moving' or now>=self.detour_until):
                 self.goal=self.original;self.original=None
                 return self._intent(self.goal)

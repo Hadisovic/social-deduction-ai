@@ -54,6 +54,7 @@ def recover(folder,history,policy,optimizer,rng,experiment):
 
 def audit_lights(rollout):
     audit_rollout(rollout)
+    if sum(str(m.get('truncation',{}).get('cause','')).startswith('commitment_') for m in rollout['matches'] if m.get('truncation'))>=3:raise RuntimeError('Repeated commitment failures; preserve raw batch for review')
     for i,m in enumerate(rollout['matches']):
         if set(m['sabotages_by_kind'])-{'lights'}:raise RuntimeError('Forbidden sabotage in lights-only run')
         actual=sum(v.get('lights_unresolved_time',0) for owner,v in rollout['reward_components'].items() if owner.startswith(str(i)+'/'))
@@ -68,19 +69,22 @@ def select_uncensored_champion(checkpoint,matches,folder):
     return select_champion(checkpoint,matches,folder)
 
 
-def inspect(reward_v2=False):
+def inspect(reward_v2=False,commitment_mode=False):
     torch.set_num_threads(1);p=PatrickJane();o=torch.optim.Adam(p.parameters(),lr=.0003);rng=np.random.default_rng(17)
     if not torch.cuda.is_available():raise RuntimeError('Registered CUDA training device unavailable; no silent CPU fallback')
-    if reward_v2:
+    if commitment_mode:
+        from .commitment_transition import import_update16
+        c,provenance=import_update16(p,o,rng)
+    elif reward_v2:
         from .reward_transition import import_update11
         c,provenance=import_update11(p,o,rng)
     else:c,provenance=import_pilot(PILOT/'checkpoints/update-000006.pt',PILOT/'source-snapshot.zip',p,o,rng)
-    return dict(workers=32,additional_target=490423 if reward_v2 else 1000000,base_decisions=c['individual_decisions'],
-        device=torch.cuda.get_device_name(0),policy_parameters=sum(x.numel() for x in p.parameters()),profile=LightsExperiment().to_dict(),import_provenance=provenance)
+    return dict(workers=32,additional_target=250000 if commitment_mode else 490423 if reward_v2 else 1000000,base_decisions=c['individual_decisions'],
+        device=torch.cuda.get_device_name(0),policy_parameters=sum(x.numel() for x in p.parameters()),profile=LightsExperiment(task_commitment_mode=commitment_mode).to_dict(),import_provenance=provenance)
 
 
 def train(folder,*,additional_target=1000000,workers=32,wall_seconds=43200,device='cuda',
-          engineering=False,stop_after_updates=None,reward_v2=False,prepare_only=False):
+          engineering=False,stop_after_updates=None,reward_v2=False,prepare_only=False,commitment_mode=False):
     if not 1<=workers<=32 or type(additional_target) is not int or additional_target<=0 or wall_seconds<=0:
         raise ValueError('Positive budget/wall limit and 1..32 workers required')
     if not engineering and stop_after_updates is not None:raise ValueError('Test interruption flag is engineering-only')
@@ -89,13 +93,13 @@ def train(folder,*,additional_target=1000000,workers=32,wall_seconds=43200,devic
         if read(folder/'completion-status.json',{}).get('state')=='complete':
             print('PATRICK JANE — TRAINING COMPLETE (100%) — existing run; no additional training launched',flush=True)
             print('REPORT: '+str(folder/'TRAINING_REPORT.md'),flush=True);return 0
-        return _train(folder,additional_target,workers,wall_seconds,device,engineering,stop_after_updates,reward_v2,prepare_only)
+        return _train(folder,additional_target,workers,wall_seconds,device,engineering,stop_after_updates,reward_v2,prepare_only,commitment_mode)
 
 
-def _train(folder,target,workers,wall_seconds,device,engineering,stop_after_updates,reward_v2=False,prepare_only=False):
+def _train(folder,target,workers,wall_seconds,device,engineering,stop_after_updates,reward_v2=False,prepare_only=False,commitment_mode=False):
     began=perf_counter();torch.set_num_threads(1);torch.use_deterministic_algorithms(True)
-    experiment=LightsExperiment()
-    base_decisions=764660 if reward_v2 else 255083
+    experiment=LightsExperiment(task_commitment_mode=commitment_mode)
+    base_decisions=1266883 if commitment_mode else 764660 if reward_v2 else 255083
     if engineering:experiment=replace(experiment,technical_max_seconds=12.,evaluation_matches=2)
     policy=PatrickJane().to(device);optimizer=torch.optim.Adam(policy.parameters(),lr=experiment.learning_rate)
     rng=np.random.default_rng(17);history=read(folder/'history.json',[])
@@ -110,7 +114,7 @@ def _train(folder,target,workers,wall_seconds,device,engineering,stop_after_upda
     state='failed';error=None;current=None;progress=None;import_provenance=None
     try:
         if reg:
-            if reg.get('reward_regime','lights-v1')!=('rewards-v2' if reward_v2 else 'lights-v1'):raise ValueError('Reward regime mismatch')
+            if reg.get('reward_regime','lights-v1')!=('commitment-v1' if commitment_mode else 'rewards-v2' if reward_v2 else 'lights-v1'):raise ValueError('Reward regime mismatch')
             if reg['experiment']!=json.loads(json.dumps(experiment.to_dict())) or reg['workers']!=workers or reg['additional_target']!=target or reg['wall_seconds']!=wall_seconds:
                 raise ValueError('Run already registered with different settings; use a separate run folder')
             if reg['sources']!=source_lock():raise ValueError('Frozen run source changed; restore the registered source before resuming')
@@ -120,7 +124,10 @@ def _train(folder,target,workers,wall_seconds,device,engineering,stop_after_upda
             if history!=prior_history:atomic_json(attempt/'previous-history.json',prior_history)
             atomic_json(folder/'history.json',history);atomic_json(folder/'latest.json',pointer)
         else:
-            if reward_v2:
+            if commitment_mode:
+                from .commitment_transition import import_update16
+                counters,import_provenance=import_update16(policy,optimizer,rng)
+            elif reward_v2:
                 from .reward_transition import import_update11
                 counters,import_provenance=import_update11(policy,optimizer,rng)
             else:counters,import_provenance=import_pilot(PILOT/'checkpoints/update-000006.pt',PILOT/'source-snapshot.zip',policy,optimizer,rng)
@@ -129,7 +136,7 @@ def _train(folder,target,workers,wall_seconds,device,engineering,stop_after_upda
             reg=dict(schema='patrick-jane-lights-run-v1',engineering=engineering,experiment=json.loads(json.dumps(experiment.to_dict())),
                 workers=workers,additional_target=target,absolute_additional_ceiling=math.ceil(target*1.10),wall_seconds=wall_seconds,
                 base_decisions=base_decisions,base_update=counters['update'],base_matches=counters['complete_matches'],
-                reward_regime='rewards-v2' if reward_v2 else 'lights-v1',reward_coefficients=dict(__import__('patrick_jane.rewards',fromlist=['COEFFICIENTS']).COEFFICIENTS),previous_regime_additional_decisions=509577 if reward_v2 else 0,training_seeds=list(ENGINEERING[:80] if engineering else DEV_TRAIN),
+                reward_regime='commitment-v1' if commitment_mode else 'rewards-v2' if reward_v2 else 'lights-v1',reward_coefficients=dict(__import__('patrick_jane.rewards',fromlist=['COEFFICIENTS']).COEFFICIENTS),previous_regime_additional_decisions=1011800 if commitment_mode else 509577 if reward_v2 else 0,training_seeds=list(ENGINEERING[:80] if engineering else DEV_TRAIN),
                 validation_seeds=list((ENGINEERING[80:80+experiment.evaluation_matches]) if engineering else DEV_VALIDATION[:experiment.evaluation_matches]),
                 source_snapshot=freeze_sources(folder),sources=source_lock(),import_provenance=import_provenance,
                 evaluation='paired entry and final only; no large per-checkpoint evaluations',
@@ -138,7 +145,7 @@ def _train(folder,target,workers,wall_seconds,device,engineering,stop_after_upda
                     cuda=torch.version.cuda,device=torch.cuda.get_device_name(0) if device=='cuda' else device,worker_hash_seed=0),
                 final_partitions='unopened',acceptance='pending')
             launchers={}
-            for name in ('Start-PatrickJaneLights.ps1','tools/run_pj_learning.py','tools/report_patrick_jane_pilot.py','Start-PatrickJaneRewardsV2.ps1'):
+            for name in ('Start-PatrickJaneLights.ps1','tools/run_pj_learning.py','tools/report_patrick_jane_pilot.py','Start-PatrickJaneRewardsV2.ps1','Start-PatrickJaneCommitment.ps1'):
                 source=ROOT/name;dest=folder/'launchers'/Path(name).name;dest.parent.mkdir(exist_ok=True)
                 dest.write_bytes(source.read_bytes());launchers[name]=digest(dest)
             reg['launcher_sha256']=launchers

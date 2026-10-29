@@ -56,6 +56,7 @@ def neural_record(recorder,match,pid,record,packet,nav):
             selected_action_index=getattr(c,'voting') if packet.phase==2 else None)
         game=match.game
         recorder.recorder.write_event(dict(tick=game.tick,time=game.time,kind='patrick_jane_decision',
-            channel='spectator-private',player_id=pid,heads={name:getattr(c,name) for name in names},
+            channel='spectator-private',player_id=pid,commitment_task=getattr(nav.commitment,'task',None),
+                    commitment_pause=getattr(nav.commitment,'pause',None),forced_decision=getattr(nav.commitment,'last_forced',False),heads={name:getattr(c,name) for name in names},
             destination=nav.goal.key if nav.goal else None,route_before_action=list(game.players[pid].navigator.route),
             conditional_head_probabilities=record.get('probabilities',{}),update=record.get('update',0)))

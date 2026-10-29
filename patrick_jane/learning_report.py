@@ -72,6 +72,7 @@ def generate(folder,state,*,active_seconds=0.,error=None,plots=True):
             'On-policy training curves change scenarios and policy together; reward alone is not improvement',
             'Automatic ghost work and reporter/script patterns remain confounds; rewards-v2 ghost work earns zero direct reward',
             'Technical cuts censor future ghost/team credits; win rates and paired comparisons condition on uncensored outcomes',
+            'Commitment masks scaffold execution; forced actions are not evidence of learned voluntary persistence',
             'No reserved final-test partition used'])
     atomic_json(folder/'training_results.json',result)
     t=training['totals'];d=training['diagnostics'];a=training['actions']
@@ -90,6 +91,8 @@ def generate(folder,state,*,active_seconds=0.,error=None,plots=True):
         '## Task and navigation diagnostics','',
         '| Measurement | Count / simulated actor-seconds |','|---|---:|']
     lines += [f'| {k} | {v:.4f} |' for k,v in sorted(d.items())]
+    if reg.get('experiment',{}).get('task_commitment_mode'):
+        lines+=['',f"Task Commitment Mode: ON. Forced singleton decisions: {d.get('forced_decisions',0):,}; choice-bearing/voluntary decisions: {d.get('voluntary_decisions',0):,}. Their sum is actual neural actor calls, including social decisions and pre-existing singleton navigation choices. The commitment_forced_decisions / commitment_voluntary_decisions rows separately count choices while a task is committed. Task starts, full living completions, interruptions by reason, pause/incubation/meeting time and ended commitment durations are separate rows above. Forced actions have log-probability and entropy zero; scaffolded performance does not establish unlocked persistence.",'Legal report/repair pauses retain the task. Emergency calls and unrelated detours are blocked. Three route failures or 60 seconds without relevant progress cause a technical truncation; meetings/incubation pause the progress watchdog. Three commitment failures in one batch stop the run before PPO. No abandonment penalty.']
     lines+=['','Movement time counts physics ticks with actual movement; task work counts active interaction ticks. These are actor-seconds, not wall time. Meetings pause tasks/ghost work; darkness penalties continue only for living crew while lights remain unresolved. Task stages may start repeatedly and are not the same as complete owned tasks. Navigation interruptions are measured from actual submitted navigation intents.','',
         '## Reward components (raw totals)','', '| Component | Total |','|---|---:|']
     lines += [f'| {k} | {v:.5f} |' for k,v in sorted(components.items())]

@@ -146,3 +146,18 @@ optimizer. Reports keep regimes separate. Old phase time is carried forward
 into the combined 12-hour ceiling. No long run started by the agent; owner uses
 the one command in the guide. Phase 6.1 acceptance remains pending; R043 and
 `REWARDS_V2_VERIFICATION.json` preserve tests and qualification.
+
+## Current owner-approved Task Commitment stage
+
+Rewards V2 completed at update 16, 1,266,883 lifetime decisions / 502,223 phase
+decisions. Owner rejected abandonment penalties and approved configurable task
+commitment with legal report/lights-repair pauses. Keep Rewards V2 unchanged.
+The new [Task Commitment guide](TASK_COMMITMENT.md) is the current manual launcher
+reference: `Start-PatrickJaneCommitment.ps1`, 32 workers, nominal 250,000 new
+decisions, separate `task-commitment-v1` folder. Long training remains unstarted.
+Retain update-16 weights, Adam and RNG exactly; new input/mask semantics have an
+audited source transition and ordinary strict recovery. Flag defaults OFF but
+is frozen ON in this stage. No ghost-style living task executor or NN redesign.
+Record singleton/choice-bearing counts separately; assisted completion does not
+establish persistence after unlocking. R044 and `TASK_COMMITMENT_VERIFICATION.json`
+retain tests, one frozen development match and bounded launcher/recovery checks.

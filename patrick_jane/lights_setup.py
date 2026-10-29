@@ -11,12 +11,14 @@ class LightsExperiment(Experiment):
     lights_penalty_per_second: float = .005
     record_diagnostics: bool = True
     evaluation_matches: int = 8
+    task_commitment_mode: bool = False
     normal_match_timeout: bool = False
     technical_max_seconds: float = 1800.
     technical_stall_seconds: float = 300.
 
     def __post_init__(self):
         super().__post_init__()
+        if type(self.task_commitment_mode) is not bool:raise ValueError('Commitment flag must be boolean')
         if self.profile != 'patrick-jane-lights-learning-v2':raise ValueError('Unknown lights profile')
         if len(set(self.allowed_sabotages))!=len(self.allowed_sabotages) or any(
                 k not in ('lights','oxygen','reactor') for k in self.allowed_sabotages):

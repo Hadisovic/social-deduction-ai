@@ -7,6 +7,7 @@ param(
     [switch]$CheckOnly,
     [switch]$EngineeringCheck,
     [switch]$RewardV2,
+    [switch]$Commitment,
     [int]$StopAfterUpdates = 0
 )
 $ErrorActionPreference = 'Stop'
@@ -26,6 +27,7 @@ $env:CUBLAS_WORKSPACE_CONFIG = ':4096:8'
 $arguments = @('-m','tools.run_pj_learning','--folder',$RunDirectory,'--additional-decisions',"$AdditionalDecisions",'--workers',"$Workers",'--wall-hours',"$WallHours")
 if ($EngineeringCheck) { $arguments += '--engineering' }
 if ($RewardV2) { $arguments += '--reward-v2' }
+if ($Commitment) { $arguments += '--commitment' }
 if ($StopAfterUpdates -gt 0) { $arguments += @('--stop-after-updates',"$StopAfterUpdates") }
 Push-Location -LiteralPath $projectDirectory
 try {
