@@ -1,0 +1,98 @@
+{
+  "schema": "jane-settings-v2-draft",
+  "profile_id": "patrick_jane_a2_15p",
+  "ruleset_id": "patrick-jane-a2-v1",
+  "reference_game_build": null,
+  "map_id": "the_skeld",
+  "lobby": {
+    "players": 15,
+    "impostors": 3,
+    "player_speed": 1.0,
+    "crewmate_vision": 1.0,
+    "impostor_vision": 1.5,
+    "kill_cooldown_seconds": 45.0,
+    "kill_distance": "medium",
+    "confirm_ejects": true
+  },
+  "meetings": {
+    "emergency_meetings": 1,
+    "emergency_cooldown_seconds": 15,
+    "discussion_seconds": 15,
+    "voting_seconds": 120,
+    "anonymous_votes": false
+  },
+  "tasks": {
+    "common": 1,
+    "long": 1,
+    "short": 2,
+    "visual_tasks": true,
+    "task_bar_updates": "always",
+    "pool_id": "patrick-jane-skeld-v1"
+  },
+  "mechanics": {
+    "vents": true,
+    "doors": true,
+    "lights": true,
+    "communications": false,
+    "oxygen": false,
+    "reactor": false,
+    "admin": false,
+    "security": false,
+    "impostor_ghosts": false,
+    "clean_vent": false
+  },
+  "simulation": {
+    "physics_step_seconds": 0.2,
+    "observation_interval_seconds": 0.6,
+    "match_cap_seconds": 1800.0,
+    "cap_policy": "truncate",
+    "stall_cap_seconds": 300.0
+  },
+  "optional_roles": [
+    {
+      "role": "scientist",
+      "max_count": 0,
+      "chance_percent": 0
+    },
+    {
+      "role": "engineer",
+      "max_count": 0,
+      "chance_percent": 0
+    },
+    {
+      "role": "guardian_angel",
+      "max_count": 0,
+      "chance_percent": 0
+    },
+    {
+      "role": "shapeshifter",
+      "max_count": 0,
+      "chance_percent": 0
+    },
+    {
+      "role": "noisemaker",
+      "max_count": 0,
+      "chance_percent": 0
+    },
+    {
+      "role": "tracker",
+      "max_count": 0,
+      "chance_percent": 0
+    },
+    {
+      "role": "phantom",
+      "max_count": 0,
+      "chance_percent": 0
+    },
+    {
+      "role": "detective",
+      "max_count": 0,
+      "chance_percent": 0
+    },
+    {
+      "role": "viper",
+      "max_count": 0,
+      "chance_percent": 0
+    }
+  ]
+}

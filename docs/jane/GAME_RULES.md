@@ -11,14 +11,17 @@ commits must accompany future runs.
 | Layer | Status |
 |---|---|
 | Historical V2.2 | Existing 4 crew + 1 impostor engine, authored task abstractions, frozen A/B |
-| Current Patrick Jane | External system described by the owner; actual source/checkpoint needed |
+| Current Patrick Jane | Source/artifacts reviewed at d459f386; update102 is task-pursuit-v1, not A2 trained |
 | Shared settings | Validated 4–15 total players and 1–3 impostors; editable host settings |
 | Base Jane profiles | Classic base roles with extension mechanics disabled for staged learning |
 | Full classic target | Draft until target build, environment and both adapters are verified |
+| Native Patrick Jane A2 | 10 neural crew +2 scripts; lights/doors/vents; configuration mapping, not a learned pair |
 
 Base profiles are curriculum variants. Disabled vents/sabotage do not mean they
 are absent from real classic Among Us. Do not enable every mechanic at once just
-because its name appears in the registry.
+because its name appears in the registry. The native A2 profiles preserve
+lights, doors and vents already implemented upstream; they are not the proposed
+minimal curriculum.
 
 ## Population and roles
 
@@ -33,7 +36,10 @@ hidden roles. Known/unknown death status must reflect lawful observation/public
 meeting information, not a spectator roster. Ghost is a life state, not a random
 third living team. Optional roles are catalogued but all disabled initially.
 
-## Host settings represented by v1
+Native Population also caps crew at12: its15-player case is12+3. The shared
+draft can describe13+2/14+1 but the current native adapter rejects them.
+
+## Host settings represented by draft-v2
 
 | Group | Editable values |
 |---|---|
@@ -150,7 +156,8 @@ range. Do not infer all pause rules from one generic "busy" flag.
 
 ## Vents, doors, sabotage and devices
 
-These extensions are OFF in base profiles; each needs engine and both-policy tests.
+These extensions are OFF in proposed minimal profiles. Native A2 already enables
+lights, doors and vents upstream; its learned-impostor adapter still needs tests.
 
 | Mechanic | Required shared semantics |
 |---|---|
@@ -204,3 +211,16 @@ timeout is never a neural gameplay loss.
 For every extension: pin the rule/build, implement the state machine, define actor
 observations/actions, add conformance/privacy tests, verify crew counterplay, then
 enable it in a NEW profile and study. Keep completed studies immutable.
+
+## Verified A2 boundaries
+
+Native A2 fixes1/1/2 tasks, one emergency, non-anonymous ballots and an always-visible
+task bar. Self-voting is excluded by its mask/API: a research choice, not a general
+retail rule. First kill10s, meeting relocation and configured cooldown reset are
+implemented. Task minigames, opaque-door visibility, vent animation and ghost task
+navigation remain abstractions. Oxygen/reactor base-engine paths are disabled in
+registered A2. Devices/Clean Vent/impostor ghosts/optional roles remain deferred.
+
+A2 disables the old900s normal ending. Draft-v2 separates technical max1800s and
+stall300s; both are cuts, not losses. The old field remains for source consistency.
+See [the actual source review](UPSTREAM_REVIEW.md).

@@ -14,6 +14,7 @@ import pytest
 from jane import CONTRACT_SCHEMA, MAX_PLAYERS
 from jane.shared.compatibility import CompatibilityError, check_engine, check_pair, legacy_lobby
 from jane.shared.settings import GameSettings, OPTIONAL_ROLES, bundle_receipt, load_settings
+from jane.shared.patrick_jane import a2_configuration, reference_review
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -27,7 +28,8 @@ def profile(name="jane_12p_base"):
 
 @pytest.mark.parametrize("name,players,impostors", [
     ("historical_5p", 5, 1), ("jane_12p_base", 12, 2),
-    ("jane_15p_base", 15, 2), ("future_15p_full_classic", 15, 3),
+    ("jane_15p_base", 15, 3), ("future_15p_full_classic", 15, 3),
+    ("patrick_jane_a2_12p", 12, 2), ("patrick_jane_a2_15p", 15, 3),
 ])
 def test_profiles_round_trip_and_population(name, players, impostors):
     settings = profile(name)
@@ -109,7 +111,9 @@ def test_settings_fingerprint_tracks_changes_not_json_key_order():
 
 def test_bundle_binds_definition_contents_even_with_same_version(tmp_path):
     for name in bundle_receipt(profile())["shared_files"]:
-        shutil.copyfile(SHARED / name, tmp_path / name)
+        target = tmp_path / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(SHARED / name, target)
     before = bundle_receipt(profile(), tmp_path)
     with (tmp_path / "actor_contract.json").open("a", encoding="utf-8") as stream:
         stream.write("\n")
@@ -168,10 +172,13 @@ def test_historical_adapter_rejects_unsupported_host_options(section, changes):
         legacy_lobby(changed)
 
 
-def test_absent_jane_source_is_never_marked_compatible():
-    report = check_engine(profile(), "patrick-jane")
-    assert not report.compatible
-    assert "not supplied" in report.blockers[0]
+def test_source_review_is_not_a_claim_of_model_execution():
+    report = check_engine(profile("patrick_jane_a2_12p"), "patrick-jane")
+    assert report.compatible
+    assert report.scope == "configuration-only"
+    assert not report.model_execution_verified
+    assert "not A2 trained" in report.notes[1]
+    assert not check_engine(profile(), "patrick-jane").compatible
     with pytest.raises(ValueError, match="Unknown engine"):
         check_engine(profile(), "pretend-engine")
 
@@ -199,7 +206,10 @@ def test_bundled_manifests_remain_explicitly_unverified():
     manifests = [json.loads((ROOT / "jane" / role / "manifest.json").read_text(encoding="utf-8"))
                  for role in ("crewmate", "impostor")]
     assert check_pair(profile(), *manifests)
-    assert all(m["source_commit"] is None and m["checkpoint_sha256"] is None for m in manifests)
+    assert manifests[0]["source_commit"] == reference_review()["implementation_commit"]
+    assert len(manifests[0]["checkpoint_sha256"]) == 64
+    assert manifests[0]["integration_status"] == "source-reviewed-configuration-only"
+    assert manifests[1]["source_commit"] is None and manifests[1]["checkpoint_sha256"] is None
 
 
 def test_inventory_preserves_all_asset_task_ids_and_source_hash():
@@ -227,6 +237,8 @@ def test_configuration_import_does_not_import_training_or_models():
     (["jane/configs/historical_5p.json", "--engine", "historical-v2.2"], 0),
     (["jane/configs/jane_12p_base.json", "--engine", "patrick-jane", "--check-pair"], 2),
     (["jane/configs/future_15p_full_classic.json", "--engine", "historical-v2.2"], 2),
+    (["jane/configs/patrick_jane_a2_12p.json", "--engine", "patrick-jane", "--native-config"], 0),
+    (["jane/configs/patrick_jane_a2_12p.json", "--engine", "patrick-jane", "--check-pair"], 2),
 ])
 def test_cli_reports_configuration_and_expected_blockers(arguments, expected):
     result = subprocess.run([sys.executable, "-m", "jane", *arguments], cwd=ROOT,
@@ -245,3 +257,92 @@ def test_historical_cli_is_json_in_a_clean_shell():
                             capture_output=True, text=True)
     assert result.returncode == 0, result.stderr
     assert json.loads(result.stdout)["engine_configuration"]["compatible"]
+
+
+def test_native_mapping_equals_real_upstream_a2_defaults():
+    native = a2_configuration(profile("patrick_jane_a2_12p"))
+    captured = json.loads((SHARED / "upstream/patrick_jane_a2_default.json").read_text(encoding="utf-8"))
+    assert native == captured
+    assert native["normal_match_timeout"] is False
+    assert native["lobby"]["timeout"] == 900.
+    assert native["technical_max_seconds"] == 1800.
+    assert native["technical_stall_seconds"] == 300.
+    assert native["lobby"]["emergency_cooldown"] == 15.
+
+
+def test_source_limits_not_just_tensor_padding_control_population():
+    settings = profile("patrick_jane_a2_15p")
+    assert a2_configuration(settings)["population"] == {"crew": 12, "impostors": 3}
+    for impostors in (1, 2):
+        future = replace(settings, lobby=replace(settings.lobby, impostors=impostors))
+        with pytest.raises(ValueError, match="at most 12 crew"):
+            a2_configuration(future)
+
+
+@pytest.mark.parametrize("feature", ["communications", "oxygen", "reactor", "admin", "security", "clean_vent", "impostor_ghosts"])
+def test_a2_rejects_future_extensions_even_if_the_settings_schema_knows_them(feature):
+    settings = profile("patrick_jane_a2_12p")
+    expanded = replace(settings, mechanics=replace(settings.mechanics, **{feature: True}))
+    with pytest.raises(ValueError, match="other extensions are deferred"):
+        a2_configuration(expanded)
+
+
+@pytest.mark.parametrize("section,changes", [
+    ("tasks", {"short": 3}), ("tasks", {"task_bar_updates": "meetings"}),
+    ("meetings", {"anonymous_votes": True}), ("meetings", {"emergency_meetings": 2}),
+    ("meetings", {"discussion_seconds": 0}), ("lobby", {"kill_distance": "long"}),
+    ("simulation", {"cap_policy": "historical-impostor-loss"}),
+    ("simulation", {"stall_cap_seconds": 0}), ("mechanics", {"doors": False}),
+])
+def test_a2_constructor_restrictions_are_not_silently_relaxed(section, changes):
+    settings = profile("patrick_jane_a2_12p")
+    changed = replace(settings, **{section: replace(getattr(settings, section), **changes)})
+    assert not check_engine(changed, "patrick-jane").compatible
+
+
+def test_a2_does_not_inject_new_ppo_rewards_or_opponent_settings():
+    settings = profile("patrick_jane_a2_12p")
+    original = a2_configuration(settings)
+    changed = replace(settings, lobby=replace(settings.lobby, kill_cooldown_seconds=42.5))
+    result = a2_configuration(changed)
+    assert result["lobby"]["kill_cooldown"] == 42.5
+    for key in ("learning_rate", "gamma", "gae_lambda", "clip", "entropy", "epochs",
+                "sequence_length", "reward_regime", "opponent_regime", "upgraded_probability",
+                "task_commitment_mode", "task_pursuit_mode"):
+        assert result[key] == original[key]
+
+
+def test_actual_architecture_reference_has_shared_backbone_and_packet_local_targets():
+    reference = json.loads((SHARED / "network_reference.json").read_text(encoding="utf-8"))
+    architecture = json.loads((SHARED / "upstream/patrick_jane_architecture.json").read_text(encoding="utf-8"))
+    assert reference["parameters"] == architecture["parameters"] == 1031070
+    assert "GRU shared" in reference["actor_critic_sharing"]
+    assert reference["tensor_contract"]["players"] == [14, 16]
+    assert reference["heads"]["voting"] == 15
+    assert reference["heads"]["skip_index"] == 14
+    assert reference["heads"]["target"] == "dynamic"
+    assert reference["checkpoint"]["a2_trained"] is False
+
+
+def test_old_draft_schema_fails_until_explicit_migration():
+    old = profile().to_dict()
+    old["schema"] = "jane-settings-v1-draft"
+    old["simulation"].pop("stall_cap_seconds")
+    with pytest.raises(ValueError):
+        GameSettings.from_dict(old)
+
+
+@pytest.mark.skipif(not os.environ.get("JANE_UPSTREAM_REVIEW_ROOT"),
+                    reason="An explicit pinned upstream source snapshot is required")
+@pytest.mark.parametrize("name", ["patrick_jane_a2_12p", "patrick_jane_a2_15p"])
+def test_mapping_constructs_real_upstream_settings_without_a_model(name):
+    result = subprocess.run([sys.executable, "tools/check_jane_patrick_config.py",
+                             str(CONFIGS / (name + ".json")), "--source-root",
+                             os.environ["JANE_UPSTREAM_REVIEW_ROOT"]], cwd=ROOT,
+                            capture_output=True, text=True)
+    assert result.returncode == 0, result.stdout + result.stderr
+    report = json.loads(result.stdout)
+    assert report["configuration_verified"]
+    assert report["artifact_files_checked"] == 5
+    assert not report["model_loaded"]
+    assert report["matches_started"] == report["training_updates"] == 0

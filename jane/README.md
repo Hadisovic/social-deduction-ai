@@ -1,80 +1,71 @@
-# Jane: one shared game contract, two learned roles
+# Jane: common settings, independent role projects
 
-**Status: provisional shared workspace.** Draft settings, strict validation,
-inventory and plans are implemented. Both models remain in development. Patrick
-Jane is a reference, not a copied base or a finalized architecture. When the owner
-announces the teammate's progress push, pull/read it before adapting either role.
-The currently fetched repository excludes that code. No new network was trained.
-A configuration supporting 15 slots does not make the old five-player engine
-support 15 players.
+**Status:** teammate source reviewed; draft settings corrected; native A2
+configuration adapter added. Patrick Jane is a reference only. No model code or
+weights are copied, and no final joint network structure is prescribed.
 
-## Folder ownership
+Upstream implementation: `d459f38674ebc537acde20647cbd07700c494533`.
+Reviewed documentation tip: `c7c0ef0fd0b6d460860f1f7b27fe34cb4f8385b2`.
+See [the review](../docs/jane/UPSTREAM_REVIEW.md) for verified differences.
 
-```text
-jane/
-  shared/        common settings, compatibility, semantic contract, catalog
-  configs/       editable match profiles; both roles use the SAME file/hash
-  crewmate/      Patrick Jane source registration and future adapter
-  impostor/      Jane Impostor registration and development plan
-docs/jane/
-  GAME_RULES.md  shared classic rules, settings and task inventory
-  INTERFACE.md   observation/action/privacy/checkpoint agreements
-  FUTURE_WORK.md disabled mechanics and optional-role roadmap
-  CHECKLIST.md   completed work and remaining integration gates
-  VERIFICATION.md commands and observed verification results
-```
+## Folders
 
-Historical packages, checkpoints, raw replays, studies and Navigation V2 work
-stay in their original locations. Nothing is moved or reinterpreted.
+| Folder | Responsibility |
+|---|---|
+| `shared/` | Draft settings, capability checks, configuration mapping and source receipts |
+| `configs/` | Versioned match profiles; both future role adapters use the same hash |
+| `crewmate/` | Actual Patrick Jane reference registration; future local adapter |
+| `impostor/` | Independent learned-impostor plan and future registration |
+| `../docs/jane/` | Joint rules, interface, future additions, review and evidence |
 
-## Choose a profile
+Do not duplicate an engine into each role folder. Keep old packages, studies,
+checkpoints, viewer and Navigation V2 work in their original locations.
 
-| File | Population | Intended use | Runtime status |
-|---|---|---|---|
-| `historical_5p.json` | 4 crew + 1 impostor | Preserve V2.2 settings | Constructor adapter verified separately; no new runner |
-| `jane_12p_base.json` | 10 crew + 2 impostors | Shared initial Jane target | Needs current Jane source and both adapters |
-| `jane_15p_base.json` | 13 crew + 2 impostors | Capacity/custom-lobby target | Needs variable-population engine verification |
-| `future_15p_full_classic.json` | 12 crew + 3 impostors | Future full classic mechanics example | Planning only; extensions enabled explicitly; not runnable here |
+## Profiles: choose the actual regime
 
-Base Jane profiles disable vents, sabotage, doors, devices, Clean Vent and
-optional roles. Those are staged learning variants, not a claim of full classic
-fidelity. The future full-classic profile documents the destination. It does not
-implement the mechanics.
+| File | Population | Meaning |
+|---|---|---|
+| `historical_5p.json` | 4 crew + 1 impostor | Unchanged historical V2.2 configuration |
+| `patrick_jane_a2_12p.json` | 10 crew + 2 impostors | Exact reviewed A2 defaults; lights, doors and vents |
+| `patrick_jane_a2_15p.json` | 12 crew + 3 impostors | Native constructor accepts this capacity; learning generalization untested |
+| `jane_12p_base.json` | 10 crew + 2 impostors | Proposed minimal curriculum; not the registered A2 regime |
+| `jane_15p_base.json` | 12 crew + 3 impostors | Proposed future minimal curriculum |
+| `future_15p_full_classic.json` | 12 crew + 3 impostors | Future full classic request; not currently runnable |
 
-Edit a copy of a profile, give it a new `profile_id`, validate it, then register
-its fingerprint. Never edit the profile used by a frozen study in place.
+The shared draft can describe 15 players with one/two impostors, but the current
+upstream Population limits crew to 12. Its native adapter rejects 14+1 and 13+2.
+All optional roles remain disabled. Do not silently disable A2 mechanics or enable
+unregistered features to make a requested profile appear compatible.
 
-## Commands: inspect configuration, not gameplay
-
-From the repository root with Python 3.12+:
+## Inspect, do not launch training
 
 ```powershell
-python -m jane jane/configs/jane_12p_base.json
-python -m jane jane/configs/jane_15p_base.json
+python -m jane jane/configs/patrick_jane_a2_12p.json --engine patrick-jane --native-config
+python -m jane jane/configs/patrick_jane_a2_15p.json --engine patrick-jane
 python -m jane jane/configs/historical_5p.json --engine historical-v2.2
-python -m jane jane/configs/jane_12p_base.json --engine patrick-jane --check-pair
+python -m jane jane/configs/patrick_jane_a2_12p.json --engine patrick-jane --check-pair
 ```
 
-The last command intentionally exits **2** until actual source, weights and
-adapters pass registration. Unknown keys, invalid values and unsupported runtime
-settings fail explicitly. The CLI never starts a match, imports a trainer or
-loads a model. The historical adapter needs the existing pinned dependencies.
+The first three inspect configurations. The last intentionally exits 2: the
+shared learned-impostor/crewmate pair is not implemented. Configuration-compatible
+reports explicitly say `model_execution_verified: false`. No game is started.
 
-The current game viewer remains `run_impostor_shared.py` on the preserved
-five-player implementation. This branch does not advertise a twelve-player
-viewer that does not exist.
-
-## Work together
+To verify against a separate pinned upstream checkout without mixing branches:
 
 ```powershell
-git fetch origin
-git switch --track origin/codex/jane-shared-foundation
-# Then create your own codex/jane-crewmate-* or codex/jane-impostor-* branch.
+python tools/check_jane_patrick_config.py jane/configs/patrick_jane_a2_12p.json --source-root C:/path/to/pinned-patrick-jane
 ```
 
-Read [the shared rules](../docs/jane/GAME_RULES.md),
-[interface agreement](../docs/jane/INTERFACE.md),
-[impostor plan](impostor/PLAN.md) and [checklist](../docs/jane/CHECKLIST.md).
-Shared settings are not shared trained weights. Every actor keeps private state.
-These folders and interfaces are editable proposals; review the teammate's work
-before freezing the joint design. Keep crew and impostor work equally separate.
+This verifies source/artifact bytes and constructs settings only in an isolated
+child process. It does not load a model or run a match. Do not invoke the teammate's
+Start-* scripts for inspection: those can immediately start training.
+
+## Collaboration
+
+Both collaborators can branch from `codex/jane-shared-foundation`. Shared schema
+is `jane-settings-v2-draft`; existing draft-v1 profiles require explicit migration
+(add the stall cut and change the version, preserving the original file).
+
+Keep each role's parameters, histories, recurrent states and RNG independent.
+Shared settings do not mean interchangeable tensors or models. Actual paired
+gameplay, the new learned impostor and full future rules remain separate gates.

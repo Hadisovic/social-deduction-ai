@@ -35,5 +35,51 @@
       "Zero-task and zero-voting-time behavior",
       "Simultaneous terminal-event priority"
     ]
+  },
+  "patrick-jane-a2-v1": {
+    "status": "source-reviewed configuration mapping, not retail equivalence or learned cross-play",
+    "source_commit": "d459f38674ebc537acde20647cbd07700c494533",
+    "native_mechanics_regime": "classic-skeld-a2-v1",
+    "feature_schema": "patrick-jane-events-a2-v1",
+    "enabled_extensions": [
+      "lights",
+      "doors",
+      "vents"
+    ],
+    "task_counts": [
+      1,
+      1,
+      2
+    ],
+    "crew_limit": 12,
+    "impostor_limit": 3,
+    "default_population": [
+      10,
+      2
+    ],
+    "first_kill_cooldown_seconds": 10.0,
+    "emergency_cooldown_seconds": 15.0,
+    "post_meeting_kill_cooldown": "reset configured cooldown",
+    "meeting_relocation": "Cafeteria",
+    "kill_reposition": "victim position; animation timing abstracted",
+    "door_seconds": 10.0,
+    "door_cooldown_seconds": 30.0,
+    "vent_transition_seconds": 0.6,
+    "self_vote": false,
+    "normal_match_timeout": false,
+    "technical_max_seconds": 1800.0,
+    "technical_stall_seconds": 300.0,
+    "opponents": "50/50 per-match historical/upgraded scripts; no learned impostor",
+    "task_pursuit_and_commitment": true,
+    "a2_training_completed": false,
+    "deferred": [
+      "communications",
+      "oxygen/reactor in registered A2",
+      "Admin/Security observations",
+      "Clean Vent",
+      "impostor ghost sabotage",
+      "optional roles",
+      "13/14 crew populations"
+    ]
   }
 }

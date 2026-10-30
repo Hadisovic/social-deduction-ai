@@ -1,30 +1,22 @@
-# Patrick Jane crewmate
+# Patrick Jane crewmate reference
 
-**Review the teammate's work in progress first. Patrick Jane is a reference,
-not code to copy into a common base or an already-finalized architecture.**
+The teammate's source was reviewed after the owner's push-ready notice.
+Implementation/model pin: `d459f38674ebc537acde20647cbd07700c494533`.
+Published update102: 1,031,070 parameters / 52 parameter tensors, task-pursuit-v1.
+Artifact bytes/checksums were verified; no weights were loaded or copied here.
 
-The owner reports 1,031,070 parameters, self/player/event encoders, attention,
-GRU-256, role policy heads and independent recurrent state for shared-weight
-actors. The reference is recorded in `../shared/network_reference.json`.
-Actual source, feature ordering, tensor layouts and checkpoint hashes are absent
-from the fetched repository. `manifest.json` says `awaiting-progress-review`.
-Wait for the owner's ready notice before pulling the teammate's progress. Then
-read the implementation and adapt this draft for both roles before finalizing it.
+The actual model has shared encoders/attention/fusion/GRU-256 and separate actor
+and critic trunks. Players are 14 OTHER rows, events 64, targets dynamic. The
+vote head is 14 other-player slots plus skip at index14. Native A2 currently uses
+10 neural crew + 2 scripted impostors, with lights/doors/vents and task commitment.
+The update102 weights are not A2 trained; task training wins are not held-out
+deduction evidence.
 
-## Import checklist for the crewmate collaborator
+`manifest.json` now records reviewed source/model identity, but still says
+configuration-only. No final tensor adapter or shared paired-game readiness is
+claimed. Use the original checkpoint loader/runtime; preserve all historical locks.
 
-1. After the owner announces the push, fetch and read the source/commit/progress.
-2. Keep the original package/checkpoint intact; record its license and hashes.
-3. Document what the task commitment/navigation layer does outside the NN.
-4. Map legitimate observations to the shared semantic contract.
-5. Verify padding, masks and independent actor memories up to 15 total players.
-6. Read the same settings profile and fingerprint as Jane Impostor.
-7. Preserve current weights/settings/results; unsupported new settings must fail.
-8. Add capability tests and a deterministic adapter replay before registration.
-9. Only then replace null registration fields with verified values.
-
-Future code may belong in this role folder or a preserved upstream subpackage;
-the layout is provisional and must be reviewed alongside the impostor work.
-Shared engine semantics belong in `../shared`, not in a role's private fork.
-The current 10+2 Patrick Jane results remain owner-reported until artifacts are
-available; no social-deduction or sabotage competence is inferred from task wins.
+Next: verify the real role boundary and recurrent lifecycle, decide settings
+conditioning with the teammate, and implement the crew-side shared adapter. Do
+not rewrite the existing 192-feature layout or copy the crew network into the
+impostor project. Keep both role structures provisional and separately versioned.

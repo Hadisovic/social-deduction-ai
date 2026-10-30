@@ -1,5 +1,5 @@
 {
-  "schema": "jane-settings-v1-draft",
+  "schema": "jane-settings-v2-draft",
   "profile_id": "jane_12p_base",
   "ruleset_id": "classic-skeld-v1-draft",
   "reference_game_build": null,
@@ -45,7 +45,8 @@
     "physics_step_seconds": 0.2,
     "observation_interval_seconds": 0.6,
     "match_cap_seconds": 900.0,
-    "cap_policy": "truncate"
+    "cap_policy": "truncate",
+    "stall_cap_seconds": 300.0
   },
   "optional_roles": [
     {

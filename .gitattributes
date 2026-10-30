@@ -30,3 +30,4 @@ jane/** text eol=lf
 docs/jane/** text eol=lf
 JANE_SHARED.md text eol=lf
 tests/test_jane_foundation.py text eol=lf
+tools/check_jane_patrick_config.py text eol=lf

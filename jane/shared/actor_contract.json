@@ -1,7 +1,7 @@
 {
-  "schema": "jane-actor-contract-v1-draft",
+  "schema": "jane-actor-contract-v2-draft",
   "status": "semantic-design-not-runtime-adapter",
-  "settings_schema": "jane-settings-v1-draft",
+  "settings_schema": "jane-settings-v2-draft",
   "max_players": 15,
   "max_assigned_tasks": 10,
   "roster_order": "Stable public roster order, never sorted by hidden role",
@@ -57,5 +57,26 @@
   "navigation": "Neural goal selection; deterministic geometry execution; preserve independent Navigation V2 work",
   "memory_lifecycle": "Reset at new match, retain through meetings and valid living-to-ghost transition",
   "ghost_policy": "No kill/report/emergency/vote/vent/living repair; permitted sabotage only if implemented",
-  "tensor_layout": "Must be mapped from the actual current Patrick Jane source; not inferred from this document"
+  "tensor_layout": "Current crew layout verified in features.py; future impostor layout remains separately versioned and undecided",
+  "roster_contract": {
+    "public_roster_capacity": 15,
+    "neural_other_player_rows": 14,
+    "own_state_separate": true,
+    "native_vote_width": 15,
+    "native_skip_index": 14,
+    "native_self_vote": false,
+    "target_indices": "packet-local dynamic; not globally fixed player/task IDs"
+  },
+  "verified_upstream": {
+    "type": "patrick_jane.api.Observation",
+    "commit": "d459f38674ebc537acde20647cbd07700c494533",
+    "feature_schema": "patrick-jane-events-a2-v1",
+    "provenance_values": [
+      "direct",
+      "public",
+      "claim"
+    ],
+    "memory": "one private 256-wide hidden state per active crew actor"
+  },
+  "impostor_gap": "Observation has teammates/own abilities, but crew features/heads are not an impostor policy; new encoding/masks required"
 }

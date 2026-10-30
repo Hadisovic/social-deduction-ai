@@ -1,12 +1,12 @@
 {
-  "schema": "jane-settings-v1-draft",
+  "schema": "jane-settings-v2-draft",
   "profile_id": "jane_15p_base",
   "ruleset_id": "classic-skeld-v1-draft",
   "reference_game_build": null,
   "map_id": "the_skeld",
   "lobby": {
     "players": 15,
-    "impostors": 2,
+    "impostors": 3,
     "player_speed": 1.0,
     "crewmate_vision": 1.0,
     "impostor_vision": 1.5,
@@ -45,7 +45,8 @@
     "physics_step_seconds": 0.2,
     "observation_interval_seconds": 0.6,
     "match_cap_seconds": 900.0,
-    "cap_policy": "truncate"
+    "cap_policy": "truncate",
+    "stall_cap_seconds": 300.0
   },
   "optional_roles": [
     {

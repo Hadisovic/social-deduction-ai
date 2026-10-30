@@ -2,14 +2,29 @@
   "manifest_schema": "jane-policy-registration-v1",
   "model_name": "Patrick Jane",
   "role": "crewmate",
-  "integration_status": "awaiting-progress-review",
-  "source_commit": null,
-  "checkpoint_sha256": null,
-  "actor_contract": "jane-actor-contract-v1-draft",
+  "integration_status": "source-reviewed-configuration-only",
+  "source_commit": "d459f38674ebc537acde20647cbd07700c494533",
+  "checkpoint_sha256": "da1d43d73c140ac39bf44834746dbae605b9b36d3c6c7af8a4f2be975e535e3c",
+  "actor_contract": "jane-actor-contract-v2-draft",
   "observation_schema": null,
   "action_schema": null,
-  "tensor_schema": null,
+  "tensor_schema": "patrick-jane-v1",
   "verified_settings_sha256": null,
   "verified_bundle_sha256": null,
-  "note": "Provisional: owner will announce the teammate progress push; read it before adapting either role. No model copied or finalized here."
+  "note": "Actual source and artifact bytes reviewed; configuration adapter verified separately. No model copied/loaded, semantic paired adapter still pending.",
+  "upstream": {
+    "branch": "codex/patrick-jane-recurrent-ppo",
+    "reviewed_tip": "c7c0ef0fd0b6d460860f1f7b27fe34cb4f8385b2",
+    "class": "patrick_jane.network.PatrickJane",
+    "feature_schema": "patrick-jane-events-a2-v1",
+    "parameters": 1031070,
+    "checkpoint_update": 102,
+    "trained_regime": "task-pursuit-v1",
+    "a2_trained": false,
+    "runtime": {
+      "python": "3.12.10",
+      "numpy": "2.5.3",
+      "torch": "2.7.1+cu128"
+    }
+  }
 }

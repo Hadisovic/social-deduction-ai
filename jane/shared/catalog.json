@@ -273,52 +273,62 @@
     {
       "id": "vents",
       "enabled_in_base_profiles": false,
-      "runtime": "requires-engine-and-both-policy-adapters"
+      "runtime": "requires-engine-and-both-policy-adapters",
+      "patrick_jane_a2": "implemented-and-enabled"
     },
     {
       "id": "doors",
       "enabled_in_base_profiles": false,
-      "runtime": "requires-engine-and-both-policy-adapters"
+      "runtime": "requires-engine-and-both-policy-adapters",
+      "patrick_jane_a2": "implemented-and-enabled"
     },
     {
       "id": "lights",
       "enabled_in_base_profiles": false,
-      "runtime": "requires-engine-and-both-policy-adapters"
+      "runtime": "requires-engine-and-both-policy-adapters",
+      "patrick_jane_a2": "implemented-and-enabled"
     },
     {
       "id": "communications",
       "enabled_in_base_profiles": false,
-      "runtime": "requires-engine-and-both-policy-adapters"
+      "runtime": "requires-engine-and-both-policy-adapters",
+      "patrick_jane_a2": "deferred-or-disabled"
     },
     {
       "id": "oxygen",
       "enabled_in_base_profiles": false,
-      "runtime": "requires-engine-and-both-policy-adapters"
+      "runtime": "requires-engine-and-both-policy-adapters",
+      "patrick_jane_a2": "deferred-or-disabled"
     },
     {
       "id": "reactor",
       "enabled_in_base_profiles": false,
-      "runtime": "requires-engine-and-both-policy-adapters"
+      "runtime": "requires-engine-and-both-policy-adapters",
+      "patrick_jane_a2": "deferred-or-disabled"
     },
     {
       "id": "admin",
       "enabled_in_base_profiles": false,
-      "runtime": "requires-engine-and-both-policy-adapters"
+      "runtime": "requires-engine-and-both-policy-adapters",
+      "patrick_jane_a2": "deferred-or-disabled"
     },
     {
       "id": "security",
       "enabled_in_base_profiles": false,
-      "runtime": "requires-engine-and-both-policy-adapters"
+      "runtime": "requires-engine-and-both-policy-adapters",
+      "patrick_jane_a2": "deferred-or-disabled"
     },
     {
       "id": "impostor_ghosts",
       "enabled_in_base_profiles": false,
-      "runtime": "requires-engine-and-both-policy-adapters"
+      "runtime": "requires-engine-and-both-policy-adapters",
+      "patrick_jane_a2": "deferred-or-disabled"
     },
     {
       "id": "clean_vent",
       "enabled_in_base_profiles": false,
-      "runtime": "requires-engine-and-both-policy-adapters"
+      "runtime": "requires-engine-and-both-policy-adapters",
+      "patrick_jane_a2": "deferred-or-disabled"
     }
   ],
   "vent_components_from_asset": [
@@ -363,5 +373,6 @@
     "https://among-us.fandom.com/wiki/Tasks",
     "https://among-us.fandom.com/wiki/The_Skeld",
     "https://www.innersloth.com/new-roles-are-on-the-scene-of-17-0-0-emergency-meeting-41/"
-  ]
+  ],
+  "upstream_source_review": "d459f38674ebc537acde20647cbd07700c494533"
 }

@@ -17,7 +17,7 @@ OPTIONAL_ROLES = (
     "scientist", "engineer", "guardian_angel", "shapeshifter", "noisemaker",
     "tracker", "phantom", "detective", "viper",
 )
-RULESETS = ("historical-v2.2", "classic-skeld-v1-draft")
+RULESETS = ("historical-v2.2", "classic-skeld-v1-draft", "patrick-jane-a2-v1")
 
 
 def _integer(name, value, low, high):
@@ -112,7 +112,7 @@ class Tasks:
         _integer("short", self.short, 0, 5)
         if self.task_bar_updates not in ("always", "meetings", "never"):
             raise ValueError("Unknown task-bar update mode")
-        if self.pool_id not in ("historical-skeld-v2.2", "classic-skeld-v1-draft"):
+        if self.pool_id not in ("historical-skeld-v2.2", "classic-skeld-v1-draft", "patrick-jane-skeld-v1"):
             raise ValueError("Unknown task pool")
         _bools(self, ("visual_tasks",))
 
@@ -147,11 +147,13 @@ class Simulation:
     physics_step_seconds: float
     observation_interval_seconds: float
     match_cap_seconds: float
+    stall_cap_seconds: float
     cap_policy: str
 
     def __post_init__(self):
         for name in ("physics_step_seconds", "observation_interval_seconds", "match_cap_seconds"):
             _number(name, getattr(self, name), .001, 1e6)
+        _number("stall_cap_seconds", self.stall_cap_seconds, 0., 1e6)
         ratio = self.observation_interval_seconds / self.physics_step_seconds
         if ratio < 1 or not math.isclose(ratio, round(ratio), abs_tol=1e-8):
             raise ValueError("Observation interval must be an integer number of physics steps")
@@ -213,8 +215,9 @@ class GameSettings:
             raise ValueError("Specify each optional role exactly once, disabled by default")
         if any(r.max_count > self.lobby.players for r in self.optional_roles):
             raise ValueError("Role count exceeds lobby population")
-        expected_pool = ("historical-skeld-v2.2" if self.ruleset_id == "historical-v2.2"
-                         else "classic-skeld-v1-draft")
+        expected_pool = {"historical-v2.2": "historical-skeld-v2.2",
+                         "classic-skeld-v1-draft": "classic-skeld-v1-draft",
+                         "patrick-jane-a2-v1": "patrick-jane-skeld-v1"}[self.ruleset_id]
         if self.tasks.pool_id != expected_pool:
             raise ValueError("Task pool and ruleset must have the same version")
 
@@ -272,8 +275,10 @@ def load_settings(path):
 def bundle_receipt(settings, root=None):
     """Bind settings to the exact shared definitions, not just their version labels."""
     root = Path(root) if root is not None else Path(__file__).resolve().parent
-    names = ("settings.py", "compatibility.py", "catalog.json", "rulesets.json",
-             "actor_contract.json", "network_reference.json")
+    names = ("settings.py", "compatibility.py", "patrick_jane.py", "catalog.json", "rulesets.json",
+             "actor_contract.json", "network_reference.json",
+             "upstream/patrick_jane_review.json", "upstream/patrick_jane_a2_default.json",
+             "upstream/patrick_jane_architecture.json")
     files = {name: hashlib.sha256((root / name).read_bytes()).hexdigest() for name in names}
     value = {"settings_sha256": settings.fingerprint(), "shared_files": files}
     payload = json.dumps(value, sort_keys=True, separators=(",", ":"))

@@ -1,10 +1,9 @@
 # Shared interface and compatibility agreement
 
-`jane-settings-v1-draft` validation is implemented. `jane-actor-contract-v1-draft` is a semantic
-design. It is not an invented tensor adapter for absent Patrick Jane code.
-Both models are in progress. Wait for the owner's teammate-push announcement,
-pull/read that work, then revise compatibility for both. No network copy or final
-folder/tensor structure is prescribed by this draft.
+`jane-settings-v2-draft` validation and native A2 configuration mapping are
+implemented. `jane-actor-contract-v2-draft` remains a future paired design. The
+owner announced the push and the actual source was reviewed first. No network is
+copied or finalized; actual learned role adapters remain pending.
 
 ## Same game; separate policies
 
@@ -14,16 +13,19 @@ but role-specific masks and private task/ability information. Tensor schemas and
 trained weights can differ. Neither an old FourCrewPolicy nor the historical 75K
 impostor checkpoint is relabelled as Jane.
 
-The current Jane self/player/event widths, scaling, tensor ordering and recurrent
-sharing must come from its real source. The reported reference remains in
-`jane/shared/network_reference.json`; it is not an executable model definition.
+Current tensor widths, feature order and sharing were verified from the pinned
+source. `network_reference.json` records the reference, not a copied network.
+Its actor/critic share encoders, attention, fusion and GRU, with separate trunks.
 
 ## Semantic envelope
 
 Each packet identifies match, actor, tick/time, phase and own life state. It
 contains public settings, own state, lawful current/remembered observations, own
 real/fake tasks, public events and available actions. Capacity is 15 public roster
-slots including self; shorter lobbies are masked. Task capacity is 10 assignments.
+slots including self. Native neural rows are14 OTHERS, with own state separate.
+Voting is14 other slots plus skip at14; target indices are dynamic/packet-local.
+Future task capacity is10 but native A2 fixes four. Expanding tasks needs a new
+feature-layout and commitment audit, not silent truncation or repacking.
 Roster order must not depend on hidden roles. Do not pad with true unseen state.
 
 Events distinguish direct observation, public claim, public result and own action.
@@ -91,3 +93,17 @@ bundle to avoid circular hashes. A run must also record source commits and actua
 checkpoint hashes. Add a new profile instead of editing a frozen run's profile.
 New Jane paths use LF line endings so shared bundle fingerprints survive Windows
 and Linux checkouts. Existing historical raw-byte asset rules remain unchanged.
+
+## Actual native differences
+
+The source Observation has impostor teammate/own ability fields, but the crew
+encoder does not expose all of them to an impostor policy. Its five interaction
+outputs are travel/task/report/lights repair/emergency, not kill/vent/sabotage.
+Not every host setting is encoded in the192-wide self vector. A role-specific
+feature/head design and settings-conditioning audit remain necessary.
+
+Preserve native event codes: A2 appends vent-enter/exit/obstruction without
+renormalizing old values. The code uses direct/public/claim provenance. Shared
+semantic labels must map explicitly, never reinterpret old weights by shape.
+Runtime2.7.1+cu128 and strict source-locked checkpoints remain upstream; this
+branch's2.6CPU environment only tested configuration construction, not the model.

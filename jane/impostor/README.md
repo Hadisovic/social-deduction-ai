@@ -1,16 +1,14 @@
-# Jane Impostor
+# Jane Impostor: independent model, reviewed reference
 
-The new model will use **Patrick Jane as an architectural reference**, with an
-independent impostor design, observation adapter, capabilities and training study.
-It will not replace the 75,075-parameter historical impostor or its results.
+Patrick Jane is an architectural reference only. Its actual pushed source has
+been reviewed; no network/weights are copied or assumed compatible with the old
+75K/five-player impostor.
 
-Start with [PLAN.md](PLAN.md), [shared rules](../../docs/jane/GAME_RULES.md) and
-[interface contract](../../docs/jane/INTERFACE.md). `manifest.json` is deliberately
-`planned`; no new runnable network or learned checkpoint is claimed here.
+The existing crew encoder omits impostor cooldown/team/vent-action information
+needed for strategic impostor control. Its five interaction outputs are crew
+actions, not kill/sabotage/vent decisions. A new role-specific interface and
+policy design are required. Current A2 opponents remain scripts.
 
-Read the actual in-progress Jane implementation after the owner announces its
-push, then revise compatibility for both roles. Do not copy/paste its network as
-the impostor base or treat this folder structure as final.
-Do not assume crewmate and impostor tensor layouts, outputs or optimizer states
-are interchangeable. Shared architecture does not mean copying an unverified
-checkpoint or sharing one recurrent state between players.
+Follow [PLAN.md](PLAN.md) and the shared rules/interface documents. The model,
+output layout and folder structure remain provisional. Native configuration
+translation works separately from the still-unimplemented learned pair.

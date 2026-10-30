@@ -16,6 +16,8 @@ def main(argv=None):
     parser.add_argument("--engine", choices=("historical-v2.2", "patrick-jane"))
     parser.add_argument("--check-pair", action="store_true",
                         help="Check the registered role declarations; not a model load")
+    parser.add_argument("--native-config", action="store_true",
+                        help="Print native Patrick Jane A2 kwargs; never launch them")
     args = parser.parse_args(argv)
     try:
         settings = load_settings(args.profile)
@@ -40,6 +42,9 @@ def main(argv=None):
             blockers = check_pair(settings, crew, imp)
             result["role_declaration_blockers"] = list(blockers)
             blocked = blocked or bool(blockers)
+        if args.native_config:
+            from jane.shared.patrick_jane import a2_configuration
+            result["patrick_jane_a2_kwargs"] = a2_configuration(settings)
         print(json.dumps(result, indent=2))
         return 2 if blocked else 0
     except (OSError, ValueError, TypeError) as error:

@@ -1,0 +1,322 @@
+{
+  "schema": "jane-upstream-compatibility-verification-v1",
+  "date": "2026-10-30",
+  "foundation_commit": "7994108fb47b666517192d0d0e158590b7de5c1c",
+  "upstream_implementation": "d459f38674ebc537acde20647cbd07700c494533",
+  "upstream_tip": "c7c0ef0fd0b6d460860f1f7b27fe34cb4f8385b2",
+  "tests": {
+    "passed": 114,
+    "skipped": 0,
+    "pytest_seconds": 6.52,
+    "scope": "settings, source-backed native constructors, declarations and CLI"
+  },
+  "source_review": {
+    "schema": "jane-upstream-source-review-v1",
+    "date": "2026-10-30",
+    "branch": "codex/patrick-jane-recurrent-ppo",
+    "reviewed_tip": "c7c0ef0fd0b6d460860f1f7b27fe34cb4f8385b2",
+    "implementation_commit": "d459f38674ebc537acde20647cbd07700c494533",
+    "documentation_commit": "c7c0ef0fd0b6d460860f1f7b27fe34cb4f8385b2",
+    "repository": "https://github.com/Hadisovic/social-deduction-ai",
+    "source_hash_normalization": "CRLF to LF",
+    "source_hashes": {
+      "patrick_jane/__init__.py": "ac45469939685c9d25276ca4c3f6d9bd4164b6df0d06521724cab98921fa8864",
+      "patrick_jane/config.py": "c115bac5cdebfcad8b7145abd61da2c70a372217124458efbb0cb649fcc5fcb4",
+      "patrick_jane/a2_config.py": "fb7e33e1160c466534b7b8d74972de99846daadb4f5180dc6201e126e91adacd",
+      "patrick_jane/lights_setup.py": "902962a9d312da1511d12d274e3b1b2d135ea152fea3c1dd62a1a2c1eaea0535",
+      "patrick_jane/network.py": "a737523d7739255ab0dffd425556cf14524bbee9b27d07bddf72c8f9cd2353af",
+      "patrick_jane/features.py": "203a43026694f9eb72205bd0f5fa915d665988dc0e4029a55c94a9ef0cad049c",
+      "patrick_jane/api.py": "a688fb2005ae3ffce1abb7cda7a9a940b7d9b643c5f582fc9aee7117a941574d",
+      "patrick_jane/actions.py": "53b9b4a559011cb03d4fcf0bc0e2ce9b049072240132be71a00e94ead32b82ed",
+      "patrick_jane/decoder.py": "b3e749d770907fffb2c49094209ac3f542870638110d085bd6593040eebc202a",
+      "patrick_jane/memory.py": "214f1ef99bca36a600d92ba75be68c7e22fecafc5fcf5f2729515d2688e13073",
+      "patrick_jane/navigation.py": "09f1e041d9935d41657ef4a8378712036b23292842446d0c58fd371dc07314d1",
+      "patrick_jane/commitment.py": "c8c5153dd25c3e7a81373da675d3ae7d50602fbbbc138810164b88fcbc6f9349",
+      "patrick_jane/environment.py": "88fcedb63833aa85597cc53a356e026adce95db4d7e34442e099acdab8bd7928",
+      "patrick_jane/a2_environment.py": "eeba132cb67d33096c1dc38a60e49b33da59622b38f2368caec0eb81dacd13bf",
+      "patrick_jane/a2_geometry.py": "22575173a49d1fb2b34cca0839951754fac890541751ad83e85f7f1da410a378",
+      "patrick_jane/a2_opponents.py": "2e8aee00b8041bc3550060022370088042283e14cf00a22004c1b0d6562bf033",
+      "patrick_jane/worker.py": "45b0b9902f017c7ff4019c7d718cbf79b635421f5f62cdcb256244234d80f52c",
+      "patrick_jane/ppo.py": "d583b987897f27353e74b0adceb10d9936c1c1a43fd23f146d7b4670b41f0ced",
+      "patrick_jane/checkpoint.py": "3900984c67ce763a67183426f6427ef31c6898ede36c1fc9e0bcc4e9e52e66d5",
+      "patrick_jane/a2_transition.py": "ecd2044eec62cd57999be59a6b7e019805b48b3f47c11352942e498e1e8e7f45",
+      "crewmate_v2/config.py": "f1c7d39300e9754fdd0e95f97e4e77b2c639f13267a04fe9bbce2c2b653cb94d",
+      "crewmate_v2/tasks.py": "ce6ea02620072438c0d9836a3551167f0a88b42933b30f50d8236884e2f10210",
+      "assets/skeld/among_us_map.json": "571ab771cdbc1d204614922c2e2c7b29291ea4a83a10c0201e6a5ecc89bd43ee",
+      "requirements-patrick-jane.txt": "afaacef64ee79bb1842e2caf369049250be78a291fff1259b4e85988bb8ae75a"
+    },
+    "config_import_source_hashes": {
+      "patrick_jane/__init__.py": "ac45469939685c9d25276ca4c3f6d9bd4164b6df0d06521724cab98921fa8864",
+      "crewmate_v2/__init__.py": "df76f14fc9ce6e2411465d02d369be2a10dff614c7dfc15fba6d885e862f8fac",
+      "among_us_map.py": "67b40bdd03bba566b641be48e2c5f78fb81dab954113596adebc1387e40ed303",
+      "among_us_renderer.py": "dd416532cc3afc67f969ac78b7727cb0c69a6c2779994a0b7ff942c2782c264f",
+      "among_us_map_simulation.py": "6dba865da797ef7536c654512798b21daccb4040400c35d9694d97401441d24a",
+      "navigation_service.py": "3a1af1e6d7eb143144293e75704e60f29fcb2741bd3fdbeca33ad969d9af406d",
+      "social_deduction/__init__.py": "bfad591ad370ed16efdb17fbe28f4c47e9df5bf3388badeeeffff216c8a06548",
+      "social_deduction/actor.py": "5f12a781dcd45ba88ea1e75dbb7bebad7f494ae4046ad7f16cd548aee543c882",
+      "social_deduction/truth.py": "a98637897c8783b236f1ead92a0a33d2c7d145ac90c196f43676e96767c8de1d",
+      "social_deduction/phase3_api.py": "778fa0fe24df9e24e6eada33dfc0afd1e12a714965eeaecc2e89d75752861b8c",
+      "social_deduction/phase3_observation.py": "9e1f3f81307b089d841cba324d4a66fe05e1ad260a535bdd0bc912c4ddb00682",
+      "phase3_engine.py": "4e62637693ed4ec012799a8434a224ef5762a0fced55d1b24e6e161725d00972",
+      "crewmate_v2/config.py": "f1c7d39300e9754fdd0e95f97e4e77b2c639f13267a04fe9bbce2c2b653cb94d",
+      "patrick_jane/config.py": "c115bac5cdebfcad8b7145abd61da2c70a372217124458efbb0cb649fcc5fcb4",
+      "patrick_jane/rewards.py": "dddeca03500321f11d0239f86b8fb220c0e56df6ccd4bc44fb1427d0a4ec1184",
+      "patrick_jane/lights_setup.py": "902962a9d312da1511d12d274e3b1b2d135ea152fea3c1dd62a1a2c1eaea0535",
+      "patrick_jane/a2_config.py": "fb7e33e1160c466534b7b8d74972de99846daadb4f5180dc6201e126e91adacd"
+    },
+    "published_files_verified": {
+      "architecture.json": {
+        "size_bytes": 1112,
+        "sha256": "de87c7a014a809b5219e6e833bdc88c70c23c6472e0430eaf9a35c32540fed23"
+      },
+      "checkpoint.pt": {
+        "size_bytes": 12453153,
+        "sha256": "6cf7048310e889967b01dd785317d313ddc71f310cd9faedcf346b950b8fd01b"
+      },
+      "inference.pt": {
+        "size_bytes": 4140551,
+        "sha256": "da1d43d73c140ac39bf44834746dbae605b9b36d3c6c7af8a4f2be975e535e3c"
+      },
+      "source-snapshot.zip": {
+        "size_bytes": 190601,
+        "sha256": "2ee74da35096493975e8bfb8ef2d536704623c0fca588be14d524b8738cb42e3"
+      },
+      "training-config.json": {
+        "size_bytes": 1529,
+        "sha256": "09d7377d5bbb229a7b2cddb54d30f230fe636bfa9ced315f2ea9577c0358ee1d"
+      }
+    },
+    "runtime": {
+      "python": "3.12.10",
+      "numpy": "2.5.3",
+      "torch": "2.7.1+cu128"
+    },
+    "trained_regime": "task-pursuit-v1",
+    "a2_trained": false,
+    "policy_tensors_reported": 52,
+    "parameters": 1031070,
+    "configuration_construction_verified": {
+      "10+2": true,
+      "12+3": true,
+      "13+2": false,
+      "14+1": false
+    },
+    "probe_python": "3.12.10",
+    "probe_scope": "Isolated source configuration constructors only; no model, optimizer, game or PPO",
+    "models_loaded": false,
+    "matches_started": false,
+    "training_started": false,
+    "source_not_vendored": true
+  },
+  "profiles": [
+    {
+      "path": "jane/configs/future_15p_full_classic.json",
+      "players": 15,
+      "crew": 12,
+      "impostors": 3,
+      "receipt": {
+        "settings_sha256": "ce8400b672bb04abc857a7896e51ee15c9ddd1ca943621db7bb66a72ab5e5a7d",
+        "shared_files": {
+          "settings.py": "70d2b49ba698b43121f0c670cfe02a12d39fff5ffe70dc03dc7200c809851b99",
+          "compatibility.py": "f01d8e37b845a27e57b31a3270358707bc7c0559772a145e3cefaefa9309ac39",
+          "patrick_jane.py": "11ad787f551f1da311e1f9b92305332ba319c35aead48da282e2620a5a6a0998",
+          "catalog.json": "694ab72a0a6cbc0cdc4cc4f13cb9f084e680f6f995cfd57fdb1c0bf290f791cb",
+          "rulesets.json": "c11b8daba7b217b2362558c8096b51784b20349c47df9729918d59ed36251861",
+          "actor_contract.json": "1dde22479a8f83bc6f32637d3fe764e675b641f930976ff4be5c390e06d28f7f",
+          "network_reference.json": "ccd226686978c3b17dacef6eb58ebd7e4dac3e33803448f82f000d91dc7fbafa",
+          "upstream/patrick_jane_review.json": "aebb1c34dfea433e2d400f564f71f8c6a4ce127e68c90a3730ac05c04fc1e615",
+          "upstream/patrick_jane_a2_default.json": "fc4a8a49f37f6640ab523968b0975ae7d3e70a300653f6f1dfbfa92ece0defe4",
+          "upstream/patrick_jane_architecture.json": "13fc2329c02762cbec749b0d42f626f6fd821eec5605fa745bd07db5b2e7bcc5"
+        },
+        "bundle_sha256": "54491bd7b296eb8549bc716ee7da141f567794704d66f6e3fd5ecafd33e2ca47"
+      },
+      "historical_configuration": false,
+      "pj_a2_configuration": false
+    },
+    {
+      "path": "jane/configs/historical_5p.json",
+      "players": 5,
+      "crew": 4,
+      "impostors": 1,
+      "receipt": {
+        "settings_sha256": "c20077b06004d3508dac1462f41e5b5491894790823f45a8545e634d0eb8216f",
+        "shared_files": {
+          "settings.py": "70d2b49ba698b43121f0c670cfe02a12d39fff5ffe70dc03dc7200c809851b99",
+          "compatibility.py": "f01d8e37b845a27e57b31a3270358707bc7c0559772a145e3cefaefa9309ac39",
+          "patrick_jane.py": "11ad787f551f1da311e1f9b92305332ba319c35aead48da282e2620a5a6a0998",
+          "catalog.json": "694ab72a0a6cbc0cdc4cc4f13cb9f084e680f6f995cfd57fdb1c0bf290f791cb",
+          "rulesets.json": "c11b8daba7b217b2362558c8096b51784b20349c47df9729918d59ed36251861",
+          "actor_contract.json": "1dde22479a8f83bc6f32637d3fe764e675b641f930976ff4be5c390e06d28f7f",
+          "network_reference.json": "ccd226686978c3b17dacef6eb58ebd7e4dac3e33803448f82f000d91dc7fbafa",
+          "upstream/patrick_jane_review.json": "aebb1c34dfea433e2d400f564f71f8c6a4ce127e68c90a3730ac05c04fc1e615",
+          "upstream/patrick_jane_a2_default.json": "fc4a8a49f37f6640ab523968b0975ae7d3e70a300653f6f1dfbfa92ece0defe4",
+          "upstream/patrick_jane_architecture.json": "13fc2329c02762cbec749b0d42f626f6fd821eec5605fa745bd07db5b2e7bcc5"
+        },
+        "bundle_sha256": "36f3d837b190a4c869c25a34a271506ee59ae68012b20282a6bc949386875a75"
+      },
+      "historical_configuration": true,
+      "pj_a2_configuration": false
+    },
+    {
+      "path": "jane/configs/jane_12p_base.json",
+      "players": 12,
+      "crew": 10,
+      "impostors": 2,
+      "receipt": {
+        "settings_sha256": "13cdaa10ae480a6f123730ed036e9383fe7224d29d762f49098fe8de7959751d",
+        "shared_files": {
+          "settings.py": "70d2b49ba698b43121f0c670cfe02a12d39fff5ffe70dc03dc7200c809851b99",
+          "compatibility.py": "f01d8e37b845a27e57b31a3270358707bc7c0559772a145e3cefaefa9309ac39",
+          "patrick_jane.py": "11ad787f551f1da311e1f9b92305332ba319c35aead48da282e2620a5a6a0998",
+          "catalog.json": "694ab72a0a6cbc0cdc4cc4f13cb9f084e680f6f995cfd57fdb1c0bf290f791cb",
+          "rulesets.json": "c11b8daba7b217b2362558c8096b51784b20349c47df9729918d59ed36251861",
+          "actor_contract.json": "1dde22479a8f83bc6f32637d3fe764e675b641f930976ff4be5c390e06d28f7f",
+          "network_reference.json": "ccd226686978c3b17dacef6eb58ebd7e4dac3e33803448f82f000d91dc7fbafa",
+          "upstream/patrick_jane_review.json": "aebb1c34dfea433e2d400f564f71f8c6a4ce127e68c90a3730ac05c04fc1e615",
+          "upstream/patrick_jane_a2_default.json": "fc4a8a49f37f6640ab523968b0975ae7d3e70a300653f6f1dfbfa92ece0defe4",
+          "upstream/patrick_jane_architecture.json": "13fc2329c02762cbec749b0d42f626f6fd821eec5605fa745bd07db5b2e7bcc5"
+        },
+        "bundle_sha256": "69c09d6468836401d76cffd97be1a4528bc182e8bd49f9f2f6a92cee932745b2"
+      },
+      "historical_configuration": false,
+      "pj_a2_configuration": false
+    },
+    {
+      "path": "jane/configs/jane_15p_base.json",
+      "players": 15,
+      "crew": 12,
+      "impostors": 3,
+      "receipt": {
+        "settings_sha256": "0daca6322076499591600f3938e33793a4da33e8a5f68db77fad750b57ff9407",
+        "shared_files": {
+          "settings.py": "70d2b49ba698b43121f0c670cfe02a12d39fff5ffe70dc03dc7200c809851b99",
+          "compatibility.py": "f01d8e37b845a27e57b31a3270358707bc7c0559772a145e3cefaefa9309ac39",
+          "patrick_jane.py": "11ad787f551f1da311e1f9b92305332ba319c35aead48da282e2620a5a6a0998",
+          "catalog.json": "694ab72a0a6cbc0cdc4cc4f13cb9f084e680f6f995cfd57fdb1c0bf290f791cb",
+          "rulesets.json": "c11b8daba7b217b2362558c8096b51784b20349c47df9729918d59ed36251861",
+          "actor_contract.json": "1dde22479a8f83bc6f32637d3fe764e675b641f930976ff4be5c390e06d28f7f",
+          "network_reference.json": "ccd226686978c3b17dacef6eb58ebd7e4dac3e33803448f82f000d91dc7fbafa",
+          "upstream/patrick_jane_review.json": "aebb1c34dfea433e2d400f564f71f8c6a4ce127e68c90a3730ac05c04fc1e615",
+          "upstream/patrick_jane_a2_default.json": "fc4a8a49f37f6640ab523968b0975ae7d3e70a300653f6f1dfbfa92ece0defe4",
+          "upstream/patrick_jane_architecture.json": "13fc2329c02762cbec749b0d42f626f6fd821eec5605fa745bd07db5b2e7bcc5"
+        },
+        "bundle_sha256": "3df63982611039cb58cf487c9906d65c7705a41599ec49cebd39de00d1b53d1c"
+      },
+      "historical_configuration": false,
+      "pj_a2_configuration": false
+    },
+    {
+      "path": "jane/configs/patrick_jane_a2_12p.json",
+      "players": 12,
+      "crew": 10,
+      "impostors": 2,
+      "receipt": {
+        "settings_sha256": "c05e5133603d73ff4c1803185923c248d97c6714b17f08b6a05f73cb73250db4",
+        "shared_files": {
+          "settings.py": "70d2b49ba698b43121f0c670cfe02a12d39fff5ffe70dc03dc7200c809851b99",
+          "compatibility.py": "f01d8e37b845a27e57b31a3270358707bc7c0559772a145e3cefaefa9309ac39",
+          "patrick_jane.py": "11ad787f551f1da311e1f9b92305332ba319c35aead48da282e2620a5a6a0998",
+          "catalog.json": "694ab72a0a6cbc0cdc4cc4f13cb9f084e680f6f995cfd57fdb1c0bf290f791cb",
+          "rulesets.json": "c11b8daba7b217b2362558c8096b51784b20349c47df9729918d59ed36251861",
+          "actor_contract.json": "1dde22479a8f83bc6f32637d3fe764e675b641f930976ff4be5c390e06d28f7f",
+          "network_reference.json": "ccd226686978c3b17dacef6eb58ebd7e4dac3e33803448f82f000d91dc7fbafa",
+          "upstream/patrick_jane_review.json": "aebb1c34dfea433e2d400f564f71f8c6a4ce127e68c90a3730ac05c04fc1e615",
+          "upstream/patrick_jane_a2_default.json": "fc4a8a49f37f6640ab523968b0975ae7d3e70a300653f6f1dfbfa92ece0defe4",
+          "upstream/patrick_jane_architecture.json": "13fc2329c02762cbec749b0d42f626f6fd821eec5605fa745bd07db5b2e7bcc5"
+        },
+        "bundle_sha256": "9b256246951a73350218de0575d9c023bed9c3834fb35f1a519fe5aace435baa"
+      },
+      "historical_configuration": false,
+      "pj_a2_configuration": true
+    },
+    {
+      "path": "jane/configs/patrick_jane_a2_15p.json",
+      "players": 15,
+      "crew": 12,
+      "impostors": 3,
+      "receipt": {
+        "settings_sha256": "6301860c45dbfe3f44400b77cd347f36ec3bd64c86a54de1451b494ed3e3708e",
+        "shared_files": {
+          "settings.py": "70d2b49ba698b43121f0c670cfe02a12d39fff5ffe70dc03dc7200c809851b99",
+          "compatibility.py": "f01d8e37b845a27e57b31a3270358707bc7c0559772a145e3cefaefa9309ac39",
+          "patrick_jane.py": "11ad787f551f1da311e1f9b92305332ba319c35aead48da282e2620a5a6a0998",
+          "catalog.json": "694ab72a0a6cbc0cdc4cc4f13cb9f084e680f6f995cfd57fdb1c0bf290f791cb",
+          "rulesets.json": "c11b8daba7b217b2362558c8096b51784b20349c47df9729918d59ed36251861",
+          "actor_contract.json": "1dde22479a8f83bc6f32637d3fe764e675b641f930976ff4be5c390e06d28f7f",
+          "network_reference.json": "ccd226686978c3b17dacef6eb58ebd7e4dac3e33803448f82f000d91dc7fbafa",
+          "upstream/patrick_jane_review.json": "aebb1c34dfea433e2d400f564f71f8c6a4ce127e68c90a3730ac05c04fc1e615",
+          "upstream/patrick_jane_a2_default.json": "fc4a8a49f37f6640ab523968b0975ae7d3e70a300653f6f1dfbfa92ece0defe4",
+          "upstream/patrick_jane_architecture.json": "13fc2329c02762cbec749b0d42f626f6fd821eec5605fa745bd07db5b2e7bcc5"
+        },
+        "bundle_sha256": "8f7c28002fda895c7d39304f955659f0b8672eb33dde89ac8254e4fba7825350"
+      },
+      "historical_configuration": false,
+      "pj_a2_configuration": true
+    }
+  ],
+  "constructor_checks": [
+    {
+      "configuration_verified": true,
+      "settings_sha256": "c05e5133603d73ff4c1803185923c248d97c6714b17f08b6a05f73cb73250db4",
+      "implementation_commit": "d459f38674ebc537acde20647cbd07700c494533",
+      "source_files_checked": 36,
+      "artifact_files_checked": 5,
+      "players": 12,
+      "crewmates": 10,
+      "impostors": 2,
+      "model_loaded": false,
+      "matches_started": 0,
+      "training_updates": 0,
+      "model_runtime_verified": false
+    },
+    {
+      "configuration_verified": true,
+      "settings_sha256": "6301860c45dbfe3f44400b77cd347f36ec3bd64c86a54de1451b494ed3e3708e",
+      "implementation_commit": "d459f38674ebc537acde20647cbd07700c494533",
+      "source_files_checked": 36,
+      "artifact_files_checked": 5,
+      "players": 15,
+      "crewmates": 12,
+      "impostors": 3,
+      "model_loaded": false,
+      "matches_started": 0,
+      "training_updates": 0,
+      "model_runtime_verified": false
+    }
+  ],
+  "cli_checks": [
+    {
+      "command": "python -m jane jane/configs/historical_5p.json --engine historical-v2.2",
+      "exit_code": 0
+    },
+    {
+      "command": "python -m jane jane/configs/patrick_jane_a2_12p.json --engine patrick-jane --native-config",
+      "exit_code": 0
+    },
+    {
+      "command": "python -m jane jane/configs/patrick_jane_a2_15p.json --engine patrick-jane",
+      "exit_code": 0
+    },
+    {
+      "command": "python -m jane jane/configs/patrick_jane_a2_12p.json --engine patrick-jane --check-pair",
+      "exit_code": 2
+    },
+    {
+      "command": "python -m jane jane/configs/future_15p_full_classic.json --engine patrick-jane",
+      "exit_code": 2
+    }
+  ],
+  "local_links_checked": 7,
+  "neural_pair_implemented": false,
+  "models_loaded": false,
+  "matches_started": 0,
+  "training_updates": 0,
+  "upstream_code_or_weights_vendored": false,
+  "model_runtime_verified": false,
+  "limitations": [
+    "No learned-impostor A2 adapter/model",
+    "No paired neural gameplay verification",
+    "Current published weights are not A2 trained",
+    "Retail-build conformance remains separate"
+  ]
+}

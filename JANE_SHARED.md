@@ -1,17 +1,16 @@
-# Jane shared foundation
+# Shared Jane workspace — reviewed against the teammate push
 
-Start at [jane/README.md](jane/README.md).
+Start at [jane/README.md](jane/README.md). Branch: **codex/jane-shared-foundation**.
 
-Shared branch: **codex/jane-shared-foundation**. Base: shared integration commit
-`eb5d122b2c338af4bea65967f0f01004258d0f22`. No main merge, deployment or training.
+The owner confirmed the teammate push. Reviewed branch:
+`codex/patrick-jane-recurrent-ppo`, tip `c7c0ef0fd0b6d460860f1f7b27fe34cb4f8385b2`;
+implementation/model pin `d459f38674ebc537acde20647cbd07700c494533`.
 
-This is a **provisional** common settings/catalog/interface foundation for
-**Patrick Jane crewmate** and **Jane Impostor**. Patrick Jane is an architectural
-reference only; neither network is copied or finalized here. Both remain in
-development. The owner will announce when the teammate's progress is pushed;
-pull and read that progress FIRST, then revise compatibility for both roles.
-Do not assume the folder, tensor or model structure is final.
+Patrick Jane remains a reference, not a copied base. No neural source, weights,
+launchers or training are imported into this branch. The shared draft now has
+native A2 configuration mapping and corrected capacity/mechanics/tensor facts.
+Both model structures remain editable and independent.
 
-Both collaborators should branch from this shared branch. Keep shared semantics
-under `jane/shared`, role work under `jane/crewmate` or `jane/impostor`, editable
-profiles under `jane/configs`, and joint rules/plans under `docs/jane`.
+Read [what needed fixing](docs/jane/UPSTREAM_REVIEW.md),
+[the rules](docs/jane/GAME_RULES.md), and [the impostor plan](jane/impostor/PLAN.md).
+Configuration acceptance is not verified learned-crewmate/learned-impostor play.

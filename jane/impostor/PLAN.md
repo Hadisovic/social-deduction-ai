@@ -1,105 +1,81 @@
-# Jane Impostor development plan
+# Jane Impostor plan after the real Patrick Jane review
 
-30 October 2026. Foundation/planning branch. No new PPO is authorized by this
-delivery. Latest owner clarification: **Patrick Jane is still in progress and is
-a reference only, not a copied common base.** The owner will announce the teammate
-push. Pull and read it first, then revise compatibility for both role projects.
-This is not the final folder, interface or network structure.
+30 October 2026. No training starts from this plan. Patrick Jane remains a
+reference only; do not copy its implementation/weights as a final common base.
 
-## 1. Review the actual Jane progress before deciding the design
+## Verified reference
 
-- [ ] Wait for the owner's push-ready notice, then fetch and read the progress.
-- [ ] Record current source, runtime, available checkpoint hashes and incomplete work.
-- [ ] Preserve its original loader and baseline before any compatibility adaptation.
-- [ ] Verify the reported self `192→256→128`, player `16→128→128`, event
-      `16→128→128`, attention, fusion `384→256`, GRU-256, and `256→256→128` trunks.
-- [ ] Record actual actor/critic encoder and GRU sharing; separate trunks do not
-      prove fully separate pathways.
-- [ ] Keep its actual parameter count as a reference. Decide the impostor's own
-      dimensions after review; do not copy weights/code or force a cosmetic count.
+- [x] Owner confirmed the teammate push; fetched/read it before revising compatibility.
+- [x] Pin implementation `d459f38674ebc537acde20647cbd07700c494533` and guide tip `c7c0ef0`.
+- [x] Verify published artifact checksums and read actual architecture/API/features.
+- [x] Check real A2 constructors: 10+2 and 12+3 accepted; 13+2/14+1 rejected.
+- [x] Translate shared settings to native A2 defaults without changing PPO/rewards.
+- [ ] Implement and verify a learned-impostor adapter; configuration mapping is not this.
 
-## 2. Revise the provisional common engine/profile agreement for both roles
+## 1. Agree the shared semantic boundary with the crew developer
 
-- [x] Shared editable settings with a 15-player capacity and derived crew count.
-- [x] Common rules, task/role inventory, semantic interface and version boundaries.
-- [ ] Verify the current Jane engine against the shared rules and actual build.
-- [ ] Agree which current Jane navigation/commitment systems remain engineered.
-- [ ] Use `jane_12p_base.json` as the initial target only after compatibility tests.
-- [ ] Test 4–15 player padding/masks and legal one/two/three-impostor starts.
-- [ ] Keep historical five-player tests on their unchanged engine and source.
+Use the current immutable observe_pj(actor_id) envelope, including legitimate
+ally identity/own abilities. Keep native Intent/API Action semantics, target IDs,
+tick timing and local door knowledge explicit. Do not pass a world or another
+actor's state into the policy. Native other-player rows exclude self; voting skip
+is 14, and candidate target indices are packet-local/dynamic.
 
-## 3. Build role-specific adapters, not strategy scripts
+Current crew features do not encode all host settings, teammate flags or own
+impostor cooldown/vent state. Do not reuse the crew encoder unchanged and assume
+those facts reach an impostor. Decide a new role-specific feature schema after
+joint review. Existing weights/layouts retain their exact meaning.
 
-The crew receives only its own real task list; the impostor receives its own
-legitimate fake list and ally identities. Both receive public settings, lawful
-observations and events. Preserve hidden information isolation.
+## 2. Design the impostor's independent network
 
-Shared-weight impostors keep separate GRU states, histories, option goals and
-sampling RNGs. No automatic sharing of unseen ally positions, goals or memories.
-Do not add rules saying hunt, kill on sight, never report, always defend an ally,
-or always fake when watched. Roles/actions are engine interface labels; strategic
-choices remain neural.
+Use the verified self/player/event attention + recurrent design as reference.
+Keep shared weights among impostors but independent memory/history/RNG/options.
+Choose actor/critic sharing deliberately: the crew model shares its backbone,
+unlike the historical fully separated 75K impostor. Do not silently claim the two
+designs are the same. Dimensions/head counts remain a design decision, not a copy.
 
-- [ ] Add kill, fake, body/report, emergency, claim, vote and silence candidates.
-- [ ] Keep goal selection neural and physical collision/path execution deterministic.
-- [ ] Preserve Navigation V2's independent arrived-goal/continuation work.
-- [ ] Audit the real Jane task commitment system before applying it to fake tasks.
-- [ ] Make fakes finishable, interruptible and persistent without reward farming.
-- [ ] Distinguish direct evidence from claims and public results.
-- [ ] Support self-defence and lawful misleading claims; no truth mask.
-- [ ] Audit richer candidate combinations; factor arguments if capacity would
-      overflow instead of silently truncating legal options.
+Required neural choices: goals/wait/cancel, kill/target, fake start/continue/stop,
+report/emergency, claims/defence/silence, vote/skip, legal door/vent/light actions.
+The current crew interaction head (travel/task/report/repair/emergency) cannot
+represent these by relabelling outputs. Preserve exact factor/mask/log-probability
+accounting. Avoid flat claim-target Cartesian products if capacity overflows.
 
-## 4. Recurrent training correctness before study
+## 3. Integrate with the actual A2 engine without changing its frozen study
 
-- [ ] Reset state per match, retain it across meetings, validate phase transitions.
-- [ ] Train contiguous actor sequences; preserve masks/log-probabilities and timing.
-- [ ] Audit current Jane TBPTT-128, burn-in, hidden-state refresh, terminal bootstrap
-      and reward attribution instead of blindly copying hyperparameters.
-- [ ] Freeze opponents and policy version during each complete collected match.
-- [ ] Define an explicit fresh-init or recorded transfer study; never silently
-      reinterpret crew weights as an already-trained impostor.
-- [ ] Test determinism, strict load, invalid-action masking and no hidden truth.
+Start with the native 10+2 profile; preserve its source, task counts, lights,
+doors, vents, event schema, technical cuts and independent actor boundary.
+Replace the scripted controller only through the legal actor interface in a NEW
+learned-impostor regime. Never mutate world state directly or share hidden ally
+positions/goals. Preserve the scripted reference and opponent-mixture studies.
 
-## 5. First learning study: narrow and measurable
+Keep Navigation V2's redundant-arrival repair independent. Audit the crew's task
+commitment before designing fake-task options: it is engineered persistence and
+must not become a forced impostor-faking loop. Impostors currently have no owned
+real tasks; a legitimate fake-list contract needs explicit design.
 
-Train classic base-role behavior against an independently checked frozen crew
-pool. Keep meetings and exposure consequences present from the start. Separate
-training, selection and fresh locked confirmation scenarios. At least three
-independent initializations are desirable for architecture claims; old 101/202
-are same-initial-weight sampling streams, not three independent replications.
+## 4. Verification gates before learning
 
-Start the new reward comparison around team win/loss, with separately registered
-kill shaping. Do not reward fake starts, distance, claims or sabotage presses.
-Review individual ejection penalties before two-impostor play: an eliminated
-actor can still help through future ghost sabotage. Retain old rewards exactly
-in old studies. Infrastructure timeouts are not game losses.
+- [ ] Per-actor GRU/RNG/reset isolation, meeting continuity and no hidden truth.
+- [ ] Legal kill/body/report/vote and source-provenance tests.
+- [ ] Persistent but abandonable fake activity; no restart or task-progress exploit.
+- [ ] Door/vent/light action masks, time accounting and local-knowledge paths.
+- [ ] Strict model/runtime/source identities and recorded explicit transfers only.
+- [ ] Recurrent sequences, conditional likelihoods and terminal/truncation handling.
+- [ ] Deterministic bounded engineering matches and honest replay labels.
 
-Report wins with confidence intervals and reasons, but also ready-idle time,
-search opportunities, repeated goals, witnesses, report latency, fake completion,
-meeting behavior and failure replays. A parity win alone is not intelligent play.
+## 5. Register an independent learning study
 
-## 6. Expand mechanics only after paired capability gates
+Freeze competent crew opponents; record scripted versus learned opposition.
+Propose rewards and budgets for this new role rather than inheriting crew task
+rewards or claiming old 101/202 are a new twelve-player model. Compare win reasons,
+search opportunities, ready-idle periods, witnesses, reports, fake completion and
+meeting actions. Separate training, selection and locked fresh confirmation.
 
-1. Verify devices/vent/door state machines and actor-safe observations.
-2. Teach or verify crew counterplay, especially repairs.
-3. Enable noncritical sabotage, then critical sabotage in separate profiles.
-4. Verify two-impostor action arbitration, team credit and ghost continuation.
-5. Evaluate 10+2 and 15-player generalization separately; setting a maximum does
-   not prove a model can play every population or setting.
-6. Add optional roles only after both policies and the engine handle them.
-7. Consider adaptation/self-play after both learned base roles work reliably.
+No full PPO before owner approval with measured throughput and approximate time.
+Do not open historical final partitions, merge or deploy.
 
-Each capability gets its own settings version, test evidence and opponent pool.
-See `docs/jane/FUTURE_WORK.md` for all reserved mechanics and roles.
+## 6. Future additions, separately versioned
 
-## Approval and completion gates
-
-Implementation and publication of this foundation are authorized. A new full
-training study still needs a concrete proposal, measured throughput and owner
-approval. No reserved historical final partitions, merge or deployment.
-
-Before training: show exact source/checkpoint/settings hashes, adapters, tests,
-sampling/selection protocol, decision budget, deadline and estimated time.
-Before calling it compatible: both real role loaders and the shared engine must
-pass deterministic, privacy and action/timing checks on the same profile.
+Enable communications/critical sabotage only after crew counterplay and tests;
+they are not registered in A2. Devices, Clean Vent, ghost impostor assistance,
+optional roles, 13/14-crew support and self-play remain staged work. The existing
+native fifteen-player constructor is 12+3, not proof of trained generalization.

@@ -19,6 +19,9 @@ class CompatibilityReport:
     compatible: bool
     blockers: tuple[str, ...]
     settings_sha256: str
+    scope: str = "configuration-only"
+    model_execution_verified: bool = False
+    notes: tuple[str, ...] = ()
 
 
 def legacy_lobby(settings: GameSettings):
@@ -41,6 +44,8 @@ def legacy_lobby(settings: GameSettings):
         blockers.append("short/long native kill distances have not been calibrated by this adapter")
     if settings.simulation.cap_policy != "historical-impostor-loss":
         blockers.append("historical engine uses a terminal match timeout, not truncation")
+    if settings.simulation.stall_cap_seconds != 0:
+        blockers.append("historical engine has no separate technical stall cut")
     if blockers:
         raise CompatibilityError("; ".join(blockers))
     # The old import chain prints pygame's support banner in a clean shell.
@@ -83,13 +88,19 @@ def check_engine(settings: GameSettings, engine_id: str):
         else:
             blockers = ()
     elif engine_id == "patrick-jane":
-        blockers = (
-            "Current Patrick Jane source/commit/checkpoint and adapter are not supplied in this branch.",
-            "Fifteen-player settings are representable; fifteen-player runtime compatibility is unverified.",
-        )
+        from .patrick_jane import a2_configuration
+        try:
+            a2_configuration(settings)
+        except ValueError as error:
+            blockers = (str(error),)
+        else:
+            blockers = ()
     else:
         raise ValueError(f"Unknown engine: {engine_id}")
-    return CompatibilityReport(engine_id, not blockers, blockers, settings.fingerprint())
+    notes = (("Pinned upstream A2 configuration mapping only; no model load or learned-impostor adapter.",
+              "Published weights are task-pursuit-v1, not A2 trained; runtime is Torch 2.7.1+cu128.")
+             if engine_id == "patrick-jane" else ())
+    return CompatibilityReport(engine_id, not blockers, blockers, settings.fingerprint(), notes=notes)
 
 
 def check_pair(settings: GameSettings, crewmate: dict, impostor: dict):

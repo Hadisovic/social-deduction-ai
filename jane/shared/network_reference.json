@@ -1,9 +1,10 @@
 {
-  "schema": "jane-network-reference-v1",
-  "status": "reported-reference-not-implementation",
-  "source": "Owner-supplied message (7).txt and local Patrick Jane architecture visualizer",
-  "reported_current_parameters": 1031070,
-  "capacity_target_players": 15,
+  "schema": "jane-network-reference-v2",
+  "status": "source-reviewed-reference-not-copied-base",
+  "source_commit": "d459f38674ebc537acde20647cbd07700c494533",
+  "reviewed_tip": "c7c0ef0fd0b6d460860f1f7b27fe34cb4f8385b2",
+  "parameters": 1031070,
+  "policy_tensors": 52,
   "self_encoder": [
     192,
     256,
@@ -14,14 +15,14 @@
     128,
     128
   ],
-  "player_attention_heads": 4,
+  "player_attention": "4-head self-attention among other-player rows, then masked mean",
   "event_encoder": [
     16,
     128,
     128
   ],
+  "event_attention": "4-head cross-attention queried by self encoding",
   "event_capacity": 64,
-  "event_attention": true,
   "fusion": [
     384,
     256
@@ -41,21 +42,62 @@
     256,
     128
   ],
-  "heads": [
-    "navigation",
-    "interaction",
-    "communication",
-    "voting",
-    "target_selection"
+  "actor_critic_sharing": "Encoders, attention, fusion and GRU shared; actor/critic MLP trunks separate",
+  "tensor_contract": {
+    "self": [
+      192
+    ],
+    "players": [
+      14,
+      16
+    ],
+    "events": [
+      64,
+      16
+    ],
+    "targets": [
+      "dynamic",
+      16
+    ],
+    "hidden": [
+      256
+    ]
+  },
+  "heads": {
+    "navigation": 3,
+    "interaction": 5,
+    "communication": 6,
+    "voting": 15,
+    "skip_index": 14,
+    "target": "dynamic",
+    "value": 1
+  },
+  "current_population": {
+    "crew": 10,
+    "impostors": 2,
+    "impostor_controllers": "scripted"
+  },
+  "engine_population_limit": "crew <= 12; 1..3 impostors; total <= 15; more crew than impostors",
+  "registered_ppo": {
+    "sequence_length": 128,
+    "learning_rate": 0.0003,
+    "gamma": 0.99,
+    "gae_lambda": 0.95,
+    "clip": 0.2,
+    "epochs": 4,
+    "entropy": 0.01
+  },
+  "checkpoint": {
+    "update": 102,
+    "regime": "task-pursuit-v1",
+    "a2_trained": false,
+    "inference_sha256": "da1d43d73c140ac39bf44834746dbae605b9b36d3c6c7af8a4f2be975e535e3c"
+  },
+  "remaining_work": [
+    "Learned impostor observation/action adapter and separate model",
+    "Host-setting conditioning: current 192-wide encoder does not encode every shared setting",
+    "Future task counts require a feature-layout and commitment audit",
+    "Actual paired model execution and held-out cross-play"
   ],
-  "parameter_sharing": "Within each role, weights shared; recurrent state/history/RNG private per actor",
-  "unverified": [
-    "Actual feature ordering and scaling",
-    "15-player implementation support",
-    "Head dimensions/masks",
-    "Encoder/GRU sharing between actor and critic",
-    "Checkpoint/source hashes",
-    "Exact recurrent PPO implementation"
-  ],
-  "migration_rule": "Reference only, not a shared copied base. Review the teammate's announced progress before deciding either role's adapters or architecture. Preserve all original tensors/loaders."
+  "migration_rule": "Reference only. No model/network copied, no shape-only checkpoint interchange, no finalized joint architecture."
 }

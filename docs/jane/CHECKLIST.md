@@ -1,39 +1,33 @@
-# Shared Jane foundation checklist
+# Shared Jane progress checklist
 
-Owner direction: in-progress Patrick Jane reference, shared settings for both roles,
-15-player capacity, clear folders, full rules and future-work plans, push a branch.
-Latest clarification: no copied network or final structure. Wait for the owner's
-push-ready notice, then pull/read teammate progress before adapting either role.
+Both models and the final shared structure remain provisional. Patrick Jane is
+a reference only. Earlier foundation delivery is preserved at7994108.
 
-## Delivered foundation
+## Completed after the teammate's push
 
-- [x] Fetch current remote branches and preserve the historical baseline.
-- [x] Create `codex/jane-shared-foundation` from `eb5d122`.
-- [x] Leave old models, engine modules, results and Navigation V2 work intact.
-- [x] Separate `shared`, `configs`, `crewmate` and `impostor` folders.
-- [x] Implement strict editable settings for 4–15 players and 1–3 impostors.
-- [x] Include meeting, voting, tasks, vision, movement and kill settings.
-- [x] Include explicit future-mechanic flags and disabled optional roles.
-- [x] Supply historical 5p, initial 12p, capacity 15p and future full-classic profiles.
-- [x] Inventory all 19 asset task IDs, variants, vents, doors and known optional roles.
-- [x] Document rules, privacy, lifecycle, checkpoint and collaboration contracts.
-- [x] Reference current Patrick Jane architecture and write the new impostor plan.
-- [x] Add fail-closed compatibility reports and historical lobby conversion.
-- [x] Bind settings and shared definition files to fingerprints.
-- [x] Complete focused verification: 87 tests passed; no matches, models or PPO.
-- [x] Verify configuration-only CLI, fail-closed reports and local documentation links.
-- [x] Commit and publish this foundation branch, without merge/deployment/training.
+- [x] Owner confirmed readiness; fetch/read `codex/patrick-jane-recurrent-ppo` first.
+- [x] Pin source/model d459f386 and reviewed guide c7c0ef0.
+- [x] Verify all five published artifact checksums without loading weights.
+- [x] Read actual network, features/API/actions, config, A2 mechanics and guide.
+- [x] Correct shared-backbone architecture and14-other/skip14/dynamic-target facts.
+- [x] Identify native crew<=12 and reject13+2/14+1 through the adapter.
+- [x] Add native12p/15p A2 profiles with lights/doors/vents and15s emergency cooldown.
+- [x] Separate1800s maximum and300s stall cuts from the unused900s lobby field.
+- [x] Preserve fixed1/1/2 tasks, public ballots and always task bar constraints.
+- [x] Add configuration translation without importing/copying a neural base.
+- [x] Keep future features disabled or reject unregistered combinations.
+- [x] Preserve teammate source, historical models, studies and Navigation V2 work.
 
-## Explicit remaining blockers
+## Remaining real model work
 
-- [ ] Owner announces the teammate's progress push is ready.
-- [ ] Pull/read that source before deciding compatibility for both in-progress models.
-- [ ] Verify its exact architecture, feature order, heads, masks and strict loader.
-- [ ] Implement both real adapters and the shared variable-population engine.
-- [ ] Pin the target game build and verify classic conformance differences.
-- [ ] Enable each future mechanic only after both policies and the engine support it.
-- [ ] Run deterministic compatibility/privacy checks on the real Jane models.
-- [ ] Propose training budget/time and obtain approval before a new PPO study.
+- [ ] Implement the independent learned-impostor feature/action policy and adapter.
+- [ ] Implement the crew-side shared adapter without repacking existing tensors.
+- [ ] Audit settings conditioning and larger task counts with the crew developer.
+- [ ] Verify model/runtime loading, memory privacy, legal actions and deterministic cross-play.
+- [ ] Pin retail-build conformance separately from these simulator abstractions.
+- [ ] Register reward/opponent/selection/budget protocol; obtain approval before PPO.
+- [ ] Activate additional sabotage/devices/roles/ghost assistance only after paired tests.
 
-The foundation is useful now for joint editing. Fifteen-player neural gameplay
-and compatibility with an absent checkpoint are not marked complete.
+Latest test/constructor results and publication identity are recorded in
+VERIFICATION.md and upstream-verification.json. No learned pair or full-game
+training result is marked complete by a settings check.
