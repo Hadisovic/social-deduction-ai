@@ -1,0 +1,24 @@
+{
+  "saved_development_checkpoints_strict_load_passed": 3,
+  "selection_lock_exists": false,
+  "validation_matches": 0,
+  "confirmation_matches": 0,
+  "reserved_final_matches": 0,
+  "crew_file_sha256": "da1d43d73c140ac39bf44834746dbae605b9b36d3c6c7af8a4f2be975e535e3c",
+  "crew_final_in_memory_hash_check_reached": false,
+  "actual_ejections": 0,
+  "meeting_ejection_records": 19,
+  "worker_processes_remaining": 0,
+  "worker_exit_verified_utc": "2026-10-30T20:38:18.299524+00:00",
+  "guard": {
+    "phase": "enforced",
+    "utc": "2026-10-30T20:05:53.0182662+00:00",
+    "reason": "registered-fatal-study-stop",
+    "stopped_worker_pids": []
+  },
+  "diagnostic_test": "1 passed in13.12s; controlled eviction and proposed in-memory correction",
+  "proposed_patch_apply_check": true,
+  "upstream_patch_applied": false,
+  "historical_V1_and_shared_sources_changed": false,
+  "note": "No new training, validation, confirmation or model selection after failure"
+}

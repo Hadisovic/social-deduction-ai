@@ -1,0 +1,11 @@
+{
+  "reproduction": "deliberate geometry-only cache eviction, no NN/PPO",
+  "mismatch_reproduced": true,
+  "equivalent_collision_domains": true,
+  "error": "Visibility and interaction geometry must share the same public map",
+  "proposed_pairing_passed": true,
+  "upstream_source_modified": false,
+  "exact_failed_process_cache_contents_recorded": false,
+  "geometry_cache": "CacheInfo(hits=0, misses=1, maxsize=16, currsize=1)",
+  "planner_cache": "CacheInfo(hits=1, misses=1, maxsize=16, currsize=1)"
+}

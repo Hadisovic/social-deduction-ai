@@ -1,0 +1,1242 @@
+{
+  "train101": {
+    "matches": {
+      "match-001.decisions.jsonl.gz": {
+        "actors": {
+          "p10": {
+            "decisions": 333,
+            "selected/visible_player": 1,
+            "voluntary_choice": 262,
+            "longest_identical_request_streak": 22,
+            "entropy_sum": 717.8604429960251,
+            "alive_roaming_seconds": 147.79999999999998,
+            "moving_seconds": 73.6,
+            "stationary_seconds": 74.20000000000002,
+            "selected/destination": 63,
+            "selected/cancel": 46,
+            "selected/room": 21,
+            "selected/fake": 3,
+            "fake_eligible_decisions": 8,
+            "fake_windows": 5,
+            "fake_seconds": 1.7999999999999887,
+            "selected/wait": 167,
+            "voluntary_continue_or_wait": 91,
+            "idle_wait_decisions": 51,
+            "ready_moving_seconds": 17.800000000000004,
+            "reward/cooldown_ready_time": -0.17199999999999957,
+            "lights_eligible_decisions": 1,
+            "lights_windows": 1,
+            "doors_eligible_decisions": 86,
+            "doors_windows": 16,
+            "selected/doors": 19,
+            "ready_stationary_seconds": 16.999999999999993,
+            "selected/kill": 1,
+            "kill_eligible_decisions": 4,
+            "kill_windows": 3,
+            "selected_kill_probability_sum": 0.24995385110378265,
+            "reward/team_kill": 2.0,
+            "report_eligible_decisions": 4,
+            "report_windows": 1,
+            "selected/report": 1,
+            "forced_single_candidate": 71,
+            "claim_eligible_decisions": 5,
+            "claim_windows": 3,
+            "selected/claim": 3,
+            "vote_eligible_decisions": 6,
+            "vote_windows": 3,
+            "selected/vote": 2,
+            "selected/skip": 1,
+            "selected/remembered_player": 5,
+            "top_goals": [
+              [
+                "stage:12:43",
+                3
+              ],
+              [
+                "task:29:13",
+                3
+              ],
+              [
+                "stage:12:6",
+                3
+              ],
+              [
+                "utility:12:52",
+                3
+              ],
+              [
+                "ElectricalHallway",
+                3
+              ]
+            ],
+            "mean_entropy": 2.1557370660541295
+          },
+          "p2": {
+            "decisions": 333,
+            "selected/destination": 53,
+            "voluntary_choice": 258,
+            "longest_identical_request_streak": 17,
+            "entropy_sum": 701.568029165268,
+            "alive_roaming_seconds": 147.79999999999998,
+            "moving_seconds": 78.4000000000001,
+            "selected/wait": 161,
+            "voluntary_continue_or_wait": 85,
+            "selected/cancel": 46,
+            "stationary_seconds": 69.3999999999999,
+            "idle_wait_decisions": 34,
+            "selected/fake": 5,
+            "fake_eligible_decisions": 19,
+            "fake_windows": 12,
+            "fake_seconds": 2.999999999999992,
+            "selected/room": 22,
+            "ready_stationary_seconds": 21.20000000000003,
+            "reward/cooldown_ready_time": -0.17999999999999947,
+            "selected/doors": 27,
+            "lights_eligible_decisions": 1,
+            "lights_windows": 1,
+            "doors_eligible_decisions": 86,
+            "doors_windows": 16,
+            "ready_moving_seconds": 15.199999999999962,
+            "selected/remembered_player": 9,
+            "reward/team_kill": 2.0,
+            "forced_single_candidate": 75,
+            "claim_eligible_decisions": 4,
+            "claim_windows": 3,
+            "selected/claim": 3,
+            "selected/skip": 2,
+            "vote_eligible_decisions": 3,
+            "vote_windows": 3,
+            "kill_eligible_decisions": 13,
+            "kill_windows": 4,
+            "selected/visible_player": 2,
+            "selected/kill": 1,
+            "selected_kill_probability_sum": 0.24861307442188263,
+            "selected/report": 1,
+            "report_eligible_decisions": 1,
+            "report_windows": 1,
+            "selected/vote": 1,
+            "top_goals": [
+              [
+                "p10",
+                4
+              ],
+              [
+                "Electrical",
+                4
+              ],
+              [
+                "utility:12:67",
+                3
+              ],
+              [
+                "task:29:1",
+                2
+              ],
+              [
+                "task:2:0",
+                2
+              ]
+            ],
+            "mean_entropy": 2.106810898394198
+          }
+        },
+        "effects": {
+          "navigate": 567,
+          "fake_task_start": 8,
+          "task_interrupted": 14,
+          "task_start": 52,
+          "doors_closed": 42,
+          "elimination_witnessed": 4,
+          "elimination": 2,
+          "task_completed": 24,
+          "doors_opened": 3,
+          "report": 2,
+          "report_transition": 3,
+          "meeting_started": 3,
+          "structured_claim": 24,
+          "claim": 3,
+          "voting_started": 3,
+          "vote_submitted": 31,
+          "a2_ballot_credit": 31,
+          "meeting_resolution": 3,
+          "vote": 31,
+          "ejection": 3,
+          "exploration_resumed": 3,
+          "meeting_respawn": 3,
+          "door_opened": 45,
+          "team_resource_contention": 4,
+          "emergency_called": 1
+        },
+        "failures": [],
+        "interpretation": "Policy choices and observed effects, not an explanation of internal neural intentions",
+        "caveats": [
+          "Windows are contiguous availability intervals, not independent trials.",
+          "Stationary includes legal waiting/obstruction; inspect replay before calling it camping.",
+          "Ready stationary uses tick endpoints; authoritative ready-time rewards use boundary accounting.",
+          "Offline world effects are diagnostic only; actor input is logged separately."
+        ]
+      },
+      "match-002.decisions.jsonl.gz": {
+        "actors": {
+          "p4": {
+            "decisions": 372,
+            "selected/wait": 183,
+            "voluntary_choice": 295,
+            "longest_identical_request_streak": 16,
+            "voluntary_continue_or_wait": 105,
+            "idle_wait_decisions": 52,
+            "entropy_sum": 808.273535490036,
+            "alive_roaming_seconds": 168.8,
+            "stationary_seconds": 87.40000000000006,
+            "selected/room": 30,
+            "moving_seconds": 81.39999999999995,
+            "selected/cancel": 50,
+            "selected/remembered_player": 12,
+            "selected/destination": 66,
+            "ready_moving_seconds": 19.19999999999997,
+            "reward/cooldown_ready_time": -0.18199999999999975,
+            "selected/doors": 22,
+            "lights_eligible_decisions": 1,
+            "lights_windows": 1,
+            "doors_eligible_decisions": 91,
+            "doors_windows": 13,
+            "ready_stationary_seconds": 17.800000000000036,
+            "kill_eligible_decisions": 7,
+            "kill_windows": 6,
+            "selected/kill": 1,
+            "selected_kill_probability_sum": 0.24862176179885864,
+            "reward/team_kill": 3.0,
+            "selected/report": 1,
+            "report_eligible_decisions": 1,
+            "report_windows": 1,
+            "fake_eligible_decisions": 5,
+            "fake_windows": 4,
+            "forced_single_candidate": 77,
+            "claim_eligible_decisions": 4,
+            "claim_windows": 3,
+            "selected/claim": 3,
+            "selected/skip": 2,
+            "vote_eligible_decisions": 3,
+            "vote_windows": 3,
+            "selected/visible_player": 1,
+            "selected/vote": 1,
+            "reward/team_outcome": -10.0,
+            "top_goals": [
+              [
+                "Navigation",
+                4
+              ],
+              [
+                "stage:12:6",
+                3
+              ],
+              [
+                "O2",
+                3
+              ],
+              [
+                "p0",
+                3
+              ],
+              [
+                "utility:12:53",
+                3
+              ]
+            ],
+            "mean_entropy": 2.1727783212097744
+          },
+          "p6": {
+            "decisions": 372,
+            "selected/wait": 184,
+            "voluntary_choice": 300,
+            "longest_identical_request_streak": 26,
+            "voluntary_continue_or_wait": 105,
+            "idle_wait_decisions": 53,
+            "entropy_sum": 815.6575615406036,
+            "alive_roaming_seconds": 168.8,
+            "stationary_seconds": 97.39999999999998,
+            "selected/destination": 71,
+            "moving_seconds": 71.40000000000003,
+            "selected/room": 23,
+            "selected/cancel": 47,
+            "selected/remembered_player": 8,
+            "ready_stationary_seconds": 23.600000000000016,
+            "reward/cooldown_ready_time": -0.1789999999999998,
+            "selected/doors": 26,
+            "lights_eligible_decisions": 1,
+            "lights_windows": 1,
+            "doors_eligible_decisions": 91,
+            "doors_windows": 13,
+            "ready_moving_seconds": 12.799999999999995,
+            "reward/team_kill": 3.0,
+            "forced_single_candidate": 72,
+            "claim_eligible_decisions": 5,
+            "claim_windows": 3,
+            "selected/skip": 2,
+            "vote_eligible_decisions": 7,
+            "vote_windows": 3,
+            "selected/fake": 3,
+            "fake_eligible_decisions": 12,
+            "fake_windows": 4,
+            "fake_seconds": 2.4000000000000057,
+            "kill_eligible_decisions": 6,
+            "kill_windows": 4,
+            "selected/kill": 2,
+            "selected_kill_probability_sum": 0.414646178483963,
+            "report_eligible_decisions": 3,
+            "report_windows": 2,
+            "selected/report": 1,
+            "selected/claim": 2,
+            "selected/visible_player": 2,
+            "selected/vote": 1,
+            "reward/team_outcome": -10.0,
+            "top_goals": [
+              [
+                "task:2:0",
+                4
+              ],
+              [
+                "task:1:5",
+                3
+              ],
+              [
+                "stage:image:2",
+                3
+              ],
+              [
+                "task:0:0",
+                3
+              ],
+              [
+                "Weapons",
+                3
+              ]
+            ],
+            "mean_entropy": 2.1926278536037733
+          }
+        },
+        "effects": {
+          "navigate": 561,
+          "task_start": 51,
+          "doors_closed": 44,
+          "team_resource_contention": 4,
+          "task_completed": 40,
+          "elimination_witnessed": 7,
+          "task_interrupted": 10,
+          "elimination": 3,
+          "doors_opened": 3,
+          "report": 3,
+          "report_transition": 3,
+          "meeting_started": 3,
+          "structured_claim": 19,
+          "claim": 5,
+          "voting_started": 3,
+          "vote_submitted": 30,
+          "a2_ballot_credit": 30,
+          "meeting_resolution": 3,
+          "vote": 30,
+          "ejection": 3,
+          "exploration_resumed": 3,
+          "meeting_respawn": 3,
+          "door_opened": 61,
+          "fake_task_start": 3,
+          "match_end": 1
+        },
+        "failures": [],
+        "interpretation": "Policy choices and observed effects, not an explanation of internal neural intentions",
+        "caveats": [
+          "Windows are contiguous availability intervals, not independent trials.",
+          "Stationary includes legal waiting/obstruction; inspect replay before calling it camping.",
+          "Ready stationary uses tick endpoints; authoritative ready-time rewards use boundary accounting.",
+          "Offline world effects are diagnostic only; actor input is logged separately."
+        ]
+      },
+      "match-003.decisions.jsonl.gz": {
+        "actors": {
+          "p3": {
+            "decisions": 543,
+            "selected/wait": 257,
+            "voluntary_choice": 446,
+            "longest_identical_request_streak": 16,
+            "voluntary_continue_or_wait": 154,
+            "idle_wait_decisions": 78,
+            "entropy_sum": 1205.0544381141663,
+            "alive_roaming_seconds": 253.8,
+            "stationary_seconds": 141.20000000000013,
+            "selected/visible_player": 3,
+            "moving_seconds": 112.5999999999999,
+            "selected/destination": 110,
+            "selected/cancel": 77,
+            "selected/room": 31,
+            "ready_moving_seconds": 30.399999999999963,
+            "reward/cooldown_ready_time": -0.2830000000000003,
+            "lights_eligible_decisions": 3,
+            "lights_windows": 1,
+            "doors_eligible_decisions": 104,
+            "doors_windows": 12,
+            "fake_eligible_decisions": 39,
+            "fake_windows": 17,
+            "ready_stationary_seconds": 27.200000000000045,
+            "selected/doors": 34,
+            "selected/remembered_player": 7,
+            "selected/fake": 12,
+            "fake_seconds": 7.1999999999999815,
+            "reward/team_kill": 5.0,
+            "forced_single_candidate": 97,
+            "selected/claim": 4,
+            "claim_eligible_decisions": 9,
+            "claim_windows": 4,
+            "selected/vote": 1,
+            "vote_eligible_decisions": 5,
+            "vote_windows": 4,
+            "selected/kill": 2,
+            "kill_eligible_decisions": 2,
+            "kill_windows": 2,
+            "selected_kill_probability_sum": 0.5329631268978119,
+            "report_eligible_decisions": 4,
+            "report_windows": 3,
+            "selected/body_travel": 1,
+            "selected/skip": 3,
+            "selected/report": 1,
+            "reward/team_outcome": -10.0,
+            "top_goals": [
+              [
+                "task:29:8",
+                6
+              ],
+              [
+                "stage:12:13",
+                5
+              ],
+              [
+                "stage:image:4",
+                4
+              ],
+              [
+                "O2",
+                4
+              ],
+              [
+                "task:18:0",
+                4
+              ]
+            ],
+            "mean_entropy": 2.219253108865868
+          },
+          "p8": {
+            "decisions": 543,
+            "selected/destination": 110,
+            "voluntary_choice": 445,
+            "longest_identical_request_streak": 23,
+            "entropy_sum": 1200.4659041166306,
+            "alive_roaming_seconds": 253.8,
+            "moving_seconds": 114.79999999999998,
+            "selected/cancel": 70,
+            "stationary_seconds": 139.00000000000003,
+            "selected/wait": 273,
+            "voluntary_continue_or_wait": 170,
+            "idle_wait_decisions": 86,
+            "selected/room": 33,
+            "selected/visible_player": 3,
+            "ready_stationary_seconds": 28.000000000000043,
+            "reward/cooldown_ready_time": -0.2889999999999999,
+            "lights_eligible_decisions": 3,
+            "lights_windows": 1,
+            "doors_eligible_decisions": 104,
+            "doors_windows": 12,
+            "ready_moving_seconds": 30.79999999999995,
+            "selected/doors": 32,
+            "selected/remembered_player": 5,
+            "kill_eligible_decisions": 6,
+            "kill_windows": 6,
+            "selected/kill": 3,
+            "selected_kill_probability_sum": 0.6649107038974762,
+            "reward/team_kill": 5.0,
+            "selected/report": 1,
+            "report_eligible_decisions": 6,
+            "report_windows": 4,
+            "forced_single_candidate": 98,
+            "selected/claim": 4,
+            "claim_eligible_decisions": 6,
+            "claim_windows": 4,
+            "vote_eligible_decisions": 7,
+            "vote_windows": 4,
+            "selected/vote": 3,
+            "fake_eligible_decisions": 12,
+            "fake_windows": 9,
+            "vent_enter_eligible_decisions": 2,
+            "vent_enter_windows": 2,
+            "selected/fake": 5,
+            "fake_seconds": 3.599999999999909,
+            "selected/skip": 1,
+            "reward/team_outcome": -10.0,
+            "top_goals": [
+              [
+                "stage:12:46",
+                5
+              ],
+              [
+                "ElectricalHallway",
+                5
+              ],
+              [
+                "stage:image:8",
+                5
+              ],
+              [
+                "Shields",
+                4
+              ],
+              [
+                "NorthHallway",
+                4
+              ]
+            ],
+            "mean_entropy": 2.210802770012211
+          }
+        },
+        "effects": {
+          "navigate": 761,
+          "task_start": 59,
+          "doors_closed": 63,
+          "task_completed": 40,
+          "team_resource_contention": 3,
+          "door_opened": 117,
+          "fake_task_start": 17,
+          "task_interrupted": 20,
+          "elimination_witnessed": 12,
+          "elimination": 5,
+          "report": 4,
+          "report_transition": 4,
+          "meeting_started": 4,
+          "structured_claim": 30,
+          "claim": 3,
+          "voting_started": 4,
+          "vote_submitted": 35,
+          "a2_ballot_credit": 35,
+          "meeting_resolution": 4,
+          "vote": 35,
+          "ejection": 4,
+          "exploration_resumed": 4,
+          "meeting_respawn": 4,
+          "match_end": 1
+        },
+        "failures": [],
+        "interpretation": "Policy choices and observed effects, not an explanation of internal neural intentions",
+        "caveats": [
+          "Windows are contiguous availability intervals, not independent trials.",
+          "Stationary includes legal waiting/obstruction; inspect replay before calling it camping.",
+          "Ready stationary uses tick endpoints; authoritative ready-time rewards use boundary accounting.",
+          "Offline world effects are diagnostic only; actor input is logged separately."
+        ]
+      },
+      "match-004.decisions.jsonl.gz": {
+        "actors": {
+          "p1": {
+            "decisions": 28,
+            "selected/destination": 8,
+            "voluntary_choice": 28,
+            "longest_identical_request_streak": 4,
+            "entropy_sum": 80.69509959220886,
+            "alive_roaming_seconds": 16.2,
+            "moving_seconds": 8.599999999999998,
+            "selected/wait": 12,
+            "voluntary_continue_or_wait": 12,
+            "selected/cancel": 4,
+            "stationary_seconds": 7.6000000000000005,
+            "idle_wait_decisions": 6,
+            "ready_stationary_seconds": 4.4,
+            "reward/cooldown_ready_time": -0.031000000000000003,
+            "lights_eligible_decisions": 4,
+            "lights_windows": 1,
+            "doors_eligible_decisions": 10,
+            "doors_windows": 2,
+            "selected/visible_player": 1,
+            "kill_eligible_decisions": 1,
+            "kill_windows": 1,
+            "ready_moving_seconds": 1.9999999999999982,
+            "selected/lights": 1,
+            "selected/doors": 1,
+            "selected/room": 1,
+            "top_goals": [
+              [
+                "task:29:6",
+                1
+              ],
+              [
+                "utility:12:49",
+                1
+              ],
+              [
+                "task:4:0",
+                1
+              ],
+              [
+                "task:11:0",
+                1
+              ],
+              [
+                "stage:image:2",
+                1
+              ]
+            ],
+            "mean_entropy": 2.881967842578888
+          },
+          "p10": {
+            "decisions": 28,
+            "selected/visible_player": 1,
+            "voluntary_choice": 28,
+            "longest_identical_request_streak": 3,
+            "entropy_sum": 79.82143998146057,
+            "alive_roaming_seconds": 16.2,
+            "moving_seconds": 9.600000000000001,
+            "selected/destination": 9,
+            "selected/wait": 9,
+            "voluntary_continue_or_wait": 9,
+            "selected/cancel": 4,
+            "stationary_seconds": 6.599999999999998,
+            "idle_wait_decisions": 4,
+            "ready_moving_seconds": 3.4000000000000004,
+            "reward/cooldown_ready_time": -0.031000000000000003,
+            "lights_eligible_decisions": 4,
+            "lights_windows": 1,
+            "doors_eligible_decisions": 10,
+            "doors_windows": 2,
+            "selected/lights": 1,
+            "ready_stationary_seconds": 2.9999999999999982,
+            "fake_eligible_decisions": 3,
+            "fake_windows": 1,
+            "selected/doors": 3,
+            "selected/fake": 1,
+            "fake_seconds": 1.1999999999999993,
+            "top_goals": [
+              [
+                "p2",
+                1
+              ],
+              [
+                "task:10:0",
+                1
+              ],
+              [
+                "task:1:2",
+                1
+              ],
+              [
+                "task:18:0",
+                1
+              ],
+              [
+                "task:1:1",
+                1
+              ]
+            ],
+            "mean_entropy": 2.8507657136235918
+          }
+        },
+        "effects": {
+          "navigate": 91,
+          "task_start": 9,
+          "task_completed": 1,
+          "team_resource_contention": 1,
+          "sabotage_started": 1,
+          "sabotage_repaired": 1,
+          "task_interrupted": 1,
+          "doors_closed": 3,
+          "fake_task_start": 1
+        },
+        "failures": [],
+        "interpretation": "Policy choices and observed effects, not an explanation of internal neural intentions",
+        "caveats": [
+          "Windows are contiguous availability intervals, not independent trials.",
+          "Stationary includes legal waiting/obstruction; inspect replay before calling it camping.",
+          "Ready stationary uses tick endpoints; authoritative ready-time rewards use boundary accounting.",
+          "Offline world effects are diagnostic only; actor input is logged separately."
+        ],
+        "interrupted_original_error": "Compressed file ended before the end-of-stream marker was reached",
+        "recovered_complete_records": 200,
+        "result_fabricated": false
+      }
+    },
+    "actual_effect_counts": {
+      "witnessed/p10": 2,
+      "report/p10": 1,
+      "actual_self_report/p10": 1,
+      "structured_claim": 73,
+      "claim": 11,
+      "vote": 96,
+      "team_resource_contention": 12,
+      "witnessed/p2": 2,
+      "report/p2": 1,
+      "actual_self_report/p2": 1,
+      "witnessed/p4": 2,
+      "report/p4": 2,
+      "actual_self_report/p4": 1,
+      "witnessed/p6": 5,
+      "report/p6": 1,
+      "actual_self_report/p6": 1,
+      "report/p11": 2,
+      "witnessed/p8": 8,
+      "report/p8": 1,
+      "actual_self_report/p8": 1,
+      "witnessed/p3": 4,
+      "report/p3": 1,
+      "actual_self_report/p3": 1
+    }
+  },
+  "train202": {
+    "matches": {
+      "match-001.decisions.jsonl.gz": {
+        "actors": {
+          "p5": {
+            "decisions": 291,
+            "selected/room": 15,
+            "voluntary_choice": 245,
+            "longest_identical_request_streak": 16,
+            "entropy_sum": 669.8983007669449,
+            "alive_roaming_seconds": 139.8,
+            "moving_seconds": 76.00000000000003,
+            "selected/cancel": 36,
+            "stationary_seconds": 63.79999999999999,
+            "selected/wait": 145,
+            "voluntary_continue_or_wait": 96,
+            "idle_wait_decisions": 35,
+            "selected/destination": 56,
+            "ready_moving_seconds": 17.2,
+            "reward/cooldown_ready_time": -0.16400000000000012,
+            "lights_eligible_decisions": 2,
+            "lights_windows": 1,
+            "doors_eligible_decisions": 68,
+            "doors_windows": 16,
+            "selected/lights": 1,
+            "ready_stationary_seconds": 16.200000000000006,
+            "selected/doors": 26,
+            "selected/kill": 2,
+            "kill_eligible_decisions": 2,
+            "kill_windows": 2,
+            "selected_kill_probability_sum": 0.49721986055374146,
+            "reward/team_kill": 3.0,
+            "report_eligible_decisions": 7,
+            "report_windows": 3,
+            "selected/report": 1,
+            "forced_single_candidate": 46,
+            "claim_eligible_decisions": 4,
+            "claim_windows": 2,
+            "selected/claim": 2,
+            "selected/skip": 2,
+            "vote_eligible_decisions": 3,
+            "vote_windows": 2,
+            "selected/remembered_player": 5,
+            "top_goals": [
+              [
+                "task:7:2",
+                5
+              ],
+              [
+                "task:3:0",
+                4
+              ],
+              [
+                "CrossHallway",
+                3
+              ],
+              [
+                "Communications",
+                3
+              ],
+              [
+                "task:1:4",
+                3
+              ]
+            ],
+            "mean_entropy": 2.302056016381254
+          },
+          "p9": {
+            "decisions": 291,
+            "selected/wait": 144,
+            "voluntary_choice": 245,
+            "longest_identical_request_streak": 24,
+            "voluntary_continue_or_wait": 95,
+            "idle_wait_decisions": 50,
+            "entropy_sum": 670.7072674036026,
+            "alive_roaming_seconds": 139.8,
+            "stationary_seconds": 76.99999999999999,
+            "selected/destination": 55,
+            "moving_seconds": 62.800000000000026,
+            "selected/cancel": 37,
+            "selected/room": 23,
+            "selected/visible_player": 1,
+            "ready_moving_seconds": 19.200000000000003,
+            "reward/cooldown_ready_time": -0.19100000000000017,
+            "lights_eligible_decisions": 2,
+            "lights_windows": 1,
+            "doors_eligible_decisions": 68,
+            "doors_windows": 16,
+            "ready_stationary_seconds": 19.600000000000005,
+            "selected/doors": 13,
+            "reward/team_kill": 3.0,
+            "forced_single_candidate": 46,
+            "claim_eligible_decisions": 4,
+            "claim_windows": 2,
+            "selected/claim": 2,
+            "selected/skip": 2,
+            "vote_eligible_decisions": 3,
+            "vote_windows": 2,
+            "selected/remembered_player": 8,
+            "fake_eligible_decisions": 16,
+            "fake_windows": 6,
+            "selected/fake": 4,
+            "fake_seconds": 3.0,
+            "kill_eligible_decisions": 5,
+            "kill_windows": 3,
+            "selected/kill": 1,
+            "selected_kill_probability_sum": 0.24992318451404572,
+            "report_eligible_decisions": 3,
+            "report_windows": 1,
+            "selected/report": 1,
+            "top_goals": [
+              [
+                "utility:12:68",
+                4
+              ],
+              [
+                "O2",
+                3
+              ],
+              [
+                "task:16:0",
+                3
+              ],
+              [
+                "NorthHallway",
+                3
+              ],
+              [
+                "stage:image:4",
+                3
+              ]
+            ],
+            "mean_entropy": 2.3048359704591155
+          }
+        },
+        "effects": {
+          "navigate": 455,
+          "task_start": 46,
+          "sabotage_started": 1,
+          "sabotage_repaired": 1,
+          "task_interrupted": 10,
+          "doors_closed": 37,
+          "task_completed": 33,
+          "elimination_witnessed": 7,
+          "elimination": 3,
+          "door_opened": 55,
+          "doors_opened": 2,
+          "report": 2,
+          "report_transition": 2,
+          "meeting_started": 2,
+          "structured_claim": 17,
+          "claim": 2,
+          "voting_started": 2,
+          "vote_submitted": 21,
+          "a2_ballot_credit": 21,
+          "meeting_resolution": 2,
+          "vote": 21,
+          "ejection": 2,
+          "exploration_resumed": 2,
+          "meeting_respawn": 2,
+          "team_resource_contention": 2,
+          "fake_task_start": 4
+        },
+        "failures": [],
+        "interpretation": "Policy choices and observed effects, not an explanation of internal neural intentions",
+        "caveats": [
+          "Windows are contiguous availability intervals, not independent trials.",
+          "Stationary includes legal waiting/obstruction; inspect replay before calling it camping.",
+          "Ready stationary uses tick endpoints; authoritative ready-time rewards use boundary accounting.",
+          "Offline world effects are diagnostic only; actor input is logged separately."
+        ]
+      },
+      "match-002.decisions.jsonl.gz": {
+        "actors": {
+          "p0": {
+            "decisions": 543,
+            "selected/wait": 267,
+            "voluntary_choice": 448,
+            "longest_identical_request_streak": 25,
+            "voluntary_continue_or_wait": 166,
+            "idle_wait_decisions": 96,
+            "entropy_sum": 1233.1014897823334,
+            "alive_roaming_seconds": 255.99999999999997,
+            "stationary_seconds": 151.20000000000005,
+            "selected/destination": 100,
+            "moving_seconds": 104.79999999999993,
+            "selected/remembered_player": 12,
+            "selected/cancel": 71,
+            "selected/room": 36,
+            "ready_moving_seconds": 27.1999999999999,
+            "reward/cooldown_ready_time": -0.2670000000000002,
+            "selected/lights": 1,
+            "lights_eligible_decisions": 1,
+            "lights_windows": 1,
+            "doors_eligible_decisions": 131,
+            "doors_windows": 16,
+            "ready_stationary_seconds": 27.200000000000088,
+            "selected/doors": 39,
+            "kill_eligible_decisions": 11,
+            "kill_windows": 6,
+            "selected/kill": 3,
+            "selected_kill_probability_sum": 0.7040133997797966,
+            "reward/team_kill": 4.0,
+            "report_eligible_decisions": 5,
+            "report_windows": 3,
+            "fake_eligible_decisions": 24,
+            "fake_windows": 14,
+            "selected/fake": 6,
+            "fake_seconds": 4.399999999999981,
+            "claim_eligible_decisions": 8,
+            "claim_windows": 4,
+            "forced_single_candidate": 95,
+            "selected/skip": 2,
+            "vote_eligible_decisions": 5,
+            "vote_windows": 4,
+            "selected/visible_player": 1,
+            "selected/claim": 3,
+            "selected/vote": 2,
+            "reward/team_outcome": -10.0,
+            "top_goals": [
+              [
+                "task:29:4",
+                5
+              ],
+              [
+                "AdminHallway",
+                5
+              ],
+              [
+                "utility:12:67",
+                5
+              ],
+              [
+                "task:1:4",
+                4
+              ],
+              [
+                "O2",
+                4
+              ]
+            ],
+            "mean_entropy": 2.2709051377206877
+          },
+          "p6": {
+            "decisions": 543,
+            "selected/wait": 248,
+            "voluntary_choice": 447,
+            "longest_identical_request_streak": 26,
+            "voluntary_continue_or_wait": 146,
+            "idle_wait_decisions": 77,
+            "entropy_sum": 1226.1557313203812,
+            "alive_roaming_seconds": 255.99999999999997,
+            "stationary_seconds": 147.59999999999985,
+            "selected/destination": 117,
+            "moving_seconds": 108.40000000000015,
+            "selected/cancel": 76,
+            "selected/remembered_player": 11,
+            "ready_moving_seconds": 27.80000000000019,
+            "reward/cooldown_ready_time": -0.32499999999999996,
+            "selected/lights": 1,
+            "lights_eligible_decisions": 1,
+            "lights_windows": 1,
+            "doors_eligible_decisions": 131,
+            "doors_windows": 16,
+            "ready_stationary_seconds": 38.199999999999804,
+            "selected/doors": 35,
+            "selected/room": 34,
+            "reward/team_kill": 4.0,
+            "forced_single_candidate": 96,
+            "claim_eligible_decisions": 8,
+            "claim_windows": 4,
+            "selected/skip": 1,
+            "vote_eligible_decisions": 4,
+            "vote_windows": 4,
+            "selected/fake": 12,
+            "fake_eligible_decisions": 37,
+            "fake_windows": 10,
+            "fake_seconds": 9.599999999999966,
+            "selected/claim": 2,
+            "selected/vote": 3,
+            "kill_eligible_decisions": 2,
+            "kill_windows": 2,
+            "selected/kill": 1,
+            "selected_kill_probability_sum": 0.3316212594509125,
+            "selected/report": 1,
+            "report_eligible_decisions": 1,
+            "report_windows": 1,
+            "selected/visible_player": 1,
+            "reward/team_outcome": -10.0,
+            "top_goals": [
+              [
+                "stage:image:8",
+                5
+              ],
+              [
+                "utility:12:15",
+                5
+              ],
+              [
+                "stage:image:1",
+                4
+              ],
+              [
+                "p2",
+                4
+              ],
+              [
+                "stage:12:13",
+                4
+              ]
+            ],
+            "mean_entropy": 2.2581136856728934
+          }
+        },
+        "effects": {
+          "navigate": 888,
+          "task_start": 60,
+          "team_resource_contention": 7,
+          "sabotage_started": 1,
+          "sabotage_repaired": 1,
+          "doors_closed": 68,
+          "door_opened": 107,
+          "elimination_witnessed": 13,
+          "elimination": 4,
+          "fake_task_start": 18,
+          "task_interrupted": 21,
+          "task_completed": 40,
+          "report": 4,
+          "report_transition": 4,
+          "meeting_started": 4,
+          "structured_claim": 32,
+          "voting_started": 4,
+          "vote_submitted": 38,
+          "a2_ballot_credit": 38,
+          "meeting_resolution": 4,
+          "vote": 38,
+          "ejection": 4,
+          "exploration_resumed": 4,
+          "meeting_respawn": 4,
+          "doors_opened": 2,
+          "claim": 1,
+          "match_end": 1
+        },
+        "failures": [],
+        "interpretation": "Policy choices and observed effects, not an explanation of internal neural intentions",
+        "caveats": [
+          "Windows are contiguous availability intervals, not independent trials.",
+          "Stationary includes legal waiting/obstruction; inspect replay before calling it camping.",
+          "Ready stationary uses tick endpoints; authoritative ready-time rewards use boundary accounting.",
+          "Offline world effects are diagnostic only; actor input is logged separately."
+        ]
+      },
+      "match-003.decisions.jsonl.gz": {
+        "actors": {
+          "p8": {
+            "decisions": 359,
+            "selected/destination": 91,
+            "voluntary_choice": 287,
+            "longest_identical_request_streak": 21,
+            "entropy_sum": 818.6115176677704,
+            "alive_roaming_seconds": 162.6,
+            "moving_seconds": 78.39999999999998,
+            "selected/cancel": 52,
+            "stationary_seconds": 84.20000000000003,
+            "selected/wait": 153,
+            "voluntary_continue_or_wait": 77,
+            "idle_wait_decisions": 35,
+            "selected/remembered_player": 7,
+            "ready_moving_seconds": 17.799999999999983,
+            "reward/cooldown_ready_time": -0.21199999999999922,
+            "lights_eligible_decisions": 3,
+            "lights_windows": 1,
+            "doors_eligible_decisions": 85,
+            "doors_windows": 10,
+            "ready_stationary_seconds": 25.00000000000002,
+            "selected/doors": 22,
+            "selected/fake": 7,
+            "fake_eligible_decisions": 22,
+            "fake_windows": 16,
+            "fake_seconds": 6.600000000000007,
+            "selected/room": 19,
+            "selected/kill": 1,
+            "kill_eligible_decisions": 1,
+            "kill_windows": 1,
+            "selected_kill_probability_sum": 0.2524087131023407,
+            "reward/team_kill": 2.0,
+            "report_eligible_decisions": 1,
+            "report_windows": 1,
+            "forced_single_candidate": 72,
+            "selected/claim": 3,
+            "claim_eligible_decisions": 4,
+            "claim_windows": 3,
+            "selected/skip": 2,
+            "vote_eligible_decisions": 6,
+            "vote_windows": 3,
+            "selected/visible_player": 1,
+            "selected/vote": 1,
+            "top_goals": [
+              [
+                "task:2:0",
+                4
+              ],
+              [
+                "task:13:0",
+                4
+              ],
+              [
+                "task:0:0",
+                4
+              ],
+              [
+                "task:3:1",
+                4
+              ],
+              [
+                "task:29:7",
+                3
+              ]
+            ],
+            "mean_entropy": 2.2802549238656558
+          },
+          "p9": {
+            "decisions": 359,
+            "selected/wait": 180,
+            "voluntary_choice": 285,
+            "longest_identical_request_streak": 25,
+            "voluntary_continue_or_wait": 103,
+            "idle_wait_decisions": 47,
+            "entropy_sum": 816.2531509399414,
+            "alive_roaming_seconds": 162.6,
+            "stationary_seconds": 88.00000000000007,
+            "selected/destination": 61,
+            "moving_seconds": 74.59999999999994,
+            "selected/visible_player": 3,
+            "selected/fake": 5,
+            "fake_eligible_decisions": 13,
+            "fake_windows": 8,
+            "fake_seconds": 5.400000000000003,
+            "selected/room": 26,
+            "selected/cancel": 47,
+            "ready_stationary_seconds": 19.200000000000006,
+            "reward/cooldown_ready_time": -0.19199999999999942,
+            "lights_eligible_decisions": 3,
+            "lights_windows": 1,
+            "doors_eligible_decisions": 85,
+            "doors_windows": 10,
+            "ready_moving_seconds": 19.599999999999994,
+            "selected/lights": 1,
+            "selected/doors": 20,
+            "selected/remembered_player": 9,
+            "reward/team_kill": 2.0,
+            "forced_single_candidate": 74,
+            "claim_eligible_decisions": 5,
+            "claim_windows": 3,
+            "selected/claim": 2,
+            "selected/vote": 2,
+            "vote_eligible_decisions": 3,
+            "vote_windows": 3,
+            "kill_eligible_decisions": 3,
+            "kill_windows": 1,
+            "selected/kill": 1,
+            "selected_kill_probability_sum": 0.2524125576019287,
+            "report_eligible_decisions": 6,
+            "report_windows": 2,
+            "selected/report": 1,
+            "selected/skip": 1,
+            "top_goals": [
+              [
+                "p3",
+                4
+              ],
+              [
+                "Lower Engine",
+                4
+              ],
+              [
+                "CrossHallway",
+                3
+              ],
+              [
+                "task:2:0",
+                3
+              ],
+              [
+                "p8",
+                3
+              ]
+            ],
+            "mean_entropy": 2.2736856572143216
+          }
+        },
+        "effects": {
+          "navigate": 582,
+          "fake_task_start": 12,
+          "task_interrupted": 20,
+          "task_start": 46,
+          "sabotage_started": 1,
+          "sabotage_repaired": 1,
+          "doors_closed": 37,
+          "task_completed": 34,
+          "door_opened": 65,
+          "elimination_witnessed": 7,
+          "elimination": 2,
+          "report": 2,
+          "report_transition": 3,
+          "meeting_started": 3,
+          "structured_claim": 25,
+          "claim": 3,
+          "voting_started": 3,
+          "vote_submitted": 31,
+          "a2_ballot_credit": 31,
+          "meeting_resolution": 3,
+          "vote": 31,
+          "ejection": 3,
+          "exploration_resumed": 3,
+          "meeting_respawn": 3,
+          "team_resource_contention": 3,
+          "doors_opened": 1,
+          "emergency_called": 1
+        },
+        "failures": [
+          {
+            "record": "failure",
+            "error": "ValueError",
+            "message": "Visibility and interaction geometry must share the same public map"
+          }
+        ],
+        "interpretation": "Policy choices and observed effects, not an explanation of internal neural intentions",
+        "caveats": [
+          "Windows are contiguous availability intervals, not independent trials.",
+          "Stationary includes legal waiting/obstruction; inspect replay before calling it camping.",
+          "Ready stationary uses tick endpoints; authoritative ready-time rewards use boundary accounting.",
+          "Offline world effects are diagnostic only; actor input is logged separately."
+        ]
+      }
+    },
+    "actual_effect_counts": {
+      "witnessed/p5": 4,
+      "report/p5": 3,
+      "actual_self_report/p5": 1,
+      "structured_claim": 74,
+      "claim": 6,
+      "vote": 90,
+      "team_resource_contention": 12,
+      "witnessed/p9": 6,
+      "report/p9": 3,
+      "actual_self_report/p9": 2,
+      "witnessed/p0": 9,
+      "report/p4": 1,
+      "witnessed/p6": 4,
+      "report/p6": 1,
+      "actual_self_report/p6": 1,
+      "witnessed/p8": 4
+    }
+  }
+}

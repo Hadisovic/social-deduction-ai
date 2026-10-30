@@ -1,0 +1,406 @@
+{
+  "train101": {
+    "matches": [
+      {
+        "seed": 9710001,
+        "winner": null,
+        "reason": "TRUNCATED",
+        "truncated": true,
+        "simulation_seconds": 194.4,
+        "wall_seconds": 901.7279264000244,
+        "kills": 2,
+        "illegal": 0,
+        "navigation_failures": 0,
+        "impostor_actions": {
+          "p10": {
+            "visible_player": 1,
+            "observations": 333,
+            "choices": 262,
+            "destination": 63,
+            "cancel": 46,
+            "room": 21,
+            "fake": 3,
+            "wait": 167,
+            "doors": 19,
+            "kill": 1,
+            "report": 1,
+            "forced_waits": 71,
+            "claim": 3,
+            "vote": 2,
+            "skip": 1,
+            "remembered_player": 5
+          },
+          "p2": {
+            "destination": 53,
+            "observations": 333,
+            "choices": 258,
+            "wait": 161,
+            "cancel": 46,
+            "fake": 5,
+            "room": 22,
+            "doors": 27,
+            "remembered_player": 9,
+            "forced_waits": 75,
+            "claim": 3,
+            "skip": 2,
+            "visible_player": 2,
+            "kill": 1,
+            "report": 1,
+            "vote": 1
+          }
+        },
+        "rewards": {
+          "p10": {
+            "cooldown_ready_time": -0.17199999999999957,
+            "team_kill": 2.0
+          },
+          "p2": {
+            "cooldown_ready_time": -0.17999999999999947,
+            "team_kill": 2.0
+          }
+        },
+        "optimization_seconds": 0
+      },
+      {
+        "seed": 9710002,
+        "winner": "crewmate",
+        "reason": "TASKS_COMPLETED",
+        "truncated": false,
+        "simulation_seconds": 216.2,
+        "wall_seconds": 640.6307193000102,
+        "kills": 3,
+        "illegal": 0,
+        "navigation_failures": 0,
+        "impostor_actions": {
+          "p4": {
+            "wait": 183,
+            "observations": 372,
+            "choices": 295,
+            "room": 30,
+            "cancel": 50,
+            "remembered_player": 12,
+            "destination": 66,
+            "doors": 22,
+            "kill": 1,
+            "report": 1,
+            "forced_waits": 77,
+            "claim": 3,
+            "skip": 2,
+            "visible_player": 1,
+            "vote": 1
+          },
+          "p6": {
+            "wait": 184,
+            "observations": 372,
+            "choices": 300,
+            "destination": 71,
+            "room": 23,
+            "cancel": 47,
+            "remembered_player": 8,
+            "doors": 26,
+            "forced_waits": 72,
+            "skip": 2,
+            "fake": 3,
+            "kill": 2,
+            "report": 1,
+            "claim": 2,
+            "visible_player": 2,
+            "vote": 1
+          }
+        },
+        "rewards": {
+          "p4": {
+            "cooldown_ready_time": -0.18199999999999975,
+            "team_kill": 3.0,
+            "team_outcome": -10.0
+          },
+          "p6": {
+            "cooldown_ready_time": -0.1789999999999998,
+            "team_kill": 3.0,
+            "team_outcome": -10.0
+          }
+        },
+        "optimization_seconds": 18.438905699993484
+      },
+      {
+        "seed": 9710003,
+        "winner": "crewmate",
+        "reason": "TASKS_COMPLETED",
+        "truncated": false,
+        "simulation_seconds": 315.8,
+        "wall_seconds": 591.0931446999894,
+        "kills": 5,
+        "illegal": 2,
+        "navigation_failures": 0,
+        "impostor_actions": {
+          "p3": {
+            "wait": 257,
+            "observations": 543,
+            "choices": 446,
+            "visible_player": 3,
+            "destination": 110,
+            "cancel": 77,
+            "room": 31,
+            "doors": 34,
+            "remembered_player": 7,
+            "fake": 12,
+            "forced_waits": 97,
+            "claim": 4,
+            "vote": 1,
+            "kill": 2,
+            "body_travel": 1,
+            "skip": 3,
+            "report": 1
+          },
+          "p8": {
+            "destination": 110,
+            "observations": 543,
+            "choices": 445,
+            "cancel": 70,
+            "wait": 273,
+            "room": 33,
+            "visible_player": 3,
+            "doors": 32,
+            "remembered_player": 5,
+            "kill": 3,
+            "report": 1,
+            "forced_waits": 98,
+            "claim": 4,
+            "vote": 3,
+            "fake": 5,
+            "skip": 1
+          }
+        },
+        "rewards": {
+          "p3": {
+            "cooldown_ready_time": -0.2830000000000003,
+            "team_kill": 5.0,
+            "team_outcome": -10.0
+          },
+          "p8": {
+            "cooldown_ready_time": -0.2889999999999999,
+            "team_kill": 5.0,
+            "team_outcome": -10.0
+          }
+        },
+        "optimization_seconds": 24.095301800000016
+      }
+    ],
+    "games": 2,
+    "wins": 0,
+    "cuts": 1,
+    "loss_causes": {
+      "TASKS_COMPLETED": 2
+    },
+    "counters": {
+      "complete_matches": 2,
+      "technical_cuts": 1,
+      "optimizer_steps": 16,
+      "training_observations": 1830
+    },
+    "run_status": {
+      "phase": "cancelled",
+      "reason": "sibling fatal geometry error; registered stop",
+      "verified_utc": "2026-10-30T20:29:39.102089+00:00",
+      "previous_status": {
+        "phase": "collecting",
+        "mode": "train",
+        "counters": {
+          "complete_matches": 2,
+          "technical_cuts": 1,
+          "optimizer_steps": 16,
+          "training_observations": 1830
+        },
+        "total_wall_seconds": 2184.6549020000384,
+        "seed": 9710004,
+        "simulation_seconds": 0.6,
+        "impostor_observations": 0,
+        "crew_choices": 10,
+        "wall_seconds": 7.192330299993046
+      },
+      "completed_matches": 2,
+      "technical_cuts": 1,
+      "optimizer_steps": 16,
+      "worker_running_at_verification": false
+    },
+    "failure": null,
+    "runtime": {
+      "python": "3.12.10",
+      "torch": "2.7.1+cpu",
+      "numpy": "2.5.3",
+      "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+      "device": "cpu",
+      "torch_threads": 1
+    }
+  },
+  "train202": {
+    "matches": [
+      {
+        "seed": 9710101,
+        "winner": null,
+        "reason": "TRUNCATED",
+        "truncated": true,
+        "simulation_seconds": 170.4,
+        "wall_seconds": 918.8637390999938,
+        "kills": 3,
+        "illegal": 0,
+        "navigation_failures": 0,
+        "impostor_actions": {
+          "p5": {
+            "room": 15,
+            "observations": 291,
+            "choices": 245,
+            "cancel": 36,
+            "wait": 145,
+            "destination": 56,
+            "lights": 1,
+            "doors": 26,
+            "kill": 2,
+            "report": 1,
+            "forced_waits": 46,
+            "claim": 2,
+            "skip": 2,
+            "remembered_player": 5
+          },
+          "p9": {
+            "wait": 144,
+            "observations": 291,
+            "choices": 245,
+            "destination": 55,
+            "cancel": 37,
+            "room": 23,
+            "visible_player": 1,
+            "doors": 13,
+            "forced_waits": 46,
+            "claim": 2,
+            "skip": 2,
+            "remembered_player": 8,
+            "fake": 4,
+            "kill": 1,
+            "report": 1
+          }
+        },
+        "rewards": {
+          "p5": {
+            "cooldown_ready_time": -0.16400000000000012,
+            "team_kill": 3.0
+          },
+          "p9": {
+            "cooldown_ready_time": -0.19100000000000017,
+            "team_kill": 3.0
+          }
+        },
+        "optimization_seconds": 0
+      },
+      {
+        "seed": 9710102,
+        "winner": "crewmate",
+        "reason": "TASKS_COMPLETED",
+        "truncated": false,
+        "simulation_seconds": 316.6,
+        "wall_seconds": 845.1593066000496,
+        "kills": 4,
+        "illegal": 0,
+        "navigation_failures": 0,
+        "impostor_actions": {
+          "p0": {
+            "wait": 267,
+            "observations": 543,
+            "choices": 448,
+            "destination": 100,
+            "remembered_player": 12,
+            "cancel": 71,
+            "room": 36,
+            "lights": 1,
+            "doors": 39,
+            "kill": 3,
+            "fake": 6,
+            "forced_waits": 95,
+            "skip": 2,
+            "visible_player": 1,
+            "claim": 3,
+            "vote": 2
+          },
+          "p6": {
+            "wait": 248,
+            "observations": 543,
+            "choices": 447,
+            "destination": 117,
+            "cancel": 76,
+            "remembered_player": 11,
+            "lights": 1,
+            "doors": 35,
+            "room": 34,
+            "forced_waits": 96,
+            "skip": 1,
+            "fake": 12,
+            "claim": 2,
+            "vote": 3,
+            "kill": 1,
+            "report": 1,
+            "visible_player": 1
+          }
+        },
+        "rewards": {
+          "p0": {
+            "cooldown_ready_time": -0.2670000000000002,
+            "team_kill": 4.0,
+            "team_outcome": -10.0
+          },
+          "p6": {
+            "cooldown_ready_time": -0.32499999999999996,
+            "team_kill": 4.0,
+            "team_outcome": -10.0
+          }
+        },
+        "optimization_seconds": 22.826493599975947
+      }
+    ],
+    "games": 1,
+    "wins": 0,
+    "cuts": 1,
+    "loss_causes": {
+      "TASKS_COMPLETED": 1
+    },
+    "counters": {
+      "complete_matches": 1,
+      "technical_cuts": 1,
+      "optimizer_steps": 8,
+      "training_observations": 1086
+    },
+    "run_status": {
+      "phase": "failed",
+      "error": "ValueError",
+      "message": "Visibility and interaction geometry must share the same public map",
+      "counters": {
+        "complete_matches": 1,
+        "technical_cuts": 1,
+        "optimizer_steps": 8,
+        "training_observations": 1086
+      },
+      "wall_seconds": 2204.331765400013,
+      "training_success_claimed": false
+    },
+    "failure": {
+      "phase": "failed",
+      "error": "ValueError",
+      "message": "Visibility and interaction geometry must share the same public map",
+      "counters": {
+        "complete_matches": 1,
+        "technical_cuts": 1,
+        "optimizer_steps": 8,
+        "training_observations": 1086
+      },
+      "wall_seconds": 2204.331765400013,
+      "training_success_claimed": false
+    },
+    "runtime": {
+      "python": "3.12.10",
+      "torch": "2.7.1+cpu",
+      "numpy": "2.5.3",
+      "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+      "device": "cpu",
+      "torch_threads": 1
+    }
+  }
+}

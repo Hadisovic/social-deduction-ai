@@ -1,0 +1,7 @@
+{
+  "error": "RuntimeError",
+  "message": "Child failure or registered deadline; siblings cancelled, see job logs",
+  "wall_seconds": 2232.5,
+  "selection_locked": false,
+  "automatic_retry": false
+}

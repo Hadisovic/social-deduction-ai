@@ -46,7 +46,7 @@ player receives distinct mutable task objects; common plans do not share progres
 | Roles/populations | Base crew/impostor, conservative 4–15-player lobby profiles | Every special role and role probability/effect |
 | Tasks | Configurable counts, unique families, owned staged progress, crew ghosts | Actual minigame controls/difficulty and current-build category verification |
 | Kills | Role/range/visibility legality, cooldown, witnesses, corpses | Short/long distance calibration; retail-perfect animation timing |
-| Meetings | Reports, emergency limits/cooldown, discussion, ballots, skip/ties/ejection, confirm setting | Infinite voting; retail-perfect UI/network timing |
+| Meetings | Reports, emergency limits/cooldown, discussion, ballots, skip/ties/ejection, confirm setting | Inherited A2 mask excludes self-voting; infinite voting; retail-perfect UI/network timing |
 | Information | Own observations/history, separate ghost progression, anonymous ballots, task-bar modes | Security/Admin observations and device strategy |
 | Lights | Enabled; role-local reduced crew sight and repairs | Full retail switch-panel minigame |
 | Doors | Native room closures/collision/expiry/cooldown, animated viewer | Exact retail animation cadence and every door/sabotage interaction |

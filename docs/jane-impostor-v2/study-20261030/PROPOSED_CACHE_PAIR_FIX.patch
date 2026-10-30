@@ -1,0 +1,13 @@
+--- a/patrick_jane/a2_environment.py
++++ b/patrick_jane/a2_environment.py
+@@ -97,8 +97,8 @@
+             occupied=any(p.active and pid not in self.vented and shape.covers(ShapePoint(p.position)) for pid,p in self.players.items())
+             if occupied and key in self.door_pending:continue
+             self.door_pending.discard(key);active.append(key)
+-        self.map=geometry(tuple(sorted(active)))
+-        self.planner=planner(tuple(sorted(active)))  # Trusted projection/interaction geometry matches physics.
++        self.planner=planner(tuple(sorted(active)))
++        self.map=self.planner.map  # One coherent cached geometry/planner pair.
+         if had_closed and not self.door_until:self.sabotage_ready=max(self.sabotage_ready,self.time+self.experiment.sabotage.cooldown)
+         if self.map.closed_doors!=before:
+             for p in self.players.values():p.motion.map=self.map

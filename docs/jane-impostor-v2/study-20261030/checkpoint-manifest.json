@@ -1,0 +1,90 @@
+{
+  "selection_completed": false,
+  "selected_model_release": false,
+  "source_commit": "037899471a62502a25b1a9351cc91379bfc6423b",
+  "checkpoints": [
+    {
+      "path": "local-runs\\lizbon-classic-v2\\study-20261030\\train101\\checkpoint-002.pt",
+      "sha256": "e0d96e86caed1d7c9506f57bfaba9d8f0404c5ce18da4e02e4902292158bebb9",
+      "bytes": 12497479,
+      "counters": {
+        "complete_matches": 1,
+        "technical_cuts": 1,
+        "optimizer_steps": 8,
+        "training_observations": 744
+      },
+      "parent": {
+        "transfer": true,
+        "parent_sha256": "14194a65d1009f268f387502871d8a2bf640e01e40800196716c391a993ce2ae",
+        "parent_schema": "jane-impostor-recurrent-a2-v1",
+        "parent_counters": {
+          "complete_matches": 1,
+          "technical_cuts": 0,
+          "training_observations": 908,
+          "optimizer_steps": 8
+        },
+        "optimizer": "fresh Adam; weights-only transfer",
+        "reason": "New Classic engine/task allocation; not exact V1 continuation"
+      },
+      "strict_load_passed": true,
+      "tensors_changed_from_study_start": true,
+      "release_status": "local development checkpoint; unselected"
+    },
+    {
+      "path": "local-runs\\lizbon-classic-v2\\study-20261030\\train101\\checkpoint-003.pt",
+      "sha256": "525535112ed502e6808513433ce73193d15eb08ed660504735d3ce3316eadaa8",
+      "bytes": 12497479,
+      "counters": {
+        "complete_matches": 2,
+        "technical_cuts": 1,
+        "optimizer_steps": 16,
+        "training_observations": 1830
+      },
+      "parent": {
+        "transfer": true,
+        "parent_sha256": "14194a65d1009f268f387502871d8a2bf640e01e40800196716c391a993ce2ae",
+        "parent_schema": "jane-impostor-recurrent-a2-v1",
+        "parent_counters": {
+          "complete_matches": 1,
+          "technical_cuts": 0,
+          "training_observations": 908,
+          "optimizer_steps": 8
+        },
+        "optimizer": "fresh Adam; weights-only transfer",
+        "reason": "New Classic engine/task allocation; not exact V1 continuation"
+      },
+      "strict_load_passed": true,
+      "tensors_changed_from_study_start": true,
+      "release_status": "local development checkpoint; unselected"
+    },
+    {
+      "path": "local-runs\\lizbon-classic-v2\\study-20261030\\train202\\checkpoint-002.pt",
+      "sha256": "6a2b6b359ef7baccfb622639d40eb5bad47837a577a6d371bc5ee1fe4323a7a1",
+      "bytes": 12497479,
+      "counters": {
+        "complete_matches": 1,
+        "technical_cuts": 1,
+        "optimizer_steps": 8,
+        "training_observations": 1086
+      },
+      "parent": {
+        "transfer": true,
+        "parent_sha256": "14194a65d1009f268f387502871d8a2bf640e01e40800196716c391a993ce2ae",
+        "parent_schema": "jane-impostor-recurrent-a2-v1",
+        "parent_counters": {
+          "complete_matches": 1,
+          "technical_cuts": 0,
+          "training_observations": 908,
+          "optimizer_steps": 8
+        },
+        "optimizer": "fresh Adam; weights-only transfer",
+        "reason": "New Classic engine/task allocation; not exact V1 continuation"
+      },
+      "strict_load_passed": true,
+      "tensors_changed_from_study_start": true,
+      "release_status": "local development checkpoint; unselected"
+    }
+  ],
+  "same_initial_tensor_hash": true,
+  "profile_sha256": "eab00e5f5439f546affcc27651e0e3c1dcd40dbc608355ed5a019e06dbc5a0a4"
+}

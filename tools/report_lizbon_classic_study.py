@@ -22,10 +22,24 @@ def main():
         choices={}
         for path in sorted(folder.glob('*.decisions.jsonl.gz')):
             try:choices[path.name]=summarize_decisions(path)
-            except (EOFError,OSError,json.JSONDecodeError) as e:choices[path.name]=dict(partial_file_error=str(e))
+            except (EOFError,OSError,json.JSONDecodeError) as e:
+                # Preserve the raw interrupted gzip. Recover only fully readable
+                # records to a separate derived file; never invent a result/end.
+                derived=root/'derived'/folder.name;derived.mkdir(parents=True,exist_ok=True)
+                target=derived/path.name;count=0
+                with gzip.open(target,'wt',encoding='utf-8') as output:
+                    try:
+                        with gzip.open(path,'rt',encoding='utf-8') as raw:
+                            for line in raw:
+                                json.loads(line);output.write(line);count+=1
+                    except (EOFError,OSError,json.JSONDecodeError):pass
+                choices[path.name]=dict(summarize_decisions(target),
+                    interrupted_original_error=str(e),recovered_complete_records=count,
+                    result_fabricated=False)
         # Additional truth is offline only: attribute actual self-reports and witnessed kills.
         actual=Counter();killers={}
         for path in sorted(folder.glob('*.decisions.jsonl.gz')):
+            killers={}
             try:
                 with gzip.open(path,'rt',encoding='utf-8') as f:
                     for line in f:
@@ -51,7 +65,8 @@ def main():
             rewards=r['impostor_rewards'],optimization_seconds=r.get('optimization_seconds',0)) for r in rows],
             games=len(natural),wins=sum(r['winner']=='impostor' for r in natural),cuts=len(rows)-len(natural),
             loss_causes=dict(Counter(r['reason'] for r in natural if r['winner']=='crewmate')),
-            counters=read(folder/'results.json',{}).get('counters',{}),failure=read(folder/'failure.json'),
+            counters=read(folder/'results.json',{}).get('counters',rows[-1].get('counters',{}) if rows else {}),
+            run_status=read(folder/'status.json'),failure=read(folder/'failure.json'),
             runtime=read(folder/'registration.json')['runtime'])
     (root/'aggregate.json').write_text(json.dumps(aggregate,indent=2)+'\n',encoding='utf-8')
     (root/'decision-analysis.json').write_text(json.dumps(details,indent=2)+'\n',encoding='utf-8')
@@ -63,19 +78,25 @@ def main():
     for name,data in aggregate.items():
         if not name.startswith('train'):continue
         rows=data['matches'];x=list(range(1,len(rows)+1))
-        axes[0].plot(x,[r['kills'] for r in rows],'o-',label=name)
-        axes[1].plot(x,[r['rewards'] and sum(sum(v.values()) for v in r['rewards'].values())/len(r['rewards']) for r in rows],'o-',label=name)
+        natural=[(i,r) for i,r in zip(x,rows) if r['winner'] and not r['truncated']]
+        cuts=[(i,r) for i,r in zip(x,rows) if r['truncated']]
+        axes[0].plot([i for i,r in natural],[r['kills'] for i,r in natural],'o-',label=name+' complete')
+        axes[0].scatter([i for i,r in cuts],[r['kills'] for i,r in cuts],marker='x',s=65,label=name+' cut; excluded')
+        axes[1].plot([i for i,r in natural],[sum(sum(v.values()) for v in r['rewards'].values())/len(r['rewards']) for i,r in natural],'o-',label=name)
     axes[0].set(title='Training matches: kills',xlabel='Match',ylabel='Kills; cuts remain descriptive')
     axes[1].set(title='Training team rewards',xlabel='Match',ylabel='Mean return per impostor')
     for ax in axes:ax.legend(fontsize=8)
     fig.suptitle('Training outcomes are not test accuracy');fig.savefig(graphs/'training.png',dpi=150);plt.close(fig)
-    fig,axes=plt.subplots(1,3,figsize=(13,4),layout='constrained')
+    fig,grid=plt.subplots(2,3,figsize=(13,7),layout='constrained');axes=grid.ravel()
     for folder in root.glob('train*'):
         if not folder.is_dir():continue
         logs=read(folder/'ppo.json',[])
-        for ax,key in zip(axes,('entropy','value','kl')):
+        for ax,key in zip(axes,('policy','value','entropy','kl','gradient_norm')):
             ax.plot([r[key] for r in logs],label=folder.name);ax.set(title=key,xlabel='Completed optimizer pass')
-    for ax in axes:ax.legend(fontsize=8)
+    axes[4].axhline(.5,color='red',linestyle='--',label='clip threshold0.5')
+    axes[4].set_title('Pre-clip gradient norm')
+    for ax in axes[:5]:ax.legend(fontsize=8)
+    axes[5].axis('off');axes[5].text(.05,.65,'Training diagnostics only\nFinite curves do not prove competence.\nGradient norm is measured BEFORE clipping.',fontsize=11)
     fig.suptitle('Recurrent PPO diagnostics; sparse pilot data');fig.savefig(graphs/'ppo.png',dpi=150);plt.close(fig)
     labels=[n for n in aggregate if n.startswith(('validation','confirmation'))]
     fig,ax=plt.subplots(figsize=(12,5),layout='constrained')
@@ -87,8 +108,12 @@ def main():
             radius=z*((rate*(1-rate)/n+z*z/(4*n*n))**.5)/den
             ax.errorbar(i,rate,yerr=[[max(0.,rate-(center-radius))],[max(0.,(center+radius)-rate)]],fmt='o',capsize=4)
         ax.text(i,rate+.08,f'{w}/{n}\ncuts {d["cuts"]}',ha='center',fontsize=8)
-    ax.set_xticks(range(len(labels)),labels,rotation=35,ha='right');ax.set_ylim(-.1,1.25)
-    ax.set(title='Development win fractions and Wilson 95% intervals',ylabel='Natural wins / completed matches')
+    if labels:
+        ax.set_xticks(range(len(labels)),labels,rotation=35,ha='right');ax.set_ylim(-.1,1.25)
+        ax.set(title='Development win fractions and Wilson 95% intervals',ylabel='Natural wins / completed matches')
+    else:
+        ax.axis('off');ax.text(.5,.6,'VALIDATION / CONFIRMATION NOT RUN',ha='center',fontsize=18)
+        ax.text(.5,.4,'Study stopped before selection. No test win fraction or accuracy is available.',ha='center',fontsize=12)
     fig.savefig(graphs/'evaluation.png',dpi=150);plt.close(fig)
     counts=Counter();moving=stationary=fake=0.
     for data in details.values():
@@ -118,13 +143,13 @@ def main():
     lines+=['',f"Locked selection: {lock['selected'] if lock else 'none; confirmation must remain unopened'}.",
         '', '## Learning sufficiency','',
         'This small pilot cannot establish reliable searching, deception, population generalization or a globally best policy. '
-        'Training wins are not accuracy. Check the paired confirmation, behavior and uncertainty before claiming improvement. '
+        'Training wins are not accuracy. '+('No validation or confirmation ran and no model was selected. ' if not lock else 'Check the paired confirmation, behavior and uncertainty before claiming improvement. ')+
         'The frozen crew is learned task-pursuit update102, not an A2-trained strategic crew. '
         'Only two confirmation cases per inference mode are registered; conclusions remain preliminary.',
         '', '## Graphs','',
         '![Training](graphs/training.png)','Kills and return across training games; inspect cuts separately.',
         '![PPO](graphs/ppo.png)','Entropy measures policy spread; value loss measures return fit; KL estimates policy movement. None is win accuracy.',
-        '![Evaluation](graphs/evaluation.png)','Development comparisons with very wide small-sample intervals. No reserved final set was opened.',
+        '![Evaluation](graphs/evaluation.png)',('Validation/confirmation did not run. The panel explicitly marks the missing results.' if not labels else 'Development comparisons with very wide small-sample intervals. No reserved final set was opened.'),
         '![Behavior](graphs/behavior.png)','All choices and motion. Stationary can include deliberate waiting/door obstruction; faking overlaps it.',
         '![Timing](graphs/timing.png)','Per-worker collection/PPO time. Parallel worker times must not be added to claim elapsed study time.',
         '', '## What to inspect next','',

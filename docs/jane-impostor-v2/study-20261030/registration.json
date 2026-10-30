@@ -1,0 +1,53 @@
+{
+  "schema": "lizbon-classic-pilot-v2",
+  "started_utc": "2026-10-30T19:28:36.513274+00:00",
+  "deadline_utc": "2026-10-30T22:28:36.513274+00:00",
+  "budget_seconds": 10800,
+  "training_cutoff_seconds": 5400,
+  "workers": 2,
+  "profile": "jane/configs/classic-v2/default_12p.json",
+  "initialization": "V1 checkpoint001 weights; fresh Adam",
+  "streams": {
+    "101": {
+      "train_scenarios": [
+        9710001,
+        9710002,
+        9710003,
+        9710004
+      ]
+    },
+    "202": {
+      "train_scenarios": [
+        9710101,
+        9710102,
+        9710103,
+        9710104
+      ]
+    }
+  },
+  "same_starting_weights": true,
+  "independent_initializations": false,
+  "candidates": "Reference starting weights plus last complete full-PPO checkpoint of each stream",
+  "validation_scenarios": [
+    9720001,
+    9720002
+  ],
+  "validation_selection": "Sampled; wins, mean eliminations, reference on exact tie",
+  "confirmation_scenarios": {
+    "sampled": [
+      9720101,
+      9720102
+    ],
+    "greedy": [
+      9720103,
+      9720104
+    ]
+  },
+  "confirmation": "Paired selected versus starting reference after immutable selection lock; no retuning",
+  "match_wall_seconds": 600,
+  "training_match_wall_seconds": 900,
+  "failure_policy": "Preserve prefix, stop study on child failure; never retry automatically",
+  "reserved": "9730001..9731000 and every historical final partition remain sealed",
+  "source_commit": "037899471a62502a25b1a9351cc91379bfc6423b",
+  "supervisor_sha256": "488dd0e582e27023f4c37bdbfe3418f2ad109c21ac8a157e2a6d37bffd91a9f2"
+}

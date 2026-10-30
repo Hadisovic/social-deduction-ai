@@ -1,8 +1,10 @@
 # Lizbon Classic V2
 
-Status: implementation and bounded engineering checks passed. Owner approved a
-new three-hour pilot; see STUDY_PLAN.md and HANDOFF_LIZBON_CLASSIC.md for execution
-state. The earlier Lizbon V1 pilot remains a failed, preserved study.
+Status: the approved pilot **stopped on an engine geometry-cache error** after
+37m12.5s. Three completed training games all lost to tasks;24new PPO passes were
+saved across two streams. No validation/selection/confirmation ran. Read
+[the results and exact next steps](study-20261030/README.md). No further training
+started. Historical models and the failed-study source remain preserved.
 
 ## What changed and why
 
@@ -157,10 +159,11 @@ windows and adjacent decisions are correlated; neither is test accuracy.
 ## Is Lizbon good yet?
 
 Not established. V1 completed one initial-policy loss, saved eight optimizer
-passes, and crashed in game two. There were no development/final matches. A few
-kills, one match or a small pilot cannot demonstrate reliable searching,
-deception, win-rate improvement or robust cross-play. Engineering checks below
-prove functionality only. Results and actual timings will be added separately.
+passes, and crashed in game two. This new pilot saved24additional passes but
+stopped on a different cache-coherence error. Its three natural games were task
+losses; all validation/confirmation remained unopened. A few kills or changed
+weights cannot demonstrate reliable searching, deception or improved cross-play.
+The controlled cache reproduction and proposed patch are linked in the results.
 
 ## Next steps for the two developers
 

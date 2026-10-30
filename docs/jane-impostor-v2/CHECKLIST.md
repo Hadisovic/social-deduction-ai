@@ -20,16 +20,18 @@ No historical checkpoint, settings bundle or external pinned source is overwritt
 - [x] Preserve the V1 architecture/weights and add explicit, audited migration/resume.
 - [x] Record every neural decision, legal candidates, probabilities, own observation summary,
   selected action, accepted effect and rewards. Distinguish inference from explanation.
-- [ ] Analyze searching, kill opportunities/witnesses, reports, votes/claims, faking,
+- [x] Analyze all4,938readable choices: searching, kill opportunities/witnesses, reports, votes/claims, faking,
   ready-time idling, navigation cancellations, team contention and win/loss causes.
 - [x] Test population/task settings, unique allocation, engine bug, privacy and checkpoint compatibility:74 isolated checks passed.
 - [x] Run bounded deterministic gameplay checks across lobby sizes and measure throughput.
 - [x] Propose budget and obtain approval: three hours, up to90 training/90 evaluation minutes.
-- [ ] Run the registered study. Do not silently reuse/extend the expired V1 deadline.
-  Running:source0378994,start19:28:36UTC,deadline22:28:36UTC30October2026.
-- [ ] Lock selection before held-out confirmation; preserve all failures/cuts and old final partitions.
-- [ ] Publish graphs, decision analysis, honest sufficiency and next steps for each developer.
-- [ ] Run the updated playback; push the own branch without merge/deployment.
+- [x] Execute the approved study; stopped on fatal cache-coherence error after37m12.5s. No retry/extension.
+- [x] Preserve failures/cuts/checkpoints; recover readable cancelled prefix separately; final partitions remain sealed.
+- [ ] Complete validation/selection/confirmation: NOT RUN because the study failed. No selected/final model.
+- [x] Publish five graphs, choice analysis, insufficiency and concrete next steps in study-20261030/README.md.
+- [x] Reproduce cache failure withoutNN/PPO; proposed upstream patch checks cleanly but remains unapplied.
+- [ ] Review/fix/version shared engine and approve a new study before more training.
+- [ ] Open completed playback; push this own branch without merge/deployment.
 
 Core scope is Classic Skeld with base crewmate/impostor roles. Previously deferred
 special roles, exact minigame implementations, devices and unverified sabotage
