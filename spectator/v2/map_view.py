@@ -5,11 +5,13 @@ import pygame
 from among_us_map import ASSET_DIR
 from phase3_renderer import player_color
 from spectator.ui_renderer import draw_character
+from lizbon_viewer.doors import DoorLayer
 from .widgets import BG,LINE,TEXT,MUTED,LIME,CYAN,AMBER,RED,text,progress
 
 
 class MapView:
     def __init__(self,world):
+        self.door_layer=DoorLayer()
         self.world=world;self.source=pygame.image.load(str(ASSET_DIR/'reference_map.png'))
         l,b,r,t=world.bounds;self.home=((l+r)/2,(b+t)/2);self.center=self.home
         self.zoom=1.;self.rect=pygame.Rect(0,0,1,1);self.scale=1.;self._art_key=None;self.art=None;self.player_points={}
@@ -39,6 +41,7 @@ class MapView:
         dims=(max(1,round(self.world.width*self.scale)),max(1,round(self.world.height*self.scale)))
         if self._art_key!=dims:self.art=pygame.transform.smoothscale(self.source,dims);self._art_key=dims
         left,_,_,top=self.world.bounds;surface.blit(self.art,self.point((left,top)))
+        self.door_layer.draw(surface,self,app)
         if prefs['collisions']:
             for wall in self.world.data.get('walls',[]):
                 pygame.draw.lines(surface,AMBER,False,[self.point(p) for p in wall['points']],1)

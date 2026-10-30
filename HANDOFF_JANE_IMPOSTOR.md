@@ -77,3 +77,11 @@ releases first; adaptation/self-play after competent learned base roles.
 Preserve unrelated existing old pilot README and NAVIGATION_V2_PLAN.md changes.
 The finish-lizbon-pilot-and-results heartbeat was removed after the interrupted
 pilot, report, checkpoint and gameplay work were published. No training remains running.
+
+## Door presentation update
+
+Original Skeld sprite transitions replace red door bars in both viewer launch paths.
+See docs/jane-impostor-v1/DOOR_VIEWER.md for provenance, real-replay GIF and tests
+(30 passed,5 optional-recording skips). The0.25-second cadence is reconstructed;
+original clip FPS was unavailable. The pinned engine and Lizbon neural source
+remain unchanged; the native geometry assertion fix is still pending.

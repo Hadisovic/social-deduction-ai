@@ -33,7 +33,8 @@ def main():
     python=runtime/'pythonw.exe'
     if not python.is_file():python=runtime/'python.exe'
     if not python.is_file():python=Path(sys.executable)
-    command=[str(python),str(source/'run_spectator_v2.py'),'--omniscient','--width','1500','--height','900']
+    command=[str(python),str(ROOT/'run_lizbon_viewer.py'),'--source-root',str(source),
+             '--omniscient','--width','1500','--height','900']
     command+=['--preferences',str(args.preferences.resolve()),'--speed',str(args.speed)]
     if args.replay:command+=['--replay',str(args.replay.resolve()),'--mode','manual','--seek',str(args.seek)]
     if args.watch:command+=['--watch',str(args.watch.resolve()),'--status-file',str(args.watch.resolve()/'status.json'),

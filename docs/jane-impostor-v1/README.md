@@ -94,6 +94,8 @@ small comparison. Neither is test accuracy or evidence of a globally best model.
 
 ## Watch the game
 
+The door renderer now uses original Skeld sprites. See [sources, animation preview and tests](DOOR_VIEWER.md).
+
 The native spectator is observation-only. Select an impostor in the roster for
 its panel. Omniscient positions in the viewer are never neural inputs.
 

@@ -106,3 +106,10 @@ changes before either side silently modifies the common contract.
 Both: retain separate development branches; share reviewed rules/settings and
 adapters through the foundation. Exchange frozen releases first; jointly study
 adaptation/self-play only after both learned base roles have held-out evidence.
+
+## Viewer refinement
+
+- [x] Find original door atlas and record pinned source/checksum.
+- [x] Animate both orientations from recorded physical state, preserving actor-local visibility.
+- [x] Verify seeking/reduced motion, native rendering and existing UI (30 passed,5 optional skips).
+- [x] Export actual recorded close/reopen walkthrough; no new simulation or training.

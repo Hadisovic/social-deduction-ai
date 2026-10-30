@@ -1,0 +1,14 @@
+{
+  "source_repository": "AlvajoyAsante/among-us-assets",
+  "source_commit": "3f6da7bc243cc366ef6dc925938354568da023fd",
+  "source_path": "Maps/Doors-sharedassets0.assets-104.png",
+  "sha256": "c798644fa03660814a7986ed6f59ee7bc82095b019210fda7c15a980f8c932a1",
+  "coordinate_convention": "top-left x,y,width,height; aperture windows exclude unrelated packed sprites",
+  "frames_open_to_closed": true,
+  "frames": {
+    "horizontal": [[8,988,116,93],[8,794,116,93],[8,891,116,93],[8,1279,116,93],[8,1667,116,93]],
+    "vertical": [[40,101,28,81],[4,299,28,81],[4,101,28,81],[4,695,28,81],[40,695,28,81]]
+  },
+  "cadence": "0.25 simulated seconds, reconstructed; no authoritative SpriteAnim frame rate in the texture archive",
+  "rights": "Among Us artwork belongs to Innersloth. Source archive is not an Innersloth software license. Attribution retained for this research simulation."
+}
