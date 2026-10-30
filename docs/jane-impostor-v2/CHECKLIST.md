@@ -26,6 +26,7 @@ No historical checkpoint, settings bundle or external pinned source is overwritt
 - [x] Run bounded deterministic gameplay checks across lobby sizes and measure throughput.
 - [x] Propose budget and obtain approval: three hours, up to90 training/90 evaluation minutes.
 - [ ] Run the registered study. Do not silently reuse/extend the expired V1 deadline.
+  Running:source0378994,start19:28:36UTC,deadline22:28:36UTC30October2026.
 - [ ] Lock selection before held-out confirmation; preserve all failures/cuts and old final partitions.
 - [ ] Publish graphs, decision analysis, honest sufficiency and next steps for each developer.
 - [ ] Run the updated playback; push the own branch without merge/deployment.

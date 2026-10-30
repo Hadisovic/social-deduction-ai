@@ -1,9 +1,13 @@
 # Lizbon Classic V2: current execution status
 
-30 October 2026. Branch `codex/lizbon-classic-v2`, based on c9542c6. Owner approved
-the new **three-hour** pilot after the task-count clarification. Training is not
-started at this document revision. Update this top block from persisted status,
-not assumptions about worker activity. No merge/deployment is authorized.
+30 October 2026. **PILOT RUNNING. Preserve healthy jobs.** Branch
+`codex/lizbon-classic-v2`, source freeze037899471a62502a25b1a9351cc91379bfc6423b.
+Registered start19:28:36.513UTC /22:28:36Amman. Hard deadline22:28:36.513UTC /
+31October01:28:36Amman. Training cutoff20:58:36UTC. Owner approved three hours.
+Parent exec session1793; launcher89980/actual supervisor25216. Training stream101
+launcher89196/actual9200; stream202 launcher71656/actual83260. Windows process-tree
+guard87104 enforces the same failure/deadline without changing NN sources.
+Update this block from persisted status, not assumptions. No merge/deployment.
 
 ## Approved implementation
 
@@ -51,7 +55,7 @@ matches each;90-minute training cutoff; fresh validation; immutable selection
 lock before eight paired confirmation matches, sampled and greedy. Three-hour
 hard total deadline; no automatic retries/extensions. Old/fresh final sets sealed.
 
-Intended output: `local-runs/lizbon-classic-v2/study-20261030`.
+Output: `local-runs/lizbon-classic-v2/study-20261030`.
 Inspect registration/status, per-run status/matches/PPO and decision journals;
 preserve healthy jobs and never edit loaded source. After completion inspect
 results/failure, selection-lock and aggregate/REPORT plus five graphs. Regenerate
@@ -63,6 +67,17 @@ receipt/ancestry if selection completed. Update checklist/handoff, verify/open
 actual completed playback with run_lizbon_viewer.py, push this own branch only.
 Keep unmodified unrelated pilot README/NAVIGATION_V2_PLAN work outside the commit.
 Protected docs/research/ISSUES.md remains untouched.
+
+Technical addendum after launch: Windows venv redirectors create actual runtime
+children. The source coordinator's fail-fast guard terminates tracked Popen
+processes but does not itself guarantee those children stop. Separate
+tools/watch_lizbon_classic_study.ps1 matches this study's absolute output path and
+exact worker script, stops its workers on a registered fatal-stop/deadline, and
+leaves all other jobs/reporting alone. Its disposable runtime-tree deadline test
+passed. See process-tree-guard.json and stderr log; keep it healthy. This changes
+neither weights, rewards, sampling, selection nor the approved budget. Do not
+patch the loaded supervisor during this study; fix tree termination in a future
+source version before another run. No automatic retry on failure.
 
 Next work for both developers is frozen cross-play and shared settings/engine
 compatibility. Establish one competent policy before adding population/task
