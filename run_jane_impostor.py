@@ -1,4 +1,4 @@
-"""Launch the existing independent A2 spectator; this command never trains."""
+"""Open Lizbon's lobby, completed playback or live observer; never trains."""
 import argparse
 import json
 from pathlib import Path
@@ -13,6 +13,7 @@ def main():
     parser.add_argument('--source-root',type=Path)
     parser.add_argument('--replay',type=Path)
     parser.add_argument('--watch',type=Path)
+    parser.add_argument('--lobby',action='store_true',help='Open configurable Classic lobby (default without replay/watch)')
     parser.add_argument('--capture',type=Path)
     parser.add_argument('--max-frames',type=int)
     parser.add_argument('--selected')
@@ -28,7 +29,8 @@ def main():
         args.source_root=Path(json.loads(path.read_text())['source_root'])
     source=args.source_root.resolve()
     if not (source/'run_spectator_v2.py').is_file():parser.error('Source root lacks the native spectator')
-    if not args.replay and not args.watch:parser.error('Choose --replay or --watch; no game is generated automatically')
+    if args.lobby and (args.replay or args.watch):parser.error('Choose lobby or an explicit replay/watch')
+    lobby=args.lobby or not (args.replay or args.watch)
     runtime=ROOT/'local-runs/jane-impostor-v1/runtime/Scripts'
     python=runtime/'pythonw.exe'
     if not python.is_file():python=runtime/'python.exe'
@@ -36,6 +38,7 @@ def main():
     command=[str(python),str(ROOT/'run_lizbon_viewer.py'),'--source-root',str(source),
              '--omniscient','--width','1500','--height','900']
     command+=['--preferences',str(args.preferences.resolve()),'--speed',str(args.speed)]
+    if lobby:command+=['--lobby']
     if args.replay:command+=['--replay',str(args.replay.resolve()),'--mode','manual','--seek',str(args.seek)]
     if args.watch:command+=['--watch',str(args.watch.resolve()),'--status-file',str(args.watch.resolve()/'status.json'),
                              '--live-environment','0','--mode','follow_latest']
@@ -47,12 +50,13 @@ def main():
     if args.capture:command+=['--capture',str(args.capture.resolve())]
     if args.max_frames:command+=['--max-frames',str(args.max_frames)]
     if args.dry_run:
-        print(json.dumps(dict(command=command,mode='playback' if args.replay else 'live observer; no training'),indent=2));return
-    folder=args.watch or args.replay.parent
+        print(json.dumps(dict(command=command,mode='lobby; starts inference only on click' if lobby else 'playback' if args.replay else 'live observer; no training'),indent=2));return
+    folder=args.watch or (args.replay.parent if args.replay else ROOT/'local-runs/lizbon-dashboard')
+    folder.mkdir(parents=True,exist_ok=True)
     log=folder/'viewer.log'
     with log.open('a',encoding='utf-8') as handle:
         process=subprocess.Popen(command,cwd=source,stdout=handle,stderr=subprocess.STDOUT)
-    print(json.dumps(dict(viewer_pid=process.pid,mode='playback' if args.replay else 'live observer',log=str(log))))
+    print(json.dumps(dict(viewer_pid=process.pid,mode='lobby' if lobby else 'playback' if args.replay else 'live observer',log=str(log))))
 
 
 if __name__=='__main__':main()

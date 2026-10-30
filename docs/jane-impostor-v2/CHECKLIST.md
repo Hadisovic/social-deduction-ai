@@ -33,6 +33,9 @@ No historical checkpoint, settings bundle or external pinned source is overwritt
 - [x] Fix and review cache coherence in shared adapter; revision `paired-map-planner-v1`;87Jane checks and3offline comparator checks passed.
 - [x] Preserve original weights; explicit SHA-verified migration changes no tensors and performs no training.
 - [ ] Approve/register a new training study; old study is not resumed.
+- [x] Add dashboard Lobby controls for player/impostor/task counts; inference-only Start, Save, Stop and Watch.
+- [x] Verify real custom-game launch/live display/completed playback and zero PPO updates; preserve failed Windows reader-lock run.
+- [x] Add full 1/2/3-Lizbon gameplay checklist: rules, observed skills, missing roles, rates and concrete joint next steps.
 - [x] Open completed trained-policy playback; publish this own branch without merge/deployment.
 
 Core scope is Classic Skeld with base crewmate/impostor roles. Previously deferred

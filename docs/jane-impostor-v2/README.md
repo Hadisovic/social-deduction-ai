@@ -25,6 +25,14 @@ started. Historical models and the failed-study source remain preserved.
 
 ## Host settings
 
+Open `python run_lizbon.py` and use the **Lobby** tab to choose total players,
+impostors and Common / Long / Short tasks, then **Start AI game**. This launches
+inference only. [Dashboard instructions and pictures](DASHBOARD_LOBBY.md).
+
+For the complete implemented/weak/missing gameplay inventory, current win-rate
+evidence, rewards and next experiments, use the
+[Lizbon gameplay checklist](LIZBON_GAMEPLAY_CHECKLIST.md).
+
 Use the dedicated Jane Python runtime. From the repository root:
 
 ```powershell

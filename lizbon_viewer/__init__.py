@@ -1,1 +1,1 @@
-"""Read-only presentation extensions; no environment or policy imports."""
+"""Local presentation extensions and an explicit inference-only lobby launcher."""

@@ -1,0 +1,77 @@
+{
+  "purpose": "Dashboard engineering, not learning/performance evaluation",
+  "scenario": 9700203,
+  "population": {
+    "players": 4,
+    "crew": 3,
+    "impostors": 1
+  },
+  "task_counts": {
+    "common": 0,
+    "long": 0,
+    "short": 1
+  },
+  "policy": "sampled migrated checkpoint003,24 inherited passes",
+  "complete": true,
+  "winner": "crewmate",
+  "reason": "TASKS_COMPLETED",
+  "sim_seconds": 35.4,
+  "collection_wall_seconds": 29.735186100006104,
+  "runner_wall_seconds": 30.285354499996174,
+  "dashboard_check_wall_seconds": 41.43800000002375,
+  "counters": {
+    "complete_matches": 1,
+    "technical_cuts": 0,
+    "optimizer_steps": 0,
+    "training_observations": 0
+  },
+  "metrics": {
+    "steps": 177,
+    "eliminations": 0,
+    "reports": 0,
+    "meetings": 0,
+    "votes": 0,
+    "task_completions": 3,
+    "illegal_actions": 0,
+    "navigation_failures": 0,
+    "sabotages": 0,
+    "repairs": 0,
+    "navigation_seconds": 5.601539799943566,
+    "visibility_seconds": 1.5820678993477486,
+    "event_log_seconds": 0.0013790999073535204,
+    "physics_seconds": 0.0
+  },
+  "impostor_actions": {
+    "p3": {
+      "wait": 23,
+      "observations": 59,
+      "choices": 59,
+      "destination": 15,
+      "cancel": 10,
+      "doors": 7,
+      "remembered_player": 1,
+      "room": 3
+    }
+  },
+  "model_changed": false,
+  "frozen_crew_unchanged": true,
+  "saved_weight_unchanged": true,
+  "completed_playback_verified_not_snapshot": true,
+  "playback_start_sim_time": 0,
+  "failed_attempt": {
+    "live_players": 4,
+    "completed": false,
+    "error": "WinError5 replacing critical producer status.json",
+    "preserved": "local-runs/lizbon-dashboard-check-20261031",
+    "fix": "Do not open critical producer status/results while process is running"
+  },
+  "runtime": {
+    "cpu": "Intel Core i9-14900HX",
+    "cores": 24,
+    "logical": 32,
+    "python": "3.12.10",
+    "torch": "2.7.1+cpu",
+    "torch_threads": 1
+  },
+  "verification": "22 focused checks passed; actual UI clicks/live/full-replay test"
+}

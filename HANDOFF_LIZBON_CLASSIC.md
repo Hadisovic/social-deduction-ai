@@ -1,4 +1,35 @@
-# CURRENT: cache-coherence fix implemented31October2026
+# CURRENT: configurable lobby and full gameplay checklist,31October2026
+
+Local Lizbon viewer now opens a Lobby tab with total4–15, impostors1–3 and
+Common/Long/Short counts; Save creates exclusive profiles; Start launches one
+owned bounded inference-only smoke game with existing weights. No PPO study,
+selection, final tests, merge or deployment. Native pinned source and all
+jane/impostor and shared engine/settings sources remain unchanged by this UI work.
+
+22 focused tests passed, including real Pygame controls, validation, failure/cancel,
+partial/full playback, stale async loads, doors and offline comparator. First
+UI-started 4p game failed WinError5 replacing status.json; preserved under
+local-runs/lizbon-dashboard-check-20261031. Viewer no longer opens critical producer
+status/results during processing. Repeat under -retry completed naturally:4total,
+1imp,0/0/1tasks,35.4simsec,29.74collectionsec,30.29runnersec. Crew task win,
+zero kills/illegal/navigation failures, zero PPO/model changes. Full completed
+replay separately confirmed parsed and paused at t0. These are engineering checks,
+not performance evaluation. Histories/runtimes stay private/ignored.
+
+Docs: docs/jane-impostor-v2/DASHBOARD_LOBBY.md (pictures/receipt) and
+LIZBON_GAMEPLAY_CHECKLIST.md (all rules/actions/learning status, 1/2/3 allies,
+current rewards, historical rates, deferred features, owner/friend next steps).
+Current latest checkpoint still unselected/unvalidated; Classic prior training
+0/3 must not be called its test rate. Old shared14/16 is a different system.
+
+Restart viewer with python run_lizbon.py to get Lobby. Existing --replay/--watch
+still work. Close only terminates this dashboard's own new inference game.
+Publish own codex/lizbon-classic-v2 branch only. Preserve unrelated pilot README,
+NAVIGATION_V2_PLAN, replays and protected docs/research/ISSUES.md.
+
+---
+
+# Previous: cache-coherence fix implemented31October2026
 
 Shared adapter revision `paired-map-planner-v1` is implemented. After native door
 updates and meeting resets, collision/projection/player motion maps bind to the
