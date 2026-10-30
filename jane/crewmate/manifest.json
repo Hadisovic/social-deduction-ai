@@ -1,0 +1,15 @@
+{
+  "manifest_schema": "jane-policy-registration-v1",
+  "model_name": "Patrick Jane",
+  "role": "crewmate",
+  "integration_status": "awaiting-progress-review",
+  "source_commit": null,
+  "checkpoint_sha256": null,
+  "actor_contract": "jane-actor-contract-v1-draft",
+  "observation_schema": null,
+  "action_schema": null,
+  "tensor_schema": null,
+  "verified_settings_sha256": null,
+  "verified_bundle_sha256": null,
+  "note": "Provisional: owner will announce the teammate progress push; read it before adapting either role. No model copied or finalized here."
+}

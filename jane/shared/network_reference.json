@@ -1,0 +1,61 @@
+{
+  "schema": "jane-network-reference-v1",
+  "status": "reported-reference-not-implementation",
+  "source": "Owner-supplied message (7).txt and local Patrick Jane architecture visualizer",
+  "reported_current_parameters": 1031070,
+  "capacity_target_players": 15,
+  "self_encoder": [
+    192,
+    256,
+    128
+  ],
+  "player_encoder": [
+    16,
+    128,
+    128
+  ],
+  "player_attention_heads": 4,
+  "event_encoder": [
+    16,
+    128,
+    128
+  ],
+  "event_capacity": 64,
+  "event_attention": true,
+  "fusion": [
+    384,
+    256
+  ],
+  "gru": {
+    "input": 256,
+    "hidden": 256,
+    "layers": 1
+  },
+  "actor_trunk": [
+    256,
+    256,
+    128
+  ],
+  "critic_trunk": [
+    256,
+    256,
+    128
+  ],
+  "heads": [
+    "navigation",
+    "interaction",
+    "communication",
+    "voting",
+    "target_selection"
+  ],
+  "parameter_sharing": "Within each role, weights shared; recurrent state/history/RNG private per actor",
+  "unverified": [
+    "Actual feature ordering and scaling",
+    "15-player implementation support",
+    "Head dimensions/masks",
+    "Encoder/GRU sharing between actor and critic",
+    "Checkpoint/source hashes",
+    "Exact recurrent PPO implementation"
+  ],
+  "migration_rule": "Reference only, not a shared copied base. Review the teammate's announced progress before deciding either role's adapters or architecture. Preserve all original tensors/loaders."
+}

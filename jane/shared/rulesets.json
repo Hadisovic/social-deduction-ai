@@ -1,0 +1,39 @@
+{
+  "schema": "jane-ruleset-inventory-v1",
+  "runtime": "documentation-data; no new engine implemented",
+  "historical-v2.2": {
+    "population": [
+      5,
+      1
+    ],
+    "first_kill_cooldown": "configured kill cooldown",
+    "meeting_kill_cooldown": "preserve remaining",
+    "meeting_positions": "in place",
+    "kill_reposition": "none",
+    "functional_extensions": [],
+    "task_timings": "authored duration/stage abstractions in unchanged crewmate_v2/tasks.py"
+  },
+  "classic-skeld-v1-draft": {
+    "status": "reference design; pin real build and verify before implementation",
+    "first_kill_cooldown_seconds_reference": 10,
+    "meeting_kill_cooldown_reference": "reset configured cooldown",
+    "meeting_positions_reference": "Cafeteria",
+    "kill_reposition_reference": "victim",
+    "door_closed_seconds_reference": 10,
+    "critical_countdown_seconds_reference": 30,
+    "sabotage_initial_cooldown_seconds_reference": 10,
+    "sabotage_repair_cooldown_seconds_reference": 30,
+    "door_and_other_sabotage_concurrent_reference": false,
+    "reactor_repair_reference": "two distinct simultaneous living participants",
+    "oxygen_repair_reference": "both consoles; may be completed sequentially",
+    "body_report_reference": "allowed during sabotage; ends critical emergencies and Skeld door closure",
+    "ghost_impostor_reference": "legal sabotage; no kill/report/vent/vote/living repair",
+    "unresolved": [
+      "Precise timer/animation ordering and device pause behavior",
+      "Task duration/category differences including Clear Asteroids",
+      "Native kill distances and mixed geometry/metadata versions",
+      "Zero-task and zero-voting-time behavior",
+      "Simultaneous terminal-event priority"
+    ]
+  }
+}

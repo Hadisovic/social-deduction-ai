@@ -1,0 +1,119 @@
+{
+  "schema": "jane-foundation-verification-v1",
+  "date": "2026-10-30",
+  "base_commit": "eb5d122b2c338af4bea65967f0f01004258d0f22",
+  "branch": "codex/jane-shared-foundation",
+  "python": "3.12.10",
+  "tests": {
+    "passed": 87,
+    "pytest_seconds": 3.75,
+    "scope": "settings and declaration compatibility"
+  },
+  "local_markdown_links_checked": 8,
+  "cli_checks": [
+    {
+      "command": "python -m jane jane/configs/jane_12p_base.json",
+      "exit_code": 0
+    },
+    {
+      "command": "python -m jane jane/configs/jane_15p_base.json",
+      "exit_code": 0
+    },
+    {
+      "command": "python -m jane jane/configs/historical_5p.json --engine historical-v2.2",
+      "exit_code": 0
+    },
+    {
+      "command": "python -m jane jane/configs/jane_12p_base.json --engine patrick-jane --check-pair",
+      "exit_code": 2
+    },
+    {
+      "command": "python -m jane jane/configs/future_15p_full_classic.json --engine historical-v2.2",
+      "exit_code": 2
+    }
+  ],
+  "profiles": [
+    {
+      "path": "jane/configs/future_15p_full_classic.json",
+      "players": 15,
+      "crewmates": 12,
+      "impostors": 3,
+      "settings_sha256": "e5fae0d05f705bf98df3cc94539b68f33b1c506f304d781769903e7d4667e2e4",
+      "shared_files": {
+        "settings.py": "dd9e2b0df67ed1dcbfebc1b6e25e68017dda51992723b1a2e4c3ea13409f4b63",
+        "compatibility.py": "b90d500163b5cb949edfcda916a86f4ec5e889d5989244ce706b2b9d94355bea",
+        "catalog.json": "6361f097ace6e11a2f62bbdddc46319c2c2d8bb15c19d1074089cbda666cc58b",
+        "rulesets.json": "4caaf4bac0404c38e906127558a62c4c004402c34a24c957aa958bf66ac5132e",
+        "actor_contract.json": "366721cbe571c4bb7c1ab9fef77011c3f3dffdf5e881eae6496fc7d2a718bfea",
+        "network_reference.json": "ae390a1eb827bb2d872d19ea28fbf45b15d421b48d77ce3764d3af23c3f7ade3"
+      },
+      "bundle_sha256": "43973211a1352321916627032b6040113e74d46ed8e7af4e938f3bb0e5b5007b",
+      "historical_configuration_compatible": false,
+      "patrick_jane_runtime_verified": false
+    },
+    {
+      "path": "jane/configs/historical_5p.json",
+      "players": 5,
+      "crewmates": 4,
+      "impostors": 1,
+      "settings_sha256": "d2c130649374590cdfc57860341b6b73a8503ff9711850dcb8145c27c5db8edd",
+      "shared_files": {
+        "settings.py": "dd9e2b0df67ed1dcbfebc1b6e25e68017dda51992723b1a2e4c3ea13409f4b63",
+        "compatibility.py": "b90d500163b5cb949edfcda916a86f4ec5e889d5989244ce706b2b9d94355bea",
+        "catalog.json": "6361f097ace6e11a2f62bbdddc46319c2c2d8bb15c19d1074089cbda666cc58b",
+        "rulesets.json": "4caaf4bac0404c38e906127558a62c4c004402c34a24c957aa958bf66ac5132e",
+        "actor_contract.json": "366721cbe571c4bb7c1ab9fef77011c3f3dffdf5e881eae6496fc7d2a718bfea",
+        "network_reference.json": "ae390a1eb827bb2d872d19ea28fbf45b15d421b48d77ce3764d3af23c3f7ade3"
+      },
+      "bundle_sha256": "01f2231ceb7fc4170dbb6582f912048958efd470fd4ec761b74a4c0b12357c7d",
+      "historical_configuration_compatible": true,
+      "patrick_jane_runtime_verified": false
+    },
+    {
+      "path": "jane/configs/jane_12p_base.json",
+      "players": 12,
+      "crewmates": 10,
+      "impostors": 2,
+      "settings_sha256": "b30e6ad5fe903ceb7240cc27cfc798ceb4f456ae3a24c9ecc4597f0f4345f9b1",
+      "shared_files": {
+        "settings.py": "dd9e2b0df67ed1dcbfebc1b6e25e68017dda51992723b1a2e4c3ea13409f4b63",
+        "compatibility.py": "b90d500163b5cb949edfcda916a86f4ec5e889d5989244ce706b2b9d94355bea",
+        "catalog.json": "6361f097ace6e11a2f62bbdddc46319c2c2d8bb15c19d1074089cbda666cc58b",
+        "rulesets.json": "4caaf4bac0404c38e906127558a62c4c004402c34a24c957aa958bf66ac5132e",
+        "actor_contract.json": "366721cbe571c4bb7c1ab9fef77011c3f3dffdf5e881eae6496fc7d2a718bfea",
+        "network_reference.json": "ae390a1eb827bb2d872d19ea28fbf45b15d421b48d77ce3764d3af23c3f7ade3"
+      },
+      "bundle_sha256": "0766821830bc2bf09a4c0c0dd9bf8b5c00ed97ad5b509fc4f35afa43717fc238",
+      "historical_configuration_compatible": false,
+      "patrick_jane_runtime_verified": false
+    },
+    {
+      "path": "jane/configs/jane_15p_base.json",
+      "players": 15,
+      "crewmates": 13,
+      "impostors": 2,
+      "settings_sha256": "4265669783263a511512073508914f49c0c66874fe4b211a021ec8a0ae5f561e",
+      "shared_files": {
+        "settings.py": "dd9e2b0df67ed1dcbfebc1b6e25e68017dda51992723b1a2e4c3ea13409f4b63",
+        "compatibility.py": "b90d500163b5cb949edfcda916a86f4ec5e889d5989244ce706b2b9d94355bea",
+        "catalog.json": "6361f097ace6e11a2f62bbdddc46319c2c2d8bb15c19d1074089cbda666cc58b",
+        "rulesets.json": "4caaf4bac0404c38e906127558a62c4c004402c34a24c957aa958bf66ac5132e",
+        "actor_contract.json": "366721cbe571c4bb7c1ab9fef77011c3f3dffdf5e881eae6496fc7d2a718bfea",
+        "network_reference.json": "ae390a1eb827bb2d872d19ea28fbf45b15d421b48d77ce3764d3af23c3f7ade3"
+      },
+      "bundle_sha256": "b7138e870d8fe3391e85031e08585f0835b6b9d964838ba9d9e00da4a99e9ae5",
+      "historical_configuration_compatible": false,
+      "patrick_jane_runtime_verified": false
+    }
+  ],
+  "training_started": false,
+  "matches_started": false,
+  "checkpoints_loaded": false,
+  "new_neural_model_implemented": false,
+  "patrick_jane_source_available": false,
+  "limitations": [
+    "Actual current Jane source/checkpoint and adapters required",
+    "New population and full mechanics are settings/design, not engine implementation",
+    "Real-build conformance remains draft"
+  ]
+}

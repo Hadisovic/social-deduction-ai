@@ -1,0 +1,61 @@
+{
+  "schema": "jane-actor-contract-v1-draft",
+  "status": "semantic-design-not-runtime-adapter",
+  "settings_schema": "jane-settings-v1-draft",
+  "max_players": 15,
+  "max_assigned_tasks": 10,
+  "roster_order": "Stable public roster order, never sorted by hidden role",
+  "required_envelope": [
+    "match_id",
+    "actor_id",
+    "tick",
+    "simulated_time",
+    "phase",
+    "life_state",
+    "public_settings",
+    "own_state",
+    "observed_players",
+    "remembered_players",
+    "own_tasks_or_fake_list",
+    "public_events",
+    "legal_actions"
+  ],
+  "event_provenance": [
+    "direct",
+    "public_claim",
+    "public_result",
+    "own_action"
+  ],
+  "private_per_actor": [
+    "GRU state",
+    "event history",
+    "RNG",
+    "navigation goal",
+    "fake activity"
+  ],
+  "legitimate_impostor_knowledge": [
+    "own role",
+    "ally identities",
+    "own cooldowns",
+    "own fake list"
+  ],
+  "forbidden_cross_actor_fields": [
+    "unseen live positions",
+    "another actor's private observations",
+    "another actor's goals or hidden state",
+    "unpublished ballots",
+    "spectator/trainer/world objects",
+    "future events"
+  ],
+  "mask_requirements": [
+    "role/life/phase restrictions",
+    "known target eligibility",
+    "cooldowns and range",
+    "same masks and argument log probabilities during collection and PPO replay",
+    "no hidden-world state revealed through candidate availability"
+  ],
+  "navigation": "Neural goal selection; deterministic geometry execution; preserve independent Navigation V2 work",
+  "memory_lifecycle": "Reset at new match, retain through meetings and valid living-to-ghost transition",
+  "ghost_policy": "No kill/report/emergency/vote/vent/living repair; permitted sabotage only if implemented",
+  "tensor_layout": "Must be mapped from the actual current Patrick Jane source; not inferred from this document"
+}

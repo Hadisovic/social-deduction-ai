@@ -24,3 +24,9 @@ frozen_handoff/*.py text eol=lf
 spectator/**/*.py text eol=lf
 artifacts/crew-handoff/**/*.pt -text
 assets/phase3_local/** -text
+
+# Provisional Jane definitions have portable source/data fingerprints.
+jane/** text eol=lf
+docs/jane/** text eol=lf
+JANE_SHARED.md text eol=lf
+tests/test_jane_foundation.py text eol=lf

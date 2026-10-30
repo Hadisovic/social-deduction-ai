@@ -1,0 +1,367 @@
+{
+  "schema": "jane-skeld-catalog-v1",
+  "status": "inventory-and-roadmap-not-engine-implementation",
+  "map_source": {
+    "path": "assets/skeld/among_us_map.json",
+    "sha256": "9e5e0cd925ab3ede95aae67e42dbb6ebd67717bf8e7365eb655628c669a2d58c",
+    "geometry_game_version": "unknown; dump committed 2021-09-05",
+    "metadata_game_version": "2026.8.18"
+  },
+  "tasks": [
+    {
+      "id": "AlignEngineOutput",
+      "name": "Align Engine Output",
+      "historical_category": "Long",
+      "classic_category_draft": "Long",
+      "canonical_family": "AlignEngineOutput",
+      "visual": false,
+      "historical_runtime": "authored-abstraction",
+      "stages": "Both engine panels",
+      "review": "Verify stages, cancellation, durations and console mapping against pinned build"
+    },
+    {
+      "id": "CalibrateDistributor",
+      "name": "Calibrate Distributor",
+      "historical_category": "Short",
+      "classic_category_draft": "Short",
+      "canonical_family": "CalibrateDistributor",
+      "visual": false,
+      "historical_runtime": "authored-abstraction",
+      "stages": "Single task interaction; minigame timing needs target-build calibration",
+      "review": "Verify stages, cancellation, durations and console mapping against pinned build"
+    },
+    {
+      "id": "ChartCourse",
+      "name": "Chart Course",
+      "historical_category": "Short",
+      "classic_category_draft": "Short",
+      "canonical_family": "ChartCourse",
+      "visual": false,
+      "historical_runtime": "authored-abstraction",
+      "stages": "Single task interaction; minigame timing needs target-build calibration",
+      "review": "Verify stages, cancellation, durations and console mapping against pinned build"
+    },
+    {
+      "id": "CleanO2Filter",
+      "name": "Clean O2 Filter",
+      "historical_category": "Short",
+      "classic_category_draft": "Short",
+      "canonical_family": "CleanO2Filter",
+      "visual": false,
+      "historical_runtime": "authored-abstraction",
+      "stages": "Single task interaction; minigame timing needs target-build calibration",
+      "review": "Verify stages, cancellation, durations and console mapping against pinned build"
+    },
+    {
+      "id": "ClearAsteroids",
+      "name": "Clear Asteroids",
+      "historical_category": "Long",
+      "classic_category_draft": "Short",
+      "canonical_family": "ClearAsteroids",
+      "visual": true,
+      "historical_runtime": "authored-abstraction",
+      "stages": "Single task interaction; minigame timing needs target-build calibration",
+      "review": "Category conflicts with historical metadata: verify pinned build"
+    },
+    {
+      "id": "DivertPower",
+      "name": "Divert / Accept Power",
+      "historical_category": "Short",
+      "classic_category_draft": "Short",
+      "canonical_family": "DivertPower",
+      "visual": false,
+      "historical_runtime": "authored-abstraction",
+      "stages": "Electrical diversion then the selected accept-power console",
+      "review": "Verify stages, cancellation, durations and console mapping against pinned build"
+    },
+    {
+      "id": "EmptyChute",
+      "name": "Empty Chute",
+      "historical_category": "Long",
+      "classic_category_draft": "Long",
+      "canonical_family": "EmptyGarbage",
+      "visual": true,
+      "historical_runtime": "authored-abstraction",
+      "stages": "O2 then Storage; variant of the garbage task family",
+      "review": "Verify stages, cancellation, durations and console mapping against pinned build"
+    },
+    {
+      "id": "EmptyGarbage",
+      "name": "Empty Garbage",
+      "historical_category": "Long",
+      "classic_category_draft": "Long",
+      "canonical_family": "EmptyGarbage",
+      "visual": true,
+      "historical_runtime": "authored-abstraction",
+      "stages": "Cafeteria then Storage; external visual at final stage",
+      "review": "Verify stages, cancellation, durations and console mapping against pinned build"
+    },
+    {
+      "id": "FixWiring",
+      "name": "Fix Wiring",
+      "historical_category": "Common",
+      "classic_category_draft": "Common",
+      "canonical_family": "FixWiring",
+      "visual": false,
+      "historical_runtime": "authored-abstraction",
+      "stages": "Three selected panels; same common assignment across crew",
+      "review": "Verify stages, cancellation, durations and console mapping against pinned build"
+    },
+    {
+      "id": "FuelEngines",
+      "name": "Fuel Engines",
+      "historical_category": "Long",
+      "classic_category_draft": "Long",
+      "canonical_family": "FuelEngines",
+      "visual": false,
+      "historical_runtime": "authored-abstraction",
+      "stages": "Storage fuel pickup and engine visits",
+      "review": "Verify stages, cancellation, durations and console mapping against pinned build"
+    },
+    {
+      "id": "InspectSample",
+      "name": "Inspect Sample",
+      "historical_category": "Long",
+      "classic_category_draft": "Long",
+      "canonical_family": "InspectSample",
+      "visual": false,
+      "historical_runtime": "authored-abstraction",
+      "stages": "Start incubation, wait, return for result",
+      "review": "Verify stages, cancellation, durations and console mapping against pinned build"
+    },
+    {
+      "id": "PrimeShields",
+      "name": "Prime Shields",
+      "historical_category": "Short",
+      "classic_category_draft": "Short",
+      "canonical_family": "PrimeShields",
+      "visual": true,
+      "historical_runtime": "authored-abstraction",
+      "stages": "Single task interaction; minigame timing needs target-build calibration",
+      "review": "Verify stages, cancellation, durations and console mapping against pinned build"
+    },
+    {
+      "id": "StabilizeSteering",
+      "name": "Stabilize Steering",
+      "historical_category": "Short",
+      "classic_category_draft": "Short",
+      "canonical_family": "StabilizeSteering",
+      "visual": false,
+      "historical_runtime": "authored-abstraction",
+      "stages": "Single task interaction; minigame timing needs target-build calibration",
+      "review": "Verify stages, cancellation, durations and console mapping against pinned build"
+    },
+    {
+      "id": "StartReactor",
+      "name": "Start Reactor",
+      "historical_category": "Long",
+      "classic_category_draft": "Long",
+      "canonical_family": "StartReactor",
+      "visual": false,
+      "historical_runtime": "authored-abstraction",
+      "stages": "Single task interaction; minigame timing needs target-build calibration",
+      "review": "Verify stages, cancellation, durations and console mapping against pinned build"
+    },
+    {
+      "id": "SubmitScan",
+      "name": "Submit Scan",
+      "historical_category": "Long",
+      "classic_category_draft": "Long",
+      "canonical_family": "SubmitScan",
+      "visual": true,
+      "historical_runtime": "authored-abstraction",
+      "stages": "Single task interaction; minigame timing needs target-build calibration",
+      "review": "Verify stages, cancellation, durations and console mapping against pinned build"
+    },
+    {
+      "id": "SwipeCard",
+      "name": "Swipe Card",
+      "historical_category": "Common",
+      "classic_category_draft": "Common",
+      "canonical_family": "SwipeCard",
+      "visual": false,
+      "historical_runtime": "authored-abstraction",
+      "stages": "Single task interaction; minigame timing needs target-build calibration",
+      "review": "Verify stages, cancellation, durations and console mapping against pinned build"
+    },
+    {
+      "id": "UnlockManifolds",
+      "name": "Unlock Manifolds",
+      "historical_category": "Short",
+      "classic_category_draft": "Short",
+      "canonical_family": "UnlockManifolds",
+      "visual": false,
+      "historical_runtime": "authored-abstraction",
+      "stages": "Single task interaction; minigame timing needs target-build calibration",
+      "review": "Verify stages, cancellation, durations and console mapping against pinned build"
+    },
+    {
+      "id": "UploadData",
+      "name": "Download / Upload Data",
+      "historical_category": "Short",
+      "classic_category_draft": "Short",
+      "canonical_family": "UploadData",
+      "visual": false,
+      "historical_runtime": "authored-abstraction",
+      "stages": "A selected download station then Admin upload",
+      "review": "Verify stages, cancellation, durations and console mapping against pinned build"
+    },
+    {
+      "id": "VentCleaning",
+      "name": "Clean Vent",
+      "historical_category": "Short",
+      "classic_category_draft": "Short",
+      "canonical_family": "VentCleaning",
+      "visual": false,
+      "historical_runtime": "excluded",
+      "stages": "Clean selected vent; requires occupancy/eviction semantics",
+      "review": "Verify stages, cancellation, durations and console mapping against pinned build"
+    }
+  ],
+  "base_roles": [
+    "crewmate",
+    "impostor"
+  ],
+  "future_roles": [
+    {
+      "id": "scientist",
+      "enabled_by_default": false,
+      "runtime": "not-implemented-here"
+    },
+    {
+      "id": "engineer",
+      "enabled_by_default": false,
+      "runtime": "not-implemented-here"
+    },
+    {
+      "id": "guardian_angel",
+      "enabled_by_default": false,
+      "runtime": "not-implemented-here"
+    },
+    {
+      "id": "shapeshifter",
+      "enabled_by_default": false,
+      "runtime": "not-implemented-here"
+    },
+    {
+      "id": "noisemaker",
+      "enabled_by_default": false,
+      "runtime": "not-implemented-here"
+    },
+    {
+      "id": "tracker",
+      "enabled_by_default": false,
+      "runtime": "not-implemented-here"
+    },
+    {
+      "id": "phantom",
+      "enabled_by_default": false,
+      "runtime": "not-implemented-here"
+    },
+    {
+      "id": "detective",
+      "enabled_by_default": false,
+      "runtime": "not-implemented-here"
+    },
+    {
+      "id": "viper",
+      "enabled_by_default": false,
+      "runtime": "not-implemented-here"
+    }
+  ],
+  "extension_mechanics": [
+    {
+      "id": "vents",
+      "enabled_in_base_profiles": false,
+      "runtime": "requires-engine-and-both-policy-adapters"
+    },
+    {
+      "id": "doors",
+      "enabled_in_base_profiles": false,
+      "runtime": "requires-engine-and-both-policy-adapters"
+    },
+    {
+      "id": "lights",
+      "enabled_in_base_profiles": false,
+      "runtime": "requires-engine-and-both-policy-adapters"
+    },
+    {
+      "id": "communications",
+      "enabled_in_base_profiles": false,
+      "runtime": "requires-engine-and-both-policy-adapters"
+    },
+    {
+      "id": "oxygen",
+      "enabled_in_base_profiles": false,
+      "runtime": "requires-engine-and-both-policy-adapters"
+    },
+    {
+      "id": "reactor",
+      "enabled_in_base_profiles": false,
+      "runtime": "requires-engine-and-both-policy-adapters"
+    },
+    {
+      "id": "admin",
+      "enabled_in_base_profiles": false,
+      "runtime": "requires-engine-and-both-policy-adapters"
+    },
+    {
+      "id": "security",
+      "enabled_in_base_profiles": false,
+      "runtime": "requires-engine-and-both-policy-adapters"
+    },
+    {
+      "id": "impostor_ghosts",
+      "enabled_in_base_profiles": false,
+      "runtime": "requires-engine-and-both-policy-adapters"
+    },
+    {
+      "id": "clean_vent",
+      "enabled_in_base_profiles": false,
+      "runtime": "requires-engine-and-both-policy-adapters"
+    }
+  ],
+  "vent_components_from_asset": [
+    [
+      0,
+      1,
+      2
+    ],
+    [
+      3,
+      5,
+      6
+    ],
+    [
+      4,
+      11
+    ],
+    [
+      8,
+      9
+    ],
+    [
+      7,
+      12
+    ],
+    [
+      10,
+      13
+    ]
+  ],
+  "door_grouping": {
+    "Cafeteria": 3,
+    "Storage": 3,
+    "UpperEngine": 2,
+    "LowerEngine": 2,
+    "Security": 1,
+    "Electrical": 1,
+    "MedBay": 1
+  },
+  "sources": [
+    "https://among-us.fandom.com/wiki/Options",
+    "https://among-us.fandom.com/wiki/Tasks",
+    "https://among-us.fandom.com/wiki/The_Skeld",
+    "https://www.innersloth.com/new-roles-are-on-the-scene-of-17-0-0-emergency-meeting-41/"
+  ]
+}
