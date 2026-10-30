@@ -1,0 +1,10 @@
+{
+  "output": "local-runs\\lizbon-classic-v2\\fix-20261031\\checkpoint-003-migrated.pt",
+  "sha256": "9725ed268bcf341a37f91f9adfd80d92c4b4e0c80e50aaa665d70b65be3e31f2",
+  "tensor_sha256": "0ce10d0decb6a5f024acefeef193940d6dd30a7f7d53ece00eeb162ebf2b0163",
+  "tensors_identical": true,
+  "inherited_optimizer_passes": 24,
+  "new_optimizer_passes": 0,
+  "parent_sha256": "525535112ed502e6808513433ce73193d15eb08ed660504735d3ce3316eadaa8",
+  "mode": "offline weights-only migration; no inference/PPO/evaluation"
+}

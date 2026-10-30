@@ -4,6 +4,7 @@ from dataclasses import dataclass,replace
 from types import MappingProxyType
 from threading import RLock
 from .tasks import assignments,family
+from . import GEOMETRY_REVISION
 
 _FACTORY_LOCK=RLock()
 
@@ -81,8 +82,30 @@ def game_class():
             self._taskbar_visible=(0,self.initial_task_count)
             self._installing=False;self._invalidate();self.assert_invariants()
             self._record('classic_v2_configuration',channel='spectator',profile=self.experiment.host_profile,
-                effective_task_counts=self.host_profile.effective_counts)
+                effective_task_counts=self.host_profile.effective_counts,geometry_revision=GEOMETRY_REVISION)
             return self
+
+        def _bind_projection_geometry(self):
+            """The selected planner owns the trusted collision/projection map.
+
+            Upstream has independent geometry/planner LRU caches. Equal door
+            revisions can therefore refer to different map instances. Repair
+            that identity without weakening the projection guard or changing
+            any actor's route knowledge, destinations or strategy.
+            """
+            canonical=self.planner.map
+            if canonical.closed_doors!=self.map.closed_doors:
+                raise ValueError('Door revision mismatch between geometry and planner')
+            changed=self.map is not canonical
+            self.map=canonical
+            for player in self.players.values():
+                if player.motion.map is not canonical:
+                    player.motion.map=canonical;changed=True
+            if changed:self._invalidate()
+
+        def _update_doors(self):
+            super()._update_doors()
+            self._bind_projection_geometry()
 
         def assert_invariants(self):
             if not getattr(self,'_v2_ready',False):return
@@ -106,6 +129,7 @@ def game_class():
 
         def _start_meeting(self,reporter,body=None):
             result=super()._start_meeting(reporter,body)
+            self._bind_projection_geometry()
             self._taskbar_visible=(sum(t.progress>=1 for t in self.tasks.values()),self.initial_task_count)
             if self.lobby.discussion_seconds==0:
                 self.phase=Phase.VOTING;self.phase_started_tick=self.tick

@@ -1,0 +1,88 @@
+{
+  "schema": "lizbon-geometry-verification-v1",
+  "geometry": {
+    "profile_sha256": "eab00e5f5439f546affcc27651e0e3c1dcd40dbc608355ed5a019e06dbc5a0a4",
+    "geometry_revision": "paired-map-planner-v1",
+    "classic_sources": {
+      "__init__.py": "407ff4ab21dc77ca3bdea2573a7e72dfafdc74c630a91f29f57de87375a69a89",
+      "engine.py": "9b391d8b1ca64cb5ba167210714a02be8fe5c13660bca5440d3e343da3ebb05b",
+      "settings.py": "0afd99470eadf595be5a5f18e45eac2130bd3fcb82e797a2ec7ef3be42f1d51f",
+      "tasks.py": "57dfa9befd14a3d066143c256b685548648b2af1a62cc3aec8fb9709319c7878"
+    },
+    "historical_shared_bundle": "970c754c345ba436e0c0b37a2f49616f413371f73c797e8326693a3e8c47219f",
+    "sha256": "d63504cb6661b87fe15be4fe18ae29b784b0799ecd43feca743c92ce8bf8011d"
+  },
+  "seed": 9700032,
+  "mode": "bounded engineering inference; no PPO/validation/confirmation/final-test use",
+  "trials": [
+    {
+      "name": "normal",
+      "trace": "5b9c608b7444236955a0733b31228be6c38e957ad716cfe10a36c3d267326ca7",
+      "observations": 110,
+      "simulation_seconds": 33.0,
+      "wall_seconds": 180.09211630001664,
+      "truncated": true,
+      "metrics": {
+        "steps": 165,
+        "eliminations": 0,
+        "reports": 0,
+        "meetings": 0,
+        "votes": 0,
+        "task_completions": 1,
+        "illegal_actions": 0,
+        "navigation_failures": 0,
+        "sabotages": 1,
+        "repairs": 1,
+        "navigation_seconds": 27.28920769999968,
+        "visibility_seconds": 16.80558859964367,
+        "event_log_seconds": 0.008969199436251074,
+        "physics_seconds": 0.0,
+        "technical_truncation": {
+          "cause": "engineering-or-wall-cut",
+          "simulation_seconds": 33.0
+        }
+      },
+      "forced_geometry_evictions": []
+    },
+    {
+      "name": "geometry-evictions",
+      "trace": "d5bc020e9ac6667a7b010524f78f1d191de752fa0de8504b68d48b66ebac4878",
+      "observations": 112,
+      "simulation_seconds": 33.6,
+      "wall_seconds": 181.45709889999125,
+      "truncated": true,
+      "metrics": {
+        "steps": 168,
+        "eliminations": 0,
+        "reports": 0,
+        "meetings": 0,
+        "votes": 0,
+        "task_completions": 1,
+        "illegal_actions": 0,
+        "navigation_failures": 0,
+        "sabotages": 1,
+        "repairs": 1,
+        "navigation_seconds": 29.794970699527767,
+        "visibility_seconds": 16.824678001285065,
+        "event_log_seconds": 0.009350800071842968,
+        "physics_seconds": 0.0,
+        "technical_truncation": {
+          "cause": "engineering-or-wall-cut",
+          "simulation_seconds": 33.6
+        }
+      },
+      "forced_geometry_evictions": [
+        {
+          "tick_time": 30.6,
+          "observations": 100,
+          "cache_before": "CacheInfo(hits=313, misses=28, maxsize=16, currsize=16)"
+        }
+      ]
+    }
+  ],
+  "equal_actor_trace": false,
+  "policy_tensors_unchanged": true,
+  "crew_tensors_unchanged": true,
+  "wall_seconds": 364.0425783999963,
+  "passed": false
+}

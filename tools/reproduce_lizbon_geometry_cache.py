@@ -11,10 +11,13 @@ def reproduce(source):
     from jane.impostor.v1.bootstrap import activate
     activate(source)
     from jane.classic_v2.settings import load_profile
-    from jane.classic_v2.engine import game_class,experiment
+    from jane.classic_v2.engine import experiment
+    from patrick_jane.a2_environment import A2Game
     from patrick_jane.a2_geometry import geometry,planner
     profile=load_profile(ROOT/'jane/configs/classic-v2/default_12p.json')
-    game=game_class()(9700030,experiment=experiment(profile))
+    # This historical diagnostic intentionally exercises the unchanged upstream
+    # class. The current Classic adapter now repairs this mismatch automatically.
+    game=A2Game(9700030,experiment=experiment(profile))
     owner=next(pid for pid,p in game.players.items() if p.role.value=='impostor')
     game.tick=200
     assert game.close_doors(owner,'Storage')

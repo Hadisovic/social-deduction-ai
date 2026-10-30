@@ -1,3 +1,7 @@
+# Follow-up:cache fix implemented31October2026
+
+The current shared adapter is repaired. See [the fix and verification](../CACHE_PAIR_FIX.md). The historical study below remains failed and was not resumed. The external pinned copy remains unchanged.
+
 # Lizbon Classic V2 — stopped pilot, 30 October 2026
 
 **Not ready as a competent impostor.** The study stopped on an engine geometry

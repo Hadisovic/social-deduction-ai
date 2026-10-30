@@ -1,3 +1,7 @@
+# Current fix:31October2026
+
+The cache-coherence fix is implemented in the shared adapter as `paired-map-planner-v1`. [Fix, migration and verification](CACHE_PAIR_FIX.md). No new training study started; the earlier pilot remains failed.
+
 # Lizbon Classic V2
 
 Status: the approved pilot **stopped on an engine geometry-cache error** after

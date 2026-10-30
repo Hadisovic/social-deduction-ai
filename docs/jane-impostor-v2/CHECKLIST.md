@@ -30,7 +30,9 @@ No historical checkpoint, settings bundle or external pinned source is overwritt
 - [ ] Complete validation/selection/confirmation: NOT RUN because the study failed. No selected/final model.
 - [x] Publish five graphs, choice analysis, insufficiency and concrete next steps in study-20261030/README.md.
 - [x] Reproduce cache failure withoutNN/PPO; proposed upstream patch checks cleanly but remains unapplied.
-- [ ] Review/fix/version shared engine and approve a new study before more training.
+- [x] Fix and review cache coherence in shared adapter; revision `paired-map-planner-v1`;87Jane checks and3offline comparator checks passed.
+- [x] Preserve original weights; explicit SHA-verified migration changes no tensors and performs no training.
+- [ ] Approve/register a new training study; old study is not resumed.
 - [x] Open completed trained-policy playback; publish this own branch without merge/deployment.
 
 Core scope is Classic Skeld with base crewmate/impostor roles. Previously deferred

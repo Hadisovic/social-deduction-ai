@@ -1,3 +1,43 @@
+# CURRENT: cache-coherence fix implemented31October2026
+
+Shared adapter revision `paired-map-planner-v1` is implemented. After native door
+updates and meeting resets, collision/projection/player motion maps bind to the
+selected planner map; observations invalidate on rebinding. True door-revision
+mismatches and the original projection guard still raise. Pinned source and all
+historical V1/shared/NN code remain unchanged. Full details: docs/jane-impostor-v2/
+CACHE_PAIR_FIX.md. No new training study, merge or deployment.
+
+Verification:87isolated Jane tests passed; migration rechecked2passed after
+verified-bytes hardening;3comparator cases passed. Maintained root295passed,
+13skipped with the prior frozen-publication hash failure. Bare pytest has6prior
+stable_baselines3 collection errors. See verification JSON for exact evidence.
+
+Paired engineering seed9700032 runs stopped at180s/110and112decisions. The common
+110decision prefix matches exactly across neural inputs/actions and physics,
+including post-eviction observations. Policy/crew tensors unchanged; zero illegal
+or navigation errors. Full120-decision target was NOT reached; original raw check
+is preserved and the offline common-prefix assessment is explicit. No NN rerun.
+
+Strict receipts now include geometry revision. Pre-fix saved checkpoints require
+explicit migration (tools/migrate_lizbon_geometry_checkpoint.py), or historical
+source checkout for exact reproduction. Migration permits only the3registered
+old file hashes, loads verified bytes, preserves identical tensors, creates a new
+receipt with parent ancestry and no optimizer/new PPO passes. Normal strict
+loader is unchanged. A migrated checkpoint003 is preserved locally under
+local-runs/lizbon-classic-v2/fix-20261031; it is still an unselected model.
+
+No training is running and the failed37-minute pilot is NOT resumed. Old final
+partitions stay sealed. Future work: shared crew/impostor use make_match factory,
+profile full sampled match runtime, then obtain a new explicit study approval.
+Fix is prepared for publication on codex/lizbon-classic-v2; no merge/deploy.
+Future approved studies must retain the scoped Windows process-tree guard; this
+geometry patch does not change the supervisor. Preserve unrelated pilot
+README, NAVIGATION_V2_PLAN, untracked replays and protected research/ISSUES.md.
+
+---
+
+# Historical pre-fix status (no longer current)
+
 # CURRENT: Lizbon Classic pilot failed; postmortem completed
 
 No training is running. The bounded study stopped on30October2026 about20:05:49UTC

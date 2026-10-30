@@ -4,7 +4,7 @@ import hashlib
 import json
 from pathlib import Path
 from jane.shared.settings import GameSettings,_unique_object,bundle_receipt
-from . import ENGINE_VERSION
+from . import ENGINE_VERSION,GEOMETRY_REVISION
 
 
 @dataclass(frozen=True)
@@ -60,6 +60,6 @@ def receipt(profile):
     folder=Path(__file__).resolve().parent
     sources={p.name:hashlib.sha256(p.read_bytes().replace(b'\r\n',b'\n')).hexdigest()
              for p in sorted(folder.glob('*.py'))}
-    value=dict(profile_sha256=profile.fingerprint(),classic_sources=sources,
+    value=dict(profile_sha256=profile.fingerprint(),geometry_revision=GEOMETRY_REVISION,classic_sources=sources,
                historical_shared_bundle=bundle_receipt(profile.settings)['bundle_sha256'])
     return {**value,'sha256':hashlib.sha256(json.dumps(value,sort_keys=True).encode()).hexdigest()}
