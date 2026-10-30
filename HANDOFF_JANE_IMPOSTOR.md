@@ -1,8 +1,9 @@
 # Lizbon V1: current execution status
 
 30 October2026. **PILOT STOPPED ON NATIVE GEOMETRY ASSERTION. DO NOT RESTART.**
-Code, checkpoint and compact failure evidence are being prepared for push to
-codex/jane-impostor-v1. No merge or deployment.
+Code, checkpoint and compact failure evidence were pushed to
+codex/jane-impostor-v1 (results commit e3757a3; source commit e91d19e).
+No merge or deployment. Waiting for a reviewed engine release and new training approval.
 
 ## Observed outcome
 
@@ -22,6 +23,8 @@ codex/jane-impostor-v1. No merge or deployment.
 - Parent session7604 exited1. Supervisor82060 and train81468/62012 are gone.
 - Old live viewer36524 was closed because its source job stopped. A completed
   initial-policy baseline replay is available via run_lizbon.py.
+- Normal-speed baseline playback opened: launcher69980/GUI2192, initial weights,
+  seed9310001, selected impostor p1. This is playback, not a new simulation.
 
 ## Confirmed cause and next action
 
@@ -72,5 +75,5 @@ counterplay. Publish frozen source/settings/checkpoint releases. Cross-play fixe
 releases first; adaptation/self-play after competent learned base roles.
 
 Preserve unrelated existing old pilot README and NAVIGATION_V2_PLAN.md changes.
-The five-minute finish-lizbon-pilot-and-results heartbeat should be deleted after
-report/checkpoint/viewer/own-branch push are complete; no training remains running.
+The finish-lizbon-pilot-and-results heartbeat was removed after the interrupted
+pilot, report, checkpoint and gameplay work were published. No training remains running.

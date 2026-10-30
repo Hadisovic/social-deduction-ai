@@ -35,7 +35,7 @@ waiting. The engine still handles legal physical movement and interactions.
 - [x] Run bounded pilot: one complete game/eight PPO passes; match2 stopped on native geometry assertion after12m51.79s total. No restart.
 - [ ] Four-game study and paired development: NOT completed. No selection lock or final-test access; new study approval needed after engine fix.
 - [x] Preserve failure/checkpoint; generate five figures and baseline GUI picture; document insufficient evidence and proposed engine fix.
-- [ ] Push independent impostor branch without merging or deploying.
+- [x] Push independent impostor branch without merging/deploying: source e91d19e, evidence/checkpoint e3757a3.
 
 ## Initial reward proposal
 
