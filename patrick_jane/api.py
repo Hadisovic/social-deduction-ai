@@ -34,6 +34,15 @@ class Observation:
     own_route: tuple[tuple[float,float], ...] = ()
     emergency_ready_in: float = 0.
     own_repair_hold: str | None = None
+    # Versioned A2 own abilities / local obstruction only; no global door timers.
+    vent_state: str | None = None
+    vent_actions: tuple[str, ...] = ()
+    vent_links: tuple[str, ...] = ()
+    vent_can_exit: bool = False
+    door_actions: tuple[str, ...] = ()
+    door_blocked: bool = False
+    feature_schema: str = 'patrick-jane-events-v1'
+    vent_transition_ready: bool = True
 
 
 @dataclass(frozen=True)

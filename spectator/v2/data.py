@@ -30,6 +30,9 @@ def event_actor(event):
 
 def event_text(event,debug=False):
     kind=event.get('kind','event');actor=event_actor(event) or 'System'
+    if kind=='a2_ballot_credit':return f"[TRAINING DEBUG] {actor} ballot reward {event.get('reward',0):+.5f}; p={event.get('base_rate',0):.3f}"
+    if kind.startswith('vent_'):return f"{actor} · {kind.replace('_',' ')} · vent {event.get('vent_id','')}"
+    if kind in ('doors_closed','doors_opened','door_opened'):return f"{actor} · {kind.replace('_',' ')} {event.get('room',event.get('door_id',''))}"
     if kind in ('claim','structured_claim'):
         return f"{actor} · {str(event.get('claim_kind','claim')).replace('_',' ')} {event.get('subject_id','')}".strip()
     if kind=='vote_submitted' and not debug:return f'{actor} · ballot submitted (target hidden)'
@@ -76,6 +79,7 @@ class ReplayIndex:
         self.config=self.header.get('config',{});self.ticks=data.get('ticks',[])
         self.tick_times=[time_of(x) for x in self.ticks]
         self.events=sorted(data.get('events',[]),key=time_of);self.event_times=[time_of(e) for e in self.events]
+        self.a2_states=[e for e in self.events if e.get('kind')=='a2_world_state'];self.a2_times=[time_of(e) for e in self.a2_states]
         self.neurals=defaultdict(list);self.neural_times={};self.rewards=defaultdict(list);self.reward_times={};self.reward_sums={}
         for n in sorted(data.get('neural',[]),key=time_of):self.neurals[n.get('player_id','')].append(n)
         for r in sorted(data.get('rewards',[]),key=time_of):self.rewards[r.get('player_id','')].append(r)
@@ -109,6 +113,10 @@ class ReplayIndex:
         if tick!=self._cached_tick:
             self._frame=self.player.current_state();self._cached_tick=tick
         return self._frame
+
+    def a2_state(self):
+        i=bisect_right(self.a2_times,self.player.current_sim_time)-1
+        return self.a2_states[i] if i>=0 else None
 
     def raw(self,pid,t=None):
         if not self.ticks:return {}
@@ -200,7 +208,8 @@ class ReplayIndex:
         t=self.frame().sim_time if when is None else when
         public=[e for e in self.events_until(t) if e.get('channel')=='public']
         n=self.neural(pid,t);features=n.get('observation_features') if n else None
-        return dict(public=public,private=features if features else None)
+        witnessed=[e for e in self.events_until(t) if e.get('channel')=='direct' and e.get('observer_id')==pid and e.get('kind') in ('vent_enter_witnessed','vent_exit_witnessed','elimination_witnessed')]
+        return dict(public=public,private=features if features else None,witnessed=witnessed)
 
     def decision_delta(self,pid,a,b):
         if time_of(a)>time_of(b):a,b=b,a

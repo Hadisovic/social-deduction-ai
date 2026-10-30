@@ -114,6 +114,9 @@ class Commitment:
                         (t.kind=='task' and t.key==self.task and task is not None and task.console_id not in a.interactable_destinations or
                          t.kind=='body' and not target_mask(packet,'interaction',2)[i] or t.kind=='repair' and packet.observation.sabotage=='lights' and not target_mask(packet,'interaction',3)[i]) or
                         kind=='interaction' and (choice==1 and t.kind=='task' and t.key==self.task or choice==2 and t.kind=='body' or choice==3 and t.kind=='repair'))
+                    # Pursuit expands the uncommitted task head, not the committed
+                    # interaction support. Travel/incubation keep their old masks.
+                    if kind=='interaction' and choice==1:allowed=allowed and t.key in a.interactable_tasks
                     mask[i]=mask[i] and allowed
                 overrides[kind,choice]=mask
         packet.commitment_masks=overrides

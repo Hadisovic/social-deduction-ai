@@ -39,6 +39,15 @@ class MapView:
         dims=(max(1,round(self.world.width*self.scale)),max(1,round(self.world.height*self.scale)))
         if self._art_key!=dims:self.art=pygame.transform.smoothscale(self.source,dims);self._art_key=dims
         left,_,_,top=self.world.bounds;surface.blit(self.art,self.point((left,top)))
+        a2=index.a2_state() if index else None
+        if a2:
+            shown=set(a2.get('doors',{})) if prefs['omniscient'] else set(a2.get('local_doors',{}).get(app.selected,[]))
+            for door in self.world.data.get('doors',[]):
+                if door['id'] in shown:
+                    pygame.draw.polygon(surface,RED,[self.point(p) for p in door['points']])
+                    if prefs['omniscient']:
+                        center=tuple(sum(p[i] for p in door['points'])/len(door['points']) for i in (0,1));pt=self.point(center)
+                        text(surface,f"{max(0,a2['doors'].get(door['id'],0)-index.player.current_sim_time):.1f}s",pt[0],pt[1],10,AMBER)
         if prefs['collisions']:
             for wall in self.world.data.get('walls',[]):
                 pygame.draw.lines(surface,AMBER,False,[self.point(p) for p in wall['points']],1)
@@ -74,6 +83,11 @@ class MapView:
                 color=frame.players[body.victim_id].color if body.victim_id in frame.players else 'red'
                 draw_character(surface,color,self.point(body.position),max(24,round(self.scale*.9)),body=True)
         for pid,p in sorted(frame.players.items(),key=lambda item:-item[1].position[1]):
+            if a2 and pid in a2.get('vented',{}):
+                if prefs['omniscient']:
+                    key=a2['vented'][pid];point=self.point(a2['vent_positions'][key]);pygame.draw.circle(surface,AMBER,point,8,2);text(surface,pid+' in vent',point[0]+10,point[1],11,AMBER)
+                continue
+            if a2 and frame.phase=='roaming' and not prefs['omniscient'] and app.selected and pid!=app.selected and p.status=='alive' and pid not in a2.get('visible',{}).get(app.selected,[]):continue
             ghost=p.status!='alive' and p.ghost_position is not None
             if p.status!='alive' and not ghost:continue
             position=tuple(p.ghost_position if ghost else p.position)

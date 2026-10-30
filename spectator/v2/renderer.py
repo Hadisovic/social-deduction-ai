@@ -88,7 +88,7 @@ class Renderer:
             if app.status.get('schema')=='patrick-jane-progress-v1':
                 c=app.status.get('counters',{});p=app.status.get('environment_progress',{})
                 decisions=app.status.get('overall_decisions',c.get('individual_decisions',0)+p.get('decisions',0))
-                target=app.status.get('target_decisions',0);percent=min(100.,100*decisions/target) if target else 0.
+                target=app.status.get('target_decisions',0);percent=app.status.get('progress_percent',min(100.,100*decisions/target) if target else 0.)
                 label=f"PJ · {percent:.1f}% · {decisions:,} decisions · PPO {c.get('update',0)} · {app.status.get('training_state',app.status.get('stage','running'))}"
                 text(surface,label,r.w-440,51,11,CYAN,width=410)
                 return
@@ -177,6 +177,7 @@ class Renderer:
         return [m for m in app.index.markers if (include_future or app.prefs['timeline_all'] or m.sim_time<=when+1e-8)
             and (group=='All' or category(m.kind)==group) and (pid=='All' or m.player_id==pid)
             and (group!='All' or m.kind!='reward' or getattr(m,'meaningful',False))
+            and (app.prefs['omniscient'] or getattr(m,'channel','')!='training-private')
             and (app.prefs['omniscient'] or getattr(m,'channel','public')!='truth')]
 
     def transport(self,surface,r,app,ui):

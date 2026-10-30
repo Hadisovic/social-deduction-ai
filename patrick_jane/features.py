@@ -12,6 +12,15 @@ KINDS=('sighting','lost_sight','movement','body','report','meeting','vote','ejec
        'defend','question','strategic_claim','saw_player','was_in_region','found_body',
        'saw_player_near_body','suspect_player','defend_player','was_at_task','saw_elimination','own_location')
 TARGET_TYPES=('player','location','task','explore','body','repair','evidence')
+A2_KINDS=('vent_enter','vent_exit','door_obstruction')
+
+
+def event_code(kind,a2=False):
+    # Preserve every historical normalized kind exactly. New event codes are
+    # appended, never renormalize the original 27 meanings or tensor widths.
+    if kind in KINDS:return (KINDS.index(kind)+1)/len(KINDS)
+    if a2 and kind in A2_KINDS:return (len(KINDS)+A2_KINDS.index(kind)+1)/len(KINDS)
+    return 0.
 
 
 @dataclass(frozen=True)
@@ -90,12 +99,12 @@ def encode(obs,memory,nav):
     records=tuple(memory.events)
     for i,e in enumerate(records):
         em[i]=True
-        ev[i,:]=[(KINDS.index(e.kind)+1)/len(KINDS) if e.kind in KINDS else 0,idn(e.subject),idn(e.other),
+        ev[i,:]=[event_code(e.kind,obs.feature_schema=='patrick-jane-events-a2-v1'),idn(e.subject),idn(e.other),
             roomn(e.room),e.position[0]/30 if e.position else 0,e.position[1]/30 if e.position else 0,
             e.observed/900,e.delivered/900,min(1.,(now-e.observed)/900),min(1.,(now-e.delivered)/900),
             idn(e.source),float(e.provenance=='direct'),float(e.provenance=='public'),float(e.provenance=='claim'),
             idn(e.origin_source or e.source),float(e.detail=='impostor')-float(e.detail=='crewmate')
-            if e.kind=='confirmed_role' else (KINDS.index(e.detail)+1)/len(KINDS) if e.detail in KINDS else 0.]
+            if e.kind=='confirmed_role' else event_code(e.detail,obs.feature_schema=='patrick-jane-events-a2-v1')]
     candidates=[]
     for pid in (own.player_id,*ids):candidates.append(Target('player',pid,position if pid==own.player_id else memory.last_seen[pid].position if pid in memory.last_seen else None))
     for d in a.destinations:candidates.append(Target('location',d.id,(d.standing.x,d.standing.y),d))
@@ -118,7 +127,8 @@ def encode(obs,memory,nav):
             float(t.position is not None),float(t.kind=='task' and t.key in a.interactable_tasks),
             float(t.key in a.interactable_destinations),roomn(getattr(t.detail,'room','')),
             min(1.,(now-t.detail.observed)/900) if t.kind=='evidence' else 0]
-    im=np.array([True,bool(a.interactable_tasks),any(x.kind.value=='report' for x in a.actions),
+    pursuit=bool(getattr(nav,'task_pursuit_mode',False))
+    im=np.array([True,any(t.progress<1 for t in own.tasks) if pursuit else bool(a.interactable_tasks),any(x.kind.value=='report' for x in a.actions),
                  any(k in a.interactable_destinations and k not in obs.repaired_locations for k in obs.repair_locations),
                  any(x.kind.value=='call_meeting' for x in a.actions)],bool)
     may_change=now-nav.last_change>=2.4 or nav.goal is None or a.navigation_status!='moving'
@@ -129,6 +139,7 @@ def encode(obs,memory,nav):
     for i,pid in enumerate(ids):vm[i]=pid in a.context.participants and pid not in memory.known_dead
     vm[14]=True
     packet=Packet(self_features,players,pm,ev,em,tf,types,im,nm,cm,vm,phase,tuple(candidates),ids,obs)
+    packet.task_pursuit_mode=pursuit
     commitment=getattr(nav,'commitment',None)
     if commitment:
         if len(values)>188:raise ValueError('Commitment observation padding overlaps existing features')
@@ -148,7 +159,7 @@ def target_mask(packet,kind,choice):
             mask[i]=t.position is not None and t.kind in ('location','task','explore','body','repair')
             if choice==1 and mask[i]:mask[i]=.5<=math.dist((a.own.position.x,a.own.position.y),t.position)<=6.
         elif kind=='interaction':
-            mask[i]=(choice==1 and t.kind=='task' and t.key in a.interactable_tasks or
+            mask[i]=(choice==1 and t.kind=='task' and (t.key in a.interactable_tasks or getattr(packet,'task_pursuit_mode',False)) or
                      choice==2 and t.kind=='body' and any(x.kind.value=='report' and x.target==t.key for x in a.actions) or
                      choice==3 and t.kind=='repair' and t.key in a.interactable_destinations or
                      choice==4 and t.kind=='location' and any(x.kind.value=='call_meeting' and x.target==t.key for x in a.actions))

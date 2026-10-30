@@ -1,0 +1,46 @@
+{
+  "schema": "patrick-jane-published-update102-v1",
+  "trained_regime": "task-pursuit-v1",
+  "a2_trained": false,
+  "lifetime_decisions": 2813879,
+  "parent_update": 18,
+  "final_update": 102,
+  "additional_updates": 84,
+  "additional_decisions": 1295093,
+  "training_results": {
+    "matches": 504,
+    "crew_wins": 482,
+    "task_wins": 482,
+    "parity_losses": 22,
+    "independent_validation": false
+  },
+  "runtime": {
+    "python": "3.12.10",
+    "numpy": "2.5.3",
+    "torch": "2.7.1+cu128"
+  },
+  "policy_tensors": 52,
+  "optimizer": "Original Adam retained,52 entries,156 tensors; step19852",
+  "files": {
+    "architecture.json": {
+      "size_bytes": 1112,
+      "sha256": "de87c7a014a809b5219e6e833bdc88c70c23c6472e0430eaf9a35c32540fed23"
+    },
+    "checkpoint.pt": {
+      "size_bytes": 12453153,
+      "sha256": "6cf7048310e889967b01dd785317d313ddc71f310cd9faedcf346b950b8fd01b"
+    },
+    "inference.pt": {
+      "size_bytes": 4140551,
+      "sha256": "da1d43d73c140ac39bf44834746dbae605b9b36d3c6c7af8a4f2be975e535e3c"
+    },
+    "source-snapshot.zip": {
+      "size_bytes": 190601,
+      "sha256": "2ee74da35096493975e8bfb8ef2d536704623c0fca588be14d524b8738cb42e3"
+    },
+    "training-config.json": {
+      "size_bytes": 1529,
+      "sha256": "09d7377d5bbb229a7b2cddb54d30f230fe636bfa9ced315f2ea9577c0358ee1d"
+    }
+  }
+}

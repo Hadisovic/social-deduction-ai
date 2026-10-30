@@ -379,6 +379,7 @@ def parse_args(argv=None):
     p.add_argument('--page',choices=['Match','Library','Study','Settings'],default='Match');p.add_argument('--tab')
     p.add_argument('--omniscient',action='store_true');p.add_argument('--reveal-ballots',action='store_true')
     p.add_argument('--fullscreen',action='store_true');p.add_argument('--capture',type=Path);p.add_argument('--max-frames',type=int)
+    p.add_argument('--fps-limit',type=int,default=60)
     return p.parse_args(argv)
 
 
@@ -405,7 +406,7 @@ def main(argv=None):
     clock=pygame.time.Clock();frames=0;started=time.monotonic();last_state=last_status=0.
     try:
         while app.running:
-            dt=clock.tick(60)/1000.;frames+=1
+            dt=clock.tick(max(1,args.fps_limit))/1000.;frames+=1
             for event in pygame.event.get():app.handle(event)
             app.poll();app.advance(dt);app.state.fps=clock.get_fps();app.draw()
             if app.state.index:app.loaded_frames+=1

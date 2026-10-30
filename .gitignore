@@ -64,5 +64,9 @@ artifacts/phase6/smoke/
 /artifacts/crewmate-v2/engineering/
 /.ruff_cache/
 /.mypy_cache/
+/dist/
+/patrick_jane/exports/
+/exports/
+/results/
 /wandb/
 events.out.tfevents.*

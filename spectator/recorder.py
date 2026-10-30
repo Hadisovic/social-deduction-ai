@@ -114,6 +114,9 @@ class MatchRecorder:
         for event in new_events:
             self.recorder.write_event(dict(event))
         self._last_event_count = len(event_log)
+        if getattr(getattr(game,'experiment',None),'a2_enabled',False):
+            from patrick_jane.a2_spectator import state
+            self.recorder.write_event(dict(kind='a2_world_state',time=game.time,tick=game.tick,channel='spectator',**state(game)))
 
         # Write tick snapshot
         players_snap = {}

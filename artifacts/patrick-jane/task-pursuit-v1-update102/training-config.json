@@ -1,0 +1,60 @@
+{
+  "population": {
+    "crew": 10,
+    "impostors": 2
+  },
+  "lobby": {
+    "schema": "patrick-jane-classic-v2",
+    "player_speed": 1.0,
+    "confirm_ejects": true,
+    "anonymous_votes": false,
+    "task_bar_updates": "always",
+    "emergency_meetings": 1,
+    "emergency_cooldown": 15.0,
+    "discussion_seconds": 15.0,
+    "voting_seconds": 120.0,
+    "crewmate_vision": 1.0,
+    "impostor_vision": 1.5,
+    "common_tasks": 1,
+    "long_tasks": 1,
+    "short_tasks": 2,
+    "visual_tasks": true,
+    "kill_cooldown": 45.0,
+    "kill_distance_character_widths": 2.0,
+    "dt": 0.2,
+    "decision_interval": 0.6,
+    "timeout": 900.0,
+    "initial_kill_cooldown": 10.0
+  },
+  "sabotage": {
+    "cooldown": 30.0,
+    "initial_cooldown": 10.0,
+    "oxygen_seconds": 30.0,
+    "reactor_seconds": 30.0,
+    "lights_factor": 0.2
+  },
+  "learning_rate": 0.0003,
+  "gamma": 0.99,
+  "gae_lambda": 0.95,
+  "clip": 0.2,
+  "entropy": 0.01,
+  "epochs": 4,
+  "max_grad_norm": 0.5,
+  "sequence_length": 128,
+  "event_capacity": 64,
+  "evaluation_interval": 100000,
+  "evaluation_matches": 8,
+  "profile": "patrick-jane-lights-learning-v2",
+  "allowed_sabotages": [
+    "lights"
+  ],
+  "lights_penalty_per_second": 0.005,
+  "record_diagnostics": true,
+  "task_commitment_mode": true,
+  "task_pursuit_mode": true,
+  "living_task_reward": 2.0,
+  "observer_errors_fatal": false,
+  "normal_match_timeout": false,
+  "technical_max_seconds": 1800.0,
+  "technical_stall_seconds": 300.0
+}

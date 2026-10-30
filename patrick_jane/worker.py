@@ -18,19 +18,35 @@ from .opponents import Opponent
 
 class Match:
     def __init__(self,seed,experiment,*,held_out=False,replay=None,metadata=None,live_dir=None):
-        self.game=PatrickJaneGame(seed,experiment=experiment)
+        if getattr(experiment,'a2_enabled',False):
+            from .a2_environment import A2Game
+            self.game=A2Game(seed,experiment=experiment)
+        else:self.game=PatrickJaneGame(seed,experiment=experiment)
         self.crew=tuple(pid for pid,p in self.game.players.items() if p.role is Role.CREWMATE)
         self.memory={p:Memory(p,experiment.event_capacity) for p in self.crew}
         self.nav={p:NavigationMemory(self.game.map,stream_seed(seed,'pj:nav:'+p)) for p in self.crew}
+        for nav in self.nav.values():nav.task_pursuit_mode=getattr(experiment,'task_pursuit_mode',False)
+        self.pursuit_stats=Counter();self.pursuit_goals={}
         if getattr(experiment,'task_commitment_mode',False):
             from .commitment import Commitment
             for pid in self.crew:self.nav[pid].commitment=Commitment(pid)
         self.opponents={p:Opponent(stream_seed(seed,'pj:script:'+p),held_out,
             getattr(experiment,'allowed_sabotages',('lights','oxygen','reactor'))) for p in self.game.players if p not in self.crew}
+        self.opponent_regime='historical'
+        if getattr(experiment,'a2_enabled',False):
+            from random import Random
+            selected=experiment.opponent_regime=='upgraded-a2-v1' or (experiment.opponent_regime=='mixed-a2-v1' and Random(stream_seed(seed,'a2:opponent-mixture')).random()<experiment.upgraded_probability)
+            if selected:
+                from .a2_opponents import TacticalOpponent
+                self.opponents={p:TacticalOpponent(stream_seed(seed,'a2:script:'+p),self.game.base_map) for p in self.game.players if p not in self.crew}
+                self.opponent_regime='upgraded-a2-v1'
         if str(getattr(experiment,'profile','')).startswith('patrick-jane-lights-learning-'):
             from .lights_setup import LightsLedger
             self.ledger=LightsLedger(self.game)
         else:self.ledger=RewardLedger(self.game)
+        if getattr(experiment,'reward_regime','')=='investigation-a2-v1':
+            from .a2_rewards import A2Ledger
+            self.ledger=A2Ledger(self.game)
         self.packets={};self.rewards=[];self.recorder=None;self.trace=hashlib.sha256()
         self.decisions=0;self.all_decisions=defaultdict(int);self.last_phase=self.game.phase
         self.last_direct={p:0 for p in self.crew};self.recording_seconds=0.
@@ -93,6 +109,15 @@ class Match:
         actions={}
         for pid,record in decisions.items():
             choice=record['choice'];packet=self.packets[pid]
+            if getattr(self.game.experiment,'task_pursuit_mode',False) and packet.phase==0 and choice.interaction==1:
+                target=packet.candidates[choice.target]
+                if target.key not in packet.observation.actor.interactable_tasks:
+                    self.pursuit_stats['task_pursuit_decisions']+=1
+                    if self.pursuit_goals.get(pid)!=target.key:self.pursuit_stats['task_pursuit_selections']+=1
+                    self.pursuit_goals[pid]=target.key
+                else:
+                    self.pursuit_stats['task_pursuit_interactions']+=1
+                    if self.pursuit_goals.get(pid)==target.key:self.pursuit_stats['task_pursuit_arrived_interactions']+=1
             if self.nav[pid].commitment:self.nav[pid].commitment.selected(packet,choice)
             actions[pid]=execute(choice,packet,self.nav[pid]);self.decisions+=1;self.all_decisions[pid]+=1
             counts=self.selected[pid]
@@ -176,7 +201,9 @@ class Match:
             c=self.nav[pid].commitment
             if not c:continue
             for e in events:
-                if e.get('player_id')==pid and e['kind']=='task_start':c.start(e['task_id'],previous_time)
+                if e.get('player_id')==pid and e['kind']=='task_start':
+                    c.start(e['task_id'],previous_time)
+                    if self.pursuit_goals.pop(pid,None)==e['task_id']:self.pursuit_stats['task_pursuit_reached_and_started']+=1
                 if e.get('player_id')==pid and e['kind']=='navigation_failed':c.failed_route()
                 if e.get('player_id')==pid and e['kind']=='task_interrupted' and c.task:
                     reason=e.get('reason','unknown');c.stats['commitment_interruptions_'+reason]+=1
@@ -209,6 +236,9 @@ class Match:
                     key=('correct_' if g.players[target].role is Role.IMPOSTOR else 'incorrect_')+('vote' if family=='vote_target' else 'accusation')
                 choices[key]+=value
         return dict(seed=g.seed,players=len(g.players),crew=len(self.crew),impostors=len(g.players)-len(self.crew),
+            opponent_regime=self.opponent_regime,reward_regime=getattr(g.experiment,'reward_regime','historical'),
+            mechanics_regime=getattr(g.experiment,'mechanics_regime','historical'),
+            accepted_ballots=list(getattr(g,'accepted_ballots',[])),a2_metrics=dict(getattr(g,'a2_metrics',{})),
             winner=result.winner.value if result and result.winner else None,reason=result.reason if result else None,
             simulation_seconds=g.time,individual_decisions=self.decisions,per_actor=dict(self.all_decisions),
             metrics=g.metrics,truncated=g.truncation_details is not None,truncation=g.truncation_details,
@@ -226,7 +256,12 @@ class Match:
             recording_seconds=self.recorder.seconds if self.recorder else 0.,
             monitor_seconds=self.live.seconds if self.live else 0.,monitor_error=self.live.error if self.live else None,
             monitor_transient_write_failures=self.live.transient_write_failures if self.live else 0,
-            learning_diagnostics={**dict(g.learning_diagnostics),
+            task_reward_coefficient=self.ledger.coefficients['task'],
+            terminal_reward_expected=(5. if result and result.reason=='TASKS_COMPLETED' and getattr(g.experiment,'reward_regime','')=='investigation-a2-v1' else 10.) if result and result.winner is Role.CREWMATE else -10. if result and result.winner is Role.IMPOSTOR else 0.,
+            assigned_tasks_per_actor={pid:len(g.players[pid].tasks) for pid in self.crew},
+            observer_errors_fatal=getattr(g.experiment,'observer_errors_fatal',True),
+            learning_diagnostics={**dict(g.learning_diagnostics),**dict(self.pursuit_stats),
+                'task_pursuit_unstarted_at_end':len(self.pursuit_goals),
                 'task_starts':sum(e['kind']=='task_start' and e.get('player_id') in self.crew for e in g.event_log),
                 'task_interruptions':sum(e['kind']=='task_interrupted' and e.get('player_id') in self.crew for e in g.event_log),
                 'task_interruptions_new_intention':sum(e['kind']=='task_interrupted' and e.get('player_id') in self.crew and e.get('reason')=='new_intention' for e in g.event_log),
@@ -237,6 +272,8 @@ class Match:
 
 def serve(connection):
     from time import perf_counter
+    import signal
+    signal.signal(signal.SIGINT,signal.SIG_IGN)  # Parent owns safe wave-boundary interruption.
     match=None
     while True:
         try:

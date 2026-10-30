@@ -11,7 +11,14 @@ def execute(choice,packet,nav):
         interaction=choice.interaction
         if interaction==0:
             return nav.command(choice.navigation,goal_for(target) if target else None,now,obs)
-        if interaction==1:return Intent(IntentKind.INTERACT,target.key)
+        if interaction==1:
+            if target.key in a.interactable_tasks:return Intent(IntentKind.INTERACT,target.key)
+            if getattr(packet,'task_pursuit_mode',False):
+                # Same sampled task/target heads; no scripted interaction on arrival.
+                if target.detail.console_id in a.interactable_destinations:return Intent(IntentKind.WAIT)
+                if nav.goal is not None and nav.goal.key==target.key and a.navigation_status=='moving':return nav.command(0,None,now,obs)
+                return nav.command(2,goal_for(target),now,obs)
+            return Intent(IntentKind.INTERACT,target.key)
         if interaction==2:return Intent(IntentKind.REPORT,target.key)
         if interaction==3:return Action('repair',target.key)
         if interaction==4:return Intent(IntentKind.CALL_MEETING,target.key)

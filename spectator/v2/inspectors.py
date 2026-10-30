@@ -206,6 +206,9 @@ class Inspector:
         self.note('Public events below were available by the displayed tick. Ground-truth positions and hidden ballots are not treated as private evidence.')
         evidence=self.index.evidence(self.pid)
         self.line('Private packet',MISSING if evidence['private'] is None else 'Recorded')
+        if evidence.get('witnessed'):
+            self.title('Recorded firsthand witnesses')
+            for event in evidence['witnessed'][-12:]:self.note(f"{time_of(event):.1f}s {event_text(event)}",CYAN)
         self.line('Last-seen memory',MISSING)
         self.line('Private sightings',MISSING)
         self.line('Task stages / readiness',MISSING)

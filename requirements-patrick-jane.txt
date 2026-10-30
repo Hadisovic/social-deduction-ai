@@ -1,0 +1,11 @@
+# Runtime for the published model and current A2 package. Matching cu128 wheel
+# requires a supported NVIDIA driver; CPU inference can use Torch2.7.1 CPU.
+--extra-index-url https://download.pytorch.org/whl/cu128
+torch==2.7.1+cu128
+numpy==2.5.3
+pygame-ce==2.5.8
+gymnasium==1.1.1
+shapely==2.1.2
+matplotlib==3.11.2
+psutil==7.1.0
+pillow==12.3.0

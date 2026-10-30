@@ -1,0 +1,27 @@
+# A2 classic Skeld mechanics target and audit
+
+This is a versioned classic-role simulator profile, not a claim of frame-perfect retail equivalence. Engineer, Shapeshifter, Phantom, Guardian Angel and all optional roles are disabled. Lights is the only non-door sabotage. Reactor, oxygen, communications, surveillance expansion, extra maps, ghost-impostor sabotage and the partner learned-impostor project are deferred.
+
+## Evidence and references
+
+The requested [beginner guide](https://among-us.fandom.com/wiki/Guide:Beginners) and normal wiki pages returned403 from this environment. The wiki API provided the [Door Sabotage](https://among-us.fandom.com/wiki/Door_Sabotage), [Vent](https://among-us.fandom.com/wiki/Vent), [Sabotage](https://among-us.fandom.com/wiki/Sabotage) and [Skeld](https://among-us.fandom.com/wiki/The_Skeld) rule text. Raw retrieved references are preserved locally under `local-runs/a2-reference`. This is community documentation, not an Innersloth engine source. Public [Innersloth game information](https://www.innersloth.com/games/among-us/) was also retrieved but does not specify low-level timers. Door shapes and vent graph are the project's existing source-backed SkeldJS/Impostor assets; no new artwork or guessed graph edges were introduced.
+
+## Doors
+
+- Seven existing room groups /13 collider leaves: Cafeteria, Storage, Electrical, MedBay, Security, Upper Engine and Lower Engine. A selected room closes all its leaves for10 simulated seconds; different groups can overlap. Per-room30-second cooldown starts when closure is selected; initial availability10 seconds. Lights and door closures are mutually exclusive; after the last door opens, the30-second non-door sabotage cooldown starts. Door closures themselves do not disable emergency calls. Meetings open doors; cooldown clocks remain bounded.
+- Player-radius-inflated collision and closed-door sight barriers share a versioned map revision. Each actor's route planner uses only locally observed doors or direct obstruction feedback. Unseen door states and remaining timers never enter actor tensors. Known temporary no-route conditions wait without cancelling a commitment or blacklisting tasks, and replan when a reopening is locally observed.
+- If a leaf would materialize around a living actor, that leaf waits until clear without moving the actor or extending the original reopen deadline. This explicit anti-embedding approximation may shorten its effective closure. Dead ghosts continue existing direct task navigation through doors.
+- Conservative opaque-door sight is selected. Tiny retail glimpses/vent-lid-only animations across occlusion are not modeled; no remote player identity is inferred from an unseen animation.
+
+## Vents
+
+- Existing14 vents, only explicit symmetric source edges. Legal living impostor entry within1 map unit and clear sight of the entrance. Entry/adjacent travel/exit each reserve0.6 simulated seconds; this is a documented animation abstraction. No arbitrary room teleportation, Engineer cooldown or impostor vent-use quota.
+- Underground actors are absent from visible players, cannot be killed, cannot report/kill/fake-task/walk/sabotage, and have no local player/body vision. Their kill cooldown pauses; other cooldown clocks continue. Exit emerges at the selected connected vent standing point. Meetings clear occupancy without inventing a witnessed exit; ordinary meeting respawn follows.
+- A living observer receives an identity-bearing enter/exit event only with sight and line of sight **at event time**. Provenance is firsthand and timestamps are retained in independent memory. Hidden vent travel, exit destination, global occupancy and role truth are not inputs. No automatic suspicion, accusation or vote follows.
+- Historical event codes and tensor widths are unchanged. New event kinds append normalized codes beyond the historical range under `patrick-jane-events-a2-v1`, with no renormalization or reinterpretation of old kinds. The new codes are initially out of the old training distribution; all old weights are retained and must learn their use.
+
+## Other audited behavior
+
+Task ownership/common/short/long stage plans, final-stage-only reward, ghost task progress with zero personal reward, reporting range/visibility, separate discussion/voting, tied plurality beating neither skip nor another candidate, inactive ghosts not voting/reporting, darkness-adjusted vision, sabotage emergency restrictions, witness provenance, public task bar and confirmation of ejects are inherited. Crew sight4.5 and impostor6.75 map units before lights. Task durations, minigames and ghost navigation remain abstractions. In the A2 API a ballot excludes self to match the existing neural vote mask and requested eleven-candidate denominator; legacy controls keep their original legal API. Win precedence remains no impostors, parity, then task completion; technical cuts remain non-results with bootstrap.
+
+Tactical scripts accept the immutable actor observation only, keep independent last-seen histories/RNG, and know their teammate identity. They use visible witnesses, legal kill/report options, remembered recent locations, stochastic exploration/fake tasks, lights, nearby-room doors and connected vents. Continuous private preferences vary caution/aggression/trapping/venting. They inherit the original social vocabulary; this is **not** a guarantee against script-language or reporter-pattern shortcuts. No learned-impostor integration or perfect hunting is claimed.

@@ -77,3 +77,5 @@ and [asset notices](assets/skeld/NOTICE.md) before changing shared infrastructur
 The [earlier README](archive/research/README-before-v2-organization.md) preserves the
 navigation history, historical measurements and older reproduction commands. The latest
 published roadmap on `main` is authoritative; this research branch does not replace it.
+
+Patrick Jane's current recurrent PPO implementation is on `codex/patrick-jane-recurrent-ppo`. The trained task-pursuit-v1 update102 model, architecture/configuration and checksums are in `artifacts/patrick-jane/task-pursuit-v1-update102`. A2 is implemented but has not received its new long training run. See `PATRICK_JANE_INTEGRATION.md` for pinned source, inference and collaborator interface instructions.

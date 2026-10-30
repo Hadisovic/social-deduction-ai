@@ -9,6 +9,7 @@ COEFFICIENTS=dict(win=10.,loss=-10.,task=1.,ghost_task=0.,repair=3.,impostor_eje
 
 class RewardLedger:
     def __init__(self,game):
+        self.coefficients={**COEFFICIENTS,'task':getattr(getattr(game,'experiment',None),'living_task_reward',COEFFICIENTS['task'])}
         self.crew=tuple(pid for pid,p in game.players.items() if p.role is Role.CREWMATE)
         self.cursor=0;self.credited=set();self.exploration=defaultdict(float);self.players_seen=defaultdict(set)
         self.idle=defaultdict(float);self.entries=[];self.terminal=False
@@ -19,7 +20,7 @@ class RewardLedger:
             family='task_completion' if kind in ('task','ghost_task') else kind
             unique=(None if kind=='report' else pid,family,key)
             if pid in result and unique not in self.credited:
-                self.credited.add(unique);result[pid][kind]+=COEFFICIENTS[kind]
+                self.credited.add(unique);result[pid][kind]+=self.coefficients[kind]
         for e in game.event_log[self.cursor:]:
             kind=e['kind']
             if kind=='task_completed':

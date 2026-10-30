@@ -13,9 +13,26 @@ def duration_text(seconds):
 
 def progress_line(record):
     c=record.get('counters',{});decisions=record.get('overall_decisions',c.get('individual_decisions',0));target=record.get('target_decisions',0)
+    if record.get('budget_unit')=='active_training_seconds':
+        return (f"PATRICK JANE | {record['progress_percent']:.1f}% | active {duration_text(record['active_training_seconds'])} / "
+            f"{duration_text(record['target_training_seconds'])} | {decisions:,} decisions | {record.get('workers',0)} workers | "
+            f"{c.get('update',0)} PPO updates | {record.get('throughput',0):.1f} decisions/s | "
+            f"ETA {duration_text(record.get('eta_seconds'))}"+(' | FINISHING SAFE UPDATE' if record.get('finishing_boundary') else ''))
     percent=min(100.,max(0.,100*decisions/target)) if target else 0.
     return (f"PATRICK JANE | {percent:.1f}% | {decisions:,} / {target:,} decisions | {record.get('workers',0)} workers | "
         f"{c.get('update',0)} PPO updates | {record.get('throughput',0):.1f} decisions/s | ETA {duration_text(record.get('eta_seconds'))}")
+
+
+def recorded_metrics(matches):
+    actions=Counter();tasks=ghosts=assigned=0
+    for match in matches:
+        actions.update(match.get('neural_actions',{}))
+        tasks+=match.get('metrics',{}).get('task_completions',0);ghosts+=match.get('ghost_tasks',0)
+        assigned+=sum(match.get('assigned_tasks_per_actor',{}).values()) or 4*match.get('crew',0)
+    return dict(task_victories=sum(m.get('reason')=='TASKS_COMPLETED' for m in matches),
+        ejection_victories=sum(m.get('reason')=='IMPOSTOR_EJECTED' for m in matches),
+        living_tasks=tasks-ghosts,ghost_tasks=ghosts,completed_tasks=tasks,assigned_tasks=assigned,
+        correct_votes=actions['correct_vote'],incorrect_votes=actions['incorrect_vote'],skips=actions['skip'])
 
 
 def atomic_json(path,record,*,attempts=8,compact=False):
@@ -54,18 +71,28 @@ class Progress:
                 truncations=sum(m.get('truncated',False) for m in self.matches),
                 legitimate_games=sum(m['winner'] in ('crewmate','impostor') for m in self.matches),
                 draws=sum(m['winner'] is None and not m.get('truncated') for m in self.matches)),
-            reward_components=dict(self.components),learning_curve=self.history[-100:],**extra)
+            reward_components=dict(self.components),learning_curve=self.history[-100:])
+        record.update(extra)
+        if extra.get('budget_unit')=='active_training_seconds':record['recorded_metrics']=recorded_metrics(self.matches)
         record.update(progress_percent=min(100.,max(0.,100*decisions/self.target)) if self.target else 0.,
             checkpointed_additional_decisions=self.counters['individual_decisions'],
             collected_additional_decisions=decisions,
             training_state=self.stage if self.stage in ('complete','interrupted','failed') else 'running')
+        if extra.get('budget_unit')=='active_training_seconds':record.update({k:extra[k] for k in ('progress_percent','eta_seconds')})
         record['progress_line']=progress_line(record)
         atomic_json(self.folder/'status.json',record)
         if self.mirror:atomic_json(self.mirror,record)
         if self.console and (perf_counter()-self.last_console>=5 or self.stage in ('complete','interrupted','failed')):
             print(record['progress_line']+f" | elapsed {duration_text(elapsed)} | games {record['outcomes']['legitimate_games']} | "
-                f"truncated {record['outcomes']['truncations']} | state {record['training_state']} | stage {self.stage}",flush=True)
+                f"wins {record['outcomes']['wins']} | truncated {record['outcomes']['truncations']} | state {record['training_state']} | stage {self.stage}",flush=True)
             print('LATEST CHECKPOINT: '+str(record['checkpoint']),flush=True);self.last_console=perf_counter()
+            if record.get('budget_unit')=='active_training_seconds':
+                m=record['recorded_metrics'];p=self.ppo
+                print(f"Recorded complete segments | losses {record['outcomes']['losses']} | task/ejection wins {m['task_victories']}/{m['ejection_victories']} | "
+                    f"tasks {m['completed_tasks']}/{m['assigned_tasks']} (living {m['living_tasks']}, ghost {m['ghost_tasks']}) | "
+                    f"votes correct/wrong/skip {m['correct_votes']}/{m['incorrect_votes']}/{m['skips']} | "
+                    f"loss {p.get('loss','n/a')} KL {p.get('approx_kl','n/a')} | "
+                    f"lifetime update {record.get('lifetime_update','n/a')}",flush=True)
 
     def settle(self,rollout):
         self.matches.extend(rollout['matches'])

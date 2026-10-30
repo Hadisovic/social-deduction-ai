@@ -12,6 +12,9 @@ class LightsExperiment(Experiment):
     record_diagnostics: bool = True
     evaluation_matches: int = 8
     task_commitment_mode: bool = False
+    task_pursuit_mode: bool = False
+    living_task_reward: float = 1.
+    observer_errors_fatal: bool = True
     normal_match_timeout: bool = False
     technical_max_seconds: float = 1800.
     technical_stall_seconds: float = 300.
@@ -19,6 +22,8 @@ class LightsExperiment(Experiment):
     def __post_init__(self):
         super().__post_init__()
         if type(self.task_commitment_mode) is not bool:raise ValueError('Commitment flag must be boolean')
+        if type(self.task_pursuit_mode) is not bool or type(self.observer_errors_fatal) is not bool:raise ValueError('Invalid curriculum flags')
+        if self.living_task_reward not in (1.,2.):raise ValueError('Unregistered living task reward')
         if self.profile != 'patrick-jane-lights-learning-v2':raise ValueError('Unknown lights profile')
         if len(set(self.allowed_sabotages))!=len(self.allowed_sabotages) or any(
                 k not in ('lights','oxygen','reactor') for k in self.allowed_sabotages):
