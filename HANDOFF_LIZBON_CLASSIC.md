@@ -31,9 +31,9 @@ sampled matches, then obtain explicit new study approval. Keep frozen cross-play
 before population/task curricula or adaptation/self-play. Current model competence
 or improvement is not established. See main checklist and result report.
 
-Postmortem/code pushed as3cf2136 on codex/lizbon-classic-v2; no merge/deploy.
+Postmortem/code pushed on codex/lizbon-classic-v2; no merge/deploy.
 Completed trained-policy playback opened (launcher86888/actual88128), stream101
-game3 at107s, selectedp3, paused. Remove completion heartbeat after final verification. Preserve unrelated pilot README,
+game3 at107s, selectedp3, paused. Completion heartbeat was deleted after verified push; no further study checks are scheduled. Preserve unrelated pilot README,
 NAVIGATION_V2_PLAN, replays/demo_seed0007.jsonl and protected research/ISSUES.md.
 
 ---
