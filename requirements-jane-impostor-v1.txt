@@ -1,0 +1,10 @@
+# Isolated CPU prototype/inference runtime; original environments stay intact.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.7.1+cpu
+numpy==2.5.3
+pygame-ce==2.5.8
+gymnasium==1.1.1
+shapely==2.1.2
+matplotlib==3.11.2
+pillow==12.3.0
+pytest==8.3.5
