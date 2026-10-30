@@ -31,10 +31,10 @@ waiting. The engine still handles legal physical movement and interactions.
 - [x] Bounded smoke/replay and frozen crew hash checks.
 - [x] Collection measured: 30 simulated seconds took 49.93 wall seconds.
 - [x] Owner approved the proposed 90-minute pilot budget on 30 October.
-- [ ] Freeze implementation commit; start registered pilot and live viewer.
-- [ ] Complete up to four training matches within the 60-minute training allocation.
-- [ ] Lock last complete optimizer boundary before paired development checks.
-- [ ] Preserve failures/cuts; inspect graphs and gameplay; document sufficiency.
+- [x] Freeze implementation e91d19e; registered pilot started20:21:57 Amman, deadline21:51:57; live viewer launched.
+- [x] Run bounded pilot: one complete game/eight PPO passes; match2 stopped on native geometry assertion after12m51.79s total. No restart.
+- [ ] Four-game study and paired development: NOT completed. No selection lock or final-test access; new study approval needed after engine fix.
+- [x] Preserve failure/checkpoint; generate five figures and baseline GUI picture; document insufficient evidence and proposed engine fix.
 - [ ] Push independent impostor branch without merging or deploying.
 
 ## Initial reward proposal

@@ -1,0 +1,29 @@
+{
+  "source_commit": "d459f38674ebc537acde20647cbd07700c494533",
+  "scenario": 9310002,
+  "snapshot_tick": 1293,
+  "snapshot_seconds": 258.6,
+  "submitted_by": "p11",
+  "room": "Storage",
+  "preexisting_outside": [],
+  "can_close": true,
+  "accepted": true,
+  "outside_after_closure": [
+    {
+      "player": "p8",
+      "status": "dead",
+      "position": [
+        -0.20165175055810952,
+        -8.95852724275098
+      ],
+      "base_map_contains": true,
+      "current_door_map_contains": false
+    }
+  ],
+  "invariant_reproduced": true,
+  "all_living_players_inside": true,
+  "inference_calls": 0,
+  "optimizer_steps": 0,
+  "scope": "Minimal geometry fixture from saved positions/statuses/doors, not a replayed match outcome",
+  "proposed_fix": "Check inactive stored positions against base floor; living non-vented actors against current collision geometry. Keep physics and invariants enabled."
+}

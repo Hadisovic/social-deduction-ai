@@ -1,64 +1,76 @@
 # Lizbon V1: current execution status
 
-30 October2026. Owner approved the90-minute pilot. Preparation complete;
-pilot launch details are appended below once the frozen source commit exists.
+30 October2026. **PILOT STOPPED ON NATIVE GEOMETRY ASSERTION. DO NOT RESTART.**
+Code, checkpoint and compact failure evidence are being prepared for push to
+codex/jane-impostor-v1. No merge or deployment.
 
-## Branch and dependency
+## Observed outcome
 
-- Own development: codex/jane-impostor-v1, from shared foundation3766cba.
-- Model name: Lizbon. New recurrent neural code and random initialization.
-- Fixed native engine: Patrick Jane A2 commitd459f38674ebc537acde20647cbd07700c494533.
-- Crew: frozen task-pursuit-v1 update102,10 actors. Not A2-trained.
-- Impostors: two actors share new Lizbon weights; independent memory/RNG.
-- Published crew inference SHA256:
-  da1d43d73c140ac39bf44834746dbae605b9b36d3c6c7af8a4f2be975e535e3c.
+- Frozen training source: e91d19eb4bd945497893b289b18f468803800634.
+- Registered start17:21:57.768 UTC; failure17:34:49.560 UTC,12m51.79s elapsed.
+- Owner's90-minute cap was not spent; compute stopped on exception.
+- First game: crewmate task win,263.6 simulated seconds,4 kills, no illegal actions
+  or navigation failures. It used initial untrained weights.
+- Saved checkpoint-001.pt:908 observations,8 optimizer passes; strict loading
+  passed and Lizbon tensors changed. Model has1,036,561 parameters.
+- Second game used update8, made5 kills in its preserved prefix, then failed
+  at the next step after last valid tick1293/258.6s. No outcome and no PPO update
+  from that match. Never infer improvement from these different scenarios.
+- No selection-lock.json, final.pt, results.json or supervisor pilot-results.json
+  was generated. Postmortem is failure-report.json; do not invent successful completion.
+- Zero development/final evaluation games. All reserved sets remain sealed.
+- Parent session7604 exited1. Supervisor82060 and train81468/62012 are gone.
+- Old live viewer36524 was closed because its source job stopped. A completed
+  initial-policy baseline replay is available via run_lizbon.py.
 
-The external source snapshot is an ignored local dependency, not copied neural
-code in this branch. Its path is stored in ignored local-runs/jane-impostor-v1/source.json.
-Runtime: local-runs/jane-impostor-v1/runtime/Scripts/python.exe, Python3.12.10,
-Torch2.7.1+cpu. Historical runtime/weights unchanged.
+## Confirmed cause and next action
 
-## Protocol
+A legal Storage closure covers dead p8's stored position after its corpse was
+reported. Native assert_invariants validates all stored positions against the
+dynamic door map. All living actors remain in valid geometry. A minimal saved
+state fixture reproduces this with no model inference or optimizer steps.
 
-Use tools/run_jane_impostor_pilot.py. New output directory:
-local-runs/jane-impostor-v1/pilot-20261030-seed731.
-Maximum90 minutes from registered start. Training at most60 minutes/four
-games. Each match has a20-minute wall cap. Only natural complete matches feed
-PPO. Expired optimizer chunks discard unstepped gradients. No automatic restart,
-budget extension or tuning from later outcomes.
+Pinned native source remains unmodified. Proposed patch checks inactive and
+underground stored positions against base floor, living surface positions against
+current collision geometry. git apply --check passed; patch has not been applied.
+Crew/shared developer should review it, add live/dead/vent/meeting regressions and
+publish a new immutable engine release. Then obtain owner approval for another
+registered study. Do not silently resume this failed one or extend its deadline.
 
-Lock the final completed optimizer boundary by checksum before development.
-Initial versus trained use the same two fresh seeds9320001/2. Technical cuts are
-missing outcomes, never losses. Old/new reserved final partitions remain sealed.
+## Evidence and release
 
-During healthy work, inspect pilot-status.json, train/status.json, training console
-log and matches.jsonl. Preserve processes and never edit loaded v1 Python source.
-After completion inspect pilot-results.json, REPORT.md, selection-lock.json,
-per-run results/checkpoints/replays and graphs. Record actual timings, cuts,
-failures and sufficiency in docs/jane-impostor-v1. Do not present training wins
-as accuracy or claim globally best. Keep raw private outputs ignored.
+- Report: docs/jane-impostor-v1/pilot-20261030/README.md.
+- Five graphs, actual baseline GUI image, results.json, PPO/behavior counters,
+  geometry-diagnostic.json and PROPOSED_NATIVE_FIX.patch live alongside it.
+- Named initial.pt/checkpoint-001.pt and checksums:
+  artifacts/lizbon-v1/pilot-20261030/manifest.json.
+- Strict source/runtime/settings checkpoint load verified. Crew artifact hash
+  unchanged; final in-memory crew hash check was not reached on exception.
+- Raw preserved files remain ignored under
+  local-runs/jane-impostor-v1/pilot-20261030. Original collecting status files were
+  backed up before stale statuses were corrected to failed.
+- Match2 raw .jsonl.writing has no fabricated result. Native viewer indexes
+  completed files. Match1 playback is an INITIAL-POLICY baseline, not post-update.
+- Do not edit protected docs/research/ISSUES.md. Engineering failures are recorded
+  in docs/jane-impostor-v1/ENGINEERING.md and the report instead.
 
-## Verified implementation
+## Setup and collaboration
 
-29 regression cases passed in42.44s. One additional deterministic two-replay
-check is run before freeze. Actual native spectator GUI capture verified using
-the untrained smoke-004 replay. No full training started during engineering.
+Own branch is based on shared foundation3766cba. Model name is Lizbon; Jane is the
+shared game foundation. External source/runtime information remains in ignored
+local-runs/jane-impostor-v1/source.json and runtime/Scripts/python.exe.
+Engine pin:d459f38674ebc537acde20647cbd07700c494533; frozen task-pursuit update102
+crew (not A2-trained),10 crew vs2 Lizbon actors sharing weights/private histories.
+CPU Python3.12.10/Torch2.7.1+cpu, one Torch thread; i9-14900HX24C/32T.
+Thirty regression checks passed before source freeze, plus strict release load,
+zero-inference geometry reproduction and actual native viewer capture afterward.
 
-See docs/jane-impostor-v1/README.md, ENGINEERING.md and jane/impostor/STUDY_PLAN.md
-for architecture, exact rewards, decisions, safeguards and deferred features.
+Owner/impostor developer: review behavior, improve the next registered protocol
+after compatibility is restored; no larger network justified by this evidence.
+Crew developer: improve A2 reports, witnessed evidence, ballots and sabotage
+counterplay. Publish frozen source/settings/checkpoint releases. Cross-play fixed
+releases first; adaptation/self-play after competent learned base roles.
 
-## Viewer and collaboration
-
-run_lizbon.py launches the native spectator only; it never starts training.
-Use --watch with the train directory for live observation; --replay for playback.
-Select a current impostor in the roster. Ground truth spectator values are never
-fed to the actor. Keep visible GUI windows only for this requested viewer.
-
-Owner/impostor developer: inspect active search, repeated goals, fake duration,
-witnesses, self-reports and meeting choices. Friend: improve crew A2 behavior and
-publish a frozen source/settings/checkpoint. Coordinate common rules before any
-change; cross-play fixed releases first, adaptation/self-play later.
-
-Finish-and-push flow: commit own code/docs/curated evidence to own branch;
-no merge/deploy. Preserve unrelated existing changes in old pilot README and
-NAVIGATION_V2_PLAN.md. Leave protected docs/research/ISSUES.md untouched.
+Preserve unrelated existing old pilot README and NAVIGATION_V2_PLAN.md changes.
+The five-minute finish-lizbon-pilot-and-results heartbeat should be deleted after
+report/checkpoint/viewer/own-branch push are complete; no training remains running.

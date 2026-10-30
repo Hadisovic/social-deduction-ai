@@ -1,0 +1,27 @@
+{
+  "protocol": "jane-impostor-first-pilot-v1",
+  "approved_budget_minutes": 90,
+  "training_minutes": 60,
+  "max_training_matches": 4,
+  "development_minutes": 30,
+  "development_seeds": [
+    9320001,
+    9320002
+  ],
+  "selection": "last complete PPO boundary; locked before development",
+  "initialization_seed": 731,
+  "started_utc": "2026-10-30T17:21:57.768415+00:00",
+  "deadline_utc": "2026-10-30T18:51:57.768415+00:00",
+  "source_commit": "e91d19eb4bd945497893b289b18f468803800634",
+  "no_reserved_final_access": true,
+  "no_outcome_based_extension": true,
+  "model_name": "Lizbon",
+  "actual_engine": "pinned Patrick Jane A2; 10 frozen crew + 2 new neural impostors",
+  "hardware": {
+    "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "logical_cpus": 32,
+    "python": "3.12.10",
+    "device": "cpu",
+    "torch_threads": 1
+  }
+}

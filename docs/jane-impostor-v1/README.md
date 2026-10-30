@@ -7,6 +7,11 @@ contains settings/contracts; each developer keeps their own model branch.
 The owner named this impostor model **Lizbon**. Jane remains the shared game
 foundation; Patrick Jane is the frozen crewmate reference.
 
+**Latest result:** the first pilot stopped on a reproduced native door invariant
+after one complete game and eight PPO passes. No development comparison ran.
+See the [results, graphs and next steps](pilot-20261030/README.md). The recovered
+weights are research artifacts, not a validated playing-strength release.
+
 ## What is playing
 
 | Side | Controller | Status |
@@ -95,13 +100,13 @@ its panel. Omniscient positions in the viewer are never neural inputs.
 Live observer, from this repository in PowerShell:
 
 ```powershell
-.\local-runs\jane-impostor-v1\runtime\Scripts\python.exe .\run_jane_impostor.py --watch .\local-runs\jane-impostor-v1\pilot-20261030-seed731\train
+.\local-runs\jane-impostor-v1\runtime\Scripts\python.exe .\run_lizbon.py --watch .\local-runs\jane-impostor-v1\pilot-20261030-seed731\train
 ```
 
-Playback after the match is recorded:
+Completed initial-policy baseline playback (before the first PPO update):
 
 ```powershell
-.\local-runs\jane-impostor-v1\runtime\Scripts\python.exe .\run_jane_impostor.py --replay .\local-runs\jane-impostor-v1\pilot-20261030-seed731\train\match-001.jsonl
+.\local-runs\jane-impostor-v1\runtime\Scripts\python.exe .\run_lizbon.py --replay .\local-runs\jane-impostor-v1\pilot-20261030-seed731\train\match-001.jsonl
 ```
 
 This machine's ignored source.json points to the verified external upstream
@@ -110,6 +115,10 @@ of commitd459f38674ebc537acde20647cbd07700c494533. Install the dedicated require
 in a new environment; do not replace historical runtimes. The adapter verifies
 source and published weights before running. Runtime/source/schema/settings
 mismatches reject checkpoints instead of silently adapting old models.
+
+The failed post-update recording has no match outcome. The completed playback
+above does not demonstrate the recovered updated checkpoint. Training is stopped;
+the --watch command is useful during a future authorized run, not a live current job.
 
 ## Work split and deferred features
 

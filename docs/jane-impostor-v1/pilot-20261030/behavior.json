@@ -1,0 +1,118 @@
+{
+  "method": "Offline spectator replay diagnostics; no privileged actor input",
+  "matches": [
+    {
+      "replay": "match-001.jsonl",
+      "actors": {
+        "p1": {
+          "decisions": 454,
+          "selected/wait": 224,
+          "kill_opportunity_decisions": 13,
+          "report_opportunity_decisions": 5,
+          "fake_opportunity_decisions": 3,
+          "longest_identical_request_streak": 27,
+          "alive_roaming_seconds": 199.79999999999998,
+          "stationary_seconds": 101.40000000000003,
+          "selected/destination": 90,
+          "moving_seconds": 98.39999999999998,
+          "selected/cancel": 65,
+          "ready_moving_seconds": 10.999999999999995,
+          "selected/lights": 1,
+          "selected/room": 27,
+          "ready_stationary_seconds": 14.200000000000024,
+          "selected/doors": 32,
+          "selected/kill": 3,
+          "kill_chosen_when_available": 3,
+          "selected/vote": 2,
+          "selected/remembered_player": 4,
+          "selected/report": 2,
+          "report_chosen_when_available": 2,
+          "selected/skip": 2,
+          "selected/claim": 2,
+          "top_goal_requests": [
+            [
+              "stage:image:9",
+              7
+            ],
+            [
+              "stage:image:3",
+              4
+            ],
+            [
+              "utility:12:52",
+              3
+            ],
+            [
+              "task:1:4",
+              3
+            ],
+            [
+              "stage:image:6",
+              3
+            ]
+          ],
+          "distinct_requested_goals": 67
+        },
+        "p5": {
+          "decisions": 454,
+          "selected/wait": 232,
+          "kill_opportunity_decisions": 5,
+          "report_opportunity_decisions": 4,
+          "fake_opportunity_decisions": 19,
+          "longest_identical_request_streak": 27,
+          "alive_roaming_seconds": 199.79999999999998,
+          "stationary_seconds": 112.39999999999998,
+          "selected/destination": 82,
+          "moving_seconds": 87.4,
+          "selected/cancel": 54,
+          "selected/room": 30,
+          "ready_moving_seconds": 10.800000000000006,
+          "ready_stationary_seconds": 15.399999999999983,
+          "selected/doors": 28,
+          "selected/remembered_player": 10,
+          "selected/vote": 3,
+          "selected/fake": 3,
+          "fake_chosen_when_available": 3,
+          "fake_interaction_seconds": 3.5999999999999943,
+          "selected/visible_player": 5,
+          "selected/claim": 3,
+          "selected/report": 2,
+          "report_chosen_when_available": 2,
+          "selected/skip": 1,
+          "selected/kill": 1,
+          "kill_chosen_when_available": 1,
+          "top_goal_requests": [
+            [
+              "p1",
+              4
+            ],
+            [
+              "utility:12:15",
+              4
+            ],
+            [
+              "CrossHallway",
+              4
+            ],
+            [
+              "stage:12:43",
+              3
+            ],
+            [
+              "stage:12:23",
+              3
+            ]
+          ],
+          "distinct_requested_goals": 74
+        }
+      }
+    }
+  ],
+  "caveats": [
+    "Stationary includes genuine waiting, vent time and door obstruction; it is not proof of camping.",
+    "Ready-stationary is descriptive; the reward ledger separately excludes ineligible intervals.",
+    "Repeated target requests may be legitimate revisits or updated visible targets.",
+    "Opportunity fractions count actor decisions, not independent kill opportunities.",
+    "Motion/fake durations are endpoint tick approximations; meetings and eliminated actors excluded."
+  ]
+}

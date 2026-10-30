@@ -1,0 +1,84 @@
+{
+  "model": "Lizbon",
+  "status": "interrupted pilot; not a validated release",
+  "source_commit": "e91d19eb4bd945497893b289b18f468803800634",
+  "engine_commit": "d459f38674ebc537acde20647cbd07700c494533",
+  "architecture": {
+    "name": "Lizbon",
+    "schema": "jane-impostor-recurrent-a2-v1",
+    "parameters": 1036561,
+    "self_width": 192,
+    "player_shape": [
+      14,
+      24
+    ],
+    "events_shape": [
+      64,
+      16
+    ],
+    "candidate_width": 48,
+    "families": [
+      "continue",
+      "cancel",
+      "travel",
+      "fake",
+      "kill",
+      "report",
+      "emergency",
+      "claim",
+      "vote",
+      "skip",
+      "lights",
+      "repair",
+      "doors",
+      "vent_enter",
+      "vent_move",
+      "vent_exit"
+    ],
+    "hidden": 256,
+    "actor_critic": "shared recurrent backbone, separate trunks",
+    "weights": "fresh initialization; not copied from crew or old impostor"
+  },
+  "settings_sha256": "c05e5133603d73ff4c1803185923c248d97c6714b17f08b6a05f73cb73250db4",
+  "shared_bundle": {
+    "settings_sha256": "c05e5133603d73ff4c1803185923c248d97c6714b17f08b6a05f73cb73250db4",
+    "shared_files": {
+      "settings.py": "70d2b49ba698b43121f0c670cfe02a12d39fff5ffe70dc03dc7200c809851b99",
+      "compatibility.py": "f01d8e37b845a27e57b31a3270358707bc7c0559772a145e3cefaefa9309ac39",
+      "patrick_jane.py": "11ad787f551f1da311e1f9b92305332ba319c35aead48da282e2620a5a6a0998",
+      "catalog.json": "694ab72a0a6cbc0cdc4cc4f13cb9f084e680f6f995cfd57fdb1c0bf290f791cb",
+      "rulesets.json": "c11b8daba7b217b2362558c8096b51784b20349c47df9729918d59ed36251861",
+      "actor_contract.json": "1dde22479a8f83bc6f32637d3fe764e675b641f930976ff4be5c390e06d28f7f",
+      "network_reference.json": "ccd226686978c3b17dacef6eb58ebd7e4dac3e33803448f82f000d91dc7fbafa",
+      "upstream/patrick_jane_review.json": "aebb1c34dfea433e2d400f564f71f8c6a4ce127e68c90a3730ac05c04fc1e615",
+      "upstream/patrick_jane_a2_default.json": "fc4a8a49f37f6640ab523968b0975ae7d3e70a300653f6f1dfbfa92ece0defe4",
+      "upstream/patrick_jane_architecture.json": "13fc2329c02762cbec749b0d42f626f6fd821eec5605fa745bd07db5b2e7bcc5"
+    },
+    "bundle_sha256": "9b256246951a73350218de0575d9c023bed9c3834fb35f1a519fe5aace435baa"
+  },
+  "runtime": {
+    "python": "3.12.10",
+    "numpy": "2.5.3",
+    "torch": "2.7.1+cpu",
+    "device": "cpu"
+  },
+  "files": {
+    "initial.pt": {
+      "sha256": "4f1a7c29a6519a613a3a51171cc6cc16dcecbc7203dc39fac8c0a19d714b0d4e",
+      "bytes": 4163350
+    },
+    "checkpoint-001.pt": {
+      "sha256": "14194a65d1009f268f387502871d8a2bf640e01e40800196716c391a993ce2ae",
+      "bytes": 12494023
+    }
+  },
+  "counters": {
+    "complete_matches": 1,
+    "technical_cuts": 0,
+    "training_observations": 908,
+    "optimizer_steps": 8
+  },
+  "selection": "No development selection; recovery boundary only",
+  "final_sets_opened": false,
+  "report": "docs/jane-impostor-v1/pilot-20261030/README.md"
+}

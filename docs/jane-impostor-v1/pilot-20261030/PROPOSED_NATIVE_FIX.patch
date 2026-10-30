@@ -1,0 +1,16 @@
+--- a/patrick_jane/environment.py
++++ b/patrick_jane/environment.py
+@@ -359,7 +359,12 @@
+         assert len(assigned)==len(set(assigned))==self.initial_task_count==len(self.tasks)
+         assert all(t.owner_id==p.player_id and self._owners[t.task_id]==p.player_id for p in self.players.values() for t in p.tasks)
+         assert all(0<=t.progress<=1 for t in self.tasks.values())
+-        assert all(self.map.contains(p.position) for p in self.players.values())
++        # Stored inactive/underground positions need not avoid closed surface doors.
++        # Living surface actors must still satisfy the current collision geometry.
++        base = getattr(self, 'base_map', self.map)
++        underground = getattr(self, 'vented', {})
++        assert all((base if not p.active or pid in underground else self.map).contains(p.position)
++                   for pid, p in self.players.items())
+         assert all(p.status in ('alive','dead','ejected') for p in self.players.values())
+         assert all(not self.players[pid].active and self.players[pid].role is Role.CREWMATE for pid in self.ghosts)
+         assert set(self.votes)<=set(self.participants)
