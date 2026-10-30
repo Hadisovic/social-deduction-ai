@@ -40,6 +40,8 @@ def test_v2_has_checkpoint_migration_and_profile_locked_roundtrip(tmp_path):
 def test_custom_match_emits_complete_local_decision_audit(tmp_path,preset):
     from jane.impostor.v2.session import run_match
     profile=load_profile(ROOT/f'jane/configs/classic-v2/{preset}.json')
+    if preset=='full_15p_1imp':
+        profile=HostProfile(replace(profile.settings,tasks=replace(profile.settings.tasks,common=2,long=3,short=5)))
     model=ImpostorPolicy(731);crew=frozen_crew(Path(SOURCE));before=tensor_hash(crew)
     replay=tmp_path/'match.jsonl'
     summary,_=run_match(model,crew,profile,9700010,output=replay,max_observations=6,
@@ -75,3 +77,9 @@ def test_audit_summary_separates_contiguous_opportunities(tmp_path):
     assert result['kill_eligible_decisions']==3
     assert result['kill_windows']==2
     assert result['selected/kill']==2
+
+
+def test_transferred_initial_metadata_counts_preserved_training_passes():
+    from jane.impostor.v2.run import known_passes
+    assert known_passes(dict(counters={'optimizer_steps':0},ancestry={'parent_counters':{'optimizer_steps':8}}))==8
+    assert known_passes(dict(counters={'optimizer_steps':8},ancestry={'parent_total_steps':16}))==24

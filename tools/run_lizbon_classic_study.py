@@ -7,9 +7,30 @@ import json
 from pathlib import Path
 import subprocess
 import sys
+from threading import Event,Lock
 from time import monotonic
 
 ROOT=Path(__file__).resolve().parents[1]
+
+
+class ProcessGroup:
+    """Track this stage's children so fatal failure cancels siblings promptly."""
+    def __init__(self):self.stop=Event();self.guard=Lock();self.processes={}
+    def start(self,name,cmd,console):
+        with self.guard:
+            if self.stop.is_set():return None
+            process=subprocess.Popen(cmd,cwd=ROOT,stdout=console,stderr=subprocess.STDOUT,
+                creationflags=subprocess.CREATE_NO_WINDOW if sys.platform=='win32' else 0)
+            self.processes[name]=process;return process
+    def release(self,name):
+        with self.guard:self.processes.pop(name,None)
+    def abort(self):
+        self.stop.set()
+        with self.guard:
+            for process in self.processes.values():
+                if process.poll() is None:
+                    try:process.terminate()
+                    except OSError:pass
 
 
 def write(path,value,exclusive=False):
@@ -67,34 +88,42 @@ def main():
     def status(phase,**info):write(out/'status.json',dict(phase=phase,wall_seconds=monotonic()-start,
         deadline_utc=registration['deadline_utc'],**info))
 
-    def job(name,mode,episodes,offset,end,checkpoint=None,warm=False,deterministic=False):
+    def job(name,mode,episodes,offset,end,batch,checkpoint=None,warm=False,deterministic=False):
         remaining=end-monotonic()
-        if remaining<5:return dict(name=name,exit_code=None,budget_cut=True)
+        if remaining<35 or batch.stop.is_set():return dict(name=name,exit_code=None,budget_cut=True)
         target=out/name
         cmd=[python,str(ROOT/'run_lizbon_classic.py'),'--source-root',str(args.source_root.resolve()),
             '--output',str(target),'--mode',mode,'--episodes',str(episodes),'--scenario-offset',str(offset),
-            '--max-minutes',str(max(.01,(remaining-3)/60)),
+            '--max-minutes',str(max(.01,(remaining-30)/60)),
             '--match-wall-seconds','900' if mode=='train' else '600']
         if warm:cmd+=['--warm-start-v1',str(ROOT/'artifacts/lizbon-v1/pilot-20261030/checkpoint-001.pt')]
         if checkpoint:cmd+=['--checkpoint',str(checkpoint)]
         if deterministic:cmd+=['--deterministic']
         with (out/(name+'.console.log')).open('x',encoding='utf-8') as console:
             try:
-                result=subprocess.run(cmd,cwd=ROOT,stdout=console,stderr=subprocess.STDOUT,
-                    timeout=remaining,creationflags=subprocess.CREATE_NO_WINDOW if sys.platform=='win32' else 0)
-                record=dict(name=name,exit_code=result.returncode,budget_cut=False)
+                process=batch.start(name,cmd,console)
+                if process is None:return dict(name=name,exit_code=None,cancelled=True)
+                code=process.wait(timeout=remaining)
+                record=dict(name=name,exit_code=code,budget_cut=False,cancelled=batch.stop.is_set())
             except subprocess.TimeoutExpired:
+                process.kill();process.wait(timeout=10)
                 record=dict(name=name,exit_code=None,budget_cut=True)
+            finally:
+                batch.release(name)
         write(out/(name+'.job.json'),record);return record
 
     def group(specs,end):
-        jobs=[]
+        jobs=[];batch=ProcessGroup();failure=False
         with ThreadPoolExecutor(max_workers=2) as executor:
-            futures={executor.submit(job,**s,end=end):s['name'] for s in specs}
-            for future in as_completed(futures):
-                r=future.result();jobs.append(r)
-                status('processing',completed_jobs=jobs)
-        if any(r.get('exit_code')!=0 for r in jobs):raise RuntimeError('Child failure or registered deadline; see job logs')
+            futures={executor.submit(job,**s,end=end,batch=batch):s['name'] for s in specs}
+            try:
+                for future in as_completed(futures):
+                    r=future.result();jobs.append(r)
+                    if r.get('exit_code')!=0:failure=True;batch.abort()
+                    status('processing',completed_jobs=jobs)
+            except BaseException:
+                batch.abort();raise
+        if failure:raise RuntimeError('Child failure or registered deadline; siblings cancelled, see job logs')
         return jobs
 
     try:

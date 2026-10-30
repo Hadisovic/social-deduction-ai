@@ -1,6 +1,7 @@
 import importlib.util
 from pathlib import Path
 import json
+import os
 import pytest
 
 
@@ -30,3 +31,16 @@ def test_selection_lock_is_exclusive_and_hashes_selected_checkpoint(tmp_path):
     assert len(result['checkpoint_sha256'])==64
     assert json.loads(path.read_text())['selected']=='reference'
     with pytest.raises(FileExistsError):m.lock_selection(path,'other',checkpoint,{})
+
+
+def test_fatal_stop_terminates_real_sibling_and_blocks_queued_work():
+    import subprocess
+    import sys
+    m=module();batch=m.ProcessGroup()
+    with open(os.devnull,'w') as console:
+        slow=batch.start('slow',[sys.executable,'-c','import time; time.sleep(30)'],console)
+        bad=batch.start('bad',[sys.executable,'-c','raise SystemExit(1)'],console)
+        assert bad.wait(timeout=5)==1
+        batch.abort()
+        assert slow.wait(timeout=5)!=0
+        assert batch.start('queued',[sys.executable,'-c','print(1)'],console) is None
