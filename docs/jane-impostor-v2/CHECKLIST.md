@@ -31,7 +31,7 @@ No historical checkpoint, settings bundle or external pinned source is overwritt
 - [x] Publish five graphs, choice analysis, insufficiency and concrete next steps in study-20261030/README.md.
 - [x] Reproduce cache failure withoutNN/PPO; proposed upstream patch checks cleanly but remains unapplied.
 - [ ] Review/fix/version shared engine and approve a new study before more training.
-- [ ] Open completed playback; push this own branch without merge/deployment.
+- [x] Open completed trained-policy playback; publish this own branch without merge/deployment.
 
 Core scope is Classic Skeld with base crewmate/impostor roles. Previously deferred
 special roles, exact minigame implementations, devices and unverified sabotage

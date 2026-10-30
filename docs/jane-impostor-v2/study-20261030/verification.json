@@ -20,5 +20,11 @@
   "proposed_patch_apply_check": true,
   "upstream_patch_applied": false,
   "historical_V1_and_shared_sources_changed": false,
-  "note": "No new training, validation, confirmation or model selection after failure"
+  "note": "No new training, validation, confirmation or model selection after failure",
+  "playback_opened": true,
+  "playback": "train101/match-003; after8newpasses,5kills/taskloss",
+  "playback_actual_pid": 88128,
+  "raw_prefix_rows_recovered": 200,
+  "raw_prefix_decisions_recovered": 56,
+  "all_readable_impostor_decisions": 4938
 }

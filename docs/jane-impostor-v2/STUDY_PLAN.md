@@ -20,23 +20,23 @@ Intel Core i9-14900HX, 24 cores / 32 logical processors.
 1. Warm-start both streams from preserved V1 checkpoint001 (eight old optimizer
    passes). Fresh Adam; private per-impostor memory/GRU/RNG. Same starting weights
    mean these are sampling streams, **not independent initialization replications**.
-2. Up to four complete training matches each, scenarios 9710001â€“9710004 and
-   9710101â€“9710104. Shared 90-minute training cutoff. Each match wall cap 900s.
+2. Up to four complete training matches each, scenarios 9710001–9710004 and
+   9710101–9710104. Shared 90-minute training cutoff. Each match wall cap 900s.
    Complete natural games only enter PPO; cuts/failures remain preserved.
 3. Candidates: starting reference plus last complete, full-PPO checkpoint in each
    stream. A fatal child error stops the study without an automatic retry.
 4. Each eligible method gets the same two sampled validation scenarios:
-   9720001â€“9720002. Up to two worker processes; 45-minute validation cap inside the
+   9720001–9720002. Up to two worker processes; 45-minute validation cap inside the
    total 90-minute evaluation allowance. Per-match cap 600s. Missing/cut validation
    prevents selection rather than treating it as a loss or ignoring it.
 5. Select by natural win fraction, then mean eliminations, then prefer reference
    on an exact tie; lexical candidate ID is the final deterministic tie-break.
    Write `selection-lock.json` exclusively, with selected checkpoint SHA256.
 6. After lock only: paired reference-versus-selected confirmation. Sampled mode
-   uses fresh 9720101â€“9720102; greedy mode uses fresh 9720103â€“9720104. Eight matches
+   uses fresh 9720101–9720102; greedy mode uses fresh 9720103–9720104. Eight matches
    total, two workers, within remaining evaluation/three-hour deadline. Do not tune
    or change selection from these outcomes. Cuts mean incomplete confirmation.
-7. Final sets 9730001â€“9731000 and every historical final partition remain sealed.
+7. Final sets 9730001–9731000 and every historical final partition remain sealed.
 
 ## Analysis and stopping
 
