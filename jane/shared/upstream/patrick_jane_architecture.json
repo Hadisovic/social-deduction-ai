@@ -1,0 +1,50 @@
+{
+  "parameters": 1031070,
+  "modules": {
+    "self_encoder": 82304,
+    "player_encoder": 18688,
+    "player_attention": 66048,
+    "event_encoder": 18688,
+    "event_attention": 66048,
+    "fusion": 98560,
+    "gru": 394752,
+    "actor": 98688,
+    "critic": 98688,
+    "navigation": 387,
+    "interaction": 645,
+    "communication": 774,
+    "voting": 1935,
+    "target_encoder": 2176,
+    "target_attention": 66048,
+    "target_query": 16512,
+    "value": 129
+  },
+  "linear_modules": 21,
+  "attention_modules": 3,
+  "attention_heads": 4,
+  "attention_width": 128,
+  "gru_layers": 1,
+  "gru_hidden": 256,
+  "longest_path": "self/player/event encoder -> attention where applicable -> fusion -> shared GRU -> actor/critic MLP -> head",
+  "self_width": 192,
+  "player_shape": [
+    14,
+    16
+  ],
+  "events_shape": [
+    "capacity=64",
+    16
+  ],
+  "target_shape": [
+    "dynamic",
+    16
+  ],
+  "outputs": {
+    "navigation": 3,
+    "interaction": 5,
+    "communication": 6,
+    "voting": 15,
+    "target": "dynamic attention selector",
+    "value": 1
+  }
+}

@@ -31,7 +31,7 @@ class PublicationTests(unittest.TestCase):
         self.assertEqual((m['task_victories'],m['living_tasks'],m['ghost_tasks'],m['assigned_tasks']),(1,40,12,80))
         self.assertEqual((m['correct_votes'],m['incorrect_votes'],m['skips']),(2,1,4))
 
-    def run_fixture(self,root,*,export_failure=False):
+    def run_fixture(self,root,*,export_failure=False,profile=None):
         import patrick_jane.a2_run as runner
         class Policy(torch.nn.Module):
             def __init__(self):super().__init__();self.w=torch.nn.Parameter(torch.ones(1))
@@ -41,8 +41,8 @@ class PublicationTests(unittest.TestCase):
         counters=dict(update=102,individual_decisions=2813879,complete_matches=1053,next_seed=0,run_decisions=0,run_matches=0,run_updates=0)
         def collect(*a,**k):
             calls.append('existing collector invoked');now[0]+=3
-            return dict(individual_decisions=60,elapsed=3.,trajectories={},matches=[dict(seed=3200000+i,winner='impostor',reason='PARITY',truncated=False,
-                simulation_seconds=1.,crew=10,metrics={'task_completions':0},ghost_tasks=0,neural_actions={}) for i in range(6)],reward_components={})
+            return dict(individual_decisions=60,elapsed=3.,trajectories={},matches=[dict(seed=seed,winner='impostor',reason='PARITY',truncated=False,
+                simulation_seconds=1.,crew=10,metrics={'task_completions':0},ghost_tasks=0,neural_actions={}) for seed in a[3]],reward_components={})
         def update(*a,**k):calls.append('mock PPO invoked; no optimizer steps');now[0]+=1;return dict(updates=0,loss=0.,approx_kl=0.,elapsed=1.)
         def save(path,*a,**k):path.parent.mkdir(exist_ok=True);path.write_bytes(b'synthetic checkpoint');return digest(path)
         def report(folder,state,**k):
@@ -65,8 +65,8 @@ class PublicationTests(unittest.TestCase):
             if export_failure:stack.enter_context(patch('portable_support.export_results',side_effect=OSError('synthetic export failure')))
             capture=io.StringIO()
             with contextlib.redirect_stdout(capture):
-                code=runner.train(root/'results',root,hours=.001)
-                if not export_failure:resumed=runner.train(root/'results',root,hours=.002)
+                code=runner.train(root/'results',root,hours=.001,profile=profile)
+                if not export_failure:resumed=runner.train(root/'results',root,hours=.002,profile=profile)
             if not export_failure:self.assertEqual(resumed,0);self.assertEqual(len(calls),4)
         return code,capture.getvalue(),root/'results'
 
@@ -90,5 +90,19 @@ class PublicationTests(unittest.TestCase):
             self.assertEqual(code,1);self.assertNotIn('TRAINING COMPLETED',console)
             self.assertIn('EXPORT FAILED',console);self.assertTrue((folder/'final-model.json').exists())
             status=json.loads((folder/'completion-status.json').read_text());self.assertEqual(status['state'],'failed');self.assertFalse(status['success'])
+
+    def test_shared_repair_reserves_failed_seed_wave_and_freezes_profile(self):
+        from patrick_jane.a2_config import A2Experiment
+        from jane.shared.runtime import PATRICK_PROFILE,fingerprint
+        tmp=ROOT/'local-runs/publication-tests';tmp.mkdir(parents=True,exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=tmp) as d:
+            code,console,folder=self.run_fixture(Path(d),profile=A2Experiment(shared_engine_profile=PATRICK_PROFILE))
+            self.assertEqual(code,0)
+            reg=json.loads((folder/'registration.json').read_text());seeds=json.loads((folder/'seed-allocation.json').read_text())
+            self.assertEqual(reg['first_training_seed'],3200006)
+            self.assertEqual(reg['shared_engine'],fingerprint())
+            self.assertEqual(reg['excluded_failed_training_seeds'],list(range(3200000,3200006)))
+            self.assertEqual(seeds[0]['seeds'],list(range(3200006,3200012)))
+            self.assertEqual(seeds[1]['seeds'],list(range(3200012,3200018)))
 
 if __name__=='__main__':unittest.main()

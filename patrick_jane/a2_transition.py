@@ -5,7 +5,7 @@ from pathlib import Path
 SHA='6cf7048310e889967b01dd785317d313ddc71f310cd9faedcf346b950b8fd01b'
 ARCHIVE='2ee74da35096493975e8bfb8ef2d536704623c0fca588be14d524b8738cb42e3'
 CHANGED={'patrick_jane/api.py','patrick_jane/features.py','patrick_jane/health.py','patrick_jane/worker.py',
-         'patrick_jane/progress.py'}  # Publication adds observer-only recorded terminal metrics.
+         'patrick_jane/progress.py','patrick_jane/checkpoint.py'}  # Shared repair adds provenance enumeration, not weaker loading.
 
 
 def import_update102(origin,policy,optimizer,rng):

@@ -20,9 +20,12 @@ class A2Experiment(LightsExperiment):
     vent_range: float = 1.
     vent_transition_seconds: float = .6
     upgraded_probability: float = .5
+    shared_engine_profile: dict | None = None
 
     def __post_init__(self):
         Experiment.__post_init__(self)
+        if self.shared_engine_profile is not None and self.shared_engine_profile!={'engine':'paired-map-planner-v1','allocation':'patrick-jane-native-v1'}:
+            raise ValueError('Unknown shared engine profile')
         if self.reward_regime not in ('investigation-a2-v1','task-pursuit-v1'):raise ValueError('Unknown reward control')
         if self.living_task_reward!=(.5 if self.reward_regime=='investigation-a2-v1' else 2.):raise ValueError('Reward regime/task coefficient mismatch')
         if self.mechanics_regime not in ('classic-skeld-a2-v1','historical'):raise ValueError('Unknown mechanics')

@@ -6,16 +6,24 @@ from tools.build_pj_portable import sources,archive
 from portable_support import digest
 
 
-def refresh(destination):
+def refresh(destination,shared_repair=False):
     from patrick_jane.a2_config import A2Experiment,coefficients
     destination=Path(destination)
+    profile=A2Experiment()
+    if shared_repair:
+        from dataclasses import replace
+        from jane.shared.runtime import PATRICK_PROFILE
+        profile=replace(profile,shared_engine_profile=PATRICK_PROFILE)
     files=sources()|{ROOT/'tools/run_pj_a2.py',ROOT/'tools/evaluate_pj_a2.py',ROOT/'tools/smoke_pj_published.py'}
     for p in files:
         q=destination/p.relative_to(ROOT);q.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,q)
+    for p in (ROOT/'jane').rglob('*.json'):
+        q=destination/p.relative_to(ROOT);q.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,q)
     for name in ('Start-PatrickJaneA2.ps1','Show-PatrickJaneA2.ps1','Stop-PatrickJaneA2.ps1','Export-PatrickJaneA2Results.ps1','Import-PatrickJaneResults.ps1'):
         shutil.copyfile(ROOT/name,destination/name)
-    config=dict(schema='patrick-jane-a2-config-v1',experiment=A2Experiment().to_dict(),workers='auto: min(6,physical cores,RAM/2GiB); frozen on registration',
-        default_hours=12,origin='origin',results='results/investigation-a2-v1',reward_coefficients=coefficients(A2Experiment()),
+    config=dict(schema='patrick-jane-a2-config-v1',experiment=profile.to_dict(),workers='auto: min(6,physical cores,RAM/2GiB); frozen on registration',
+        default_hours=3 if shared_repair else 12,origin='origin',results='results/investigation-a2-v1',reward_coefficients=coefficients(profile),
+        first_training_seed=3200006 if shared_repair else 3200000,
         training_seed_range=[3200000,3299999],development_comparison_seeds=[3300000,3300019],final_partitions='unopened',training_started=False)
     (destination/'portable-config.json').write_text(json.dumps(config,indent=2)+'\n',encoding='utf-8')
     controls=dict(schema='patrick-jane-a2-comparison-registration-v1',reference='original-update102',training_seeds=[3200000,3299999],evaluation_seeds=list(range(3300000,3300020)),
@@ -34,11 +42,11 @@ def refresh(destination):
     (destination/'SOURCE_VERSION.json').write_text(json.dumps(version,indent=2)+'\n')
     for name in ('PATRICK_JANE_INTEGRATION.md','requirements-patrick-jane.txt','requirements-patrick-jane-lock.txt'):
         if (ROOT/name).exists():shutil.copyfile(ROOT/name,destination/name)
-    for name in ('A2_IMPLEMENTATION.md','A2_REGISTRATION.md','A2_RULES.md'):
+    for name in ('A2_IMPLEMENTATION.md','A2_REGISTRATION.md','A2_RULES.md','A2_SHARED_REPAIR.md'):
         p=ROOT/'docs/patrick-jane'/name
         if p.exists():q=destination/'docs'/name;q.parent.mkdir(exist_ok=True);shutil.copyfile(p,q)
     manifest=dict(schema='patrick-jane-portable-a2-v1',runtime=dict(python='3.12.10',numpy='2.5.3',torch='2.7.1+cu128'),
-        starting_checkpoint_sha256=digest(destination/'origin/update-000102.pt'),lifetime_decisions=2813879,default_hours=12,training_started=False,
+        starting_checkpoint_sha256=digest(destination/'origin/update-000102.pt'),lifetime_decisions=2813879,default_hours=config['default_hours'],training_started=False,
         files={p.relative_to(destination).as_posix():dict(size=p.stat().st_size,sha256=digest(p)) for p in sorted(destination.rglob('*')) if p.is_file() and p.name!='portable.manifest.json' and p.relative_to(destination).parts[0] not in ('runtime','results','exports') and '__pycache__' not in p.parts})
     (destination/'portable.manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
     return destination
@@ -88,6 +96,7 @@ Controlled development evaluations are MANUAL, using tools/evaluate_pj_a2.py and
 
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('--destination',default=str(ROOT/'dist/PatrickJane-Investigation-A2-V1'));p.add_argument('--refresh',action='store_true');p.add_argument('--zip',action='store_true');a=p.parse_args()
-    result=refresh(a.destination) if a.refresh else build(a.destination)
+    p=argparse.ArgumentParser();p.add_argument('--destination',default=str(ROOT/'dist/PatrickJane-Investigation-A2-V1'));p.add_argument('--refresh',action='store_true');p.add_argument('--shared-repair',action='store_true');p.add_argument('--zip',action='store_true');a=p.parse_args()
+    if a.shared_repair and not a.refresh:p.error('--shared-repair requires --refresh of a separate copied package')
+    result=refresh(a.destination,shared_repair=a.shared_repair) if a.refresh else build(a.destination)
     print(archive(result) if a.zip else result)

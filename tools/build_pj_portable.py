@@ -12,7 +12,7 @@ def sources():
     # Packages are small and include dynamic spectator/worker imports. Root
     # module dependencies are discovered statically instead of copying research runs.
     files=set()
-    for package in ('patrick_jane','spectator','crewmate_v2','social_deduction','belief'):
+    for package in ('patrick_jane','spectator','crewmate_v2','social_deduction','belief','jane'):
         files.update(p for p in (ROOT/package).rglob('*.py') if '__pycache__' not in p.parts)
     for name in ('phase3_renderer.py','among_us_renderer.py','phase3_assets.py','portable_support.py','run_spectator_v2.py',
                  'tools/__init__.py','tools/run_pj_duration.py','tools/run_pj_learning.py','tools/report_patrick_jane_pilot.py'):

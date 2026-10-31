@@ -21,6 +21,7 @@ DEPENDENCIES=('phase3_engine.py','among_us_map.py','among_us_map_simulation.py',
 def source_lock():
     paths=[ROOT/p for p in DEPENDENCIES]+list((ROOT/'patrick_jane').glob('*.py'))
     paths+=list((ROOT/'assets/skeld').rglob('*.json'))
+    paths+=list((ROOT/'jane').rglob('*.py'))+list((ROOT/'jane/shared').rglob('*.json'))
     paths+=[ROOT/p for p in ('phase3_renderer.py','among_us_renderer.py')]
     return {p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes().replace(b'\r\n',b'\n')).hexdigest() for p in sorted(paths)}
 

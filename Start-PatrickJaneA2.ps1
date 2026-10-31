@@ -2,6 +2,10 @@
 param([double]$Hours=12,[int]$Workers=0,[long]$AdditionalDecisions=0,[switch]$SetupOnly,[switch]$PrepareOnly)
 $ErrorActionPreference='Stop'
 $root=$PSScriptRoot
+if (!$PSBoundParameters.ContainsKey('Hours')) {
+    $profile=Get-Content -Raw -LiteralPath (Join-Path $root 'portable-config.json') | ConvertFrom-Json
+    if ($profile.default_hours) { $Hours=[double]$profile.default_hours }
+}
 $env:PYTHONIOENCODING='utf-8'
 $env:CUBLAS_WORKSPACE_CONFIG=':4096:8'
 $env:OMP_NUM_THREADS='1'

@@ -17,8 +17,12 @@ from .opponents import Opponent
 
 
 class Match:
-    def __init__(self,seed,experiment,*,held_out=False,replay=None,metadata=None,live_dir=None):
-        if getattr(experiment,'a2_enabled',False):
+    def __init__(self,seed,experiment,*,held_out=False,replay=None,metadata=None,live_dir=None,game_factory=None):
+        if game_factory is None and getattr(experiment,'shared_engine_profile',None) is not None:
+            from jane.shared.runtime import engine_class
+            game_factory=engine_class(experiment.shared_engine_profile['allocation'])
+        if game_factory is not None:self.game=game_factory(seed,experiment=experiment)
+        elif getattr(experiment,'a2_enabled',False):
             from .a2_environment import A2Game
             self.game=A2Game(seed,experiment=experiment)
         else:self.game=PatrickJaneGame(seed,experiment=experiment)
@@ -287,5 +291,13 @@ def serve(connection):
             connection.send(('ok',value))
         except EOFError:break
         except BaseException:
-            connection.send(('error',traceback.format_exc()));break
+            detail=''
+            if match is not None:
+                g=match.game
+                detail='\nINTERNAL WORLD DIAGNOSTIC '+__import__('json').dumps(dict(seed=g.seed,tick=g.tick,
+                    phase=g.phase.value,closed_doors=list(getattr(g.map,'closed_doors',())),
+                    actors=[dict(player=pid,status=p.status,position=p.position,vented=pid in getattr(g,'vented',{}),
+                        dynamic_valid=g.map.contains(p.position),base_valid=getattr(g,'base_map',g.map).contains(p.position))
+                        for pid,p in g.players.items()]),default=str)
+            connection.send(('error',traceback.format_exc()+detail));break
     connection.close()

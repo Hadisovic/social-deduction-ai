@@ -41,7 +41,9 @@ def main():
             import ctypes
             ctypes.windll.kernel32.SetThreadExecutionState(0x80000001)
         from patrick_jane.a2_config import A2Experiment
-        profile=A2Experiment(reward_regime=a.reward_regime,living_task_reward=.5 if a.reward_regime=='investigation-a2-v1' else 2.,opponent_regime=a.opponent_regime)
+        config=json.loads((Path(__file__).resolve().parents[1]/'portable-config.json').read_text()) if (Path(__file__).resolve().parents[1]/'portable-config.json').exists() else {}
+        profile=A2Experiment(reward_regime=a.reward_regime,living_task_reward=.5 if a.reward_regime=='investigation-a2-v1' else 2.,opponent_regime=a.opponent_regime,
+            shared_engine_profile=config.get('experiment',{}).get('shared_engine_profile'))
         try:return train(folder,a.origin,hours=a.hours,workers=workers,additional_decisions=a.additional_decisions,prepare_only=a.prepare_only,profile=profile)
         except BaseException:traceback.print_exc();print('A2 FAILED; previous checkpoints preserved',flush=True);return 1
         finally:

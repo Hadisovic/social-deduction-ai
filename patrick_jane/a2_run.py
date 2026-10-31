@@ -62,6 +62,7 @@ def train(folder,origin,*,hours=12.,workers=6,device='cuda',additional_decisions
                 current=folder/pointer['checkpoint']
             else:
                 counters,provenance=import_update102(origin,policy,optimizer,rng)
+                if exp.shared_engine_profile is not None:counters['next_seed']=6  # Failed historical wave reserved 3200000..5.
                 current=folder/f'checkpoints/{attempt.name}-origin.pt'
                 sha=save(current,policy,optimizer,exp,counters.copy(),rng=rng,metadata=dict(import_provenance=provenance))
                 pointer=dict(checkpoint=current.relative_to(folder).as_posix(),sha256=sha,counters=counters.copy())
@@ -72,6 +73,8 @@ def train(folder,origin,*,hours=12.,workers=6,device='cuda',additional_decisions
                     clock_source=CLOCK_SOURCE,
                     reward_coefficients=__import__('patrick_jane.a2_config',fromlist=['coefficients']).coefficients(exp),
                     training_seed_range=[3200000,3299999],validation_seeds=[],final_partitions='unopened',
+                    first_training_seed=3200000+counters['next_seed'],excluded_failed_training_seeds=list(range(3200000,3200006)) if exp.shared_engine_profile else [],
+                    shared_engine=__import__('jane.shared.runtime',fromlist=['fingerprint']).fingerprint() if exp.shared_engine_profile else None,
                     source_snapshot=freeze_sources(folder),sources=source_lock(),import_provenance=provenance,
                     checkpoint_selection='latest complete PPO boundary; best not evaluated',acceptance='pending')
                 atomic_json(folder/'registration.json',reg)
