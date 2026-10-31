@@ -1,8 +1,6 @@
 # Jane: common settings, independent role projects
 
-**Status:** teammate source reviewed; draft settings corrected; native A2
-configuration adapter added. Patrick Jane is a reference only. No model code or
-weights are copied, and no final joint network structure is prescribed.
+**Status:** common Classic runtime repairs are now available with explicit Classic and native-Patrick allocation profiles. No neural/PPO code or weights are copied into this shared extension. The native simulator dependency and compatibility limits are described in [the repair record](../docs/jane/SHARED_ENGINE_REPAIR.md).
 
 Upstream implementation: `d459f38674ebc537acde20647cbd07700c494533`.
 Reviewed documentation tip: `c7c0ef0fd0b6d460860f1f7b27fe34cb4f8385b2`.
