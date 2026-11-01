@@ -59,6 +59,29 @@ def test_update103_version_bridge_preserves_weights_adam_and_skips_failed_wave(t
     with (tmp_path/'update-000103.pt').open('ab') as f:f.write(b'corrupt')
     with pytest.raises(ValueError,match='hash'):import_parent(tmp_path,p,opt,np.random.default_rng(17))
 
+
+def test_recovery_preparation_retains_history_budget_and_json_profile(tmp_path):
+    import json,shutil
+    from pathlib import Path
+    from tools.prepare_pj_a2_repair import prepare,PARENT_ACTIVE_SECONDS,PARENT_SHA
+    parent=Path(__file__).resolve().parents[2]/'dist/PatrickJane-A2-SharedRepair-V1/results/investigation-a2-v1'
+    if not parent.exists():pytest.skip('Private preserved update103 run is unavailable')
+    package=tmp_path/'recovery';(package/'continuation').mkdir(parents=True)
+    (package/'SOURCE_VERSION.json').write_text('{"revision":"synthetic-preparation-test-only"}')
+    shutil.copyfile(parent/'checkpoints/attempt-0002-update-000103.pt',package/'continuation/update-000103.pt')
+    shutil.copyfile(parent/'source-snapshot.zip',package/'continuation/source-snapshot.zip')
+    folder=prepare(package,parent)
+    reg=json.loads((folder/'registration.json').read_text());clock=json.loads((folder/'active-time.json').read_text())
+    latest=json.loads((folder/'latest.json').read_text());history=json.loads((folder/'history.json').read_text())
+    assert reg['workers']==6 and reg['initial_duration_hours']==3
+    assert reg['first_training_seed']==3200018 and reg['source_transitions'][0]['at_update']==103
+    assert clock['seconds']==PARENT_ACTIVE_SECONDS and clock['target_seconds']==10800.
+    assert latest['counters']['run_updates']==1 and latest['counters']['run_decisions']==15789
+    assert latest['counters']['next_seed']==18
+    assert len(history)==1 and history[0]['sha256']==PARENT_SHA and history[0]['source_segment']=='shared-repair-v1'
+    assert json.loads((folder/'training_results.json').read_text())['source_transitions']==reg['source_transitions']
+    with pytest.raises(FileExistsError):prepare(package,parent)
+
 def test_spawn_safe_profile_and_native_task_equivalence():
     old=A2Experiment();new=replace(old,shared_engine_profile=PROFILE)
     new=pickle.loads(pickle.dumps(new))
