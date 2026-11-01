@@ -33,6 +33,8 @@ def original_serve(connection,source):
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--folder',required=True);parser.add_argument('--original-package');parser.add_argument('--seconds',type=float,default=570)
+    parser.add_argument('--checkpoint',type=Path);parser.add_argument('--seed-start',type=int,default=3200000)
+    parser.add_argument('--record-every',type=int,default=1)
     a=parser.parse_args();root=Path(__file__).resolve().parents[1];source=Path(a.original_package).resolve() if a.original_package else root
     sys.path.insert(0,str(source));folder=Path(a.folder).resolve();folder.mkdir(parents=True,exist_ok=False)
     os.environ['PYTHONDONTWRITEBYTECODE']='1';os.environ['PYTHONHASHSEED']='0'
@@ -45,11 +47,12 @@ def main():
     from patrick_jane.progress import atomic_json
     origin=source/'origin' if a.original_package else root/'artifacts/patrick-jane/task-pursuit-v1-update102'
     checkpoint=origin/'update-000102.pt' if a.original_package else origin/'checkpoint.pt'
+    if a.checkpoint:checkpoint=a.checkpoint.resolve()
     torch.set_num_threads(1);torch.use_deterministic_algorithms(True)
     policy=PatrickJane();record=torch.load(checkpoint,map_location='cpu',weights_only=True)
     policy.load_state_dict(record['state_dict'],strict=True);policy.to('cuda');policy.eval()
     profile=A2Experiment() if a.original_package else A2Experiment(shared_engine_profile={'engine':'paired-map-planner-v1','allocation':'patrick-jane-native-v1'})
-    result=dict(schema='shared-a2-readiness-v1',seeds=list(range(3200000,3200006)),development_only=True,training_updates=0,
+    result=dict(schema='shared-a2-readiness-v1',seeds=list(range(a.seed_start,a.seed_start+6)),development_only=True,training_updates=0,
         source=str(source),checkpoint_sha256=__import__('hashlib').sha256(checkpoint.read_bytes()).hexdigest(),workers=6,wall_ceiling=a.seconds)
     began=time.perf_counter()
     pool=Pool(6,processes=not a.original_package)
@@ -58,11 +61,14 @@ def main():
         for _ in range(6):
             parent,child=ctx.Pipe();p=ctx.Process(target=original_serve,args=(child,str(source)),daemon=True);p.start();child.close();pool.connections.append(parent);pool.children.append(p)
     try:
-        rollout=collect(policy,pool,profile,result['seeds'],device='cuda',wall_limit=a.seconds,update=102,
-            checkpoint='original-update102/frozen-diagnostic',training_step=2813879,
-            replay_dir=folder/'replays',record_every=1,monitor_dir=folder/'live',
+        rollout=collect(policy,pool,profile,result['seeds'],device='cuda',wall_limit=a.seconds,update=record['counters']['update'],
+            checkpoint=checkpoint.name+'/frozen-diagnostic',training_step=record['counters']['individual_decisions'],
+            replay_dir=folder/'replays',record_every=a.record_every,monitor_dir=folder/'live',
             status_callback=lambda s:(atomic_json(folder/'progress.json',s),print(json.dumps(s),flush=True)))
         result.update(outcome='completed',**{k:v for k,v in rollout.items() if k!='trajectories'})
+        if not a.original_package:
+            from patrick_jane.learning_run import audit_lights
+            audit_lights(rollout)
         if any(m.get('truncated') for m in rollout['matches']):raise RuntimeError('Incomplete natural-game coverage blocks readiness')
     except BaseException as exc:result.update(outcome='failed',error=repr(exc),traceback=traceback.format_exc())
     finally:

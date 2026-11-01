@@ -27,10 +27,18 @@ def main():
     from patrick_jane.network import PatrickJane
     if not torch.cuda.is_available():raise RuntimeError('CUDA is unavailable: install a GTX1650-compatible NVIDIA driver for bundled CUDA12.8. No CPU fallback.')
     workers=choose_workers(folder,a.workers)
+    config=json.loads((Path(__file__).resolve().parents[1]/'portable-config.json').read_text()) if (Path(__file__).resolve().parents[1]/'portable-config.json').exists() else {}
+    if config.get('required_continuation') and not (folder/'registration.json').exists():raise RuntimeError('Prepared update103 continuation is missing; refusing to revert to update102')
     if a.setup_check:
         torch.ones((2,2),device='cuda')@torch.ones((2,2),device='cuda');torch.cuda.synchronize()
         p=PatrickJane();optimizer=torch.optim.Adam(p.parameters(),lr=.0003)
-        c,provenance=import_update102(a.origin,p,optimizer,np.random.default_rng(17))
+        if config.get('required_continuation'):
+            from patrick_jane.learning_run import recover
+            from patrick_jane.a2_config import A2Experiment
+            exp=A2Experiment(shared_engine_profile=config['experiment']['shared_engine_profile'])
+            c,pointer,_,_=recover(folder,json.loads((folder/'history.json').read_text()),p,optimizer,np.random.default_rng(17),exp)
+            provenance=dict(resume_checkpoint=pointer['checkpoint'],checkpoint_sha256=pointer['sha256'],lifetime_decisions=c['individual_decisions'])
+        else:c,provenance=import_update102(a.origin,p,optimizer,np.random.default_rng(17))
         print(json.dumps(dict(runtime_ready=True,workers=workers,gpu=torch.cuda.get_device_name(0),torch=str(torch.__version__),lifetime_decisions=c['individual_decisions'],provenance=provenance),indent=2));return 0
     from patrick_jane.a2_run import train
     from tools.run_pj_learning import Tee
@@ -41,7 +49,6 @@ def main():
             import ctypes
             ctypes.windll.kernel32.SetThreadExecutionState(0x80000001)
         from patrick_jane.a2_config import A2Experiment
-        config=json.loads((Path(__file__).resolve().parents[1]/'portable-config.json').read_text()) if (Path(__file__).resolve().parents[1]/'portable-config.json').exists() else {}
         profile=A2Experiment(reward_regime=a.reward_regime,living_task_reward=.5 if a.reward_regime=='investigation-a2-v1' else 2.,opponent_regime=a.opponent_regime,
             shared_engine_profile=config.get('experiment',{}).get('shared_engine_profile'))
         try:return train(folder,a.origin,hours=a.hours,workers=workers,additional_decisions=a.additional_decisions,prepare_only=a.prepare_only,profile=profile)

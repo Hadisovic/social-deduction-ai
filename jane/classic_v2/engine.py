@@ -105,6 +105,45 @@ def game_class():
             super()._update_doors()
             self._bind_projection_geometry()
 
+        def step(self,actions=None):
+            """Classify navigation against the final door state of this batch.
+
+            A2 executes door extensions before ordinary action validation. A
+            floor target can become covered by a door selected later in sorted
+            actor order. Defer such targets only after all extensions execute,
+            using the existing blocked-door navigation path. No legal set,
+            actor sampling, report visibility or collision rule is widened.
+            """
+            from patrick_jane.api import Action
+            from patrick_jane.environment import PatrickJaneGame
+            from social_deduction.phase3_api import Intent,IntentKind
+            if self.is_terminal:return self.result
+            if not self.classic:return super().step(actions)
+            self.explicit_ballots={pid for pid,a in (actions or {}).items() if type(a) is Intent and a.kind in (IntentKind.VOTE,IntentKind.SKIP)}
+            self._update_doors();ordinary={};self.deferred_locations={}
+            for pid,a in sorted((actions or {}).items()):
+                if type(a) is Action and a.kind in ('doors','vent_enter','vent_move','vent_exit'):
+                    if a.kind=='doors':
+                        self.a2_metrics['door_sabotages_selected']+=1;ok=self.close_doors(pid,a.target)
+                    else:ok=self.vent_action(pid,a.kind,a.target)
+                    if not ok:self.metrics['illegal_actions']+=1;self._record('a2_action_rejected',player_id=pid,action=a.kind)
+                elif pid in self.vented and a!=Intent(IntentKind.WAIT):self.metrics['illegal_actions']+=1
+                else:ordinary[pid]=a
+            for pid,a in tuple(ordinary.items()):
+                if type(a) is Intent and a.kind is IntentKind.GO_TO_LOCATION and a.position is not None and self.phase is Phase.ROAMING and self.players[pid].active and not self.time<self.vent_transition.get(pid,0.) and self.base_map.contains((a.position.x,a.position.y)) and not self.map.contains((a.position.x,a.position.y)):
+                    self.deferred_locations[pid]=(float(a.position.x),float(a.position.y));del ordinary[pid]
+            cursor=len(self.event_log);meeting=self.meeting_id
+            result=PatrickJaneGame.step(self,ordinary)
+            self.communication_counts[meeting]+=sum(e['kind'] in ('structured_claim','claim') for e in self.event_log[cursor:])
+            for pid,p in self.players.items():
+                if p.role is Role.IMPOSTOR and p.active and pid not in self.vented:
+                    self.opponent_visited[pid].add((round(p.position[0]),round(p.position[1])))
+            self.a2_metrics['opponent_visited_cells']=sum(len(v) for v in self.opponent_visited.values())
+            self.a2_metrics['impostor_self_reports']+=sum(e['kind']=='report' and self.players[e['reporter_id']].role is Role.IMPOSTOR for e in self.event_log[cursor:])
+            self.a2_metrics['closed_door_seconds']+=self.config.dt*len(self.map.closed_doors)
+            self._update_doors()
+            return result
+
         def assert_invariants(self):
             if not getattr(self,'_v2_ready',False):return
             assert len(self.players)==self.experiment.population.total

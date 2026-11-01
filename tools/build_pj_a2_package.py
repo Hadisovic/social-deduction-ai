@@ -9,12 +9,13 @@ from portable_support import digest
 def refresh(destination,shared_repair=False):
     from patrick_jane.a2_config import A2Experiment,coefficients
     destination=Path(destination)
+    continuation=(destination/'continuation/update-000103.pt').exists()
     profile=A2Experiment()
     if shared_repair:
         from dataclasses import replace
         from jane.shared.runtime import PATRICK_PROFILE
         profile=replace(profile,shared_engine_profile=PATRICK_PROFILE)
-    files=sources()|{ROOT/'tools/run_pj_a2.py',ROOT/'tools/evaluate_pj_a2.py',ROOT/'tools/smoke_pj_published.py'}
+    files=sources()|{ROOT/'tools/run_pj_a2.py',ROOT/'tools/evaluate_pj_a2.py',ROOT/'tools/smoke_pj_published.py',ROOT/'tools/prepare_pj_a2_repair.py',ROOT/'tools/verify_shared_a2.py'}
     for p in files:
         q=destination/p.relative_to(ROOT);q.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,q)
     for p in (ROOT/'jane').rglob('*.json'):
@@ -25,6 +26,7 @@ def refresh(destination,shared_repair=False):
         default_hours=3 if shared_repair else 12,origin='origin',results='results/investigation-a2-v1',reward_coefficients=coefficients(profile),
         first_training_seed=3200006 if shared_repair else 3200000,
         training_seed_range=[3200000,3299999],development_comparison_seeds=[3300000,3300019],final_partitions='unopened',training_started=False)
+    if continuation:config.update(first_training_seed=3200018,required_continuation='shared-repair-v2-update103')
     (destination/'portable-config.json').write_text(json.dumps(config,indent=2)+'\n',encoding='utf-8')
     controls=dict(schema='patrick-jane-a2-comparison-registration-v1',reference='original-update102',training_seeds=[3200000,3299999],evaluation_seeds=list(range(3300000,3300020)),
         frozen_conditions=['legacy engine/historical opponents','A2 mechanics/historical opponents','A2 mechanics/upgraded opponents'],
@@ -38,15 +40,15 @@ def refresh(destination,shared_repair=False):
     except (OSError,subprocess.CalledProcessError):revision='unpublished'
     from patrick_jane.checkpoint import source_lock
     version=dict(repository='https://github.com/Hadisovic/social-deduction-ai',branch='codex/patrick-jane-recurrent-ppo',
-        revision=revision,actor_source_hashes=source_lock(),trained_model_regime='task-pursuit-v1',a2_trained=False)
+        revision=revision,actor_source_hashes=source_lock(),trained_model_regime='investigation-a2-v1' if continuation else 'task-pursuit-v1',a2_trained=continuation)
     (destination/'SOURCE_VERSION.json').write_text(json.dumps(version,indent=2)+'\n')
     for name in ('PATRICK_JANE_INTEGRATION.md','requirements-patrick-jane.txt','requirements-patrick-jane-lock.txt'):
         if (ROOT/name).exists():shutil.copyfile(ROOT/name,destination/name)
-    for name in ('A2_IMPLEMENTATION.md','A2_REGISTRATION.md','A2_RULES.md','A2_SHARED_REPAIR.md'):
+    for name in ('A2_IMPLEMENTATION.md','A2_REGISTRATION.md','A2_RULES.md','A2_SHARED_REPAIR.md','A2_SHARED_REPAIR_V2.md'):
         p=ROOT/'docs/patrick-jane'/name
         if p.exists():q=destination/'docs'/name;q.parent.mkdir(exist_ok=True);shutil.copyfile(p,q)
     manifest=dict(schema='patrick-jane-portable-a2-v1',runtime=dict(python='3.12.10',numpy='2.5.3',torch='2.7.1+cu128'),
-        starting_checkpoint_sha256=digest(destination/'origin/update-000102.pt'),lifetime_decisions=2813879,default_hours=config['default_hours'],training_started=False,
+        starting_checkpoint_sha256=digest(destination/('continuation/update-000103.pt' if continuation else 'origin/update-000102.pt')),lifetime_decisions=2829668 if continuation else 2813879,default_hours=config['default_hours'],training_started=False,
         files={p.relative_to(destination).as_posix():dict(size=p.stat().st_size,sha256=digest(p)) for p in sorted(destination.rglob('*')) if p.is_file() and p.name!='portable.manifest.json' and p.relative_to(destination).parts[0] not in ('runtime','results','exports') and '__pycache__' not in p.parts})
     (destination/'portable.manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
     return destination

@@ -2,11 +2,62 @@
 import pickle
 from dataclasses import replace
 import numpy as np
+import pytest
 from patrick_jane.a2_config import A2Experiment
 from patrick_jane.worker import Match
 from social_deduction.actor import Role
 
 PROFILE={'engine':'paired-map-planner-v1','allocation':'patrick-jane-native-v1'}
+
+
+@pytest.mark.parametrize('actor_id',('p0','p10'))
+def test_navigation_target_closed_by_same_batch_door_action(actor_id):
+    from social_deduction.actor import Point
+    from social_deduction.phase3_api import Intent,IntentKind
+    from patrick_jane.api import Action
+    g=Match(3200016,A2Experiment(shared_engine_profile=PROFILE)).game
+    g.tick=231;g.players[actor_id].motion.spawn((-9.173630452496454,-12.699789577560162))
+    g.players['p1'].motion.spawn((-9.120000000000289,-12.300000000000107))
+    target=(-9.720000000000276,-13.680000000000078);g._invalidate()
+    assert g.base_map.contains(target) and g.map.contains(target)
+    g.step({actor_id:Intent(IntentKind.GO_TO_LOCATION,position=Point(*target)), 'p1':Action('doors','Electrical')})
+    assert not g.map.contains(target) and g.base_map.contains(target)
+    assert g.metrics['illegal_actions']==0
+    assert g.players[actor_id].navigator.target is not None
+    assert g.map.contains(g.players[actor_id].position)
+
+
+def test_permanently_invalid_navigation_target_still_rejected():
+    from social_deduction.actor import Point
+    from social_deduction.phase3_api import Intent,IntentKind
+    from patrick_jane.api import Action
+    g=Match(3200016,A2Experiment(shared_engine_profile=PROFILE)).game;g.tick=231
+    g.step({'p0':Intent(IntentKind.GO_TO_LOCATION,position=Point(-100.,-100.)), 'p1':Action('doors','Electrical')})
+    assert g.metrics['illegal_actions']==1
+
+
+def test_update103_version_bridge_preserves_weights_adam_and_skips_failed_wave(tmp_path):
+    import shutil,torch
+    from pathlib import Path
+    from tools.prepare_pj_a2_repair import import_parent
+    from patrick_jane.network import PatrickJane
+    parent=Path(__file__).resolve().parents[2]/'dist/PatrickJane-A2-SharedRepair-V1/results/investigation-a2-v1'
+    if not parent.exists():pytest.skip('Private preserved update103 run is unavailable')
+    shutil.copyfile(parent/'checkpoints/attempt-0002-update-000103.pt',tmp_path/'update-000103.pt')
+    shutil.copyfile(parent/'source-snapshot.zip',tmp_path/'source-snapshot.zip')
+    p=PatrickJane();opt=torch.optim.Adam(p.parameters(),lr=.0003)
+    c,info=import_parent(tmp_path,p,opt,np.random.default_rng(17))
+    original=torch.load(tmp_path/'update-000103.pt',map_location='cpu',weights_only=True)
+    assert len(p.state_dict())==52
+    assert all(torch.equal(v.cpu(),original['state_dict'][k]) for k,v in p.state_dict().items())
+    adam=[torch.equal(v.cpu(),original['optimizer']['state'][k][n].cpu()) for k,d in opt.state_dict()['state'].items() for n,v in d.items()]
+    assert len(adam)==156 and all(adam)
+    assert c['individual_decisions']==2829668 and c['update']==103 and c['next_seed']==18
+    assert (c['run_decisions'],c['run_matches'],c['run_updates'])==(15789,6,1)
+    assert info['parent_active_seconds']==pytest.approx(578.8447452)
+    assert info['parent_checkpointed_new_decisions']==15789
+    with (tmp_path/'update-000103.pt').open('ab') as f:f.write(b'corrupt')
+    with pytest.raises(ValueError,match='hash'):import_parent(tmp_path,p,opt,np.random.default_rng(17))
 
 def test_spawn_safe_profile_and_native_task_equivalence():
     old=A2Experiment();new=replace(old,shared_engine_profile=PROFILE)
