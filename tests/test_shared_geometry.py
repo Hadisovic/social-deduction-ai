@@ -51,6 +51,23 @@ def test_geometry_only_eviction_keeps_projection_and_physics_on_planner_map(game
     coherent(game)
 
 
+@pytest.mark.parametrize('actor_id',('p0','p10'))
+def test_same_batch_door_closure_keeps_floor_navigation_legal(actor_id):
+    from patrick_jane.api import Action
+    from social_deduction.actor import Point
+    from social_deduction.phase3_api import Intent,IntentKind
+    profile=load_profile(ROOT/'jane/configs/classic-v2/default_12p.json')
+    g=game_class()(3200016,experiment=experiment(profile));g.tick=231
+    g.players[actor_id].motion.spawn((-9.173630452496454,-12.699789577560162))
+    g.players['p1'].motion.spawn((-9.120000000000289,-12.300000000000107));g._invalidate()
+    target=(-9.720000000000276,-13.680000000000078)
+    g.step({actor_id:Intent(IntentKind.GO_TO_LOCATION,position=Point(*target)),'p1':Action('doors','Electrical')})
+    assert not g.map.contains(target) and g.base_map.contains(target)
+    assert g.metrics['illegal_actions']==0
+    assert g.players[actor_id].navigator.target is not None
+    coherent(g)
+
+
 def test_actual_lru_pressure_cannot_separate_collision_and_projection(game):
     close_storage(game);old=game.planner
     keys=tuple(sorted(game.door_until));ids=tuple(d['id'] for d in game.base_map.data['doors'])
